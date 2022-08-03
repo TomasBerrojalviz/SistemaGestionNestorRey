@@ -1,41 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Configuracion</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-
-</head>
-<body style="background-color: #006666;">
-  <header>
-    <!-- MENU DESPLEGABLE  -->
-    <nav class="navbar navbar-dark bg-dark bg-opacity-75 fixed-top" style="margin-bottom: 70px">
-      <div class="container-fluid">
-        <button class="navbar-toggler bg-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-          <span class="navbar-toggler-icon"></span>
-        </button>			
-        <a class="navbar-brand" href="#">Configuracion</a>
-        <a href="./Index.html"> <img src="./img/logo2.2.png" alt="Nestor Rey" width="150"> </a>
-      </div>
-      <div class="offcanvas offcanvas-start text-bg-info" data-bs-scroll="true" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-        <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Sistema de Gestion</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body  justify-content-around">
-          <div class="d-grid gap-3">
-            <a class="btn btn-dark" type="button" href="Index.html">Menu</a>
-            <a class="btn btn-dark" type="button" href="Listado_Autos.html">Listado de autos</a>
-            <a class="btn btn-dark" type="button" href="Configuracion.html">Configuracion</a>
-          </div>
-        </div>
-      </div>
-  </nav>
-  </header>
-  <main style="padding-top: 70px">
+<?php
+  $titulo = "Configuracion";
+  include("utils/BarraPrincipal.php");
+?>
+  <main>
     <div class="container-fluid text-center">
       
       <div class="row">
