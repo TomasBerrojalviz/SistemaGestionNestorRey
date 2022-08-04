@@ -1,3 +1,10 @@
+
+  <?php
+    $clase_boton = 'class="btn btn-dark btn-outline-info"';
+    $clase_boton_lg = 'class="btn btn-dark btn-outline-info btn-lg"';
+    $clase_boton_sm = 'class="btn btn-dark btn-outline-info btn-sm"';
+  ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,10 +37,10 @@
         </div>
         <div class="offcanvas-body  justify-content-around">
           <div class="d-grid gap-3">
-            <a class="btn btn-dark" type="button" href="Index.php">Menu</a>
-            <a class="btn btn-dark" type="button" href="Listado_Autos.php">Autos</a>
-            <a class="btn btn-dark" type="button" href="Clientes.php">Clientes</a>
-            <a class="btn btn-dark" type="button" href="Configuracion.php">Configuracion</a>
+            <a <?php echo $clase_boton_lg?> type="button" href="Index.php">Menu</a>
+            <a <?php echo $clase_boton_lg?> type="button" href="Listado_Autos.php">Autos</a>
+            <a <?php echo $clase_boton_lg   ?> type="button" href="Clientes.php">Clientes</a>
+            <a <?php echo $clase_boton_lg?> type="button" href="Configuracion.php">Configuracion</a>
           </div>
         </div>
       </div>

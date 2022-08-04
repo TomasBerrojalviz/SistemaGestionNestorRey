@@ -7,7 +7,7 @@
       
       <div class="row">
         <div class="col-4">
-          <button type="button" class="btn btn-primary my-1 btn-lg" data-bs-toggle="modal" data-bs-target="#marcaModal">
+          <button type="button" <?php echo $clase_boton_lg ?> data-bs-toggle="modal" data-bs-target="#marcaModal">
             Agregar marca
           </button>
           <table class="table table-info table-striped mt-2" >
@@ -23,7 +23,7 @@
           </table>
         </div>
         <div class="col-8">
-          <button type="button" class="btn btn-primary my-1 btn-lg" data-bs-toggle="modal" data-bs-target="#modeloModal">
+          <button type="button" <?php echo $clase_boton_lg ?> data-bs-toggle="modal" data-bs-target="#modeloModal">
             Agregar modelo
           </button>
           <table class="table table-info table-striped mt-2">
@@ -105,7 +105,5 @@
     </div>
   </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-    
 </body>
 </html>

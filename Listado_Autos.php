@@ -5,7 +5,7 @@
   <main>
 
     <div class="container-fluid text-center">
-      <button type="button" class="btn btn-dark my-1 btn-lg" data-bs-toggle="modal" data-bs-target="#autoAgregarModal">
+      <button type="button" <?php echo $clase_boton_lg ?> data-bs-toggle="modal" data-bs-target="#autoAgregarModal">
         Agregar auto
       </button>
     </div>
