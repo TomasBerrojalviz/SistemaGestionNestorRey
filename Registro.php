@@ -2,6 +2,8 @@
 include("Conexion.php");
 
 function agregar_modelo(){
+   include("Conexion.php");
+
    $modelo = $_POST['modelo'];
 
    $conexion = conectar();
@@ -9,9 +11,8 @@ function agregar_modelo(){
       echo "<h3>No se ha podido conectar PHP - MySQL, verifique sus datos.</h3><hr><br>";
    }
    
-   /* ejemplo de una consulta */
 
-   $var_consulta= "INSERT INTO modelos (modelo) VALUES (' . $modelo . ')";
+   $var_consulta= "INSERT INTO modelos (modelo) VALUES ('$modelo ')";
    $var_resultado = $conexion->query($var_consulta);
    
    if (!$var_resultado) {
@@ -19,31 +20,10 @@ function agregar_modelo(){
    }
    
    $conexion->close();
-
-}
-
-function agregar_modelo1(){
    
-   echo "<button type='button' <?php echo \$clase_boton_lg ?> data-bs-toggle='modal' data-bs-target='#modeloModal'>
-   Agregar modelo
-   </button>";
+   header("Location: Configuracion.php");
+   exit();
 
-   $marca = $_POST['modelo'];
-/*
-   $conexion = conectar();
-   if(!$conexion) {
-      echo "<h3>No se ha podido conectar PHP - MySQL, verifique sus datos.</h3><hr><br>";
-   }
-
-   $var_consulta= "INSERT INTO modelos (modelo) VALUES ('$modelo')";
-   $var_resultado = $conexion->query($var_consulta);
-   
-   if (!$var_resultado) {
-      die('Error: ' . mysql_error());
-   }
-   
-   $conexion->close();
-*/
 }
 
 function mostrar_modelos(){

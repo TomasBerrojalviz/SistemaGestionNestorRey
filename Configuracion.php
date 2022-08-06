@@ -24,7 +24,6 @@
         </div>
         <div class="col-8">
           
-        <!-- <?php agregar_modelo1(); ?> -->
           <button type="button" <?php echo $clase_boton_lg ?> data-bs-toggle="modal" data-bs-target="#modeloModal">
             Agregar modelo
           </button>
@@ -92,23 +91,18 @@
             <h5 class="modal-title">Agregar modelo</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <!-- <form class="row text-center" name="form" action="Registro.php" method="POST"> -->
-          <form class="row text-center" name="formulario" method="POST">
+          <form class="row text-center" id="form_modelo" action="agregar_modelo.php" method="POST">
+          <!-- <form class="row text-center" name="formulario" method="POST"> -->
             <div class="modal-body">
               <div class="container">
                     <input class="form-control" type="text" placeholder="Ingrese nuevo modelo" name="modelo" required>
               </div>
             </div>
             <div class="modal-footer">
-              <?php 
-                if (isset($_POST['btn_modelo'])) {
-                  agregar_modelo();
-                }
-              ?>
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-              <!-- <input type="submit" name="btn_modelo" class="btn btn-primary" value="Agregar" /> -->
+              <input type="submit" name="btn_modelo" class="btn btn-primary" value="Agregar" />
               
-              <button type="submit" class="btn btn-primary" onclick="agregar_modelo_js()">Agregar</button>
+              <!-- <button type="submit" class="btn btn-primary" onclick="agregar_modelo_js()">Agregar</button> -->
             </div>
           
           </form>
