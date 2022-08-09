@@ -41,7 +41,7 @@
         <div class="offcanvas-body  justify-content-around">
           <div class="d-grid gap-3">
             <a <?php echo $clase_boton_lg?> type="button" href="Index.php">Menu</a>
-            <a <?php echo $clase_boton_lg?> type="button" href="Listado_Autos.php">Autos</a>
+            <a <?php echo $clase_boton_lg?> type="button" href="Autos.php">Autos</a>
             <a <?php echo $clase_boton_lg   ?> type="button" href="Clientes.php">Clientes</a>
             <a <?php echo $clase_boton_lg?> type="button" href="Configuracion.php">Configuracion</a>
           </div>
