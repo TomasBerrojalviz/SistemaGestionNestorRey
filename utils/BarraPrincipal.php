@@ -31,7 +31,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>			
         <a class="navbar-brand"><?php echo $titulo; ?></a>
-        <a href="./Index.php"> <img src="./img/logo2.2.png" alt="Nestor Rey" width="150"> </a>
+        <a href="./index.php"> <img src="./img/logo2.2.png" alt="Nestor Rey" width="150"> </a>
       </div>
       <div class="offcanvas offcanvas-start text-bg-info" data-bs-scroll="true" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
         <div class="offcanvas-header">
@@ -40,7 +40,7 @@
         </div>
         <div class="offcanvas-body  justify-content-around">
           <div class="d-grid gap-3">
-            <a <?php echo $clase_boton_lg?> type="button" href="Index.php">Menu</a>
+            <a <?php echo $clase_boton_lg?> type="button" href="index.php">Menu</a>
             <a <?php echo $clase_boton_lg?> type="button" href="Autos.php">Autos</a>
             <a <?php echo $clase_boton_lg   ?> type="button" href="Clientes.php">Clientes</a>
             <a <?php echo $clase_boton_lg?> type="button" href="Configuracion.php">Configuracion</a>
