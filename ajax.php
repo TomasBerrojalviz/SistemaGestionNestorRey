@@ -120,10 +120,46 @@ $clientes = ControladorFormularios::ctrlSeleccionarTabla("clientes");
             echo "error";
             exit;
         }
+        if($_POST["action"] == "agregarModelo"){
+            $modeloAgregado = ControladorFormularios::ctrlAgregarModelo();
+            if($modeloAgregado){
+                echo json_encode($modeloAgregado, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
+        if($_POST["action"] == "editarModelo"){
+            $modeloEditado = ControladorFormularios::ctrlEditarModelo();
+            if($modeloEditado){
+                echo json_encode($modeloEditado, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
         if($_POST["action"] == "editarMarca"){
-            $marca_editada = ControladorFormularios::ctrlEditarMarca();
+            $marca_editada = ControladorFormularios::ctrlEditarMarca($_POST["marca"], $_POST["id"]);
             if($marca_editada){
                 echo json_encode($marca_editada, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
+        if($_POST["action"] == "borrarMarca"){
+            $marca_eliminada = ControladorFormularios::ctrlBorrarMarca($_POST["id"]);
+            if($marca_eliminada){
+                echo json_encode($marca_eliminada, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
+        if($_POST["action"] == "borrarModelo"){
+            $modeloEliminado = ControladorFormularios::ctrlBorrarModelo();
+            if($modeloEliminado){
+                echo json_encode($modeloEliminado, JSON_UNESCAPED_UNICODE);
                 exit;
             }
             echo "error";

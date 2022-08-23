@@ -33,43 +33,6 @@ $( document ).ready(function() {
             }
         });
     });
-
-    //MODAL FORM EDIT MODELO
-    $('.editModelo').click(function(e){ 
-        e.preventDefault();
-        var id_modelo = $(this).attr('idModelo');
-        var action = 'seleccionarModelo';
-        // alert(id_modelo);
-
-        $.ajax({
-            type: "POST",
-            url: "ajax.php",
-            async: true,
-            data: { action:action, id_modelo:id_modelo},
-            success: function(response) {
-                // alert(response);
-                if (response != "error") {
-                    var info = JSON.parse(response);
-                    $("#editarModeloId").val(info[0].id);
-                    var marcaTraida = traerMarca(info[0].id_marca);
-                    marcaTraida.done(function(responseMarca){
-                        var info_marca = JSON.parse(responseMarca);
-                        
-                        // console.log(info_marca);
-                        $("#editarMarcaModelo").val(info_marca[0].marca);
-                    });
-                    $("#editarModelo").val(info[0].modelo);
-                    // console.log(info);
-                    
-                    $('#editarModeloModal').modal('show');
-
-                }
-            },
-            error: function(error) {
-                alert(error);
-            }
-        });
-    });
     
     //MODAL FORM MODELOS DE MARCA
     $('#agregarMarcaAuto').change(function(e){
@@ -121,34 +84,6 @@ $( document ).ready(function() {
                 listaClientes.appendChild(agregarOptionCliente(cliente));
             });
         });
-
-        // $.ajax({
-        //     type: "POST",
-        //     url: "ajax.php",
-        //     async: true,
-        //     data: { action:action},
-        //     success: function(response) {
-        //         if (response != "error") {
-        //             var clientes = JSON.parse(response);
-
-        //             var listaClientes = document.getElementById("dataListClientes");
-        //             while (listaClientes.firstChild) {
-        //                 listaClientes.removeChild(listaClientes.firstChild);
-        //             }
-        //             clientes.forEach(cliente => {
-        //                 console.log(cliente);
-        //                 listaClientes.appendChild(agregarOptionCliente(cliente));
-        //             });
-
-        //             // console.log(response);
-        //             // console.log(modelosDeseados);
-
-        //         }
-        //     },
-        //     error: function(error) {
-        //         alert(error);
-        //     }
-        // });
     });
 });
 
@@ -237,15 +172,6 @@ function verificarModelo(){
     });
 }
 
-function traerMarca(id_marca) {
-    var action = 'seleccionarMarca';
-    return $.ajax({
-        type: "POST",
-        url: "ajax.php",
-        async: true,
-        data: { action:action, id_marca:id_marca}
-    });
-}
         // success: function(response) {
         //     if (response != "error") {
         //         var info = JSON.parse(response);

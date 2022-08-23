@@ -40,11 +40,11 @@ class ControladorFormularios {
     // AGREGAR MARCA
     static public function ctrlAgregarMarca(){
 
-        if(isset($_POST["agregarMarca"])){
+        if(isset($_POST["marca"])){
 
             $tabla = "marcas";  
 
-            $marca = strtoupper($_POST["agregarMarca"]);
+            $marca = strtoupper($_POST["marca"]);
             
             $respuesta = ModeloFormularios::mdlAgregarMarca($tabla, $marca);
             
@@ -56,7 +56,7 @@ class ControladorFormularios {
     // AGREGAR MODELO
     static public function ctrlAgregarModelo(){
 
-        if(isset($_POST["agregarModelo"])){
+        if(isset($_POST["modelo"])){
 
             $tabla = "modelos";
 
@@ -69,10 +69,10 @@ class ControladorFormularios {
 
             // }
 
-            $marca = ModeloFormularios::mdlSeleccionarDato("marcas", "marca", $_POST["agregarMarcaModelo"], PDO::PARAM_STR)[0];
+            $marca = ModeloFormularios::mdlSeleccionarDato("marcas", "marca", $_POST["marcaModelo"], PDO::PARAM_STR)[0];
 
             $datos = array("id_marca" => $marca["id"],
-                            "modelo" => strtoupper($_POST["agregarModelo"]));
+                            "modelo" => strtoupper($_POST["modelo"]));
             
 
             
@@ -127,14 +127,14 @@ class ControladorFormularios {
 
     }
     // EDITAR MARCA
-    static public function ctrlEditarMarca(){
+    static public function ctrlEditarMarca($marca, $id){
 
-        if(isset($_POST["editarMarcaId"])){
+        if(isset($marca)){
 
             $tabla = "marcas";  
             
-            $datos = array("marca" => strtoupper($_POST["editarMarca"]),
-                            "id" => $_POST["editarMarcaId"]
+            $datos = array("marca" => strtoupper($marca),
+                            "id" => $id
                         );
         
             
@@ -148,14 +148,14 @@ class ControladorFormularios {
     // EDITAR MODELO
     static public function ctrlEditarModelo(){
 
-        if(isset($_POST["editarModelo"])){
+        if(isset($_POST["modelo"])){
 
             $tabla = "modelos";  
 
-            $marca = ModeloFormularios::mdlSeleccionarDato("marcas", "marca", $_POST["editarMarcaModelo"], PDO::PARAM_STR)[0];
+            $marca = ModeloFormularios::mdlSeleccionarDato("marcas", "marca", $_POST["marcaModelo"], PDO::PARAM_STR)[0];
             $datos = array("id_marca" => $marca["id"],
-                            "modelo" => strtoupper($_POST["editarModelo"]),
-                            "id" => $_POST["editarModeloId"]
+                            "modelo" => strtoupper($_POST["modelo"]),
+                            "id" => $_POST["id"]
                         );
         
             
@@ -167,13 +167,13 @@ class ControladorFormularios {
     }
 
     // BORRAR MARCA
-    static public function ctrlBorrarMarca(){
+    static public function ctrlBorrarMarca($idEliminar){
                
-        if(isset($_POST["eliminarMarca"])){
+        if(isset($idEliminar)){
 
             $tabla = "marcas";   
 
-            $id = $_POST["eliminarMarca"];
+            $id = $idEliminar;
             
             $respuesta = ModeloFormularios::mdlBorrarId($tabla, $id);
             
@@ -184,11 +184,11 @@ class ControladorFormularios {
     // BORRAR MODELO
     static public function ctrlBorrarModelo(){
                
-        if(isset($_POST["eliminarModelo"])){
+        if(isset($_POST["id"])){
 
             $tabla = "modelos";   
 
-            $id = $_POST["eliminarModelo"];
+            $id = $_POST["id"];
             
             $respuesta = ModeloFormularios::mdlBorrarId($tabla, $id);
             
