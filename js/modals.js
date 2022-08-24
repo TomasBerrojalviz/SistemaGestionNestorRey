@@ -45,42 +45,6 @@ $( document ).ready(function() {
         abrirModalModelo(id_modelo);
     });
     
-    //MODAL FORM EDIT MODELO
-    $('.editModelo2').click(function(e){ 
-        e.preventDefault();
-        var id_modelo = $(this).attr('id-modelo');
-        var action = 'seleccionarModelo';
-        // alert(id_modelo);
-
-        $.ajax({
-            type: "POST",
-            url: "ajax.php",
-            async: true,
-            data: { action:action, id_modelo:id_modelo},
-            success: function(response) {
-                // alert(response);
-                if (response != "error") {
-                    var info = JSON.parse(response);
-                    $("#editarModeloId").val(info[0].id);
-                    var marcaTraida = obtenerMarca(info[0].id_marca);
-                    marcaTraida.done(function(responseMarca){
-                        var info_marca = JSON.parse(responseMarca);
-                        
-                        // console.log(info_marca);
-                        $("#editarMarcaModelo").val(info_marca[0].marca);
-                    });
-                    $("#editarModelo").val(info[0].modelo);
-                    // console.log(info);
-                    
-                    $('#editarModeloModal').modal('show');
-
-                }
-            },
-            error: function(error) {
-                alert(error);
-            }
-        });
-    });
     //MODAL FORM ELIMINAR MARCA
     $('.deleteMarca').click(function(e){ 
         e.preventDefault();
@@ -173,31 +137,37 @@ $( document ).ready(function() {
     //BTN MODAL MODELO 
     $('#btn_modelo_modal').click(function(e){ 
         e.preventDefault();
-        var action = btn_modelo_modal.getAttribute('accion');
-        
-        $.ajax({
-            type: "POST",
-            url: "ajax.php",
-            async: true,
-            data: {action:action, id:modeloId.value, modelo:modeloValor.value, marcaModelo:marcaModelo.value},
-            success: function(response) {
-                console.log(response);
-                if (response != "error") {
-                    var modeloCargado = JSON.parse(response);
-                    if(modeloCargado){
-                        if(window.history.replaceState) {
-                            window.history.replaceState(null, null, window.location.href);
-                        }
 
-                        ocultarModal("modeloModal");
-                        mostrarModal("succesModal");
+        if(!verificarMarca($(marcaModelo))){
+            alert("Ingrese una marca valida");
+        }
+        else{
+            var action = btn_modelo_modal.getAttribute('accion');
+            
+            $.ajax({
+                type: "POST",
+                url: "ajax.php",
+                async: true,
+                data: {action:action, id:modeloId.value, modelo:modeloValor.value, marcaModelo:marcaModelo.value},
+                success: function(response) {
+                    console.log(response);
+                    if (response != "error") {
+                        var modeloCargado = JSON.parse(response);
+                        if(modeloCargado){
+                            if(window.history.replaceState) {
+                                window.history.replaceState(null, null, window.location.href);
+                            }
+
+                            ocultarModal("modeloModal");
+                            mostrarModal("succesModal");
+                        }
                     }
+                },
+                error: function(error) {
+                    alert(error);
                 }
-            },
-            error: function(error) {
-                alert(error);
-            }
-        });
+            });
+        }
     });
     
     
@@ -246,6 +216,7 @@ function abrirModalMarca(id) {
 }
 
 function abrirModalModelo(id) {
+    $(marcaModelo).removeClass('is-invalid').removeClass('is-valid');
 
     if (id == 0){
         modeloModalTitle.innerHTML = "Agregar modelo";

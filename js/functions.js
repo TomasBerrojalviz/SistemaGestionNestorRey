@@ -122,9 +122,9 @@ function verificarCliente(){
     });
 }
 
-function verificarMarca(){
-    var marcaAuto = $("#agregarMarcaAuto").val();
-    $("#agregarMarcaAuto").removeClass('is-invalid').removeClass('is-valid');
+function verificarMarca(marcaLabel){
+    var marcaAuto = marcaLabel.val();
+    marcaLabel.removeClass('is-invalid').removeClass('is-valid');
     var action = 'verificarMarca';
 
     $.ajax({
@@ -135,14 +135,17 @@ function verificarMarca(){
         success: function(response) {
             if (response != "error") {
                 var marca = JSON.parse(response);
-                $("#agregarMarcaAuto").addClass('is-valid');
+                marcaLabel.addClass('is-valid');
+                return true;
             }
             else{
-                $("#agregarMarcaAuto").addClass('is-invalid');
+                marcaLabel.addClass('is-invalid');
+                return false;
             }
         },
         error: function(error) {
-            $("#agregarMarcaAuto").addClass('is-invalid');
+            marcaLabel.addClass('is-invalid');
+            return false;
         }
     });
 }

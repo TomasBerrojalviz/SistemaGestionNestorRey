@@ -120,7 +120,7 @@
                     <div class="container">
                         <input class="form-control" type="hidden" name="modeloId" id="modeloId" required>
                         <div class="form-floating mb-2">
-                            <input autocomplete="off" class="form-control" list="marcas" name="marcaModelo" id="marcaModelo" placeholder="Ingrese marca" required>  
+                            <input autocomplete="off" onchange="verificarMarca($(this))"  class="form-control" list="marcas" name="marcaModelo" id="marcaModelo" placeholder="Ingrese marca" required>  
                             <label for="floatingInput">Marca</label>
                         </div>
                         <div class="form-floating mb-2">

@@ -51,7 +51,7 @@
                     </div>  
                     
                     <div class="form-floating mb-2">
-                        <input autocomplete="off" onchange="verificarMarca()" class="form-control" list="marcas" name="agregarMarcaAuto" id="agregarMarcaAuto" placeholder="Ingrese marca" required>
+                        <input autocomplete="off" onchange="verificarMarca($(this))" class="form-control" list="marcas" name="agregarMarcaAuto" id="agregarMarcaAuto" placeholder="Ingrese marca" required>
                         <label for="floatingInput">Marca</label>
                     </div>
                     <div class="form-floating mb-2">
