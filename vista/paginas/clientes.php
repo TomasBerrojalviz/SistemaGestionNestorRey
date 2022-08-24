@@ -132,7 +132,7 @@ $clientes = ControladorFormularios::ctrlSeleccionarTabla("clientes");
                     </div>
                     <div class="form-floating mb-2">
                         <!-- /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/ -->
-                        <input autocomplete="off" class="form-control" type="tel" pattern="(\+)*(([0-9]+)(.))+" placeholder="Telefono del nuevo cliente" name="clienteAgregarTelefono" id="clienteAgregarTelefono" required>
+                        <input autocomplete="off" class="form-control" type="tel" pattern="(\+)*(([0-9]+)(.)?)+" placeholder="Telefono del nuevo cliente" name="clienteAgregarTelefono" id="clienteAgregarTelefono" required>
                         <label for="inputTel floatingInput">Telefono</label>
                     </div>
                     <div class="form-floating mb-2">
