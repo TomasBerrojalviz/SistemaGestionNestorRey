@@ -69,6 +69,51 @@ $clientes = ControladorFormularios::ctrlSeleccionarTabla("clientes");
     </table>
 </div>
 
+<!-- Modal CLIENTE -->
+<div class="modal fade" id="clienteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Agregar cliente</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="row" name="form" method="POST">
+                        <div class="container">
+                            
+                            <div class="form-floating mb-2">
+                                <input autocomplete="off" class="form-control" type="text" placeholder="Nombre del nuevo cliente" name="clienteAgregarNombre" id="clienteAgregarNombre" required>
+                                <label for="clienteAgregarNombre floatingInput">Nombre</label>
+                            </div>
+                            <div class="form-floating mb-2">
+                                <input autocomplete="off" class="form-control" type="tel" pattern="\([0-9]{3}\) [0-9]{3}[ -][0-9]{4}" placeholder="Telefono del nuevo cliente" name="clienteAgregarTelefono" id="clienteAgregarTelefono" required>
+                                <label for="clienteAgregarTelefono floatingInput">Telefono</label>
+                            </div>
+                            <div class="form-floating mb-2">
+                                <input autocomplete="off" onchange="verificarMail()" class="form-control" type="email" placeholder="Mail del nuevo cliente" name="clienteAgregarMail" id="clienteAgregarMail">
+                                <label for="clienteAgregarMail floatingInput">Mail</label>
+                                    <div class="invalid-feedback">
+                                        Ingrese un mail valido
+                                    </div>
+                            </div>
+                            <div class="form-floating mb-2">
+                                <input autocomplete="off" class="form-control" type="text" placeholder="Domicilio del nuevo cliente" name="clienteAgregarDomicilio" id="clienteAgregarDomicilio">
+                                <label for="inputAddress floatingInput">Domicilio</label>
+                            </div>
+
+            </div>
+        </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <input type="submit" name="btn_modelo_modal" id="btn_modelo_modal" class="btn btn-primary" value="Guardar" />
+            </div>
+            
+                </form>
+            
+        </div>
+    </div>
+</div>
+
 <!-- Modal AGREGAR CLIENTE -->
 <div class="modal fade" id="clienteAgregarModal" tabindex="-1" aria-labelledby="clienteAgregarModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -86,11 +131,12 @@ $clientes = ControladorFormularios::ctrlSeleccionarTabla("clientes");
                         <label for="inputTel floatingInput">Nombre</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input autocomplete="off" class="form-control" type="tel" placeholder="Telefono del nuevo cliente" name="clienteAgregarTelefono" required>
+                        <!-- /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/ -->
+                        <input autocomplete="off" class="form-control" type="tel" pattern="(\+)*(([0-9]+)(.))+" placeholder="Telefono del nuevo cliente" name="clienteAgregarTelefono" id="clienteAgregarTelefono" required>
                         <label for="inputTel floatingInput">Telefono</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input autocomplete="off" class="form-control" type="email" placeholder="Mail del nuevo cliente" name="clienteAgregarMail">
+                        <input autocomplete="off" onchange="verificarMail()" class="form-control" type="email" placeholder="Mail del nuevo cliente" name="clienteAgregarMail" id="clienteAgregarMail">
                         <label for="inputEmail floatingInput">Mail</label>
                     </div>
                     <div class="form-floating mb-2">

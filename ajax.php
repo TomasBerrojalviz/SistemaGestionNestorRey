@@ -10,6 +10,8 @@ $modelos = ControladorFormularios::ctrlSeleccionarTabla("modelos");
 
 $clientes = ControladorFormularios::ctrlSeleccionarTabla("clientes");
 
+$modelosDeseados = array();
+
     if(isset($_POST)){
         
         if($_POST["action"] == "seleccionarCliente"){
@@ -45,14 +47,11 @@ $clientes = ControladorFormularios::ctrlSeleccionarTabla("clientes");
         }
 
         if($_POST["action"] == "seleccionarModelos"){
-            $marca = $_POST["marca"];
-            $id_marca;            
+            $marca = strtoupper($_POST["marca"]);
+            $id_marca = 0;            
             foreach ($marcas as $key => $value){
                 if($marca == $value["marca"]){
                     $id_marca = $value["id"];
-                }
-                else{
-                    $id_marca = 0;
                 }
             }
             $modelosDeseados = array();

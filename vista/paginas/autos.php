@@ -51,12 +51,18 @@
                     </div>  
                     
                     <div class="form-floating mb-2">
-                        <input autocomplete="off" onchange="verificarMarca($(this))" class="form-control" list="marcas" name="agregarMarcaAuto" id="agregarMarcaAuto" placeholder="Ingrese marca" required>
+                        <input autocomplete="off" class="form-control" list="marcas" name="agregarMarcaAuto" id="agregarMarcaAuto" placeholder="Ingrese marca" required>
                         <label for="floatingInput">Marca</label>
+                                <div class="invalid-feedback">
+                                    Ingrese una marca valida
+                                </div>
                     </div>
                     <div class="form-floating mb-2">
-                        <input autocomplete="off" onchange="verificarModelo()" class="form-control" list="modelosMarca" name="agregarModeloAuto" id="agregarModeloAuto" placeholder="Ingrese modelo" required>
+                        <input autocomplete="off" class="form-control" list="modelosMarca" name="agregarModeloAuto" id="agregarModeloAuto" placeholder="Ingrese modelo" required>
                         <label for="floatingInput">Modelo</label>
+                                <div class="invalid-feedback">
+                                    Ingrese un modelo valido
+                                </div>
                     </div>
                     <div class="form-floating mb-2">
                         <input autocomplete="off" class="form-control" type="year" placeholder="Ingrese año" name="agregarYear" required>
@@ -65,6 +71,9 @@
                     <div class="form-floating mb-2">
                         <input autocomplete="off" onchange="verificarCliente()" class="form-control" list="dataListClientes" name="agregarCliente" id="agregarCliente" placeholder="Ingrese cliente" required>
                         <label for="floatingInput">Cliente</label>
+                                <div class="invalid-feedback">
+                                    Ingrese un cliente valido
+                                </div>
                     </div>
                 </div>
         </div>

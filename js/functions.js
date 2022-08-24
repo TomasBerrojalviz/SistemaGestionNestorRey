@@ -34,10 +34,10 @@ $( document ).ready(function() {
         });
     });
     
-    //MODAL FORM MODELOS DE MARCA
+    //MODAL FORM MARCA PARA AUTO
     $('#agregarMarcaAuto').change(function(e){
+        verificarMarca($(this));
         var marca = $(this).val();
-        // console.log(marca);
         var action = 'seleccionarModelos';
 
         $.ajax({
@@ -46,6 +46,7 @@ $( document ).ready(function() {
             async: true,
             data: { action:action, marca:marca},
             success: function(response) {
+                // console.log(response);
                 if (response != "error") {  
                     var modelosDeseados = JSON.parse(response);
 
@@ -54,9 +55,10 @@ $( document ).ready(function() {
                         listaModelos.removeChild(listaModelos.firstChild);
                     }
                     modelosDeseados.forEach(modelo => {
-                        // console.log(modelo);
                         listaModelos.appendChild(agregarOptionModelo(modelo));
                     });
+                    
+                    verificarModelo();
 
                     // console.log(response);
                     // console.log(modelosDeseados);
@@ -80,10 +82,35 @@ $( document ).ready(function() {
                 listaClientes.removeChild(listaClientes.firstChild);
             }
             info_cliente.forEach(cliente => {
-                console.log(cliente);
+                // console.log(cliente);
                 listaClientes.appendChild(agregarOptionCliente(cliente));
             });
         });
+    });
+
+    //MODAL FORM MODELO PARA AUTO
+    $('#agregarModeloAuto').change(function(e){
+        verificarModelo();
+        // var modeloCorrecto = false;
+        // var listaModelos = document.getElementById("modelosMarca");
+        // var elemModelos = listaModelos.childNodes;  
+        // var modeloAuto = $("#agregarModeloAuto").val().toUpperCase();
+        // for (i = 0; i < elemModelos.length; i++) {
+        //     if(elemModelos[i].value == modeloAuto) {
+        //         modeloCorrecto = true;
+        //     }
+
+        // }
+        
+        // if(modeloCorrecto) {
+        //     $("#agregarModeloAuto").removeClass('is-invalid');
+        //     $("#agregarModeloAuto").addClass('is-valid');
+        // }
+        // else {
+        //     $("#agregarModeloAuto").removeClass('is-valid');
+        //     $("#agregarModeloAuto").addClass('is-invalid');
+        // }
+
     });
 });
 
@@ -136,18 +163,16 @@ function verificarMarca(marcaLabel){
             if (response != "error") {
                 var marca = JSON.parse(response);
                 marcaLabel.addClass('is-valid');
-                return true;
             }
             else{
                 marcaLabel.addClass('is-invalid');
-                return false;
             }
         },
         error: function(error) {
             marcaLabel.addClass('is-invalid');
-            return false;
         }
     });
+
 }
 
 function verificarModelo(){
@@ -173,23 +198,40 @@ function verificarModelo(){
             $("#agregarModeloAuto").addClass('is-invalid');
         }
     });
+    
+    var modeloCorrecto = false;
+    var listaModelos = document.getElementById("modelosMarca");
+    var elemModelos = listaModelos.childNodes;  
+    var modeloAuto = $("#agregarModeloAuto").val().toUpperCase();
+    for (i = 0; i < elemModelos.length; i++) {
+        if(elemModelos[i].value == modeloAuto) {
+            modeloCorrecto = true;
+        }
+
+    }
+    
+    if(modeloCorrecto) {
+        $("#agregarModeloAuto").removeClass('is-invalid');
+        $("#agregarModeloAuto").addClass('is-valid');
+    }
+    else {
+        $("#agregarModeloAuto").removeClass('is-valid');
+        $("#agregarModeloAuto").addClass('is-invalid');
+    }
 }
 
-        // success: function(response) {
-        //     if (response != "error") {
-        //         var info = JSON.parse(response);
-                
-        //         console.log(info);
-        //         $("#listaMarcas").val(info[0].marca);
+function verificarMail(){
+    var mailCliente= $("#clienteAgregarMail").val();
+    $("#clienteAgregarMail").removeClass('is-invalid').removeClass('is-valid');
+    const regex = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
 
-        //         marca = (info[0].marca);
-        //         console.log(marca);
-        //     }
-        // },
-        // error: function(error) {
-        //     alert(error);
-        // }
-        
+    if(mailCliente.match(regex)){
+        $("#clienteAgregarMail").addClass('is-valid');
+    }
+    else{
+        $("#clienteAgregarMail").addClass('is-invalid');
+    }
+}
 
 function recargar(){
     location.reload();

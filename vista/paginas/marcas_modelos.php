@@ -122,6 +122,9 @@
                         <div class="form-floating mb-2">
                             <input autocomplete="off" onchange="verificarMarca($(this))"  class="form-control" list="marcas" name="marcaModelo" id="marcaModelo" placeholder="Ingrese marca" required>  
                             <label for="floatingInput">Marca</label>
+                                <div class="invalid-feedback">
+                                    Ingrese una marca valida
+                                </div>
                         </div>
                         <div class="form-floating mb-2">
                             <input autocomplete="off" class="form-control my-2" type="text" placeholder="Ingrese modelo" name="modelo" id="modelo" required> 

@@ -138,8 +138,8 @@ $( document ).ready(function() {
     $('#btn_modelo_modal').click(function(e){ 
         e.preventDefault();
 
-        if(!verificarMarca($(marcaModelo))){
-            alert("Ingrese una marca valida");
+        if(marcaModelo.classList.contains('is-invalid')){
+            alert("Ingrese una marca valida");  
         }
         else{
             var action = btn_modelo_modal.getAttribute('accion');
