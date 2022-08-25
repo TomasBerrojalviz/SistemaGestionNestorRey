@@ -128,6 +128,24 @@ $modelosDeseados = array();
             echo "error";
             exit;
         }
+        if($_POST["action"] == "agregarCliente"){
+            $clienteAgregado = ControladorFormularios::ctrlAgregarCliente();
+            if($clienteAgregado){
+                echo json_encode($clienteAgregado, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
+        if($_POST["action"] == "agregarAuto"){
+            $autoAgregado = ControladorFormularios::ctrlAgregarCliente();
+            if($autoAgregado){
+                echo json_encode($autoAgregado, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
         if($_POST["action"] == "editarModelo"){
             $modeloEditado = ControladorFormularios::ctrlEditarModelo();
             if($modeloEditado){
@@ -146,6 +164,15 @@ $modelosDeseados = array();
             echo "error";
             exit;
         }
+        if($_POST["action"] == "editarCliente"){
+            $cliente_editada = ControladorFormularios::ctrlEditarCliente();
+            if($cliente_editada){
+                echo json_encode($cliente_editada, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
         if($_POST["action"] == "borrarMarca"){
             $marca_eliminada = ControladorFormularios::ctrlBorrarMarca($_POST["id"]);
             if($marca_eliminada){
@@ -159,6 +186,24 @@ $modelosDeseados = array();
             $modeloEliminado = ControladorFormularios::ctrlBorrarModelo();
             if($modeloEliminado){
                 echo json_encode($modeloEliminado, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
+        if($_POST["action"] == "borrarCliente"){
+            $clienteEliminado = ControladorFormularios::ctrlBorrarCliente();
+            if($clienteEliminado){
+                echo json_encode($clienteEliminado, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
+        if($_POST["action"] == "seleccionarModeloNombre"){
+            $modeloCompleto = ControladorFormularios::ctrlSeleccionarModeloNombre($_POST["modelo"]);
+            if($modeloCompleto){
+                echo json_encode($modeloCompleto, JSON_UNESCAPED_UNICODE);
                 exit;
             }
             echo "error";

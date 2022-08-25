@@ -35,6 +35,15 @@ class ControladorFormularios {
         $respuesta = ModeloFormularios::mdlSeleccionarId($tabla, $id);
         
         return $respuesta;
+    } 
+
+    // SELECCIONAR MODELO POR NOMBRE
+    static public function ctrlSeleccionarModeloNombre($modeloNombre){
+        $tabla = "modelos";
+
+        $modelo = ModeloFormularios::mdlSeleccionarDato($tabla, "modelo", $modeloNombre, PDO::PARAM_STR)[0];
+        
+        return $modelo;
     }    
 
     // AGREGAR MARCA
@@ -86,19 +95,38 @@ class ControladorFormularios {
     // AGREGAR CLIENTE
     static public function ctrlAgregarCliente(){
 
-        if(isset($_POST["clienteAgregarNombre"])){
+        if(isset($_POST["nombre"])){
 
             $tabla = "clientes";  
             // nombre	telefono	mail	domicilio
-            $datos = array("nombre" => strtoupper($_POST["clienteAgregarNombre"]),
-                            "telefono" => strtoupper($_POST["clienteAgregarTelefono"]),
-                            "mail" => strtoupper($_POST["clienteAgregarMail"]),
-                            "domicilio" => strtoupper($_POST["clienteAgregarDomicilio"])
+            $datos = array("nombre" => strtoupper($_POST["nombre"]),
+                            "telefono" => strtoupper($_POST["telefono"]),
+                            "mail" => strtoupper($_POST["mail"]),
+                            "domicilio" => strtoupper($_POST["domicilio"])
                         );
             
-            echo "<pre>";print_r($datos);echo "</pre>";
-            
             $respuesta = ModeloFormularios::mdlAgregarCliente($tabla, $datos);
+            
+            return $respuesta;
+        }
+
+    }
+
+    // AGREGAR AUTO
+    static public function ctrlAgregarAuto(){
+
+        if(isset($_POST["patente"])){
+
+            $tabla = "autos";  
+            // id_estado patente	id_modelo	year	id_cliente
+            $datos = array("id_estado" => $_POST["id_estado"],
+                            "patente" => strtoupper($_POST["patente"]),
+                            "id_modelo" => $_POST["id_modelo"],
+                            "year" => $_POST["year"],
+                            "id_cliente" => $_POST["id_cliente"]
+                        );
+            
+            $respuesta = ModeloFormularios::mdlAgregarAuto($tabla, $datos);
             
             return $respuesta;
         }
@@ -108,15 +136,15 @@ class ControladorFormularios {
     // EDITAR CLIENTE
     static public function ctrlEditarCliente(){
 
-        if(isset($_POST["clienteEditarId"])){
+        if(isset($_POST["id"])){
 
             $tabla = "clientes"; 
             
-            $datos = array("nombre" => strtoupper($_POST["clienteEditarNombre"]),
-                            "telefono" => strtoupper($_POST["clienteEditarTelefono"]),
-                            "mail" => strtoupper($_POST["clienteEditarMail"]),
-                            "domicilio" => strtoupper($_POST["clienteEditarDomicilio"]),
-                            "id" => $_POST["clienteEditarId"]
+            $datos = array("nombre" => strtoupper($_POST["nombre"]),
+                            "telefono" => strtoupper($_POST["telefono"]),
+                            "mail" => strtoupper($_POST["mail"]),
+                            "domicilio" => strtoupper($_POST["domicilio"]),
+                            "id" => $_POST["id"]
                         );
         
             
@@ -200,11 +228,11 @@ class ControladorFormularios {
     // BORRAR CLIENTE
     static public function ctrlBorrarCliente(){
                
-        if(isset($_POST["eliminarCliente"])){
+        if(isset($_POST["id"])){
 
             $tabla = "clientes";   
 
-            $id = $_POST["eliminarCliente"];
+            $id = $_POST["id"];
             
             $respuesta = ModeloFormularios::mdlBorrarId($tabla, $id);
             

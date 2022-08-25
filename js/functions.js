@@ -1,38 +1,6 @@
 // $.getScript("modals.js");
 
 $( document ).ready(function() {
-
-
-    //MODAL FORM EDIT CLIENTE
-    $('.editCliente').click(function(e){ 
-        e.preventDefault();
-        var id_cliente = $(this).attr('idCliente');
-        var action = 'seleccionarCliente';
-        
-        $.ajax({
-            type: "POST",
-            url: "ajax.php",
-            async: true,
-            data: { action:action, id_cliente:id_cliente},
-            success: function(response) {
-                if (response != "error") {
-                    var info = JSON.parse(response);
-                    $("#clienteEditarId").val(info[0].id);
-                    $("#clienteEditarNombre").val(info[0].nombre);
-                    $("#clienteEditarTelefono").val(info[0].telefono);
-                    $("#clienteEditarMail").val(info[0].mail);
-                    $("#clienteEditarDomicilio").val(info[0].domicilio);
-                    // console.log(info);
-                    
-                    $('#clienteEditarModal').modal('show');
-
-                }
-            },
-            error: function(error) {
-                alert(error);
-            }
-        });
-    });
     
     //MODAL FORM MARCA PARA AUTO
     $('#agregarMarcaAuto').change(function(e){
@@ -220,16 +188,40 @@ function verificarModelo(){
     }
 }
 
+function verificarNombreCliente(){
+    var nombreCliente= $("#clienteNombre").val();
+    $("#clienteNombre").removeClass('is-invalid').removeClass('is-valid');
+
+    if(nombreCliente){
+        $("#clienteNombre").addClass('is-valid');
+    }
+    else{
+        $("#clienteNombre").addClass('is-invalid');
+    }
+}
 function verificarMail(){
-    var mailCliente= $("#clienteAgregarMail").val();
-    $("#clienteAgregarMail").removeClass('is-invalid').removeClass('is-valid');
+    var mailCliente= $("#clienteMail").val();
+    $("#clienteMail").removeClass('is-invalid').removeClass('is-valid');
     const regex = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
 
     if(mailCliente.match(regex)){
-        $("#clienteAgregarMail").addClass('is-valid');
+        $("#clienteMail").addClass('is-valid');
     }
     else{
-        $("#clienteAgregarMail").addClass('is-invalid');
+        $("#clienteMail").addClass('is-invalid');
+    }
+}
+
+function verificarTelefono(){
+    var telefonoCliente = $("#clienteTelefono").val();
+    $("#clienteTelefono").removeClass('is-invalid').removeClass('is-valid');
+    const regex = /(\+)*([0-9]+)/;
+
+    if(telefonoCliente.match(regex)){
+        $("#clienteTelefono").addClass('is-valid');
+    }
+    else{
+        $("#clienteTelefono").addClass('is-invalid');
     }
 }
 
