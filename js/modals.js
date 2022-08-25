@@ -26,6 +26,9 @@ var btn_cliente_modal = document.getElementById("btn_cliente_modal");
 // VAR MODAL AUTO
 var autoModalTitle = document.getElementById("autoModalTitle");
 var autoId = document.getElementById("autoId");
+var autoIdModelo = document.getElementById("autoIdModelo");
+var autoIdCliente = document.getElementById("autoIdCliente");
+var autoIdEstado = document.getElementById("autoIdEstado");
 var autoPatente = document.getElementById("autoPatente");
 var autoMarca = document.getElementById("autoMarca");
 var autoModelo = document.getElementById("autoModelo");
@@ -82,6 +85,19 @@ $( document ).ready(function() {
     //MODAL FORM AGREGAR AUTO
     $('#btnAgregarAuto').click(function(e){ 
         e.preventDefault();
+
+        clientes.done(function(responseCliente){
+            var info_cliente = JSON.parse(responseCliente);
+            
+            var listaClientes = document.getElementById("dataListClientes");
+            while (listaClientes.firstChild) {
+                listaClientes.removeChild(listaClientes.firstChild);
+            }
+            info_cliente.forEach(cliente => {
+                // console.log(cliente);
+                listaClientes.appendChild(agregarOptionCliente(cliente));
+            });
+        });
 
         abrirModalAuto(0);
     });
@@ -302,7 +318,7 @@ $( document ).ready(function() {
 
     //BTN MODAL AUTO 
     $('#btn_auto_modal').click(function(e){
-
+ 
         if(autoPatente.classList.contains('is-invalid')){
             alert("Ingrese una patente valida");  
             e.preventDefault();
@@ -333,47 +349,92 @@ $( document ).ready(function() {
         }
         else{
             var action = btn_auto_modal.getAttribute('accion');
-            console.log(action);
-            var id_estado = 0;
-            var id_modelo = 0;
-            var modeloBuscado = obtenerModelo(id_modelo);
-            modeloBuscado.done(function(responseCliente){
-                var info_modelo = JSON.parse(responseCliente);
-                modeloValor.value = info_modelo[0].modelo;
-                var marcaModeloValor = obtenerMarca(info_modelo[0].id_marca);
-                marcaModeloValor.done(function(responseCliente){
-                    var info_marca_modelo = JSON.parse(responseCliente);
-                    marcaModelo.value = info_marca_modelo[0].marca;
-                });
-                
-            });
             
-            $.ajax({
-                type: "POST",
-                url: "ajax.php",
-                async: true,
-                // id_estado patente	id_modelo	year	id_cliente
-                data: {action:action, id:autoId.value, id_estado:id_estado, patente:autoPatente.value, id_modelo:id_modelo, year:autoYear.value, id_cliente:id_cliente},
-                success: function(response) {
-                    console.log(response);
-                    if (response != "error") {
-                        var autoCargado = JSON.parse(response);
-                        if(autoCargado){
-                            if(window.history.replaceState) {
-                                window.history.replaceState(null, null, window.location.href);
+            autoIdModelo.value = 0;
+            autoIdCliente.value = 0;
+            autoIdEstado.value = 0;
+            
+            var modeloBuscado = obtenerModeloPorNombre(autoModelo.value);
+            modeloBuscado.done(function(responseModelo){
+                if(responseModelo != "error"){
+                    var info_modelo = JSON.parse(responseModelo);
+                    autoIdModelo.value = info_modelo[0].id;
+                    clientes.done(function(responseCliente){
+                        if(responseCliente != "error"){
+                            var info_cliente = JSON.parse(responseCliente);
+                            for(var i = 0; i < info_cliente[0].length; i++){
+                                alert(info_cliente[0].nombre + " " + info_cliente[0].id);
+                                if(info_cliente[0].nombre == autoCliente.value){
+                                    alert(info_cliente[0].nombre + " " + info_cliente[0].id);
+                                    autoIdCliente.value = info_cliente[0].id;
+                                }
+                            
                             }
 
-                            ocultarModal("autoModal");
-                            mostrarModal("succesModal");
+                            alert("enviaremos ajax" + action);
+                            $.ajax({
+                                type: "POST",
+                                url: "ajax.php",
+                                async: true,
+                                // id_estado patente	id_modelo	anio	id_cliente
+                                data: {
+                                    action:action,
+                                    id:autoId.value,
+                                    id_estado:autoIdEstado.value,
+                                    id_modelo:autoIdModelo.value,
+                                    patente:autoPatente.value,
+                                    anio:autoYear.value,
+                                    id_cliente:autoIdCliente.value
+                                },
+                                success: function(response) {
+                                    console.log(response);
+                                    alert("entramos al function del ajax");
+                                    if (response != "error") {
+                                        var autoCargado = JSON.parse(response);
+                                        alert("entramos al succes del ajax");
+                                        console.log(autoCargado);
+                                        if(autoCargado){
+                                            alert("entramos al if del autoCargado");
+                                            if(window.history.replaceState) {
+                                                window.history.replaceState(null, null, window.location.href);
+                                            }
+
+                                            ocultarModal("autoModal");
+                                            mostrarModal("succesModal");
+                                        }
+                                    }
+                                },
+                                error: function(error) {
+                                    alert(error);
+                                }
+                            });
+                            alert("pasamos ajax");
                         }
-                    }
-                },
-                error: function(error) {
-                    alert(error);
+                    }).done(function(responseAutos) {
+                        alert("done ajax");
+                        console.log(responseAutos);
+                        alert("entramos al function del ajax");
+                        if (responseAutos != "error") {
+                            var autoCargado = JSON.parse(responseAutos);
+                            alert("entramos al succes del ajax");
+                            console.log(autoCargado[0]);
+                            if(autoCargado){
+                                alert("entramos al if del autoCargado");
+                                if(window.history.replaceState) {
+                                    window.history.replaceState(null, null, window.location.href);
+                                    ocultarModal("autoModal");
+                                    mostrarModal("succesModal");
+                                }
+
+                            }
+                        }
+                      });
                 }
-            });
+           });
         }
+                
     });
+            
     
     
 });
@@ -516,7 +577,7 @@ function abrirModalAuto(id) {
                 var info_auto = JSON.parse(responseCliente);
             });
             autoModelo.value = info_auto[0].id_modelo;
-            autoYear.value = info_auto[0].year;
+            autoYear.value = info_auto[0].anio;
             autoCliente.value = info_auto[0].id_cliente;
             
         });

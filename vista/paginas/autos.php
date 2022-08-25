@@ -25,25 +25,6 @@ $autos = ControladorFormularios::ctrlSeleccionarTabla("autos");
         </tr>
     </thead>
     <tbody>
-        <tr>
-        <th scope="row">
-            <button type="button " class="btn btn-sm text-bg-success btn-outline-dark"  data-bs-toggle="modal" data-bs-target="#autoModal">
-            Entregado
-            </button >
-        </th>
-        <td>HDC940</td>
-        <td>Honda Fit</td>
-        <td>2009</td>
-        <td>Tomas Berrojalviz</td>
-        </tr>
-
-        <!-- id Primaria	int(11)			No	Ninguna		AUTO_INCREMENT	Cambiar Cambiar	Eliminar Eliminar	
-	2	id_estado	int(11)			No	Ninguna			Cambiar Cambiar	Eliminar Eliminar	
-	3	patente	text	utf8mb4_general_ci		No	Ninguna			Cambiar Cambiar	Eliminar Eliminar	
-	4	id_modelo	int(11)			No	Ninguna			Cambiar Cambiar	Eliminar Eliminar	
-	5	year	text	utf8mb4_general_ci		No	Ninguna			Cambiar Cambiar	Eliminar Eliminar	
-	6	id_cliente -->
-
         <?php foreach ($autos as $key => $auto) : ?>
             <tr>
                 <td> <!-- ESTADO -->
@@ -57,12 +38,12 @@ $autos = ControladorFormularios::ctrlSeleccionarTabla("autos");
                 <td> <!-- MODELO -->
                     <?php
                         $modeloAsociado = ControladorFormularios::ctrlSeleccionarModelo($auto["id_modelo"]);
-                        $marcaAsociado = ControladorFormularios::ctrlSeleccionarMarca($modeloAsociado["id_marca"]);
-                        echo $marcaAsociado." ".$modeloAsociado[0]["modelo"];
+                        $marcaAsociado = ControladorFormularios::ctrlSeleccionarMarca($modeloAsociado[0]["id_marca"]);
+                        echo $marcaAsociado[0]["marca"]." ".$modeloAsociado[0]["modelo"];
                     ?>
                 </td>
                 <td> <!-- AÑO -->
-                    <?php echo $auto["year"]; ?>
+                    <?php echo $auto["anio"]; ?>
                 </td>
 
                 <td> <!-- CLIENTE -->
@@ -89,8 +70,11 @@ $autos = ControladorFormularios::ctrlSeleccionarTabla("autos");
             <div class="modal-body">
                 <form class="row" name="form" method="POST">
                     <div class="container">
-                        
-                        <input class="form-control" type="hidden" name="autoId" id="autoId" required>
+                    
+                    <input class="form-control" type="hidden" name="autoId" id="autoId" required>
+                    <input class="form-control" type="hidden" name="autoIdModelo" id="autoIdModelo" required>
+                    <input class="form-control" type="hidden" name="autoIdCliente" id="autoIdCliente" required>
+                    <input class="form-control" type="hidden" name="autoIdEstado" id="autoIdEstado" required>
 
                         <div class="form-floating mb-2">
                             <input autocomplete="off" class="form-control" type="text" placeholder="Ingrese patente" name="autoPatente" id="autoPatente" required>

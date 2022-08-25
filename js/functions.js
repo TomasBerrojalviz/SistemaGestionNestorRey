@@ -3,9 +3,10 @@
 $( document ).ready(function() {
     
     //MODAL FORM MARCA PARA AUTO
-    $('#agregarMarcaAuto').change(function(e){
+    $('#autoMarca').change(function(e){
         verificarMarca($(this));
         var marca = $(this).val();
+        console.log(marca);
         var action = 'seleccionarModelos';
 
         $.ajax({
@@ -38,26 +39,9 @@ $( document ).ready(function() {
             }
         });
     });
-
-    //MODAL FORM CLIENTES PARA AUTO
-    $('#btnAgregarAuto').click(function(e){
-        // var action = 'seleccionarClientes';
-        clientes.done(function(responseCliente){
-            var info_cliente = JSON.parse(responseCliente);
-            
-            var listaClientes = document.getElementById("dataListClientes");
-            while (listaClientes.firstChild) {
-                listaClientes.removeChild(listaClientes.firstChild);
-            }
-            info_cliente.forEach(cliente => {
-                // console.log(cliente);
-                listaClientes.appendChild(agregarOptionCliente(cliente));
-            });
-        });
-    });
-
+    
     //MODAL FORM MODELO PARA AUTO
-    $('#agregarModeloAuto').change(function(e){
+    $('#autoModelo').change(function(e){
         verificarModelo();
         // var modeloCorrecto = false;
         // var listaModelos = document.getElementById("modelosMarca");
@@ -83,8 +67,8 @@ $( document ).ready(function() {
 });
 
 function verificarCliente(){
-    var nombreCliente = $("#agregarCliente").val();
-    $("#agregarCliente").removeClass('is-invalid').removeClass('is-valid');
+    var nombreCliente = $("#autoCliente").val();
+    $("#autoCliente").removeClass('is-invalid').removeClass('is-valid');
     // $.get("../mod_ou/procesos/procesar_sector_search.php", {SEARCH:SECTOR},
     // function(data) {	
     //     if(data.ID_OU != 0 && data.DISPONIBLE == 'TRUE'){
@@ -105,14 +89,14 @@ function verificarCliente(){
         success: function(response) {
             if (response != "error") {
                 var cliente = JSON.parse(response);
-                $("#agregarCliente").addClass('is-valid');
+                $("#autoCliente").addClass('is-valid');
             }
             else{
-                $("#agregarCliente").addClass('is-invalid');
+                $("#autoCliente").addClass('is-invalid');
             }
         },
         error: function(error) {
-            $("#agregarCliente").addClass('is-invalid');
+            $("#autoCliente").addClass('is-invalid');
         }
     });
 }
@@ -144,8 +128,9 @@ function verificarMarca(marcaLabel){
 }
 
 function verificarModelo(){
-    var modeloAuto = $("#agregarModeloAuto").val();
-    $("#agregarModeloAuto").removeClass('is-invalid').removeClass('is-valid');
+    var modeloAuto = $("#autoModelo").val();
+    console.log(modeloAuto);
+    $("#autoModelo").removeClass('is-invalid').removeClass('is-valid');
     var action = 'verificarModelo';
 
     $.ajax({
@@ -156,21 +141,22 @@ function verificarModelo(){
         success: function(response) {
             if (response != "error") {
                 var modelo = JSON.parse(response);
-                $("#agregarModeloAuto").addClass('is-valid');
+                $("#autoModelo").addClass('is-valid');
             }
             else{
-                $("#agregarModeloAuto").addClass('is-invalid');
+                $("#autoModelo").addClass('is-invalid');
             }
         },
         error: function(error) {
-            $("#agregarModeloAuto").addClass('is-invalid');
+            $("#autoModelo").addClass('is-invalid');
         }
     });
     
     var modeloCorrecto = false;
     var listaModelos = document.getElementById("modelosMarca");
-    var elemModelos = listaModelos.childNodes;  
-    var modeloAuto = $("#agregarModeloAuto").val().toUpperCase();
+    var elemModelos = listaModelos.childNodes;
+    console.log($("#autoModelo").val());
+    var modeloAuto = $("#autoModelo").val().toUpperCase();
     for (i = 0; i < elemModelos.length; i++) {
         if(elemModelos[i].value == modeloAuto) {
             modeloCorrecto = true;
@@ -179,12 +165,12 @@ function verificarModelo(){
     }
     
     if(modeloCorrecto) {
-        $("#agregarModeloAuto").removeClass('is-invalid');
-        $("#agregarModeloAuto").addClass('is-valid');
+        $("#autoModelo").removeClass('is-invalid');
+        $("#autoModelo").addClass('is-valid');
     }
     else {
-        $("#agregarModeloAuto").removeClass('is-valid');
-        $("#agregarModeloAuto").addClass('is-invalid');
+        $("#autoModelo").removeClass('is-valid');
+        $("#autoModelo").addClass('is-invalid');
     }
 }
 

@@ -138,7 +138,7 @@ $modelosDeseados = array();
             exit;
         }
         if($_POST["action"] == "agregarAuto"){
-            $autoAgregado = ControladorFormularios::ctrlAgregarCliente();
+            $autoAgregado = ControladorFormularios::ctrlAgregarAuto();
             if($autoAgregado){
                 echo json_encode($autoAgregado, JSON_UNESCAPED_UNICODE);
                 exit;

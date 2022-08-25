@@ -41,7 +41,7 @@ class ControladorFormularios {
     static public function ctrlSeleccionarModeloNombre($modeloNombre){
         $tabla = "modelos";
 
-        $modelo = ModeloFormularios::mdlSeleccionarDato($tabla, "modelo", $modeloNombre, PDO::PARAM_STR)[0];
+        $modelo = ModeloFormularios::mdlSeleccionarDato($tabla, "modelo", $modeloNombre, PDO::PARAM_STR);
         
         return $modelo;
     }    
@@ -118,13 +118,14 @@ class ControladorFormularios {
         if(isset($_POST["patente"])){
 
             $tabla = "autos";  
-            // id_estado patente	id_modelo	year	id_cliente
+            // id_estado patente	id_modelo	anio	id_cliente
             $datos = array("id_estado" => $_POST["id_estado"],
                             "patente" => strtoupper($_POST["patente"]),
                             "id_modelo" => $_POST["id_modelo"],
-                            "year" => $_POST["year"],
+                            "anio" => $_POST["anio"],
                             "id_cliente" => $_POST["id_cliente"]
                         );
+
             
             $respuesta = ModeloFormularios::mdlAgregarAuto($tabla, $datos);
             

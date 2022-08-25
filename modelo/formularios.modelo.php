@@ -119,13 +119,13 @@ class ModeloFormularios {
     // AGREGAR AUTO
     static public function mdlAgregarAuto($tabla, $datos){
 
-        $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(id_estado, patente, id_modelo, year, id_cliente) VALUES (:id_estado, :patente, :id_modelo, :year, :id_cliente)");
+        $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(id_estado, patente, id_modelo, anio, id_cliente) VALUES (:id_estado, :patente, :id_modelo, :anio, :id_cliente)");
 
-        // id_estado patente id_modelo year id_cliente
+        // id_estado patente id_modelo anio id_cliente
         $stmt->bindParam(":id_estado", $datos["id_estado"], PDO::PARAM_INT);
         $stmt->bindParam(":patente", $datos["patente"], PDO::PARAM_STR);
         $stmt->bindParam(":id_modelo", $datos["id_modelo"], PDO::PARAM_INT);
-        $stmt->bindParam(":year", $datos["year"], PDO::PARAM_INT);
+        $stmt->bindParam(":anio", $datos["anio"], PDO::PARAM_INT);
         $stmt->bindParam(":id_cliente", $datos["id_cliente"], PDO::PARAM_INT);
 
         if($stmt->execute()){
