@@ -1,7 +1,30 @@
-// $.getScript("modals.js");
-
 $( document ).ready(function() {
+    console.log($('#tableAuto_wrapper'));
     
+    $('#tableAuto').DataTable();
+    $("#tableAuto_filter").addClass('text-light float-end');
+    $("#tableAuto_paginate").addClass('text-light float-end');
+    $("#tableAuto_length").addClass('text-light  mx-1');
+    $("#tableAuto_info").addClass('text-light mx-1');
+
+    $('#tableMarca').DataTable();
+    $("#tableMarca_filter").addClass('text-light float-end');
+    $("#tableMarca_paginate").addClass('text-light float-end');
+    $("#tableMarca_length").addClass('text-light mx-1');
+    $("#tableMarca_info").addClass('text-light mx-1');
+
+    $('#tableModelo').DataTable();
+    $("#tableModelo_filter").addClass('text-light float-end');
+    $("#tableModelo_paginate").addClass('text-light float-end');
+    $("#tableModelo_length").addClass('text-light  mx-1');
+    $("#tableModelo_info").addClass('text-light mx-1');
+    
+    $('#tableCliente').DataTable();
+    $("#tableCliente_filter").addClass('text-light float-end');
+    $("#tableCliente_paginate").addClass('text-light float-end');
+    $("#tableCliente_length").addClass('text-light  mx-1');
+    $("#tableCliente_info").addClass('text-light mx-1');
+
     //MODAL FORM MARCA PARA AUTO
     $('#autoMarca').change(function(e){
         verificarMarca($(this));
@@ -62,6 +85,24 @@ $( document ).ready(function() {
         //     $("#agregarModeloAuto").removeClass('is-valid');
         //     $("#agregarModeloAuto").addClass('is-invalid');
         // }
+
+    });
+
+    //BOTON AUTO
+    $('.btnAuto').click(function(e){
+        e.preventDefault();
+        var id_auto = $(this).attr('id-auto');
+
+        abrirModalAuto(id_auto);
+
+    });
+
+    //TOCAR FILA
+    $('#fila').click(function(e){
+        e.preventDefault();
+        var id_auto = $(this).attr('id-auto');
+
+        abrirModalAuto(id_auto);
 
     });
 });

@@ -45,6 +45,16 @@ $modelosDeseados = array();
             echo "error";
             exit;
         }
+        if($_POST["action"] == "seleccionarAuto"){
+            $id = $_POST["id_auto"];
+            $autoSeleccionado = ControladorFormularios::ctrlSeleccionarAuto($id);
+            if($autoSeleccionado){
+                echo json_encode($autoSeleccionado, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
 
         if($_POST["action"] == "seleccionarModelos"){
             $marca = strtoupper($_POST["marca"]);
@@ -168,6 +178,15 @@ $modelosDeseados = array();
             $cliente_editada = ControladorFormularios::ctrlEditarCliente();
             if($cliente_editada){
                 echo json_encode($cliente_editada, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
+        if($_POST["action"] == "editarAuto"){
+            $auto_editado = ControladorFormularios::ctrlEditarAuto();
+            if($auto_editado){
+                echo json_encode($auto_editado, JSON_UNESCAPED_UNICODE);
                 exit;
             }
             echo "error";

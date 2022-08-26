@@ -212,6 +212,33 @@ class ModeloFormularios {
         $stmt = null;
     }
 
+    // EDITAR AUTO
+    static public function mdlEditarAuto($tabla, $datos){
+
+        $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET id_marca = :id_marca, modelo = :modelo WHERE id = :id");
+        $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET id_estado = :id_estado, patente = :patente, id_modelo = :id_modelo, anio = :anio, id_cliente = :id_cliente WHERE id = :id");
+
+        // id_estado patente id_modelo anio id_cliente
+        $stmt->bindParam(":id_estado", $datos["id_estado"], PDO::PARAM_INT);
+        $stmt->bindParam(":patente", $datos["patente"], PDO::PARAM_STR);
+        $stmt->bindParam(":id_modelo", $datos["id_modelo"], PDO::PARAM_INT);
+        $stmt->bindParam(":anio", $datos["anio"], PDO::PARAM_INT);
+        $stmt->bindParam(":id_cliente", $datos["id_cliente"], PDO::PARAM_INT);
+        $stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
+
+        if($stmt->execute()){
+
+            return TRUE;
+        }
+        else{
+            print_r(Conexion::conectar()->error_info());
+        }
+
+        $stmt->close();
+
+        $stmt = null;
+    }
+
     // BORRAR ID
     static public function mdlBorrarId($tabla, $id){
 

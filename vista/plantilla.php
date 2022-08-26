@@ -38,7 +38,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/a0e4ca76a9.js" crossorigin="anonymous"></script>
-
     
     <!-- <script src="js/modals.js"></script>
     <script src="js/functions.js"></script> -->
@@ -143,6 +142,125 @@
             </div>
         </div>
     </div>
+    <!-- Modal CLIENTE -->
+    <div class="modal fade" id="clienteModal" tabindex="-1" aria-labelledby="clienteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="clienteModalTitle">Agregar cliente</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="row" name="form" method="POST">
+                    <div class="container">
+                        <input class="form-control" type="hidden" name="clienteId" id="clienteId" required>
+                        
+                        <div class="form-floating mb-2">
+                            <input autocomplete="off" onchange="verificarNombreCliente()" class="form-control" type="text" placeholder="Nombre del nuevo cliente" name="clienteNombre" id="clienteNombre" required>
+                            <label for="inputTel floatingInput">Nombre</label>
+                            <div class="invalid-feedback">
+                                Ingrese el nombre del cliente
+                            </div>
+                        </div>
+                        <div class="form-floating mb-2">
+                            <!-- /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/ -->
+                            <input autocomplete="off" onchange="verificarTelefono()" class="form-control" type="tel" pattern="(\+)*([0-9]+)" placeholder="Telefono del nuevo cliente" name="clienteTelefono" id="clienteTelefono" required>
+                            <label for="inputTel floatingInput">Telefono</label>
+                            <div class="invalid-feedback">
+                                Ingrese un telefono valido
+                            </div>
+                        </div>
+                        <div class="form-floating mb-2">
+                            <input autocomplete="off" onchange="verificarMail()" class="form-control" type="email" placeholder="Mail del nuevo cliente" name="clienteMail" id="clienteMail">
+                            <label for="inputEmail floatingInput">Mail</label>
+                            <div class="invalid-feedback">
+                                Ingrese un mail valido
+                            </div>
+                        </div>
+                        <div class="form-floating mb-2">
+                            <input autocomplete="off" class="form-control" type="text" placeholder="Domicilio del nuevo cliente" name="clienteDomicilio" id="clienteDomicilio">
+                            <label for="inputAddress floatingInput">Domicilio</label>
+                        </div>
+
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <input type="submit" name="btn_cliente_modal" id="btn_cliente_modal" class="btn btn-primary" value="Agregar"/>
+            </div>
+            
+                </form>
+        </div>
+        </div>
+    </div>
+        
+    <!-- Modal MARCA -->
+    <div class="modal fade" id="marcaModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="marcaModalTitle">Editar marca</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="row" id="form_editar_marca" method="POST">
+                        <div class="container">
+                            <input class="form-control" type="hidden" name="marcaId" id="marcaId" required>
+                            <div class="form-floating mb-2">
+                                <input autocomplete="off" class="form-control" type="text" placeholder="Ingrese marca" id="marca" name="marca" required>
+                                <label for="floatingInput">Marca</label>
+                            </div>
+                        </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <input type="submit" name="btn_marca_modal" id="btn_marca_modal" class="btn btn-primary" value="Guardar" />
+                </div>
+                
+                    </form>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal MODELO -->
+    <div class="modal fade" id="modeloModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="modeloModalTitle">Editar marca</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="row" id="form_editar_marca" method="POST">
+                        <div class="container">
+                            <input class="form-control" type="hidden" name="modeloId" id="modeloId" required>
+                            <div class="form-floating mb-2">
+                                <input autocomplete="off" onchange="verificarMarca($(this))"  class="form-control" list="marcas" name="marcaModelo" id="marcaModelo" placeholder="Ingrese marca" required>  
+                                <label for="floatingInput">Marca</label>
+                                    <div class="invalid-feedback">
+                                        Ingrese una marca valida
+                                    </div>
+                            </div>
+                            <div class="form-floating mb-2">
+                                <input autocomplete="off" class="form-control my-2" type="text" placeholder="Ingrese modelo" name="modelo" id="modelo" required> 
+                                <label for="floatingInput">Modelo</label>
+                            </div>
+                        </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <input type="submit" name="btn_modelo_modal" id="btn_modelo_modal" class="btn btn-primary" value="Guardar" />
+                </div>
+                
+                    </form>
+                
+            </div>
+        </div>
+    </div>
 
     
     <datalist id="marcas">
@@ -176,6 +294,9 @@
         }
         load_js("js/modals.js");
         load_js("js/functions.js");
+        
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.20/js/dataTables.bootstrap4.min.js"></script>
 </body>
 </html>

@@ -200,6 +200,7 @@ $( document ).ready(function() {
         }
         else {
             var action = btn_marca_modal.getAttribute('accion');
+            e.preventDefault(); 
             
             $.ajax({
                 type: "POST",
@@ -227,8 +228,7 @@ $( document ).ready(function() {
     });
     
     //BTN MODAL MODELO 
-    $('#btn_modelo_modal').click(function(e){ 
-        // e.preventDefault();
+    $('#btn_modelo_modal').click(function(e){
 
         if(marcaModelo.classList.contains('is-invalid')){
             alert("Ingrese un modelo valido");  
@@ -240,7 +240,8 @@ $( document ).ready(function() {
             $(modeloValor).addClass('is-invalid');
         }
         else{
-            var action = btn_modelo_modal.getAttribute('accion');
+            var action = btn_modelo_modal.getAttribute('accion'); 
+            e.preventDefault(); 
             
             $.ajax({
                 type: "POST",
@@ -270,7 +271,6 @@ $( document ).ready(function() {
 
     //BTN MODAL CLIENTE 
     $('#btn_cliente_modal').click(function(e){ 
-        // e.preventDefault();
 
         if(clienteTelefono.classList.contains('is-invalid')){
             alert("Ingrese un telefono valido");  
@@ -287,8 +287,8 @@ $( document ).ready(function() {
             $(clienteTelefono).addClass('is-invalid');
         }
         else{
+            e.preventDefault();
             var action = btn_cliente_modal.getAttribute('accion');
-            console.log(action);
             
             $.ajax({
                 type: "POST",
@@ -336,7 +336,7 @@ $( document ).ready(function() {
             e.preventDefault();
         }
         else if(!autoPatente.validity.valid){
-            $(autoPatente).addClass('is-invalid');
+            // $(autoPatente).addClass('is-invalid');
         }
         else if(!autoMarca.validity.valid){
             $(autoMarca).addClass('is-invalid');
@@ -348,11 +348,12 @@ $( document ).ready(function() {
             $(autoCliente).addClass('is-invalid');
         }
         else{
+            e.preventDefault(); 
             var action = btn_auto_modal.getAttribute('accion');
             
             autoIdModelo.value = 0;
             autoIdCliente.value = 0;
-            autoIdEstado.value = 0;
+            autoIdEstado.value = 3;
             
             var modeloBuscado = obtenerModeloPorNombre(autoModelo.value);
             modeloBuscado.done(function(responseModelo){
@@ -362,39 +363,23 @@ $( document ).ready(function() {
                     clientes.done(function(responseCliente){
                         if(responseCliente != "error"){
                             var info_cliente = JSON.parse(responseCliente);
-                            for(var i = 0; i < info_cliente[0].length; i++){
-                                alert(info_cliente[0].nombre + " " + info_cliente[0].id);
-                                if(info_cliente[0].nombre == autoCliente.value){
-                                    alert(info_cliente[0].nombre + " " + info_cliente[0].id);
-                                    autoIdCliente.value = info_cliente[0].id;
+                            for(var i = 0; i < info_cliente.length; i++){
+                                if(info_cliente[i].nombre == autoCliente.value){
+                                    autoIdCliente.value = info_cliente[i].id;
                                 }
                             
                             }
-
-                            alert("enviaremos ajax" + action);
                             $.ajax({
                                 type: "POST",
                                 url: "ajax.php",
                                 async: true,
                                 // id_estado patente	id_modelo	anio	id_cliente
-                                data: {
-                                    action:action,
-                                    id:autoId.value,
-                                    id_estado:autoIdEstado.value,
-                                    id_modelo:autoIdModelo.value,
-                                    patente:autoPatente.value,
-                                    anio:autoYear.value,
-                                    id_cliente:autoIdCliente.value
-                                },
+                                data: {action:action, id:autoId.value, id_estado:autoIdEstado.value, id_modelo:autoIdModelo.value, patente:autoPatente.value, anio:autoYear.value, id_cliente:autoIdCliente.value},
                                 success: function(response) {
                                     console.log(response);
-                                    alert("entramos al function del ajax");
                                     if (response != "error") {
                                         var autoCargado = JSON.parse(response);
-                                        alert("entramos al succes del ajax");
-                                        console.log(autoCargado);
                                         if(autoCargado){
-                                            alert("entramos al if del autoCargado");
                                             if(window.history.replaceState) {
                                                 window.history.replaceState(null, null, window.location.href);
                                             }
@@ -408,27 +393,8 @@ $( document ).ready(function() {
                                     alert(error);
                                 }
                             });
-                            alert("pasamos ajax");
                         }
-                    }).done(function(responseAutos) {
-                        alert("done ajax");
-                        console.log(responseAutos);
-                        alert("entramos al function del ajax");
-                        if (responseAutos != "error") {
-                            var autoCargado = JSON.parse(responseAutos);
-                            alert("entramos al succes del ajax");
-                            console.log(autoCargado[0]);
-                            if(autoCargado){
-                                alert("entramos al if del autoCargado");
-                                if(window.history.replaceState) {
-                                    window.history.replaceState(null, null, window.location.href);
-                                    ocultarModal("autoModal");
-                                    mostrarModal("succesModal");
-                                }
-
-                            }
-                        }
-                      });
+                    });
                 }
            });
         }
@@ -566,24 +532,36 @@ function abrirModalAuto(id) {
         btn_auto_modal.value = "Agregar auto";
     }
     else{ //TODO TERMINAR AGREGAR VALORES MARCA MODELO Y CLIENTE
-        autoModalTitle.innerHTML = "Editar auto con jquery";
+        console.log("Editar auto con jquery"); 
+        autoModalTitle.innerHTML = "Auto con jquery";
         autoId.value = id;
         var autoEditar = obtenerAuto(id);
-        autoEditar.done(function(responseCliente){
-            var info_auto = JSON.parse(responseCliente);
+        autoEditar.done(function(responseAuto){
+            var info_auto = JSON.parse(responseAuto);
             autoPatente.value = info_auto[0].patente;
-            var autoEditar = obtenerAuto(id);
-            autoEditar.done(function(responseCliente){
-                var info_auto = JSON.parse(responseCliente);
+            var modeloAuto = obtenerModelo(info_auto[0].id_modelo);
+            modeloAuto.done(function(responseModelo){
+                var info_modelo = JSON.parse(responseModelo);
+                autoModelo.value = info_modelo[0].modelo;
+                var marcaAuto = obtenerMarca(info_modelo[0].id_marca);
+                marcaAuto.done(function(responseMarca){
+                    var info_marca = JSON.parse(responseMarca);
+                    autoMarca.value = info_marca[0].marca;
+                });
+                
             });
-            autoModelo.value = info_auto[0].id_modelo;
             autoYear.value = info_auto[0].anio;
-            autoCliente.value = info_auto[0].id_cliente;
+            var clienteAuto = obtenerCliente(info_auto[0].id_cliente);
+            clienteAuto.done(function(responseCliente){
+                var info_cliente = JSON.parse(responseCliente);
+                autoCliente.value = info_cliente[0].nombre;
+                
+            });
             
         });
         
         btn_auto_modal.setAttribute("accion", "editarAuto");
-        btn_auto_modal.value = "Editar auto";
+        btn_auto_modal.value = "Guardar";
 
     }
     mostrarModal("autoModal");
@@ -649,5 +627,16 @@ function obtenerCliente(id_cliente) {
         url: "ajax.php",
         async: true,
         data: { action:action, id_cliente:id_cliente}
+    });
+}
+
+function obtenerAuto(id_auto) {
+    var action = 'seleccionarAuto';
+
+    return $.ajax({
+        type: "POST",
+        url: "ajax.php",
+        async: true,
+        data: { action:action, id_auto:id_auto}
     });
 }

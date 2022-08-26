@@ -4,17 +4,19 @@ $clientes = ControladorFormularios::ctrlSeleccionarTabla("clientes");
 
 
 ?>
-
 <div class="container-fluid text-center">
-    <button type="button" id="btnAgregarCliente" <?php echo $clase_boton_lg ?>>
-    Agregar cliente
-    </button>
+    <a id="btnAgregarCliente" <?php echo $clase_boton_lg ?>>
+        <i class="fa-solid fa-person-circle-plus">
+            Agregar cliente
+        </i>
+        <i class="fa-solid fa-person-circle-plus fa-flip-horizontal"></i>
+    </a>
 </div>
 
 <!-- LSITADO DE CLIENTES -->
 
-<div class="container-fluid text-center mt-2">
-    <table class="table table-info table-striped table-sm">
+<div class="container-fluid mt-2">
+    <table cellspacing=0 class="table table-info table-bordered table-hover table-inverse table-striped text-center table-sm" role="grid" id="tableCliente" width=100% >
     <thead>
         <tr>
             <th scope="col">#</th>
@@ -24,7 +26,7 @@ $clientes = ControladorFormularios::ctrlSeleccionarTabla("clientes");
             <th scope="col">Domicilio</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="table-group-divider">
             
         <?php foreach ($clientes as $key => $cliente) : ?>
             <tr>
@@ -47,57 +49,4 @@ $clientes = ControladorFormularios::ctrlSeleccionarTabla("clientes");
         
     </tbody>
     </table>
-</div>
-
-<!-- Modal CLIENTE -->
-<div class="modal fade" id="clienteModal" tabindex="-1" aria-labelledby="clienteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title" id="clienteModalTitle">Agregar cliente</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <form class="row" name="form" method="POST">
-                <div class="container">
-                    <input class="form-control" type="hidden" name="clienteId" id="clienteId" required>
-                    
-                    <div class="form-floating mb-2">
-                        <input autocomplete="off" onchange="verificarNombreCliente()" class="form-control" type="text" placeholder="Nombre del nuevo cliente" name="clienteNombre" id="clienteNombre" required>
-                        <label for="inputTel floatingInput">Nombre</label>
-                        <div class="invalid-feedback">
-                            Ingrese el nombre del cliente
-                        </div>
-                    </div>
-                    <div class="form-floating mb-2">
-                        <!-- /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/ -->
-                        <input autocomplete="off" onchange="verificarTelefono()" class="form-control" type="tel" pattern="(\+)*([0-9]+)" placeholder="Telefono del nuevo cliente" name="clienteTelefono" id="clienteTelefono" required>
-                        <label for="inputTel floatingInput">Telefono</label>
-                        <div class="invalid-feedback">
-                            Ingrese un telefono valido
-                        </div>
-                    </div>
-                    <div class="form-floating mb-2">
-                        <input autocomplete="off" onchange="verificarMail()" class="form-control" type="email" placeholder="Mail del nuevo cliente" name="clienteMail" id="clienteMail">
-                        <label for="inputEmail floatingInput">Mail</label>
-                        <div class="invalid-feedback">
-                            Ingrese un mail valido
-                        </div>
-                    </div>
-                    <div class="form-floating mb-2">
-                        <input autocomplete="off" class="form-control" type="text" placeholder="Domicilio del nuevo cliente" name="clienteDomicilio" id="clienteDomicilio">
-                        <label for="inputAddress floatingInput">Domicilio</label>
-                    </div>
-
-            </div>
-        </div>
-        
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <input type="submit" name="btn_cliente_modal" id="btn_cliente_modal" class="btn btn-primary" value="Agregar"/>
-        </div>
-        
-            </form>
-    </div>
-    </div>
 </div>

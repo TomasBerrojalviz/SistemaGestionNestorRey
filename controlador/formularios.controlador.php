@@ -36,6 +36,14 @@ class ControladorFormularios {
         
         return $respuesta;
     } 
+    // SELECCIONAR AUTO
+    static public function ctrlSeleccionarAuto($id){
+        $tabla = "autos";
+
+        $respuesta = ModeloFormularios::mdlSeleccionarId($tabla, $id);
+        
+        return $respuesta;
+    } 
 
     // SELECCIONAR MODELO POR NOMBRE
     static public function ctrlSeleccionarModeloNombre($modeloNombre){
@@ -189,6 +197,28 @@ class ControladorFormularios {
         
             
             $respuesta = ModeloFormularios::mdlEditarModelo($tabla, $datos);
+            
+            return $respuesta;
+        }
+
+    }
+    // EDITAR AUTO
+    static public function ctrlEditarAuto(){
+
+        if(isset($_POST["patente"])){
+
+            $tabla = "autos";  
+            // id_estado patente	id_modelo	anio	id_cliente
+            $datos = array("id_estado" => $_POST["id_estado"],
+                            "patente" => strtoupper($_POST["patente"]),
+                            "id_modelo" => $_POST["id_modelo"],
+                            "anio" => $_POST["anio"],
+                            "id_cliente" => $_POST["id_cliente"],
+                            "id" => $_POST["id"]
+                        );
+
+            
+            $respuesta = ModeloFormularios::mdlEditarAuto($tabla, $datos);
             
             return $respuesta;
         }

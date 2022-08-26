@@ -1,18 +1,19 @@
-<div class="container-fluid text-center">
-    <div class="row">
+<div class="container-fluid">
+    <div class="row my-2">
         <div class="col-4">
-            <button type="button" id="btnAgregarMarca" <?php echo $clase_boton_lg ?>>
-            <!-- <button type="button" <?php echo $clase_boton_lg ?> data-bs-toggle="modal" data-bs-target="#agregarMarcaModal"> -->
-            Agregar marca
-            </button>
-            <table class="table table-info table-striped mt-2" >
+            <div class="text-center">
+                <button type="button" id="btnAgregarMarca" <?php echo $clase_boton_lg ?>>
+                    Agregar marca
+                </button>
+            </div>
+            <table cellspacing=0 class="table table-info table-bordered table-hover table-inverse table-striped text-center table-sm" role="grid" id="tableMarca" width=100% >
             <thead>
                 <tr>
                 <th scope="col">#</th>
                 <th scope="col">Marca</th>
                 </tr>
             </thead>  
-            <tbody>
+            <tbody class="table-group-divider">
                 <?php foreach ($marcas as $key => $marca) : ?>
                     <tr>
                         <td>
@@ -33,10 +34,12 @@
         </div>
         <div class="col-8">
             
-            <button type="button" id="btnAgregarModelo" <?php echo $clase_boton_lg ?>>
-            Agregar modelo
-            </button>
-            <table class="table table-info table-striped mt-2">
+            <div class="text-center">
+                <button type="button" id="btnAgregarModelo" <?php echo $clase_boton_lg ?>>
+                    Agregar modelo
+                </button>
+            </div>
+            <table cellspacing=0 class="table table-info table-bordered table-hover table-inverse table-striped text-center table-sm" role="grid" id="tableModelo" width=100% >
             <thead>
                 <tr>
                 <th scope="col">#</th>
@@ -44,7 +47,7 @@
                 <th scope="col">Modelo</th>
                 </tr>
             </thead>  
-            <tbody>
+            <tbody class="table-group-divider">
                 <?php foreach ($modelos as $key => $modelo) : ?>
                     <tr>
                         <td>
@@ -75,71 +78,4 @@
         </div>
     </div>
 
-</div>
-
-<!-- Modal MARCA -->
-<div class="modal fade" id="marcaModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="marcaModalTitle">Editar marca</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form class="row" id="form_editar_marca" method="POST">
-                    <div class="container">
-                        <input class="form-control" type="hidden" name="marcaId" id="marcaId" required>
-                        <div class="form-floating mb-2">
-                            <input autocomplete="off" class="form-control" type="text" placeholder="Ingrese marca" id="marca" name="marca" required>
-                            <label for="floatingInput">Marca</label>
-                        </div>
-                    </div>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <input type="submit" name="btn_marca_modal" id="btn_marca_modal" class="btn btn-primary" value="Guardar" />
-            </div>
-            
-                </form>
-            
-        </div>
-    </div>
-</div>
-
-<!-- Modal MODELO -->
-<div class="modal fade" id="modeloModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="modeloModalTitle">Editar marca</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form class="row" id="form_editar_marca" method="POST">
-                    <div class="container">
-                        <input class="form-control" type="hidden" name="modeloId" id="modeloId" required>
-                        <div class="form-floating mb-2">
-                            <input autocomplete="off" onchange="verificarMarca($(this))"  class="form-control" list="marcas" name="marcaModelo" id="marcaModelo" placeholder="Ingrese marca" required>  
-                            <label for="floatingInput">Marca</label>
-                                <div class="invalid-feedback">
-                                    Ingrese una marca valida
-                                </div>
-                        </div>
-                        <div class="form-floating mb-2">
-                            <input autocomplete="off" class="form-control my-2" type="text" placeholder="Ingrese modelo" name="modelo" id="modelo" required> 
-                            <label for="floatingInput">Modelo</label>
-                        </div>
-                    </div>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <input type="submit" name="btn_modelo_modal" id="btn_modelo_modal" class="btn btn-primary" value="Guardar" />
-            </div>
-            
-                </form>
-            
-        </div>
-    </div>
 </div>
