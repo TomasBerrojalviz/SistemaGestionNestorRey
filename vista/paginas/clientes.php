@@ -1,9 +1,3 @@
-<?php
-
-$clientes = ControladorFormularios::ctrlSeleccionarTabla("clientes");
-
-
-?>
 <div class="container-fluid text-center">
     <a id="btnAgregarCliente" <?php echo $clase_boton_lg ?>>
         <i class="fa-solid fa-person-circle-plus">

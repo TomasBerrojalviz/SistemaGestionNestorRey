@@ -24,6 +24,12 @@ $( document ).ready(function() {
     $("#tableCliente_paginate").addClass('text-light float-end');
     $("#tableCliente_length").addClass('text-light  mx-1');
     $("#tableCliente_info").addClass('text-light mx-1');
+    
+    $('#tableOrdenes').DataTable();
+    $("#tableOrdenes_filter").addClass('text-light float-end');
+    $("#tableOrdenes_paginate").addClass('text-light float-end');
+    $("#tableOrdenes_length").addClass('text-light  mx-1');
+    $("#tableOrdenes_info").addClass('text-light mx-1');
 
     //MODAL FORM MARCA PARA AUTO
     $('#autoMarca').change(function(e){

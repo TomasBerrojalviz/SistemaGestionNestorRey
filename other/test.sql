@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-08-2022 a las 21:01:58
+-- Tiempo de generación: 27-08-2022 a las 18:53:25
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -20,28 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `test`
 --
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `autos`
---
-
-CREATE TABLE `autos` (
-  `id` int(11) NOT NULL,
-  `id_estado` int(11) NOT NULL,
-  `patente` text NOT NULL,
-  `id_modelo` int(11) NOT NULL,
-  `anio` text NOT NULL,
-  `id_cliente` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `autos`
---
-
-INSERT INTO `autos` (`id`, `id_estado`, `patente`, `id_modelo`, `anio`, `id_cliente`) VALUES
-(1, 0, 'HDC940', 1, '2009', 1);
 
 -- --------------------------------------------------------
 
@@ -63,7 +41,8 @@ CREATE TABLE `clientes` (
 
 INSERT INTO `clientes` (`id`, `nombre`, `telefono`, `mail`, `domicilio`) VALUES
 (1, 'TOMAS BERROJALVIZ', '1165006784', 'CAI.BERROJALVIZ.TOMAS@GMAIL.COM', 'SANTIAGO DEL ESTERO 1767, LANUS'),
-(2, 'FABIAN CANETE', '1121803501', 'FABIANCANETE21@GMAIL.COM', 'OTTO KRAUSSE 1522, ISIDRO CASANOVA');
+(8, 'FABIAN CANETE', '1121803501', 'FABIANCANETE21@GMAIL.COM', 'OTTO KRAUSSE 1522, ISIDRO CASANOVA'),
+(10, 'GIANE', '123', '', '');
 
 -- --------------------------------------------------------
 
@@ -90,7 +69,9 @@ INSERT INTO `marcas` (`id`, `marca`) VALUES
 (7, 'HYUNDAI'),
 (8, 'PEUGEOT'),
 (9, 'LAMBORGHINI'),
-(10, 'FERRARI');
+(10, 'FERRARI'),
+(29, 'CHEVROLET'),
+(36, 'VOLKSWAGEN');
 
 -- --------------------------------------------------------
 
@@ -121,17 +102,16 @@ INSERT INTO `modelos` (`id`, `id_marca`, `modelo`) VALUES
 (23, 3, 'UNO'),
 (25, 3, 'CRONOS'),
 (26, 3, '500X'),
-(28, 1, 'CR-V');
+(28, 1, 'CR-V'),
+(29, 6, 'COROLLA'),
+(30, 8, 'PARTNER'),
+(31, 2, 'FOCUS'),
+(32, 29, 'ONIX'),
+(33, 36, 'VENTO');
 
 --
 -- Índices para tablas volcadas
 --
-
---
--- Indices de la tabla `autos`
---
-ALTER TABLE `autos`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `clientes`
@@ -156,28 +136,22 @@ ALTER TABLE `modelos`
 --
 
 --
--- AUTO_INCREMENT de la tabla `autos`
---
-ALTER TABLE `autos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
-
---
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `marcas`
 --
 ALTER TABLE `marcas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT de la tabla `modelos`
 --
 ALTER TABLE `modelos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

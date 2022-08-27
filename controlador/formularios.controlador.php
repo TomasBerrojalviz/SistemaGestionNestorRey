@@ -52,6 +52,15 @@ class ControladorFormularios {
         $modelo = ModeloFormularios::mdlSeleccionarDato($tabla, "modelo", $modeloNombre, PDO::PARAM_STR);
         
         return $modelo;
+    }   
+
+    // SELECCIONAR MODELO POR NOMBRE
+    static public function ctrlSeleccionarAutoPatente($patente){
+        $tabla = "autos";
+
+        $auto = ModeloFormularios::mdlSeleccionarDato($tabla, "patente", $patente, PDO::PARAM_STR);
+        
+        return $auto;
     }    
 
     // AGREGAR MARCA
@@ -136,6 +145,29 @@ class ControladorFormularios {
 
             
             $respuesta = ModeloFormularios::mdlAgregarAuto($tabla, $datos);
+            
+            return $respuesta;
+        }
+
+    }
+
+    // CREAR ORDEN
+    static public function ctrlCrearOrden(){
+        // id_auto  problema    id_recibo	id_presupuesto  estado notas
+
+        if(isset($_POST["problema"])){
+
+            $tabla = "ordenes";  
+            // id_estado patente	id_modelo	anio	id_cliente
+            $datos = array("id_auto" => $_POST["id_auto"],
+                            "problema" => strtoupper($_POST["problema"]),
+                            "id_recibo" => $_POST["id_recibo"],
+                            "id_presupuesto" => $_POST["id_presupuesto"],
+                            "notas" => strtoupper($_POST["notas"])
+                        );
+
+            
+            $respuesta = ModeloFormularios::mdlCrearOrden($tabla, $datos);
             
             return $respuesta;
         }

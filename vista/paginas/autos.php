@@ -1,10 +1,3 @@
-<?php
-
-$autos = ControladorFormularios::ctrlSeleccionarTabla("autos");
-
-
-?>
-
 <div class="container-fluid text-center">
     <a id="btnAgregarAuto" <?php echo $clase_boton_lg ?>>
         <i class="fa-solid fa-car">
@@ -98,6 +91,11 @@ $autos = ControladorFormularios::ctrlSeleccionarTabla("autos");
                         $estado = "Cancelado";
                         $iconoBtn = '<i class="fa-solid fa-rectangle-xmark"> '.$estado.' </i> <i class="fa-solid fa-rectangle-xmark"></i>';
                     }
+                    if($auto["id_estado"] == 5){
+                        $clase_btn_estado = "text-bg-danger text-dark";
+                        $estado = "Pendiente de pago";  
+                        $iconoBtn = '<i class="fa-solid fa-hand-holding-dollar fa-flip-horizontal"> </i> <i class="fa-solid"> '.$estado.' </i> <i class="fa-solid fa-hand-holding-dollar"></i>';
+                    }
                 ?>
                     <a id-auto="<?php echo $auto["id"];?>" class="btn btn-sm <?php echo $clase_btn_estado;?> btn-outline-dark btnAuto">
                         <?php echo $iconoBtn;?>
@@ -128,93 +126,4 @@ $autos = ControladorFormularios::ctrlSeleccionarTabla("autos");
         
     </tbody>
     </table>
-</div>
-
-<!-- Modal AUTO -->
-<div class="modal fade" id="autoModal" tabindex="-1" aria-labelledby="autoModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="autoModalTitle">Agregar auto</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form class="row" name="form" method="POST">
-                    <div class="container">
-                    
-                        <input class="form-control" type="hidden" name="autoId" id="autoId" required>
-                        <input class="form-control" type="hidden" name="autoIdModelo" id="autoIdModelo" required>
-                        <input class="form-control" type="hidden" name="autoIdCliente" id="autoIdCliente" required>
-                        <input class="form-control" type="hidden" name="autoIdEstado" id="autoIdEstado" required>
-
-                        <div class="form-floating mb-2">
-                            <input autocomplete="off" class="form-control" type="text" placeholder="Ingrese patente" name="autoPatente" id="autoPatente" required>
-                            <label for="floatingInput">Patente</label>
-                        </div>  
-                
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-floating mb-2">
-                                    <input autocomplete="off" class="form-control" list="marcas" name="autoMarca" id="autoMarca" placeholder="Ingrese marca" required>
-                                    <label for="floatingInput">Marca</label>
-                                    <div class="invalid-feedback">
-                                        Ingrese una marca valida
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col container-fluid mx-auto my-auto text-center">
-                                <button type="button" id="btnAgregarMarca" <?php echo $clase_boton_lg ?>>
-                                    Agregar marca
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-floating mb-2">
-                                    <input autocomplete="off" class="form-control" list="modelosMarca" name="autoModelo" id="autoModelo" placeholder="Ingrese modelo" required>
-                                    <label for="floatingInput">Modelo</label>
-                                    <div class="invalid-feedback">
-                                        Ingrese un modelo valido
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col container-fluid mx-auto my-auto text-center">
-                                <button type="button" id="btnAgregarModelo" <?php echo $clase_boton_lg ?>>
-                                    Agregar modelo
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="form-floating mb-2">
-                            <input autocomplete="off" class="form-control" type="year" placeholder="Ingrese año" name="autoYear" id="autoYear" required>
-                            <label for="floatingInput">Año</label>
-                        </div>  
-                        
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-floating mb-2">
-                                    <input autocomplete="off" onchange="verificarCliente()" class="form-control" list="dataListClientes" name="autoCliente" id="autoCliente" placeholder="Ingrese cliente" required>
-                                    <label for="floatingInput">Cliente</label>
-                                    <div class="invalid-feedback">
-                                        Ingrese un cliente valido
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col container-fluid mx-auto my-auto text-center">
-                                <button type="button" id="btnAgregarCliente" <?php echo $clase_boton_lg ?>>
-                                    Agregar cliente
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <input type="submit" id="btn_auto_modal" name="btn_auto_modal" class="btn btn-primary" value="Agregar"/>
-            </div>
-            
-                </form>
-        </div>
-    </div>
 </div>

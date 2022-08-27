@@ -140,6 +140,32 @@ class ModeloFormularios {
 
         $stmt = null;
     }
+
+    // CREAR ORDEN
+    static public function mdlCrearOrden($tabla, $datos){
+        
+        // id_auto  problema    id_recibo	id_presupuesto  estado notas
+
+        $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(id_auto, problema, notas, id_recibo, id_presupuesto) VALUES (:id_auto, :problema, :notas, :id_recibo, :id_presupuesto)");
+
+        $stmt->bindParam(":id_auto", $datos["id_auto"], PDO::PARAM_INT);
+        $stmt->bindParam(":problema", $datos["problema"], PDO::PARAM_STR);
+        $stmt->bindParam(":notas", $datos["notas"], PDO::PARAM_STR);
+        $stmt->bindParam(":id_recibo", $datos["id_recibo"], PDO::PARAM_INT);
+        $stmt->bindParam(":id_presupuesto", $datos["id_presupuesto"], PDO::PARAM_INT);
+
+        if($stmt->execute()){
+
+            return TRUE;
+        }
+        else{
+            print_r(Conexion::conectar()->error_info());
+        }
+
+        $stmt->close();
+
+        $stmt = null;
+    }
     
     // EDITAR CLIENTE
     static public function mdlEditarCliente($tabla, $datos){

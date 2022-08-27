@@ -13,6 +13,8 @@
             $titulo = "Clientes";
         elseif($_GET["pagina"] == "marcas_modelos"):
             $titulo = "Marcas y Modelos";
+        elseif($_GET["pagina"] == "ordenes"):
+            $titulo = "Ordenes";
         else:
             $titulo = "Not found";
         endif;
@@ -22,6 +24,8 @@
 
     $marcas = ControladorFormularios::ctrlSeleccionarTabla("marcas");
     $modelos = ControladorFormularios::ctrlSeleccionarTabla("modelos");
+    $clientes = ControladorFormularios::ctrlSeleccionarTabla("clientes");
+    $autos = ControladorFormularios::ctrlSeleccionarTabla("autos");
 
 
   ?>
@@ -65,6 +69,7 @@
                 <div class="offcanvas-body  justify-content-around">
                     <div class="d-grid gap-3">
                         <a <?php echo $clase_boton_lg?> type="button" href="index.php?pagina=menu">Menu</a>
+                        <a <?php echo $clase_boton_lg?> type="button" href="index.php?pagina=ordenes">Ordenes</a>
                         <a <?php echo $clase_boton_lg?> type="button" href="index.php?pagina=autos">Autos</a>
                         <a <?php echo $clase_boton_lg   ?> type="button" href="index.php?pagina=clientes">Clientes</a>
                         <a <?php echo $clase_boton_lg?> type="button" href="index.php?pagina=marcas_modelos">Marcas y Modelos</a>
@@ -81,7 +86,8 @@
                 $_GET["pagina"] == "menu" ||
                 $_GET["pagina"] == "autos" ||
                 $_GET["pagina"] == "clientes" ||
-                $_GET["pagina"] == "marcas_modelos"
+                $_GET["pagina"] == "marcas_modelos" ||
+                $_GET["pagina"] == "ordenes"
             )
                 include "paginas/".$_GET["pagina"].".php";
             else
@@ -261,13 +267,103 @@
             </div>
         </div>
     </div>
+    
+    <!-- Modal AUTO -->
+    <div class="modal fade" id="autoModal" tabindex="-1" aria-labelledby="autoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="autoModalTitle">Agregar auto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="row" name="form" method="POST">
+                        <div class="container">
+                        
+                            <input class="form-control" type="hidden" name="autoId" id="autoId" required>
+                            <input class="form-control" type="hidden" name="autoIdModelo" id="autoIdModelo" required>
+                            <input class="form-control" type="hidden" name="autoIdCliente" id="autoIdCliente" required>
+                            <input class="form-control" type="hidden" name="autoIdEstado" id="autoIdEstado" required>
+
+                            <div class="form-floating mb-2">
+                                <input autocomplete="off" class="form-control" type="text" placeholder="Ingrese patente" name="autoPatente" id="autoPatente" required>
+                                <label for="floatingInput">Patente</label>
+                            </div>  
+                    
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating mb-2">
+                                        <input autocomplete="off" class="form-control" list="marcas" name="autoMarca" id="autoMarca" placeholder="Ingrese marca" required>
+                                        <label for="floatingInput">Marca</label>
+                                        <div class="invalid-feedback">
+                                            Ingrese una marca valida
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col container-fluid mx-auto my-auto text-center">
+                                    <button type="button" id="btnAgregarMarca" <?php echo $clase_boton_lg ?>>
+                                        Agregar marca
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating mb-2">
+                                        <input autocomplete="off" class="form-control" list="modelosMarca" name="autoModelo" id="autoModelo" placeholder="Ingrese modelo" required>
+                                        <label for="floatingInput">Modelo</label>
+                                        <div class="invalid-feedback">
+                                            Ingrese un modelo valido
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col container-fluid mx-auto my-auto text-center">
+                                    <button type="button" id="btnAgregarModelo" <?php echo $clase_boton_lg ?>>
+                                        Agregar modelo
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="form-floating mb-2">
+                                <input autocomplete="off" class="form-control" type="year" placeholder="Ingrese año" name="autoYear" id="autoYear" required>
+                                <label for="floatingInput">Año</label>
+                            </div>  
+                            
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating mb-2">
+                                        <input autocomplete="off" onchange="verificarCliente()" class="form-control" list="dataListClientes" name="autoCliente" id="autoCliente" placeholder="Ingrese cliente" required>
+                                        <label for="floatingInput">Cliente</label>
+                                        <div class="invalid-feedback">
+                                            Ingrese un cliente valido
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col container-fluid mx-auto my-auto text-center">
+                                    <button type="button" id="btnAgregarCliente" <?php echo $clase_boton_lg ?>>
+                                        Agregar cliente
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <input type="submit" id="btn_auto_modal" name="btn_auto_modal" class="btn btn-primary" value="Agregar"/>
+                </div>
+                
+                    </form>
+            </div>
+        </div>
+    </div>
+
 
     
     <datalist id="marcas">
         <?php                                
             foreach ($marcas as $key => $marca){
                 
-                echo "<option id=".$marca['id']." value=".$marca['marca'].">";
+                echo '<option id="'.$marca['id'].'" value="'.$marca['marca'].'">';
                 
                 // echo "<option id=".$marca['id']." value='".$marca['id']." - ".$marca['marca']."'>";
             }
@@ -277,13 +373,27 @@
         <?php                                
             foreach ($modelos as $key => $modelo){
                 
-                echo "<option id=".$modelo['id']." value=".$modelo['modelo'].">";
+                echo '<option id="'.$modelo['id'].'" value="'.$modelo['modelo'].'">';
             }
         ?>
     </datalist>
     <datalist id="modelosMarca">
     </datalist>
     <datalist id="dataListClientes">
+        <?php                                
+            foreach ($clientes as $key => $cliente){
+                
+                echo '<option id="'.$cliente['id'].'" value="'.$cliente['nombre'].'">';
+            }
+        ?>
+    </datalist>
+    <datalist id="dataListAutos">
+        <?php                                
+            foreach ($autos as $key => $auto){
+                
+                echo '<option id="'.$auto['id'].'" value="'.$auto['patente'].'">';
+            }
+        ?>
     </datalist>
     <script>
         function load_js(srcScript) {

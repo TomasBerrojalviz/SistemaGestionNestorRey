@@ -156,6 +156,15 @@ $modelosDeseados = array();
             echo "error";
             exit;
         }
+        if($_POST["action"] == "crearOrden"){
+            $ordenCreada = ControladorFormularios::ctrlCrearOrden();
+            if($ordenCreada){
+                echo json_encode($ordenCreada, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
         if($_POST["action"] == "editarModelo"){
             $modeloEditado = ControladorFormularios::ctrlEditarModelo();
             if($modeloEditado){
@@ -223,6 +232,15 @@ $modelosDeseados = array();
             $modeloCompleto = ControladorFormularios::ctrlSeleccionarModeloNombre($_POST["modelo"]);
             if($modeloCompleto){
                 echo json_encode($modeloCompleto, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
+        if($_POST["action"] == "seleccionarAutoPorPatente"){
+            $autoCompleto = ControladorFormularios::ctrlSeleccionarAutoPatente($_POST["patente"]);
+            if($autoCompleto){
+                echo json_encode($autoCompleto, JSON_UNESCAPED_UNICODE);
                 exit;
             }
             echo "error";
