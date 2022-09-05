@@ -602,7 +602,7 @@ function abrirModalAuto(id) {
     $(autoCliente).removeClass('is-invalid').removeClass('is-valid');
 
     if (id == 0){
-        autoModalTitle.innerHTML = "Agregar auto con jquery";
+        autoModalTitle.innerHTML = "Agregar auto";
         autoId.value = 0;
         autoPatente.value = "";
         autoMarca.value = "";
@@ -612,9 +612,8 @@ function abrirModalAuto(id) {
         btn_auto_modal.setAttribute("accion", "agregarAuto");
         btn_auto_modal.value = "Agregar auto";
     }
-    else{ //TODO TERMINAR AGREGAR VALORES MARCA MODELO Y CLIENTE
-        console.log("Editar auto con jquery"); 
-        autoModalTitle.innerHTML = "Auto con jquery";
+    else{
+        autoModalTitle.innerHTML = "Auto";
         autoId.value = id;
         var autoEditar = obtenerAuto(id);
         autoEditar.done(function(responseAuto){
@@ -666,6 +665,10 @@ function abrirModalOrden(id) {
     $(ordenAutoCliente).removeClass('is-invalid').removeClass('is-valid');
 
     if (id == 0){
+        for (var i = 0; i < dataOrden.length; i++) {
+            var element = dataOrden[i];
+            element.style.display = "none";
+        }
         ordenModalTitle.innerHTML = "Crear orden";
         ordenId.value = 0;
         ordenProblema.value = "";
@@ -677,33 +680,46 @@ function abrirModalOrden(id) {
     else{ //TODO TERMINAR OBTENER DATOS
         ordenModalTitle.innerHTML = "Orden";
         ordenId.value = id;
-        // fecha_recibido = obtenerFechaRecibido; 
         // id_recibo = obtenerRecibo();
         // ordenProblema = obtenerProblema();
         // ordenNotas = obtenerNotas();
-        var autoEditar = obtenerAuto(id);
-        autoEditar.done(function(responseAuto){
-            var info_auto = JSON.parse(responseAuto);
-            ordenAutoPatente.value = info_auto[0].patente;
-            var modeloAuto = obtenerModelo(info_auto[0].id_modelo);
-            modeloAuto.done(function(responseModelo){
-                var info_modelo = JSON.parse(responseModelo);
-                ordenAutoModelo.value = info_modelo[0].modelo;
-                var marcaAuto = obtenerMarca(info_modelo[0].id_marca);
-                marcaAuto.done(function(responseMarca){
-                    var info_marca = JSON.parse(responseMarca);
-                    ordenAutoMarca.value = info_marca[0].marca;
+        for (var i = 0; i < dataOrden.length; i++) {
+            var element = dataOrden[i];
+            element.style.display = "initial";
+        }
+        var orden = obtenerOrden(id);
+        orden.done(function(responseOrden) {
+            var info_orden = JSON.parse(responseOrden);
+            var autoEditar = obtenerAuto(info_orden[0].id_auto);
+            autoEditar.done(function(responseAuto){
+                var info_auto = JSON.parse(responseAuto);
+                ordenAutoPatente.value = info_auto[0].patente;
+                var modeloAuto = obtenerModelo(info_auto[0].id_modelo);
+                modeloAuto.done(function(responseModelo){
+                    var info_modelo = JSON.parse(responseModelo);
+                    ordenAutoModelo.value = info_modelo[0].modelo;
+                    var marcaAuto = obtenerMarca(info_modelo[0].id_marca);
+                    marcaAuto.done(function(responseMarca){
+                        var info_marca = JSON.parse(responseMarca);
+                        ordenAutoMarca.value = info_marca[0].marca;
+                    });
+                    
+                });
+                // ordenEstado.value = obtenerEstado(id);
+                var clienteAuto = obtenerCliente(info_auto[0].id_cliente);
+                clienteAuto.done(function(responseCliente){
+                    var info_cliente = JSON.parse(responseCliente);
+                    ordenAutoCliente.value = info_cliente[0].nombre;
+                    
                 });
                 
             });
-            // ordenEstado.value = obtenerEstado(id);
-            var clienteAuto = obtenerCliente(info_auto[0].id_cliente);
-            clienteAuto.done(function(responseCliente){
-                var info_cliente = JSON.parse(responseCliente);
-                ordenAutoCliente.value = info_cliente[0].nombre;
-                
-            });
-            
+            ordenEstado.value = info_orden[0].id_estado;
+            estadosSelect(ordenEstado.value, ordenEstado);
+            fecha_recibido.value = info_orden[0].fecha_recibido;
+            id_recibo.value = info_orden[0].id_recibo;
+            ordenProblema.value = info_orden[0].problema;
+            ordenNotas.value = info_orden[0].notas;
         });
         
         btn_orden_modal.setAttribute("accion", "editarOrden");
@@ -795,5 +811,16 @@ function obtenerAuto(id_auto) {
         url: "ajax.php",
         async: true,
         data: { action:action, id_auto:id_auto}
+    });
+}
+
+function obtenerOrden(id_orden) {
+    var action = 'seleccionarOrden';
+
+    return $.ajax({
+        type: "POST",
+        url: "ajax.php",
+        async: true,
+        data: { action:action, id_orden:id_orden}
     });
 }

@@ -317,7 +317,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col container-fluid mx-auto my-auto text-center">
+                                <div class="col container-fluid mx-auto my-auto text-center" >
                                     <button type="button" id="btnAgregarModelo" <?php echo $clase_boton_lg ?>>
                                         Agregar modelo
                                     </button>

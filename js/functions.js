@@ -1,6 +1,7 @@
-$( document ).ready(function() {
-    console.log($('#tableAuto_wrapper'));
-    
+const dataOrden = document.getElementsByClassName("dataOrden");
+var tablasVacias = document.getElementsByClassName("dataTables_empty");
+
+$( document ).ready(function() {    
     $('#tableAuto').DataTable();
     $("#tableAuto_filter").addClass('text-light float-end');
     $("#tableAuto_paginate").addClass('text-light float-end');
@@ -28,8 +29,34 @@ $( document ).ready(function() {
     $('#tableOrdenes').DataTable();
     $("#tableOrdenes_filter").addClass('text-light float-end');
     $("#tableOrdenes_paginate").addClass('text-light float-end');
-    $("#tableOrdenes_length").addClass('text-light  mx-1');
+    $("#tableOrdenes_length").addClass('text-light');
+    var myElement = document.getElementById("tableOrdenes_length");
+    // myElement.children[0].innerHTML = myElement.children[0].innerHTML.replace('Show', 'Mostrar');
+    // myElement.children[0].innerHTML = myElement.children[0].innerHTML.replace('entries', 'entradas');
+    // console.log(myElement.children[0].classList.add(''));
+    // myElement.children[0].addClass('container-fluid');
+    // console.log(myElement.children[0]);
+    // myElement.addClass('text-light');
+    // for (let i = 0; i < myElement.children.length; i++) {
+    //     console.log(myElement.children[i]);
+    //     console.log("--------------------------------");
+    //     console.log(myElement.children[i].children[0]);
+    //     console.log("--------------------------------");
+    //     console.log(myElement.children[i].innerHTML);
+    //     myElement.children[i].innerHTML = "Mostrar ";
+    //     myElement.children[i].addChild(myElement.children[i].children[0]);
+    //     myElement.children[i].innerHTML = " Entradas";
+    //     for (let j = 0; j < myElement.children[i].children.length; j++) {
+    //         console.log(myElement.children[i].children[j]);
+    //     }
+    // }
     $("#tableOrdenes_info").addClass('text-light mx-1');
+
+    
+    for (var i = 0; i < tablasVacias.length; i++) {
+        var element = tablasVacias[i];
+        element.innerHTML  = "No hay informacion cargada";
+    }
 
     //MODAL FORM MARCA PARA AUTO
     $('#autoMarca').change(function(e){
@@ -95,20 +122,25 @@ $( document ).ready(function() {
     });
 
     //BOTON AUTO
-    $('.btnAuto').click(function(e){
-        e.preventDefault();
-        var id_auto = $(this).attr('id-auto');
+    // $('.btnAuto').click(function(e){
+    //     e.preventDefault();
+    //     var id_auto = $(this).attr('id-auto');
 
-        abrirModalAuto(id_auto);
+    //     abrirModalAuto(id_auto);
 
-    });
+    // });
 
     //TOCAR FILA
-    $('#fila').click(function(e){
+    $('.fila').click(function(e){
         e.preventDefault();
-        var id_auto = $(this).attr('id-auto');
+        var id = $(this).attr('id');
+        var tipoModal = $(this).attr('tipoModal');
+        console.log(tipoModal);
 
-        abrirModalAuto(id_auto);
+        if(tipoModal == "orden")
+            abrirModalOrden(id);
+        else if(tipoModal == "auto")
+            abrirModalAuto(id);
 
     });
 });
@@ -256,6 +288,41 @@ function verificarTelefono(){
     else{
         $("#clienteTelefono").addClass('is-invalid');
     }
+}
+
+function estadoText(id){
+    switch(id) {
+        case 1:
+            return "Pendiente";
+        case 2:
+            return "Cancelado";
+        case 3:
+            return "Finalizado";
+        case 4:
+            return "Entregado";
+        case 5:
+            return "Pendiente de pago";
+        default:
+            return "Estado incorrecto";
+    }
+}
+
+function estadosSelect(id, select){
+    console.log(select);
+    console.log(id);
+    while (select.firstChild) {
+        select.removeChild(select.firstChild);
+    }
+    for(let i = 1; i < 6; i++) {
+        var option = document.createElement("option");
+        option.innerHTML = estadoText(i);
+        option.value = i;
+        if(id == i) {
+            option.selected = true;
+        }
+        select.appendChild(option);
+    }
+
 }
 
 function recargar(){

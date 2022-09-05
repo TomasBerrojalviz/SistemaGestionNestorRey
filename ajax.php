@@ -55,6 +55,16 @@ $modelosDeseados = array();
             echo "error";
             exit;
         }
+        if($_POST["action"] == "seleccionarOrden"){
+            $id = $_POST["id_orden"];
+            $ordenSeleccionada = ControladorFormularios::ctrlSeleccionarOrden($id);
+            if($ordenSeleccionada){
+                echo json_encode($ordenSeleccionada, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
 
         if($_POST["action"] == "seleccionarModelos"){
             $marca = strtoupper($_POST["marca"]);

@@ -16,10 +16,10 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
 
 <!-- LSITADO DE ORDENES -->
 <div class="container-fluid mt-2">     
-    <table cellspacing=0 class="table table-info table-bordered table-hover table-inverse table-striped text-center table-sm" role="grid" id="tableOrdenes" width=100% >
+    <table cellspacing=0 class="table table-responsive table-info table-bordered table-hover table-inverse table-striped text-center table-sm" role="grid" id="tableOrdenes" width=100% >
     <thead>
         <tr>
-            <th scope="col" class="sorting">
+            <th scope="col" class="sorting"  style="max-width: 200px;">
                 <div class="row">
                     <div class="col-10">
                         Estado
@@ -29,7 +29,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                     </div>
                 </div>
             </th>
-            <th scope="col" class="sorting" >
+            <th scope="col" class="sorting" style="max-width: 150px;">
                 <div class="row">
                     <div class="col-9">
                         Auto
@@ -39,7 +39,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                     </div>
                 </div>
             </th>
-            <th scope="col" class="sorting" >
+            <th scope="col" class="sorting" style="max-width: 160px;">
                 <div class="row">
                     <div class="col-9">
                         Llegada
@@ -49,7 +49,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                     </div>
                 </div>
             </th>
-            <th scope="col" class="sorting" >
+            <th scope="col" class="sorting" style="max-width: 200px;" >
                 <div class="row">
                     <div class="col-10">
                         Problema
@@ -59,7 +59,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                     </div>
                 </div>
             </th>
-            <th scope="col" class="sorting" >
+            <th scope="col" class="sorting" style="max-width: 160px;">
                 <div class="row">
                     <div class="col-9">
                         Devolucion
@@ -83,7 +83,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
     </thead>
     <tbody class="table-group-divider">
         <?php foreach ($ordenes as $key => $orden) : ?>
-            <tr id="fila" id-orden="<?php echo $orden['id'] ?>">
+            <tr class="fila" id="<?php echo $orden["id"];?>" tipoModal="orden" >
                 <td> <!-- ESTADO -->
                 <?php
                     if($orden["estado"] == 1){
@@ -112,7 +112,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                         $iconoBtn = '<i class="fa-solid fa-hand-holding-dollar fa-flip-horizontal"> </i> <i class="fa-solid"> '.$estado.' </i> <i class="fa-solid fa-hand-holding-dollar"></i>';
                     }
                 ?>
-                    <a id-orden="<?php echo $orden["id"];?>" class="btn btn-sm <?php echo $clase_btn_estado;?> btn-outline-dark btnOrden">
+                    <a id="<?php echo $orden["id"];?>" tipoModal="orden" class="btn btn-sm <?php echo $clase_btn_estado;?> btn-outline-dark btnOrden">
                         <?php echo $iconoBtn;?>
                     </a>
                 </td>
@@ -125,7 +125,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                 <td> <!-- FECHA RECIBIDO -->
                     <?php echo $orden["fecha_recibido"]; ?>
                 </td>
-                <td> <!-- PROBLEMA -->
+                <td style="max-width: 600px; overflow: hidden; text-overflow: ellipsis;"> <!-- PROBLEMA -->
                     <?php echo $orden["problema"]; ?>
                 </td>
                 <td> <!-- DEVOLUCION -->
@@ -154,8 +154,8 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
     </table>
 </div>
 
-<!-- Modal AUTO -->
-<div class="modal fade" id="ordenModal" tabindex="-1" aria-labelledby="ordenModalLabel" aria-hidden="true">
+<!-- Modal ORDEN -->
+<div class="modal fade modal-lg" id="ordenModal" tabindex="-1" aria-labelledby="ordenModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -169,40 +169,138 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
          <!-- id   id_auto fecha_recibido  problema	notas	adjuntos	id_recibo	id_presupuesto	solucion	fecha_devolucion	estado -->
 
                         <input class="form-control" type="hidden" name="ordenId" id="ordenId" required>
-                        <input class="form-control" type="hidden" name="fecha_recibido" id="fecha_recibido" required>
                         <input class="form-control" type="hidden" name="id_recibo" id="id_recibo" required>
                         <input class="form-control" type="hidden" name="ordenSolucion" id="solucion" required>
-                        <input class="form-control" type="hidden" name="ordenEstado" id="ordenEstado" required>
-                        <input class="form-control" type="hidden" name="ordenAutoMarca" id="ordenAutoMarca" required>
-                        <input class="form-control" type="hidden" name="ordenAutoModelo" id="ordenAutoModelo" required>
+                        <!-- <input class="form-control" type="hidden" name="ordenEstado" id="ordenEstado" required> -->
                         <input class="form-control" type="hidden" name="ordenAutoCliente" id="ordenAutoCliente" required>
 
-                        <div class="form-floating mb-2">
-                            <input autocomplete="off" class="form-control" type="text" placeholder="Ingrese problema" name="ordenProblema" id="ordenProblema" required>
-                            <label for="floatingInput">Problema</label>
-                        </div>  
-                
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-floating mb-2">
-                                    <input autocomplete="off" class="form-control" list="dataListAutos" name="ordenAutoPatente" id="ordenAutoPatente" placeholder="Ingrese marca" required>
-                                    <label for="floatingInput">Patente del auto</label>
-                                    <div class="invalid-feedback">
-                                        Ingrese una patente valida
+                        <div class="mb-2">
+                            <h5>Auto</h5>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating mb-2">
+                                        <input autocomplete="off" class="form-control " list="dataListAutos" name="ordenAutoPatente" id="ordenAutoPatente" placeholder="Ingrese marca" required>
+                                        <label for="floatingInput">Patente</label>
+                                        <div class="invalid-feedback">
+                                            Ingrese una patente valida
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col dataOrden" style="display: none;">
+                                    <div class="form-floating mb-2">
+                                        <input autocomplete="off" class="form-control" list="marcas" name="ordenAutoMarca" id="ordenAutoMarca" placeholder="Ingrese marca" disabled readonly>
+                                        <label for="floatingInput">Marca</label>
+                                    </div>
+                                </div>
+                                <!-- <div class="col" style="display: none;">
+                                    <div class="form-floating mb-2" >
+                                        <input autocomplete="off" class="form-control" list="marcas" name="autoMarca" id="autoMarca" placeholder="Ingrese marca" required>
+                                        <label for="floatingInput">Marca</label>
+                                        <div class="invalid-feedback">
+                                            Ingrese una marca valida
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <div class="col dataOrden" style="display: none;">
+                                    <div class="form-floating mb-2">
+                                        <input autocomplete="off" class="form-control" list="modelosMarca" name="ordenAutoModelo" id="ordenAutoModelo" placeholder="Ingrese modelo" disabled readonly>
+                                        <label for="floatingInput">Modelo</label>
+                                        <div class="invalid-feedback">
+                                            Ingrese un modelo valido
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+
+                        </div>
+                        <div class="mb-2">
+                            <hr>
+                            <h5>Orden</h5>
+
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-floating mb-2">
+                                            <textarea autocomplete="off" class="form-control" type="text" placeholder="Ingrese problema" name="ordenProblema" id="ordenProblema" style="height: 150px"  required> </textarea >
+                                            <label for="floatingInput">Problema</label>
+                                        </div>  
                                     </div>
                                 </div>
                             </div>
-                            <div class="col container-fluid mx-auto my-auto text-center">
-                                <button type="button" id="btnAgregarAuto" <?php echo $clase_boton_lg ?>>
-                                    Agregar auto
-                                </button>
+
+                            <div class="div dataOrden" style="display: none;">
+                                <div class="row mb-3">
+                                    <div class="col" style="max-width: 320px;">
+                                        <div class="input-group container-fluid">
+                                            <div class="input-group-text">Fecha recibido</div>
+                                            <input autocomplete="off" class="form-control text-center" type="date" name="fecha_recibido" id="fecha_recibido" disabled readonly>
+                                        </div>
+                                    <!-- <div class="form-floating mb-2"> -->
+                                        <!-- <input class="form-control" type="hidden" name="fecha_recibido" id="fecha_recibido" disabled readonly> -->
+                                        <!-- <input autocomplete="off" class="form-control" type="date" name="fecha_recibido" id="fecha_recibido" disabled readonly>
+                                        <label for="floatingInput">Fecha recibido</label>
+                                    </div> -->
+                                    </div>
+                                
+                                    <div class="col">  
+                                        <!-- TODO agregar colores a select -->
+                                        <div class="input-group container-fluid"> 
+                                            <div class="input-group-text">Estado</div>
+                                            <select class="form-select text-center" name="ordenEstado" id="ordenEstado" required> </select>
+                                        </div>
+                                        <!-- <div class="row container-fluid">
+                                            <label for="staticEmail" class="col-sm-2 col-form-label">Estado</label>
+                                            <select class="col-sm-10 col-form-select" name="ordenEstado" id="ordenEstado" required> </select>
+
+                                        </div> -->
+
+                                        <!-- <div class="form-floating mb-2">
+                                            <select class="form-select" name="ordenEstado" id="ordenEstado" required>
+                                            </select> -->
+                                            <!-- <input autocomplete="off" class="form-control" type="text" name="ordenEstado" id="ordenEstado" required> -->
+                                            <!-- <label for="floatingInput">Estado</label>
+                                        </div> -->
+
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 container-fluid">
+                                    <div class="col">
+                                        <a id="btnLlegada" tipoModal="llegada" class="btn btn-bg text-bg-info btn-outline-dark btnLlegada">
+                                            <i class="fa-solid fa-list-check"></i> <i class="fa-solid"> Llegada </i> <i class="fa-solid fa-list-check"> </i>
+                                        </a>
+                                    </div>
+                                    <div class="col">
+                                        <a id="btnTrabajo" tipoModal="llegada" class="btn btn-bg text-bg-warning btn-outline-dark btnTrabajo">
+                                            <i class="fa-solid fa-gears"></i> <i class="fa-solid"> Trabajo </i> <i class="fa-solid fa-gears fa-flip-horizontal"> </i>
+                                        </a>
+                                    </div>
+                                    <div class="col-auto">
+                                        <a id="btnEntrega" tipoModal="llegada" class="btn btn-bg text-bg-success btn-outline-dark btnEntrega">
+                                        <i class="fa-solid fa-car-burst fa-flip-horizontal"></i> <i class="fa-solid"> Entrega </i> <i class="fa-solid fa-car-burst"></i>
+                                        </a>
+                                    </div>
+
+                                </div>
+
                             </div>
+
+                            <div class="col">
+                                <div class="form-floating mb-2" style="display: none;">
+                                    <textarea  autocomplete="off" class="form-control" type="text" placeholder="Ingrese notas" name="ordenNotas" id="ordenNotas" style="height: 150px" required> </textarea >
+                                    <label for="floatingInput">Notas</label>
+                                </div>
+                            </div>
+                            <!-- <div class="row">
+                                <div class="mb-2">
+                                    <label for="formFileMultiple" class="form-label">Adjuntos</label>
+                                    <input class="form-control" type="file" id="formFileMultiple" multiple>
+                                </div>
+                            </div> -->
+
                         </div>
-                        
-                        <div class="form-floating mb-2">
-                            <input autocomplete="off" class="form-control" type="text" placeholder="Ingrese notas" name="ordenNotas" id="ordenNotas" required>
-                            <label for="floatingInput">Notas</label>
-                        </div>                
+                                       
                     </div>
             </div>
             <div class="modal-footer">

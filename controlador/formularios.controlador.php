@@ -45,6 +45,15 @@ class ControladorFormularios {
         return $respuesta;
     } 
 
+    // SELECCIONAR ORDEN
+    static public function ctrlSeleccionarOrden($id){
+        $tabla = "ordenes";
+
+        $respuesta = ModeloFormularios::mdlSeleccionarId($tabla, $id);
+        
+        return $respuesta;
+    } 
+
     // SELECCIONAR MODELO POR NOMBRE
     static public function ctrlSeleccionarModeloNombre($modeloNombre){
         $tabla = "modelos";

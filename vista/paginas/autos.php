@@ -14,7 +14,7 @@
     <table cellspacing=0 class="table table-info table-bordered table-hover table-inverse table-striped text-center table-sm" role="grid" id="tableAuto" width=100% >
     <thead>
         <tr>
-            <th scope="col" class="sorting">
+            <th scope="col" class="sorting" style="max-width: 200px;">
                 <div class="row">
                     <div class="col-10">
                         Estado
@@ -24,7 +24,7 @@
                     </div>
                 </div>
             </th>
-            <th scope="col" class="sorting" >
+            <th scope="col" class="sorting" style="max-width: 150px;">
                 <div class="row">
                     <div class="col-9">
                         Patente
@@ -44,7 +44,7 @@
                     </div>
                 </div>
             </th>
-            <th scope="col" class="sorting" >
+            <th scope="col" class="sorting" style="max-width: 100px;">
                 <div class="row">
                     <div class="col-9">
                         Año
@@ -68,7 +68,7 @@
     </thead>
     <tbody class="table-group-divider">
         <?php foreach ($autos as $key => $auto) : ?>
-            <tr id="fila" id-auto="<?php echo $auto['id'] ?>">
+            <tr class="fila" id="<?php echo $auto["id"];?>" tipoModal="auto">
                 <td> <!-- ESTADO -->
                 <?php
                     if($auto["id_estado"] == 0){
