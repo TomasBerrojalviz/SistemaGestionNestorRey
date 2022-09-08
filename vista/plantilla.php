@@ -102,14 +102,16 @@
 
     ?>
     </main>
+
+    <!-- <input type="hidden" name="modalAbierto" id="modalAbierto" value=""> -->
     
     <!-- Modal REALIZADO CORRECTAMENTE -->
-    <div class="modal fade" id="succesModal" tabindex="-1" aria-labelledby="succesModalLabel" aria-hidden="true">
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                 <h5 class="modal-title">Realizado correctamente</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('HOME')"></button>
                 </div>
                 <div class="modal-body">
                     <div class="container">
@@ -117,7 +119,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="recargar()">Cerrar</button>
+                    <button type="button" class="btn btn-success" id="btn_success_modal" data-bs-dismiss="modal" onclick="DisplayVolver('HOME')">Cerrar</button>
                     
                 </div>
                 
@@ -132,7 +134,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                 <h5 class="modal-title">Eliminado correctamente</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('HOME')"></button>
                 </div>
                 <div class="modal-body">
                     <div class="container">
@@ -140,7 +142,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="recargar()">Cerrar</button>
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="DisplayVolver('HOME')">Cerrar</button>
                     
                 </div>
                 
@@ -192,7 +194,7 @@
             </div>
             
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DisplayVolver('HOME')">Cerrar</button>
                 <input type="submit" name="btn_cliente_modal" id="btn_cliente_modal" class="btn btn-primary" value="Agregar"/>
             </div>
             
@@ -221,7 +223,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DisplayVolver('HOME')">Cerrar</button>
                     <input type="submit" name="btn_marca_modal" id="btn_marca_modal" class="btn btn-primary" value="Guardar" />
                 </div>
                 
@@ -258,7 +260,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DisplayVolver('HOME')">Cerrar</button>
                     <input type="submit" name="btn_modelo_modal" id="btn_modelo_modal" class="btn btn-primary" value="Guardar" />
                 </div>
                 
@@ -301,7 +303,7 @@
                                     </div>
                                 </div>
                                 <div class="col container-fluid mx-auto my-auto text-center">
-                                    <button type="button" id="btnAgregarMarca" <?php echo $clase_boton_lg ?>>
+                                    <button modal="auto" type="button" id="btnAgregarMarca" <?php echo $clase_boton_lg ?>>
                                         Agregar marca
                                     </button>
                                 </div>
@@ -318,7 +320,7 @@
                                     </div>
                                 </div>
                                 <div class="col container-fluid mx-auto my-auto text-center" >
-                                    <button type="button" id="btnAgregarModelo" <?php echo $clase_boton_lg ?>>
+                                    <button modal="auto" type="button" id="btnAgregarModelo" <?php echo $clase_boton_lg ?>>
                                         Agregar modelo
                                     </button>
                                 </div>
@@ -340,7 +342,7 @@
                                     </div>
                                 </div>
                                 <div class="col container-fluid mx-auto my-auto text-center">
-                                    <button type="button" id="btnAgregarCliente" <?php echo $clase_boton_lg ?>>
+                                    <button modal="auto" type="button" id="btnAgregarCliente" <?php echo $clase_boton_lg ?>>
                                         Agregar cliente
                                     </button>
                                 </div>
@@ -348,7 +350,7 @@
                         </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DisplayVolver('HOME')">Cerrar</button>
                     <input type="submit" id="btn_auto_modal" name="btn_auto_modal" class="btn btn-primary" value="Agregar"/>
                 </div>
                 
@@ -395,7 +397,7 @@
             }
         ?>
     </datalist>
-    <script>
+    <!-- <script>
         function load_js(srcScript) {
             var head= document.getElementsByTagName('head')[0];
             var script= document.createElement('script');
@@ -405,7 +407,12 @@
         load_js("js/modals.js");
         load_js("js/functions.js");
         
-    </script>
+    </script> -->
+    
+    <script src="js/modals.js"></script>
+    <script src="js/functions.js"></script>
+    <script src="js/ordenes.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.20/js/jquery.dataTables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.20/js/dataTables.bootstrap4.min.js"></script>
 </body>

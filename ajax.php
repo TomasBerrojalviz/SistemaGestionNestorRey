@@ -5,8 +5,6 @@ require_once "controlador/plantilla.controlador.php";
 require_once "controlador/formularios.controlador.php";
 require_once "modelo/formularios.modelo.php";
 
-$marcas = ControladorFormularios::ctrlSeleccionarTabla("marcas");
-$modelos = ControladorFormularios::ctrlSeleccionarTabla("modelos");
 
 $clientes = ControladorFormularios::ctrlSeleccionarTabla("clientes");
 
@@ -68,13 +66,15 @@ $modelosDeseados = array();
 
         if($_POST["action"] == "seleccionarModelos"){
             $marca = strtoupper($_POST["marca"]);
-            $id_marca = 0;            
+            $id_marca = 0;
+            $marcas = ControladorFormularios::ctrlSeleccionarTabla("marcas");            
             foreach ($marcas as $key => $value){
                 if($marca == $value["marca"]){
                     $id_marca = $value["id"];
                 }
             }
             $modelosDeseados = array();
+            $modelos = ControladorFormularios::ctrlSeleccionarTabla("modelos");
             if($modelos){                
                 foreach ($modelos as $key => $modelo){
                     if($modelo['id_marca'] == $id_marca){
@@ -251,6 +251,24 @@ $modelosDeseados = array();
             $autoCompleto = ControladorFormularios::ctrlSeleccionarAutoPatente($_POST["patente"]);
             if($autoCompleto){
                 echo json_encode($autoCompleto, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
+        if($_POST["action"] == "obtenerMarcas"){
+            $marcas = ControladorFormularios::ctrlSeleccionarTabla("marcas");
+            if($marcas){
+                echo json_encode($marcas, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
+        if($_POST["action"] == "obtenerModelos"){
+            $modelos = ControladorFormularios::ctrlSeleccionarTabla("modelos");
+            if($modelos){
+                echo json_encode($modelos, JSON_UNESCAPED_UNICODE);
                 exit;
             }
             echo "error";

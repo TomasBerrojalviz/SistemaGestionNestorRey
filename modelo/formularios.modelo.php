@@ -284,6 +284,25 @@ class ModeloFormularios {
 
         $stmt = null;
     }
+    // BORRAR MODELOS RELACIONADOS
+    static public function mdlBorrarModelosMarca($tabla, $id_marca){
+
+        $stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id_marca = :id_marca");
+
+        $stmt->bindParam(":id_marca", $id_marca, PDO::PARAM_INT);
+
+        if($stmt->execute()){
+
+            return TRUE;
+        }
+        else{
+            print_r(Conexion::conectar()->error_info());
+        }
+
+        $stmt->close();
+
+        $stmt = null;
+    }
 
     
 }

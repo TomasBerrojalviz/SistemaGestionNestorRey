@@ -271,11 +271,15 @@ class ControladorFormularios {
                
         if(isset($idEliminar)){
 
-            $tabla = "marcas";   
+            $tabla = "marcas";
+            $tabla2 = "modelos";   
 
             $id = $idEliminar;
             
             $respuesta = ModeloFormularios::mdlBorrarId($tabla, $id);
+            if($respuesta){
+                $respuesta = ModeloFormularios::mdlBorrarModelosMarca($tabla2, $id);
+            }
             
             return $respuesta;
         }

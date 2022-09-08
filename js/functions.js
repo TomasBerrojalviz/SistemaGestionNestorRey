@@ -1,56 +1,10 @@
 const dataOrden = document.getElementsByClassName("dataOrden");
 var tablasVacias = document.getElementsByClassName("dataTables_empty");
+var modalAbierto = "";
 
-$( document ).ready(function() {    
-    $('#tableAuto').DataTable();
-    $("#tableAuto_filter").addClass('text-light float-end');
-    $("#tableAuto_paginate").addClass('text-light float-end');
-    $("#tableAuto_length").addClass('text-light  mx-1');
-    $("#tableAuto_info").addClass('text-light mx-1');
-
-    $('#tableMarca').DataTable();
-    $("#tableMarca_filter").addClass('text-light float-end');
-    $("#tableMarca_paginate").addClass('text-light float-end');
-    $("#tableMarca_length").addClass('text-light mx-1');
-    $("#tableMarca_info").addClass('text-light mx-1');
-
-    $('#tableModelo').DataTable();
-    $("#tableModelo_filter").addClass('text-light float-end');
-    $("#tableModelo_paginate").addClass('text-light float-end');
-    $("#tableModelo_length").addClass('text-light  mx-1');
-    $("#tableModelo_info").addClass('text-light mx-1');
-    
-    $('#tableCliente').DataTable();
-    $("#tableCliente_filter").addClass('text-light float-end');
-    $("#tableCliente_paginate").addClass('text-light float-end');
-    $("#tableCliente_length").addClass('text-light  mx-1');
-    $("#tableCliente_info").addClass('text-light mx-1');
-    
-    $('#tableOrdenes').DataTable();
-    $("#tableOrdenes_filter").addClass('text-light float-end');
-    $("#tableOrdenes_paginate").addClass('text-light float-end');
-    $("#tableOrdenes_length").addClass('text-light');
-    var myElement = document.getElementById("tableOrdenes_length");
-    // myElement.children[0].innerHTML = myElement.children[0].innerHTML.replace('Show', 'Mostrar');
-    // myElement.children[0].innerHTML = myElement.children[0].innerHTML.replace('entries', 'entradas');
-    // console.log(myElement.children[0].classList.add(''));
-    // myElement.children[0].addClass('container-fluid');
-    // console.log(myElement.children[0]);
-    // myElement.addClass('text-light');
-    // for (let i = 0; i < myElement.children.length; i++) {
-    //     console.log(myElement.children[i]);
-    //     console.log("--------------------------------");
-    //     console.log(myElement.children[i].children[0]);
-    //     console.log("--------------------------------");
-    //     console.log(myElement.children[i].innerHTML);
-    //     myElement.children[i].innerHTML = "Mostrar ";
-    //     myElement.children[i].addChild(myElement.children[i].children[0]);
-    //     myElement.children[i].innerHTML = " Entradas";
-    //     for (let j = 0; j < myElement.children[i].children.length; j++) {
-    //         console.log(myElement.children[i].children[j]);
-    //     }
-    // }
-    $("#tableOrdenes_info").addClass('text-light mx-1');
+$( document ).ready(function() {
+    // modalAbierto = false;
+    setTablas();
 
     
     for (var i = 0; i < tablasVacias.length; i++) {
@@ -60,6 +14,7 @@ $( document ).ready(function() {
 
     //MODAL FORM MARCA PARA AUTO
     $('#autoMarca').change(function(e){
+        actualizarTablas();
         verificarMarca($(this));
         var marca = $(this).val();
         console.log(marca);
@@ -135,12 +90,15 @@ $( document ).ready(function() {
         e.preventDefault();
         var id = $(this).attr('id');
         var tipoModal = $(this).attr('tipoModal');
-        console.log(tipoModal);
 
-        if(tipoModal == "orden")
+        if(tipoModal == "orden"){
+            modalAbierto = "ORDEN";
             abrirModalOrden(id);
-        else if(tipoModal == "auto")
+        }
+        else if(tipoModal == "auto"){
+            modalAbierto = "AUTO";
             abrirModalAuto(id);
+        }
 
     });
 });
@@ -325,11 +283,78 @@ function estadosSelect(id, select){
 
 }
 
-function recargar(){
-    location.reload();
-}
 function editarModal(){
     // preventDefault();
     $('#editarModeloModal').modal('show');
     
+}
+
+function setTablas(){ 
+    $('#tableAuto').DataTable();
+    $("#tableAuto_filter").addClass('text-light float-end');
+    $("#tableAuto_paginate").addClass('text-light float-end');
+    $("#tableAuto_length").addClass('text-light  mx-1');
+    $("#tableAuto_info").addClass('text-light mx-1');
+
+    $('#tableMarca').DataTable();
+    $("#tableMarca_filter").addClass('text-light float-end');
+    $("#tableMarca_paginate").addClass('text-light float-end');
+    $("#tableMarca_length").addClass('text-light mx-1');
+    $("#tableMarca_info").addClass('text-light mx-1');
+
+    $('#tableModelo').DataTable();
+    $("#tableModelo_filter").addClass('text-light float-end');
+    $("#tableModelo_paginate").addClass('text-light float-end');
+    $("#tableModelo_length").addClass('text-light  mx-1');
+    $("#tableModelo_info").addClass('text-light mx-1');
+    
+    $('#tableCliente').DataTable();
+    $("#tableCliente_filter").addClass('text-light float-end');
+    $("#tableCliente_paginate").addClass('text-light float-end');
+    $("#tableCliente_length").addClass('text-light  mx-1');
+    $("#tableCliente_info").addClass('text-light mx-1');
+    
+    $('#tableOrdenes').DataTable();
+    $("#tableOrdenes_filter").addClass('text-light float-end');
+    $("#tableOrdenes_paginate").addClass('text-light float-end');
+    $("#tableOrdenes_length").addClass('text-light');
+    $("#tableOrdenes_info").addClass('text-light mx-1');
+
+    actualizarTablas();
+}
+
+function actualizarTablas() {
+    
+    clientes = obtenerClientes();
+    marcas = obtenerMarcas();
+    modelos = obtenerModelos();
+    
+    marcas.done(function(responseMarcas){
+        if(responseMarcas != "error"){
+            var info_marcas = JSON.parse(responseMarcas);
+            console.log(info_marcas);
+            
+            while (dataListMarca.firstChild) {
+                dataListMarca.removeChild(dataListMarca.firstChild);
+            }
+
+            info_marcas.forEach(marca => {
+                dataListMarca.appendChild(agregarOptionMarca(marca));
+            });
+        }
+    });
+    modelos.done(function(responseModelos){
+        if(responseModelos != "error"){
+            var info_modelos = JSON.parse(responseModelos);
+            console.log(info_modelos);
+            
+            while (dataListModelo.firstChild) {
+                dataListModelo.removeChild(dataListModelo.firstChild);
+            }
+            
+            info_modelos.forEach(modelo => {
+                dataListModelo.appendChild(agregarOptionMarca(modelo));
+            });
+        }
+    });
 }

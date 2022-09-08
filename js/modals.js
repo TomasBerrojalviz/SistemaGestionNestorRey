@@ -1,5 +1,11 @@
 
-const clientes = obtenerClientes();
+var clientes = obtenerClientes();
+var marcas = obtenerMarcas();
+var modelos = obtenerModelos();
+
+// VAR DATA LIST MARCA
+var dataListMarca = document.getElementById("marcas");
+var dataListModelo = document.getElementById("modelos");
 
 // VAR MODAL MARCA
 var marcaModalTitle = document.getElementById("marcaModalTitle");
@@ -36,24 +42,14 @@ var autoYear = document.getElementById("autoYear");
 var autoCliente = document.getElementById("autoCliente");
 var btn_auto_modal = document.getElementById("btn_auto_modal");
 
-// VAR MODAL OREDEN
-var ordenModalTitle = document.getElementById("ordenModalTitle");
-var ordenId = document.getElementById("ordenId");
-var fecha_recibido = document.getElementById("fecha_recibido");
-var id_recibo = document.getElementById("id_recibo");
-var ordenProblema = document.getElementById("ordenProblema");
-var ordenEstado = document.getElementById("ordenEstado");
-var ordenAutoPatente = document.getElementById("ordenAutoPatente");
-var ordenAutoMarca = document.getElementById("ordenAutoMarca");
-var ordenAutoModelo = document.getElementById("ordenAutoModelo");
-var ordenNotas = document.getElementById("ordenNotas");
-var ordenAutoCliente = document.getElementById("ordenAutoCliente");
-var btn_orden_modal = document.getElementById("btn_orden_modal");
 
 $( document ).ready(function() {
     //MODAL FORM AGREGAR MARCA
     $('#btnAgregarMarca').click(function(e){ 
         e.preventDefault();
+        if(modalAbierto){
+            $('#autoModal').modal('hide');
+        }
 
         abrirModalMarca(0);
     });
@@ -69,6 +65,9 @@ $( document ).ready(function() {
     //MODAL FORM AGREGAR MODELO
     $('#btnAgregarModelo').click(function(e){ 
         e.preventDefault();
+        if(modalAbierto){
+            $('#autoModal').modal('hide');
+        }
 
         abrirModalModelo(0);
     });
@@ -84,6 +83,15 @@ $( document ).ready(function() {
     //MODAL FORM AGREGAR CLIENTE
     $('#btnAgregarCliente').click(function(e){ 
         e.preventDefault();
+        var parent = this.parentNode;
+        while(!parent.classList.contains("modal") && parent.tagName !=  "MAIN"){
+            parent = parent.parentNode;
+            if(parent.classList.contains("modal")){
+                $(parent).modal('hide');
+                console.log(parent);
+                modalAuto = true;
+            }
+        }
 
         abrirModalCliente(0);
     });
@@ -101,13 +109,7 @@ $( document ).ready(function() {
         e.preventDefault();
 
         abrirModalAuto(0);
-    });
-
-    //MODAL FORM CREAR ORDEN
-    $('#btnAgregarOrden').click(function(e){ 
-        e.preventDefault();
-
-        abrirModalOrden(0);
+        modalAbierto = "AUTO";
     });
 
     //MODAL FORM ELIMINAR MARCA
@@ -219,12 +221,13 @@ $( document ).ready(function() {
                     if (response != "error") {
                         var marca = JSON.parse(response);
                         if(marca){
+
                             if(window.history.replaceState) {
                                 window.history.replaceState(null, null, window.location.href);
                             }
 
                             ocultarModal("marcaModal");
-                            mostrarModal("succesModal");
+                            mostrarModal("successModal");
                         }
                     }
                 },
@@ -266,7 +269,7 @@ $( document ).ready(function() {
                             }
 
                             ocultarModal("modeloModal");
-                            mostrarModal("succesModal");
+                            mostrarModal("successModal");
                         }
                     }
                 },
@@ -313,7 +316,7 @@ $( document ).ready(function() {
                             }
 
                             ocultarModal("clienteModal");
-                            mostrarModal("succesModal");
+                            mostrarModal("successModal");
                         }
                     }
                 },
@@ -393,7 +396,7 @@ $( document ).ready(function() {
                                             }
 
                                             ocultarModal("autoModal");
-                                            mostrarModal("succesModal");
+                                            mostrarModal("successModal");
                                         }
                                     }
                                 },
@@ -410,82 +413,19 @@ $( document ).ready(function() {
     });
 
     
-    //BTN MODAL ORDEN 
-    $('#btn_orden_modal').click(function(e){
-        
-        // var ordenModalTitle = document.getElementById("ordenModalTitle");
-        // var ordenId = document.getElementById("ordenId");
-        // var fecha_recibido = document.getElementById("fecha_recibido");
-        // var id_recibo = document.getElementById("id_recibo");
-        // var ordenProblema = document.getElementById("ordenProblema");
-        // var ordenAutoPatente = document.getElementById("ordenAutoPatente");
-        // var ordenAutoMarca = document.getElementById("ordenAutoMarca");
-        // var ordenAutoModelo = document.getElementById("ordenAutoModelo");
-        // var ordenNotas = document.getElementById("ordenNotas");
-        // var ordenAutoCliente = document.getElementById("ordenAutoCliente");
-        // var btn_orden_modal = document.getElementById("btn_orden_modal");
- 
-        // if(ordenInvalida()){
-        //     error(error.message);
-        // }
-        // else{
-            e.preventDefault(); 
-            var action = btn_orden_modal.getAttribute('accion');
-
-            var autoBuscado = obtenerAutoPorPatente(ordenAutoPatente.value);
-            autoBuscado.done(function(responseAuto){
-                if(responseAuto != "error"){
-                    var info_auto = JSON.parse(responseAuto);
-                    console.log(info_auto);
-                    ordenAutoCliente.value = info_auto[0].id_cliente;
-                    var id_presupuesto =  0;
-                    $.ajax({
-                        type: "POST",
-                        url: "ajax.php",
-                        async: true,
-                        // id   id_auto fecha_recibido  problema	notas	adjuntos	id_recibo	id_presupuesto	solucion	fecha_devolucion	estado
-                        data: {
-                            action:action,
-                            id:ordenId.value,
-                            estado:ordenEstado.value,
-                            id_auto:info_auto[0].id,
-                            problema:ordenProblema.value,
-                            notas:ordenNotas.value,
-                            id_recibo:id_recibo.value,
-                            id_presupuesto:id_presupuesto,
-
-                            // TODO AGREGAR TODO
-
-                        },
-                        success: function(response) {
-                            console.log(response);
-                            if (response != "error") {
-                                var autoCargado = JSON.parse(response);
-                                if(autoCargado){
-                                    if(window.history.replaceState) {
-                                        window.history.replaceState(null, null, window.location.href);
-                                    }
-
-                                    ocultarModal("ordenModal");
-                                    mostrarModal("succesModal");
-                                }
-                            }
-                        },
-                        error: function(error) {
-                            alert(error);
-                        }
-                    });
-                }
-            });
-            // });
-        // }
-                
-    });
             
     
     
 });
 
+function agregarOptionMarca(marca) {
+    var option = document.createElement("option");
+    option.id = marca["id"];
+    option.value = marca["marca"];
+
+    return option;
+
+}
 function agregarOptionModelo(modelo) {
     var option = document.createElement("option");
     option.id = modelo["id"];
@@ -506,14 +446,14 @@ function agregarOptionCliente(cliente) {
 function abrirModalMarca(id) {
 
     if (id == 0){
-        marcaModalTitle.innerHTML = "Agregar modelo";
+        marcaModalTitle.innerHTML = "Agregar marca";
         marcaId.value = 0;
         marcaValor.value = "";
         btn_marca_modal.setAttribute("accion", "agregarMarca");
-        btn_marca_modal.value = "Agregar modelo";
+        btn_marca_modal.value = "Agregar marca";
     }
     else{
-        marcaModalTitle.innerHTML = "Editar modelo";
+        marcaModalTitle.innerHTML = "Editar marca";
         marcaId.value = id;
         var marcaEditar = obtenerMarca(id);
         marcaEditar.done(function(responseCliente){
@@ -522,7 +462,7 @@ function abrirModalMarca(id) {
         });
         
         btn_marca_modal.setAttribute("accion", "editarMarca");
-        btn_marca_modal.value = "Editar modelo";
+        btn_marca_modal.value = "Editar marca";
 
     }
     mostrarModal("marcaModal");
@@ -647,87 +587,6 @@ function abrirModalAuto(id) {
     mostrarModal("autoModal");
 }
 
-function abrirModalOrden(id) {
-    
-    // var ordenModalTitle = document.getElementById("ordenModalTitle");
-    // var ordenId = document.getElementById("ordenId");
-    // var fecha_recibido = document.getElementById("fecha_recibido");
-    // var id_recibo = document.getElementById("id_recibo");
-    // var ordenProblema = document.getElementById("ordenProblema");
-    // var ordenAutoPatente = document.getElementById("ordenAutoPatente");
-    // var ordenAutoMarca = document.getElementById("ordenAutoMarca");
-    // var ordenAutoModelo = document.getElementById("ordenAutoModelo");
-    // var ordenNotas = document.getElementById("ordenNotas");
-    // var ordenAutoCliente = document.getElementById("ordenAutoCliente");
-    // var btn_orden_modal = document.getElementById("btn_orden_modal");
-
-    $(ordenAutoPatente).removeClass('is-invalid').removeClass('is-valid');
-    $(ordenAutoCliente).removeClass('is-invalid').removeClass('is-valid');
-
-    if (id == 0){
-        for (var i = 0; i < dataOrden.length; i++) {
-            var element = dataOrden[i];
-            element.style.display = "none";
-        }
-        ordenModalTitle.innerHTML = "Crear orden";
-        ordenId.value = 0;
-        ordenProblema.value = "";
-        ordenAutoPatente.value = "";
-        ordenNotas.value = "";
-        btn_orden_modal.setAttribute("accion", "crearOrden");
-        btn_orden_modal.value = "Crear orden";
-    }
-    else{ //TODO TERMINAR OBTENER DATOS
-        ordenModalTitle.innerHTML = "Orden";
-        ordenId.value = id;
-        // id_recibo = obtenerRecibo();
-        // ordenProblema = obtenerProblema();
-        // ordenNotas = obtenerNotas();
-        for (var i = 0; i < dataOrden.length; i++) {
-            var element = dataOrden[i];
-            element.style.display = "initial";
-        }
-        var orden = obtenerOrden(id);
-        orden.done(function(responseOrden) {
-            var info_orden = JSON.parse(responseOrden);
-            var autoEditar = obtenerAuto(info_orden[0].id_auto);
-            autoEditar.done(function(responseAuto){
-                var info_auto = JSON.parse(responseAuto);
-                ordenAutoPatente.value = info_auto[0].patente;
-                var modeloAuto = obtenerModelo(info_auto[0].id_modelo);
-                modeloAuto.done(function(responseModelo){
-                    var info_modelo = JSON.parse(responseModelo);
-                    ordenAutoModelo.value = info_modelo[0].modelo;
-                    var marcaAuto = obtenerMarca(info_modelo[0].id_marca);
-                    marcaAuto.done(function(responseMarca){
-                        var info_marca = JSON.parse(responseMarca);
-                        ordenAutoMarca.value = info_marca[0].marca;
-                    });
-                    
-                });
-                // ordenEstado.value = obtenerEstado(id);
-                var clienteAuto = obtenerCliente(info_auto[0].id_cliente);
-                clienteAuto.done(function(responseCliente){
-                    var info_cliente = JSON.parse(responseCliente);
-                    ordenAutoCliente.value = info_cliente[0].nombre;
-                    
-                });
-                
-            });
-            ordenEstado.value = info_orden[0].id_estado;
-            estadosSelect(ordenEstado.value, ordenEstado);
-            fecha_recibido.value = info_orden[0].fecha_recibido;
-            id_recibo.value = info_orden[0].id_recibo;
-            ordenProblema.value = info_orden[0].problema;
-            ordenNotas.value = info_orden[0].notas;
-        });
-        
-        btn_orden_modal.setAttribute("accion", "editarOrden");
-        btn_orden_modal.value = "Guardar";
-
-    }
-    mostrarModal("ordenModal");
-}
 
 function mostrarModal(tipoModal){
     $('#'+tipoModal).modal('show');
@@ -736,6 +595,29 @@ function mostrarModal(tipoModal){
 function ocultarModal(tipoModal){
     $('#'+tipoModal).modal('hide');
 }
+
+function obtenerMarcas() {
+    var action = 'obtenerMarcas';
+
+    return $.ajax({
+        type: "POST",
+        url: "ajax.php",
+        async: true,
+        data: { action:action}
+    });
+}
+
+function obtenerModelos() {
+    var action = 'obtenerModelos';
+
+    return $.ajax({
+        type: "POST",
+        url: "ajax.php",
+        async: true,
+        data: { action:action}
+    });
+}
+
 
 function obtenerClientes() {
     var action = 'seleccionarClientes';
@@ -814,13 +696,52 @@ function obtenerAuto(id_auto) {
     });
 }
 
-function obtenerOrden(id_orden) {
-    var action = 'seleccionarOrden';
+function recargar(){
+    console.log($(event.target).attr('data-bs-dismiss'));
+    var cerrar = $(event.target).attr('data-bs-dismiss');
+    console.log(cerrar);
+    if(modalAuto){
+        mostrarModal("autoModal");
+    }
+    else if(cerrar == "modal"){
+        console.log(cerrar);
+    }
+    else {
+        location.reload();
+    }
+}
 
-    return $.ajax({
-        type: "POST",
-        url: "ajax.php",
-        async: true,
-        data: { action:action, id_orden:id_orden}
-    });
+function DisplayVolver(FORM){
+    actualizarTablas();
+        console.log(modalAbierto);
+    if(modalAbierto){
+        console.log(modalAbierto);
+        FORM = modalAbierto;
+    }
+    if(FORM == "AUTO"){
+        $("#successModal").modal('hide');
+        $("#deleteModal").modal('hide');
+        $("#clienteModal").modal('hide');
+        $("#marcaModal").modal('hide');
+        $("#modeloModal").modal('hide');
+        $("#autoModal").modal('show');
+    }
+    else if(FORM == "ORDEN"){
+        $("#successModal").modal('hide');
+        $("#deleteModal").modal('hide');
+        // $("#clienteModal").modal('hide');
+        // $("#marcaModal").modal('hide');
+        // $("#modeloModal").modal('hide');
+        // $("#autoModal").modal('hide');
+        $("#ordenModal").modal('show');
+    }
+    if(FORM == "HOME"){
+        $("#successModal").modal('hide');
+        $("#deleteModal").modal('hide');
+        location.reload();
+    }
+    // if(FORM == "VINCULADOS"){
+    //     $("#ModalMessageReturn").modal('hide');
+    //     DisplayVinculados();
+    // }
 }

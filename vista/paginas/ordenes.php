@@ -222,7 +222,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-floating mb-2">
-                                            <textarea autocomplete="off" class="form-control" type="text" placeholder="Ingrese problema" name="ordenProblema" id="ordenProblema" style="height: 150px"  required> </textarea >
+                                            <textarea autocomplete="off" class="form-control" type="text" placeholder="Ingrese problema" name="ordenProblema" id="ordenProblema" style="height: 150px"  required></textarea >
                                             <label for="floatingInput">Problema</label>
                                         </div>  
                                     </div>
@@ -231,10 +231,10 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
 
                             <div class="div dataOrden" style="display: none;">
                                 <div class="row mb-3">
-                                    <div class="col" style="max-width: 320px;">
+                                    <div class="col" style="max-width: 350px;">
                                         <div class="input-group container-fluid">
                                             <div class="input-group-text">Fecha recibido</div>
-                                            <input autocomplete="off" class="form-control text-center" type="date" name="fecha_recibido" id="fecha_recibido" disabled readonly>
+                                            <input autocomplete="off" class="form-control text-center" type="datetime" name="fecha_recibido" id="fecha_recibido" disabled readonly>
                                         </div>
                                     <!-- <div class="form-floating mb-2"> -->
                                         <!-- <input class="form-control" type="hidden" name="fecha_recibido" id="fecha_recibido" disabled readonly> -->
@@ -288,7 +288,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
 
                             <div class="col">
                                 <div class="form-floating mb-2" style="display: none;">
-                                    <textarea  autocomplete="off" class="form-control" type="text" placeholder="Ingrese notas" name="ordenNotas" id="ordenNotas" style="height: 150px" required> </textarea >
+                                    <textarea  autocomplete="off" class="form-control" type="text" placeholder="Ingrese notas" name="ordenNotas" id="ordenNotas" style="height: 150px" required></textarea >
                                     <label for="floatingInput">Notas</label>
                                 </div>
                             </div>
@@ -309,6 +309,97 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
             </div>
             
                 </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal LLEGADA -->
+<div class="modal fade" id="llegadaModal" tabindex="-1" aria-labelledby="llegadaModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title">Informacion de llegada</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('ORDEN')"></button>
+            </div>
+            <div class="modal-body">
+                    
+                <h5> Comentarios </h5>
+                <!-- <br> -->
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating mb-2">
+                                <textarea  autocomplete="off" class="form-control" type="text" placeholder="Ingrese notas" name="llegadaNotas" id="llegadaNotas" style="height: 150px" required></textarea >
+                                <label for="floatingInput">Notas</label>
+                            </div>  
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-2">
+                                <label for="formFileMultiple" class="form-label">Adjuntos</label>
+                                <input class="form-control" type="file" id="formFileMultiple" multiple>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <hr>
+                <!-- <br> -->
+                <h5> Formularios </h5>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="DisplayVolver('ORDEN')">Cerrar</button>
+                <input type="submit" id="btn_llegada_modal" name="btn_llegada_modal" class="btn btn-primary" value="Guardar" />
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal TRABAJO -->
+<div class="modal fade" id="trabajoModal" tabindex="-1" aria-labelledby="trabajoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title">Informacion de trabajo</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('ORDEN')"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <p> TRABAJO </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="DisplayVolver('ORDEN')">Cerrar</button>
+                <input type="submit" id="btn_trabajo_modal" name="btn_llegada_modal" class="btn btn-primary" value="Guardar" />
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal ENTREGA -->
+<div class="modal fade" id="entregaModal" tabindex="-1" aria-labelledby="entregaModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title">Informacion de entrega</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('ORDEN')"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <p> ENTREGA </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="DisplayVolver('ORDEN')">Cerrar</button>
+                <input type="submit" id="btn_entrega_modal" name="btn_entrega_modal" class="btn btn-primary" value="Guardar" />
+                
+            </div>
         </div>
     </div>
 </div>
