@@ -272,12 +272,12 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                                         </a>
                                     </div>
                                     <div class="col">
-                                        <a id="btnTrabajo" tipoModal="llegada" class="btn btn-bg text-bg-warning btn-outline-dark btnTrabajo">
+                                        <a id="btnTrabajo" tipoModal="trabajo" class="btn btn-bg text-bg-warning btn-outline-dark btnTrabajo">
                                             <i class="fa-solid fa-gears"></i> <i class="fa-solid"> Trabajo </i> <i class="fa-solid fa-gears fa-flip-horizontal"> </i>
                                         </a>
                                     </div>
                                     <div class="col-auto">
-                                        <a id="btnEntrega" tipoModal="llegada" class="btn btn-bg text-bg-success btn-outline-dark btnEntrega">
+                                        <a id="btnEntrega" tipoModal="entrega" class="btn btn-bg text-bg-success btn-outline-dark btnEntrega">
                                         <i class="fa-solid fa-car-burst fa-flip-horizontal"></i> <i class="fa-solid"> Entrega </i> <i class="fa-solid fa-car-burst"></i>
                                         </a>
                                     </div>
@@ -349,6 +349,20 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                 <hr>
                 <!-- <br> -->
                 <h5> Formularios </h5>
+                
+                <div class="row mb-3 container-fluid">
+                    <div class="col">
+                        <a id="btnPresupuesto" tipoModal="presupuesto" class="btn btn-bg text-bg-info btn-outline-dark btnPresupuesto">
+                            <i class="fa-solid fa-list-check"></i> <i class="fa-solid"> Presupuesto </i> <i class="fa-solid fa-list-check"> </i>
+                        </a>
+                    </div>
+                    <!-- <div class="col-auto">
+                        <a id="btnEntrega" tipoModal="llegada" class="btn btn-bg text-bg-success btn-outline-dark btnEntrega">
+                        <i class="fa-solid fa-car-burst fa-flip-horizontal"></i> <i class="fa-solid"> Entrega </i> <i class="fa-solid fa-car-burst"></i>
+                        </a>
+                    </div> -->
+
+                </div>
 
             </div>
             <div class="modal-footer">
@@ -398,6 +412,37 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="DisplayVolver('ORDEN')">Cerrar</button>
                 <input type="submit" id="btn_entrega_modal" name="btn_entrega_modal" class="btn btn-primary" value="Guardar" />
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal PRESUPUESTO -->
+<div class="modal fade modal-xl" id="presupuestoModal" tabindex="-1" aria-labelledby="presupuestoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title">PRESUPUESTO</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('LLEGADA')"></button>
+            </div>
+            <div class="modal-body">
+                    
+                <h5> Comentarios </h5>
+                <!-- <br> -->
+
+                <div class="container-fluid" style="border-style: solid">
+                    <?php 
+                        include "vista/utils/presupuesto.php";
+                    ?>
+                </div>
+                
+                <hr>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="DisplayVolver('LLEGADA')">Cerrar</button>
+                <input type="submit" id="btn_presupuesto_modal" name="btn_presupuesto_modal" class="btn btn-primary" value="Guardar" />
                 
             </div>
         </div>

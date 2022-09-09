@@ -96,6 +96,8 @@ $( document ).ready(function() {
     //MODAL LLEGADA
     $('#btnLlegada').click(function(e){
         e.preventDefault();
+        modalAbierto = "LLEGADA";
+
         $('#ordenModal').modal('hide');
         
         mostrarModal("llegadaModal");
@@ -103,6 +105,8 @@ $( document ).ready(function() {
     //MODAL TRABAJO
     $('#btnTrabajo').click(function(e){
         e.preventDefault();
+        modalAbierto = "TRABAJO";
+
         $('#ordenModal').modal('hide');
         
         mostrarModal("trabajoModal");
@@ -110,9 +114,19 @@ $( document ).ready(function() {
     //MODAL ENTREGA
     $('#btnEntrega').click(function(e){
         e.preventDefault();
+        modalAbierto = "ENTREGA";
+
         $('#ordenModal').modal('hide');
         
         mostrarModal("entregaModal");
+    });
+    //MODAL PRESUPUESTO
+    $('#btnPresupuesto').click(function(e){
+        console.log("presupuestoModalLabel");
+        e.preventDefault();
+        $('#llegadaModal').modal('hide');
+        
+        mostrarModal("presupuestoModal");
     });
 
 });

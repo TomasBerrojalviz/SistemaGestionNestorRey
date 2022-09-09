@@ -713,8 +713,9 @@ function recargar(){
 
 function DisplayVolver(FORM){
     actualizarTablas();
-        console.log(modalAbierto);
-    if(modalAbierto){
+    // console.log(modalAbierto);
+
+    if(modalAbierto && FORM == "HOME"){
         console.log(modalAbierto);
         FORM = modalAbierto;
     }
@@ -735,10 +736,16 @@ function DisplayVolver(FORM){
         // $("#autoModal").modal('hide');
         $("#ordenModal").modal('show');
     }
-    if(FORM == "HOME"){
+    else if(FORM == "HOME"){
         $("#successModal").modal('hide');
         $("#deleteModal").modal('hide');
         location.reload();
+    }
+    else if(FORM == "LLEGADA"){
+        $("#successModal").modal('hide');
+        $("#deleteModal").modal('hide');
+        $("#presupuestoModal").modal('hide');
+        $("#llegadaModal").modal('show');
     }
     // if(FORM == "VINCULADOS"){
     //     $("#ModalMessageReturn").modal('hide');
