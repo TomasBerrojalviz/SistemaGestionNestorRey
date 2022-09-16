@@ -274,6 +274,47 @@ $modelosDeseados = array();
             echo "error";
             exit;
         }
+        if($_POST["action"] == "agregarInsumo"){
+            $insumoCargado = ControladorFormularios::ctrlAgregarInsumo();
+            if($insumoCargado){
+                echo json_encode($insumoCargado, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
+        if($_POST["action"] == "obtenerInsumosPresupuesto"){
+            $insumosPresupuesto = ControladorFormularios::ctrlObtenerInsumosPresupuesto();
+            if($insumosPresupuesto){
+                echo json_encode($insumosPresupuesto, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
+        if($_POST["action"] == "obtenerPresupuesto"){
+            $presupuestoObtenido = ControladorFormularios::ctrlObtenerPresupuesto();
+            if($presupuestoObtenido){
+                echo json_encode($presupuestoObtenido, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
+        if($_POST["action"] == "crearPresupuesto"){
+            $presupuestoCreado = ControladorFormularios::ctrlCrearPresupuesto();
+            if($presupuestoCreado){
+                $presupuestoObtenido = ControladorFormularios::ctrlObtenerPresupuesto();
+                if($presupuestoObtenido){
+                    echo json_encode($presupuestoObtenido, JSON_UNESCAPED_UNICODE);
+                    exit;
+                }
+                echo "error";
+                exit;
+            }
+            echo "error";
+            exit;
+        }
 
     }
     exit;

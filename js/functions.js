@@ -1,4 +1,3 @@
-const dataOrden = document.getElementsByClassName("dataOrden");
 var tablasVacias = document.getElementsByClassName("dataTables_empty");
 var modalAbierto = "";
 
@@ -266,8 +265,6 @@ function estadoText(id){
 }
 
 function estadosSelect(id, select){
-    console.log(select);
-    console.log(id);
     while (select.firstChild) {
         select.removeChild(select.firstChild);
     }
@@ -280,6 +277,8 @@ function estadosSelect(id, select){
         }
         select.appendChild(option);
     }
+    console.log(select);
+    console.log(id);
 
 }
 
@@ -357,4 +356,21 @@ function actualizarTablas() {
             });
         }
     });
+}
+
+function generarPDF(tipo, id, cliente){
+    // 210 x 297 mm
+    var ancho = 1000;
+    var alto = 800;
+
+    var x = parseInt((window.screen.width/2) - (ancho / 2));
+    var y = parseInt((window.screen.height/2) - (alto / 2));
+    var nombreVentana = "";
+    var url = "";
+
+    if(tipo == "presupuesto"){
+        url = 'vista/utils/generarPresupuesto.php?pr='+id+'&cl='+cliente;
+        nombreVentana = "Presupuesto";
+    }
+    window.open(url, nombreVentana, "left="+x+",top="+y+",height="+alto+",width="+ancho+",scrollbar=si,location=no,resizeble=si,menubar=no");
 }

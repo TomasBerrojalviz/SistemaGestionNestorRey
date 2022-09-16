@@ -327,6 +327,96 @@ class ControladorFormularios {
 
     }
 
+    // AGREGAR INSUMO
+    static public function ctrlAgregarInsumo(){
+
+        if(isset($_POST["id_presupuesto"])){
+
+            $tabla = "insumos_presupuestos";
+
+            // id_presupuesto descripcion cantidad precio precio_total
+            $datos = array("id_presupuesto" => $_POST["id_presupuesto"],
+                            "descripcion" => strtoupper($_POST["descripcion"]),
+                            "cantidad" => $_POST["cantidad"],
+                            "precio" => $_POST["precio"],
+                            "precio_total" => $_POST["precio_total"]
+                        );
+
+            
+            $respuesta = ModeloFormularios::mdlAgregarInsumo($tabla, $datos);
+            
+            return $respuesta;
+        }
+
+    }
+
+    // OBTENER INSUMOS PRESUPUESTO
+    static public function ctrlObtenerInsumosPresupuesto(){
+
+        if(isset($_POST["id"])){
+
+            $tabla = "insumos_presupuestos";
+            $id_presupuesto = $_POST["id"];
+            
+            $respuesta = ModeloFormularios::mdlObtenerInsumosPresupuesto($tabla, $id_presupuesto);
+            
+            return $respuesta;
+        }
+
+    }
+    // OBTENER PRESUPUESTO
+    static public function ctrlObtenerPresupuesto(){
+
+        if(isset($_POST["id"])){
+
+            $tabla = "presupuestos";
+            $id_orden = $_POST["id"];
+            
+            $respuesta = ModeloFormularios::mdlObtenerPresupuesto($tabla, $id_orden);
+            
+            return $respuesta;
+        }
+
+    }
+
+    // CREAR PRESUPUESTO
+    static public function ctrlCrearPresupuesto(){
+
+        if(isset($_POST["id"])){
+
+            $tabla = "presupuestos";
+            $id_orden = $_POST["id"];
+            
+            $respuesta = ModeloFormularios::mdlCrearPresupuesto($tabla, $id_orden);
+
+            if($respuesta){
+                $presupuestoCreado = ModeloFormularios::mdlObtenerPresupuesto($tabla, $id_orden);
+
+                if($presupuestoCreado){
+                    $tabla2 = "insumos_presupuestos";
+                    // id_presupuesto descripcion cantidad precio precio_total
+                    $datos = array("id_presupuesto" => $presupuestoCreado[0]['id'],
+                                    "descripcion" => "MANO DE OBRA",
+                                    "cantidad" => "1",
+                                    "precio" => "10000",
+                                    "precio_total" => "10000"
+                                );
+        
+                    
+                    $respuesta = ModeloFormularios::mdlAgregarInsumo($tabla2, $datos);
+                }
+                
+                return $presupuestoCreado;
+
+            }
+            
+
+            
+            return $respuesta;
+        }
+
+    }
+
 }
 
 ?>

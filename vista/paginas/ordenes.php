@@ -130,7 +130,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                 </td>
                 <td> <!-- DEVOLUCION -->
                     <?php
-                        if($orden["estado"] <= 3) {
+                        if($orden["estado"] >= 3 ) {
                             echo $orden["fecha_devolucion"];
                         }
                         else{
@@ -160,7 +160,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="ordenModalTitle">Crear orden</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('HOME')"></button>
             </div>
             <div class="modal-body">
                 <form class="row" name="form" method="POST">
@@ -180,7 +180,14 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                             <div class="row">
                                 <div class="col">
                                     <div class="form-floating mb-2">
-                                        <input autocomplete="off" class="form-control " list="dataListAutos" name="ordenAutoPatente" id="ordenAutoPatente" placeholder="Ingrese marca" required>
+                                        <input autocomplete="off" class="form-control " list="dataListAutos" name="ordenAuto" id="ordenAuto" placeholder="Ingrese auto" required>
+                                        <label for="floatingInput">Auto</label>
+                                        <div class="invalid-feedback">
+                                            Ingrese un auto valido
+                                        </div>
+                                    </div>
+                                    <div class="form-floating mb-2 dataOrden" style="display: none;">
+                                        <input autocomplete="off" class="form-control" type="text" name="ordenAutoPatente" id="ordenAutoPatente" placeholder="Ingrese patente" disabled readonly>
                                         <label for="floatingInput">Patente</label>
                                         <div class="invalid-feedback">
                                             Ingrese una patente valida
@@ -189,8 +196,11 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                                 </div>
                                 <div class="col dataOrden" style="display: none;">
                                     <div class="form-floating mb-2">
-                                        <input autocomplete="off" class="form-control" list="marcas" name="ordenAutoMarca" id="ordenAutoMarca" placeholder="Ingrese marca" disabled readonly>
+                                        <input autocomplete="off" class="form-control" type="text" name="ordenAutoMarca" id="ordenAutoMarca" placeholder="Ingrese marca" disabled readonly>
                                         <label for="floatingInput">Marca</label>
+                                        <div class="invalid-feedback">
+                                            Ingrese una marca valida
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- <div class="col" style="display: none;">
@@ -204,7 +214,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                                 </div> -->
                                 <div class="col dataOrden" style="display: none;">
                                     <div class="form-floating mb-2">
-                                        <input autocomplete="off" class="form-control" list="modelosMarca" name="ordenAutoModelo" id="ordenAutoModelo" placeholder="Ingrese modelo" disabled readonly>
+                                        <input autocomplete="off" class="form-control" type="text" name="ordenAutoModelo" id="ordenAutoModelo" placeholder="Ingrese modelo" disabled readonly>
                                         <label for="floatingInput">Modelo</label>
                                         <div class="invalid-feedback">
                                             Ingrese un modelo valido
@@ -212,6 +222,12 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                                     </div>
                                 </div>
                             </div> 
+                            
+                            <div class="row dataOrden">
+                                <?php 
+                                    include "vista/utils/cambios.php";
+                                ?>
+                            </div>
 
                         </div>
                         <div class="mb-2">
@@ -281,9 +297,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                                         <i class="fa-solid fa-car-burst fa-flip-horizontal"></i> <i class="fa-solid"> Entrega </i> <i class="fa-solid fa-car-burst"></i>
                                         </a>
                                     </div>
-
                                 </div>
-
                             </div>
 
                             <div class="col">
@@ -304,7 +318,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                     </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DisplayVolver('HOME')">Cerrar</button>
                 <input type="submit" id="btn_orden_modal" name="btn_orden_modal" class="btn btn-primary" value="Crear"/>
             </div>
             
@@ -319,8 +333,8 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title">Informacion de llegada</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('ORDEN')"></button>
+                <h5 class="modal-title">Informacion de llegada</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('ORDEN')"></button>
             </div>
             <div class="modal-body">
                     
@@ -379,12 +393,40 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title">Informacion de trabajo</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('ORDEN')"></button>
+                <h5 class="modal-title">Informacion de trabajo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('ORDEN')"></button>
             </div>
             <div class="modal-body">
-                <div class="container">
-                    <p> TRABAJO </p>
+                <h5> Comentarios </h5>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating mb-2">
+                                <textarea  autocomplete="off" class="form-control" type="text" placeholder="Ingrese notas" name="trabajoNotas" id="trabajoNotas" style="height: 150px" required></textarea >
+                                <label for="floatingInput">Notas</label>
+                            </div>  
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-2">
+                                <label for="formFileMultiple" class="form-label">Adjuntos</label>
+                                <input class="form-control" type="file" id="formFileMultiple" multiple>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+                <h5> Formularios </h5>
+                    
+                <div class="row mb-3 container-fluid">
+                    <div class="col">
+                        <a id="btnInsumos" tipoModal="insumos" class="btn btn-bg text-bg-info btn-outline-dark btnInsumos">
+                            <i class="fa-solid fa-list-check"></i> <i class="fa-solid"> Insumos </i> <i class="fa-solid fa-list-check"> </i>
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -427,9 +469,6 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('LLEGADA')"></button>
             </div>
             <div class="modal-body">
-                    
-                <h5> Comentarios </h5>
-                <!-- <br> -->
 
                 <div class="container-fluid" style="border-style: solid">
                     <?php 
@@ -437,12 +476,97 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                     ?>
                 </div>
                 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="DisplayVolver('LLEGADA')">Cerrar</button>
+                <input type="submit" id="btn_presupuesto_modal" name="btn_presupuesto_modal" class="btn btn-primary" value="Generar pdf" />
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal INSUMOS -->
+<div class="modal fade modal-xl" id="insumosModal" tabindex="-1" aria-labelledby="insumosModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title">Insumos</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('TRABAJO')"></button>
+            </div>
+            <div class="modal-body">
+                    
+                <h5> Listado de insumos </h5>
+                <!-- <br> -->
+
+                <div class="container-fluid" style="border-style: solid">
+                    <table cellspacing=0 class="table table-responsive table-bordered table-hover table-inverse table-striped text-center table-sm" role="grid" id="tablePresupuesto" width=100% >
+                        <thead>
+                            <tr class="text-bg-primary">
+                                <th scope="col">
+                                    Descripcion
+                                </th>
+                                <th scope="col">
+                                    Cantidad
+                                </th>
+                                <th scope="col">
+                                    Precio
+                                </th>
+                                <th scope="col">
+                                    Precio total
+                                </th>
+                                <th scope="col">
+                                    Accion
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <input class="text-dark text-bg-secondary bg-opacity-25" type="text" name="descripcion" id="descripcion" placeholder="-" required>
+                                </th>
+                                <th>
+                                    <input class="text-dark text-bg-secondary bg-opacity-25" type="number" name="cantidad" id="cantidad" placeholder="0" required>
+                                </th>
+                                <th>
+                                    <input class="text-dark text-bg-secondary bg-opacity-25" type="number" name="precio" id="precio" min="0.00" step="0.01" placeholder="0.00" required>
+                                </th>
+                                <th id="precio_total">
+                                    0.00
+                                </th>
+                                <th>
+                                    <a href="#" id="agregar_producto_trabajo">
+                                        <i class="fa-solid fa-plus"></i>
+                                        Agregar
+                                    </a>
+                                </th>
+                            </tr>
+                            <tr class="text-bg-primary">
+                                <th>Descripcion</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                                <th>Precio total</th>
+                                <th>Accion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="3" class="table-active text-start">TOTAL</th>
+                                <th>00,00</th>
+                            </tr>
+
+                        </tfoot>
+
+                    </table>
+                </div>
+                
                 <hr>
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="DisplayVolver('LLEGADA')">Cerrar</button>
-                <input type="submit" id="btn_presupuesto_modal" name="btn_presupuesto_modal" class="btn btn-primary" value="Guardar" />
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="DisplayVolver('TRABAJO')">Cerrar</button>
+                <input type="submit" id="btn_insumos_modal" name="btn_insumos_modal" class="btn btn-primary" value="Guardar" />
                 
             </div>
         </div>

@@ -712,7 +712,6 @@ function recargar(){
 }
 
 function DisplayVolver(FORM){
-    actualizarTablas();
     // console.log(modalAbierto);
 
     if(modalAbierto && FORM == "HOME"){
@@ -726,6 +725,7 @@ function DisplayVolver(FORM){
         $("#marcaModal").modal('hide');
         $("#modeloModal").modal('hide');
         $("#autoModal").modal('show');
+        actualizarTablas();
     }
     else if(FORM == "ORDEN"){
         $("#successModal").modal('hide');
@@ -739,6 +739,7 @@ function DisplayVolver(FORM){
     else if(FORM == "HOME"){
         $("#successModal").modal('hide');
         $("#deleteModal").modal('hide');
+        actualizarTablas();
         location.reload();
     }
     else if(FORM == "LLEGADA"){
@@ -746,6 +747,12 @@ function DisplayVolver(FORM){
         $("#deleteModal").modal('hide');
         $("#presupuestoModal").modal('hide');
         $("#llegadaModal").modal('show');
+    }
+    else if(FORM == "TRABAJO"){
+        $("#successModal").modal('hide');
+        $("#deleteModal").modal('hide');
+        $("#insumosModal").modal('hide');
+        $("#trabajoModal").modal('show');
     }
     // if(FORM == "VINCULADOS"){
     //     $("#ModalMessageReturn").modal('hide');

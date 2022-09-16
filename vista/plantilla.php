@@ -271,7 +271,7 @@
     </div>
     
     <!-- Modal AUTO -->
-    <div class="modal fade" id="autoModal" tabindex="-1" aria-labelledby="autoModalLabel" aria-hidden="true">
+    <div class="modal modal-lg fade" id="autoModal" tabindex="-1" aria-labelledby="autoModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -280,7 +280,7 @@
                 </div>
                 <div class="modal-body">
                     <form class="row" name="form" method="POST">
-                        <div class="container">
+                        <div class="container-fluid">
                         
                             <input class="form-control" type="hidden" name="autoId" id="autoId" required>
                             <input class="form-control" type="hidden" name="autoIdModelo" id="autoIdModelo" required>
@@ -347,6 +347,11 @@
                                     </button>
                                 </div>
                             </div>
+                            <div class="row">
+                                <?php 
+                                    include "vista/utils/cambios.php";
+                                ?>
+                            </div>
                         </div>
                 </div>
                 <div class="modal-footer">
@@ -393,7 +398,10 @@
         <?php                                
             foreach ($autos as $key => $auto){
                 
-                echo '<option id="'.$auto['id'].'" value="'.$auto['patente'].'">';
+                $modeloAsociado = ControladorFormularios::ctrlSeleccionarModelo($auto["id_modelo"]);
+                $marcaAsociado = ControladorFormularios::ctrlSeleccionarMarca($modeloAsociado[0]["id_marca"]);
+                $marca_modelo = $marcaAsociado[0]["marca"]." - ".$modeloAsociado[0]["modelo"];
+                echo '<option id="'.$auto['id'].'" value="'.$auto['patente'].' - '.$marca_modelo.' - '.$auto['anio'].'">';
             }
         ?>
     </datalist>
