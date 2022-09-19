@@ -42,6 +42,29 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/a0e4ca76a9.js" crossorigin="anonymous"></script>
+    <script>
+        function transDate(date){
+            var d = new Date(date);
+
+            return d.getDate() + "/" + (+d.getMonth()+1) + "/" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+        }
+        function posicionEstado(estado){
+            switch(estado){
+                case '1': //Pendiente
+                    return 2;
+                case '2': //Cancelado
+                    return 5;
+                case '3': //Finalizado
+                    return 1;
+                case '4': //Entregado
+                    return 4;
+                case '5': //Pendiente de pago
+                    return 0;
+                default: //Estado incorrecto
+                    return -1;
+            }
+        }
+    </script>
     
     <!-- <script src="js/modals.js"></script>
     <script src="js/functions.js"></script> -->
@@ -360,6 +383,45 @@
                 </div>
                 
                     </form>
+            </div>
+        </div>
+    </div>
+        
+    <!-- Modal HISTORIAL -->
+    <div class="modal fade" id="historialModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="historialModalTitle">Editar marca</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="row" id="form_editar_historial" method="POST">
+                        <div class="container-fluid">
+                            <table cellspacing=0 class="table table-responsive table-bordered table-hover table-inverse table-striped text-center table-sm" role="grid" id="tablaHistorial" width=100%>
+                                <thead>
+                                    <tr class="text-bg-primary">
+                                        <th scope="col" class="sorting">
+                                            Fecha
+                                        </th>
+                                        <th scope="col" class="sorting">
+                                            Descripcion
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabla_historial">
+                                </tbody>
+                            </table>
+                        </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DisplayVolver('HOME')">Cerrar</button>
+                    <input type="submit" name="btn_marca_modal" id="btn_marca_modal" class="btn btn-primary" value="Guardar" />
+                </div>
+                
+                    </form>
+                
             </div>
         </div>
     </div>

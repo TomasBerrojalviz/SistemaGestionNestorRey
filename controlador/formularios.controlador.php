@@ -162,21 +162,38 @@ class ControladorFormularios {
 
     // CREAR ORDEN
     static public function ctrlCrearOrden(){
-        // id_auto  problema    id_recibo	id_presupuesto  estado notas
+        // id_auto  problema
 
         if(isset($_POST["problema"])){
 
             $tabla = "ordenes";  
-            // id_estado patente	id_modelo	anio	id_cliente
             $datos = array("id_auto" => $_POST["id_auto"],
-                            "problema" => strtoupper($_POST["problema"]),
-                            "id_recibo" => $_POST["id_recibo"],
-                            "id_presupuesto" => $_POST["id_presupuesto"],
-                            "notas" => strtoupper($_POST["notas"])
+                            "problema" => strtoupper($_POST["problema"])
                         );
 
             
             $respuesta = ModeloFormularios::mdlCrearOrden($tabla, $datos);
+            
+            return $respuesta;
+        }
+
+    }
+
+    // EDITAR ORDEN
+    static public function ctrlEditarOrden(){
+        // id_auto  problema    id_recibo	id_presupuesto  estado notas
+
+        if(isset($_POST["id"])){
+
+            $tabla = "ordenes";  
+            // id_estado patente	id_modelo	anio	id_cliente
+            $datos = array("id" => $_POST["id"],
+                            "problema" => strtoupper($_POST["problema"]),
+                            "estado" => $_POST["estado"],
+                        );
+
+            
+            $respuesta = ModeloFormularios::mdlEditarOrden($tabla, $datos);
             
             return $respuesta;
         }
@@ -411,6 +428,48 @@ class ControladorFormularios {
             }
             
 
+            
+            return $respuesta;
+        }
+
+    }
+
+    // OBTENER CAMBIOS
+    static public function ctrlAgregarCambios(){
+
+        if(isset($_POST["id_auto"])){
+
+            $tabla = "cambios";
+            
+            // id	id_auto	fecha_cambio	aceite	km_actual	prox_cambio	filtro_aceite	filtro_aire	filtro_combustible	filtro_habitaculo
+            $datos = array("id_auto" => $_POST["id_auto"],
+                            "fecha_cambio" => $_POST["fecha_cambio"],
+                            "aceite" => strtoupper($_POST["aceite"]),
+                            "km_actual" => $_POST["km_actual"],
+                            "prox_cambio" => $_POST["prox_cambio"],
+                            "filtro_aceite" => $_POST["filtro_aceite"],
+                            "filtro_aire" => $_POST["filtro_aire"],
+                            "filtro_combustible" => $_POST["filtro_combustible"],
+                            "filtro_habitaculo" => $_POST["filtro_habitaculo"]
+                        );
+
+            
+            $respuesta = ModeloFormularios::mdlAgregarCambios($tabla, $datos);
+            
+            return $respuesta;
+        }
+
+    }
+
+    // OBTENER CAMBIOS
+    static public function ctrlObtenerCambios(){
+
+        if(isset($_POST["id_auto"])){
+
+            $tabla = "cambios";
+            $id_auto = $_POST["id_auto"];
+            
+            $respuesta = ModeloFormularios::mdlObtenerCambios($tabla, $id_auto);
             
             return $respuesta;
         }

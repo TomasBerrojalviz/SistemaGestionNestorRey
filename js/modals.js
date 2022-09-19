@@ -715,7 +715,6 @@ function DisplayVolver(FORM){
     // console.log(modalAbierto);
 
     if(modalAbierto && FORM == "HOME"){
-        console.log(modalAbierto);
         FORM = modalAbierto;
     }
     if(FORM == "AUTO"){

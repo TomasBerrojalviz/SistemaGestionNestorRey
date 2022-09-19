@@ -144,15 +144,12 @@ class ModeloFormularios {
     // CREAR ORDEN
     static public function mdlCrearOrden($tabla, $datos){
         
-        // id_auto  problema    id_recibo	id_presupuesto  estado notas
+        // id_auto  problema    id_recibo	id_presupuesto  estado
 
-        $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(id_auto, problema, notas, id_recibo, id_presupuesto) VALUES (:id_auto, :problema, :notas, :id_recibo, :id_presupuesto)");
+        $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(id_auto, problema) VALUES (:id_auto, :problema)");
 
         $stmt->bindParam(":id_auto", $datos["id_auto"], PDO::PARAM_INT);
         $stmt->bindParam(":problema", $datos["problema"], PDO::PARAM_STR);
-        $stmt->bindParam(":notas", $datos["notas"], PDO::PARAM_STR);
-        $stmt->bindParam(":id_recibo", $datos["id_recibo"], PDO::PARAM_INT);
-        $stmt->bindParam(":id_presupuesto", $datos["id_presupuesto"], PDO::PARAM_INT);
 
         if($stmt->execute()){
 
@@ -198,6 +195,33 @@ class ModeloFormularios {
         $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET marca = :marca WHERE id = :id");
 
         $stmt->bindParam(":marca", $datos["marca"], PDO::PARAM_STR);
+        $stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
+
+        if($stmt->execute()){
+
+            return TRUE;
+        }
+        else{
+            print_r(Conexion::conectar()->error_info());
+        }
+
+        $stmt->close();
+
+        $stmt = null;
+    }
+    // EDITAR ORDEN
+    static public function mdlEditarOrden($tabla, $datos){
+        
+        if($datos["estado"] > 3){
+            $fecha_devolucion = 'CURRENT_TIMESTAMP';
+        }
+        else{
+            $fecha_devolucion = 'DEFAULT';
+        }
+        $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET problema = :problema, estado = :estado, fecha_devolucion = $fecha_devolucion WHERE id = :id");
+
+        $stmt->bindParam(":problema", $datos["problema"], PDO::PARAM_STR);
+        $stmt->bindParam(":estado", $datos["estado"], PDO::PARAM_INT);
         $stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
 
         if($stmt->execute()){
@@ -391,6 +415,82 @@ class ModeloFormularios {
         if($stmt->execute()){
 
             return TRUE;
+        }
+        else{
+            print_r(Conexion::conectar()->error_info());
+        }
+
+        $stmt->close();
+
+        $stmt = null;
+    }
+    // AGREGAR CAMBIOS
+    static public function mdlAgregarCambios($tabla, $datos){
+        // id	id_auto	fecha_cambio	aceite	km_actual	prox_cambio	filtro_aceite	filtro_aire	filtro_combustible	filtro_habitaculo
+        
+        if($datos["fecha_cambio"] == "DEFAULT"){
+            $fecha_cambio = 'DEFAULT';
+        }
+        else{
+            $fecha_cambio = '0';
+        }
+        if($datos["filtro_aceite"] == "DEFAULT"){
+            $filtro_aceite = 'DEFAULT';
+        }
+        else{
+            $filtro_aceite = '0';
+        }
+        if($datos["filtro_aire"] == "DEFAULT"){
+            $filtro_aire = 'DEFAULT';
+        }
+        else{
+            $filtro_aire = '0';
+        }
+        if($datos["filtro_combustible"] == "DEFAULT"){
+            $filtro_combustible = 'DEFAULT';
+        }
+        else{
+            $filtro_combustible = '0';
+        }
+        if($datos["filtro_habitaculo"] == "DEFAULT"){
+            $filtro_habitaculo = 'DEFAULT';
+        }
+        else{
+            $filtro_habitaculo = '0';
+        }
+        $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla
+                                            (id_auto, fecha_cambio, aceite, km_actual, prox_cambio, filtro_aceite, filtro_aire, filtro_combustible, filtro_habitaculo)
+                                            VALUES
+                                            (:id_auto, $fecha_cambio, :aceite, :km_actual, :prox_cambio, $filtro_aceite, $filtro_aire, $filtro_combustible, $filtro_habitaculo)"
+                                            );
+
+        $stmt->bindParam(":id_auto", $datos["id_auto"], PDO::PARAM_INT);
+        $stmt->bindParam(":aceite", $datos["aceite"], PDO::PARAM_STR);
+        $stmt->bindParam(":km_actual", $datos["km_actual"], PDO::PARAM_INT);
+        $stmt->bindParam(":prox_cambio", $datos["prox_cambio"], PDO::PARAM_INT);
+
+        if($stmt->execute()){
+
+            return TRUE;
+        }
+        else{
+            print_r(Conexion::conectar()->error_info());
+        }
+
+        $stmt->close();
+
+        $stmt = null;
+    }
+    // OBTENER CAMBIOS
+    static public function mdlObtenerCambios($tabla, $id_auto){
+        // id	id_auto	fecha_cambio	aceite	km_actual	prox_cambio	filtro_aceite	filtro_aire	filtro_combustible	filtro_habitaculo
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE id_auto = :id_auto");
+
+        $stmt->bindParam(":id_auto", $id_auto, PDO::PARAM_INT);
+
+        if($stmt->execute()){
+
+            return $stmt->fetchAll();
         }
         else{
             print_r(Conexion::conectar()->error_info());

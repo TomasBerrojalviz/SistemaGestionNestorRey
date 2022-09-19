@@ -63,6 +63,15 @@ $modelosDeseados = array();
             echo "error";
             exit;
         }
+        if($_POST["action"] == "seleccionarOrdenes"){
+            $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
+            if($ordenes){
+                echo json_encode($ordenes, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
 
         if($_POST["action"] == "seleccionarModelos"){
             $marca = strtoupper($_POST["marca"]);
@@ -211,6 +220,15 @@ $modelosDeseados = array();
             echo "error";
             exit;
         }
+        if($_POST["action"] == "editarOrden"){
+            $ordenEditada = ControladorFormularios::ctrlEditarOrden();
+            if($ordenEditada){
+                echo json_encode($ordenEditada, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
         if($_POST["action"] == "borrarMarca"){
             $marca_eliminada = ControladorFormularios::ctrlBorrarMarca($_POST["id"]);
             if($marca_eliminada){
@@ -310,6 +328,25 @@ $modelosDeseados = array();
                     exit;
                 }
                 echo "error";
+                exit;
+            }
+            echo "error";
+            exit;
+        }
+        if($_POST["action"] == "agregarCambios"){
+            $cambioObtenido = ControladorFormularios::ctrlAgregarCambios();
+            if($cambioObtenido){
+                echo json_encode($cambioObtenido, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            
+            echo "error";
+            exit;
+        }
+        if($_POST["action"] == "obtenerCambios"){
+            $cambioObtenido = ControladorFormularios::ctrlObtenerCambios();
+            if($cambioObtenido){
+                echo json_encode($cambioObtenido, JSON_UNESCAPED_UNICODE);
                 exit;
             }
             echo "error";

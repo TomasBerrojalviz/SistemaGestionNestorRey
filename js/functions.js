@@ -277,8 +277,6 @@ function estadosSelect(id, select){
         }
         select.appendChild(option);
     }
-    console.log(select);
-    console.log(id);
 
 }
 
@@ -313,11 +311,16 @@ function setTablas(){
     $("#tableCliente_length").addClass('text-light  mx-1');
     $("#tableCliente_info").addClass('text-light mx-1');
     
-    $('#tableOrdenes').DataTable();
+    $('#tableOrdenes').DataTable({
+        columnDefs: [{target: 1, visible: false},],
+        order: [[0, 'desc']],
+    });
     $("#tableOrdenes_filter").addClass('text-light float-end');
     $("#tableOrdenes_paginate").addClass('text-light float-end');
     $("#tableOrdenes_length").addClass('text-light');
     $("#tableOrdenes_info").addClass('text-light mx-1');
+
+
 
     actualizarTablas();
 }
@@ -358,7 +361,7 @@ function actualizarTablas() {
     });
 }
 
-function generarPDF(tipo, id, cliente){
+function generarPDF(tipo, id){
     // 210 x 297 mm
     var ancho = 1000;
     var alto = 800;
@@ -369,8 +372,116 @@ function generarPDF(tipo, id, cliente){
     var url = "";
 
     if(tipo == "presupuesto"){
-        url = 'vista/utils/generarPresupuesto.php?pr='+id+'&cl='+cliente;
+        url = 'vista/utils/generarPresupuesto.php?pr='+id;
         nombreVentana = "Presupuesto";
     }
     window.open(url, nombreVentana, "left="+x+",top="+y+",height="+alto+",width="+ancho+",scrollbar=si,location=no,resizeble=si,menubar=no");
+}
+
+function imprimir(){
+
+    btn_print.style.display = "none";
+    
+}
+
+function cargarTabla(nombreTabla){
+    var tabla = getElementById(nombreTabla);
+    if(tabla.DataTable()){
+        tabla.DataTable().destroy();
+    }
+    if(nombreTabla == "tableOrdenes"){
+        // Estado Posicion hidden
+        // Estado
+        // Auto 
+        // Modelo hidden
+        // Llegada
+        // Problema
+        // Devolucion
+        // Solucion hidden
+        var tablaOrdenes = tabla.DataTable({
+            columnDefs: [
+                {target: 0, visible: false, searchable: true},
+                {target: 3, visible: false, searchable: true},
+                {target: 7, visible: false, searchable: true}
+            ],
+            order: [[0, 'desc']],
+        });
+        tablaOrdenes.rows().remove().draw();
+        var ordenesSeleccionadas = seleccionarOrdenes();
+        ordenesSeleccionadas.done(function(responseOrdenes) {
+        if(responseOrdenes != "error"){
+            var ordenes = JSON.parse(responseOrdenes);
+            for(var i = 0; i < ordenes.length; i++){
+               var estadoPosicion = posicionEstado(ordenes[i].estado); //hidden
+               var estado = ordenes[i].estado;
+               var patente = ordenes[i].patente;
+               var modelo = ordenes[i].modelo; //hidden
+               var llegada = ordenes[i].fecha_recibido;
+               var problema = ordenes[i].problema;
+               var devolucion = ordenes[i].fecha_devolucion;
+               var solucion = ordenes[i].solucion;
+                tablaHistorial.row.add([estadoPosicion, "Cambio de filtro de aceite"]).draw(false);
+                tablaHistorial.row.add([transDate(ordenes[i].filtro_aceite), "Cambio de filtro de aceite"]).draw(false);
+            }
+        }
+        });
+
+    }
+    else if(nombreTabla == "autos"){
+
+    }
+    else if(nombreTabla == "marcas"){
+
+    }
+}
+
+function seleccionarOrdenes(){
+    var action = 'seleccionarOrdenes';
+
+    return $.ajax({
+        type: "POST",
+        url: "ajax.php",
+        async: true,
+        data: { action:action}
+    });
+}
+
+function setBotonEstado(id, estado){
+    var clase_btn_estado = "";
+    var estado = "";
+    var iconoBtn = "";
+    if(estado == 1){
+        clase_btn_estado = "text-bg-danger";
+        estado = "Pendiente";
+        iconoBtn = '<i class="fa-solid fa-screwdriver-wrench fa-flip-horizontal"></i> <i class="fa-solid"> '+estado+'</i> <i class="fa-solid fa-screwdriver-wrench"></i>';
+    }
+    else if(estado == 2){
+        clase_btn_estado = "text-bg-secondary";
+        estado = "Cancelado";
+        iconoBtn = '<i class="fa-solid fa-rectangle-xmark"> '+estado+' </i> <i class="fa-solid fa-rectangle-xmark"></i>';
+    }
+    else if(estado == 3){
+        clase_btn_estado = "text-bg-warning";
+        estado = "Finalizado";
+        iconoBtn = '<i class="fa-solid fa-car-on"> '+estado+' </i> <i class="fa-solid fa-car-on"></i>';
+    }
+    else if(estado == 4){
+        clase_btn_estado = "text-bg-success";
+        estado = "Entregado";
+        iconoBtn = '<i class="fa-solid fa-car-burst fa-flip-horizontal"></i> <i class="fa-solid"> '+estado+' </i> <i class="fa-solid fa-car-burst"> </i>';
+    }
+    else if(estado == 5){
+        clase_btn_estado = "text-bg-danger text-dark";
+        estado = "Pendiente de pago";  
+        iconoBtn = '<i class="fa-solid fa-hand-holding-dollar fa-flip-horizontal"> </i> <i class="fa-solid"> '+estado+' </i> <i class="fa-solid fa-hand-holding-dollar"></i>';
+    }
+    var boton = document.createElement("button");
+    boton.id = id;
+    boton.value = marca["marca"];
+    boton.setAttribute("tipoModal", "orden");
+    boton.addClass('btn btn-sm btn-outline-dark btnOrden');
+    boton.addClass(clase_btn_estado);
+    boton.innerHTML = iconoBtn;
+
+    return boton;
 }

@@ -19,6 +19,16 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
     <table cellspacing=0 class="table table-responsive table-info table-bordered table-hover table-inverse table-striped text-center table-sm" role="grid" id="tableOrdenes" width=100% >
     <thead>
         <tr>
+            <th scope="col" class="sorting hidden" style="display: none;">
+                <div class="row">
+                    <div class="col-10">
+                        Estado Orden
+                    </div>
+                    <div class="col">
+                        <i class="fa-solid fa-sort"></i>
+                    </div>
+                </div>
+            </th>
             <th scope="col" class="sorting"  style="max-width: 200px;">
                 <div class="row">
                     <div class="col-10">
@@ -82,8 +92,12 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
         </tr>
     </thead>
     <tbody class="table-group-divider">
+
         <?php foreach ($ordenes as $key => $orden) : ?>
             <tr class="fila" id="<?php echo $orden["id"];?>" tipoModal="orden" >
+                <td class="hidden" style="display: none;"> <!-- POSICION ESTADO -->
+                    <script type='text/JavaScript'>;document.write(posicionEstado('<?php echo $orden['estado']; ?>')); </script>
+                </td>
                 <td> <!-- ESTADO -->
                 <?php
                     if($orden["estado"] == 1){
@@ -123,15 +137,17 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                     ?>
                 </td>
                 <td> <!-- FECHA RECIBIDO -->
-                    <?php echo $orden["fecha_recibido"]; ?>
+                    <script type='text/JavaScript'>;document.write(transDate('<?php echo $orden['fecha_recibido']; ?>')); </script>
                 </td>
                 <td style="max-width: 600px; overflow: hidden; text-overflow: ellipsis;"> <!-- PROBLEMA -->
                     <?php echo $orden["problema"]; ?>
                 </td>
                 <td> <!-- DEVOLUCION -->
                     <?php
-                        if($orden["estado"] >= 3 ) {
-                            echo $orden["fecha_devolucion"];
+                        if($orden["estado"] > 3 ) {
+                    ?>
+                            <script type='text/JavaScript'>;document.write(transDate('<?php echo $orden['fecha_devolucion']; ?>')); </script>
+                    <?php
                         }
                         else{
                             echo "-"; 
@@ -139,17 +155,18 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                     ?>
                 </td>
                 <!-- MODELO AUTO ASOCIADO OCULTO -->
-                <!-- <div class="hidden" style="display: none;"> -->
-                    <td class="hidden" style="display: none;">
-                        <?php   
-                            $modeloAsociado = ControladorFormularios::ctrlSeleccionarModelo($autoAsociado[0]["id_modelo"]);
-                            $marcaAsociado = ControladorFormularios::ctrlSeleccionarMarca($modeloAsociado[0]["id_marca"]);
-                            echo $marcaAsociado[0]["marca"]." ".$modeloAsociado[0]["modelo"];
-                        ?>
-                    </td>
-                <!-- </div> -->
+                <td class="hidden" style="display: none;">
+                    <?php   
+                        $modeloAsociado = ControladorFormularios::ctrlSeleccionarModelo($autoAsociado[0]["id_modelo"]);
+                        $marcaAsociado = ControladorFormularios::ctrlSeleccionarMarca($modeloAsociado[0]["id_marca"]);
+                        echo $marcaAsociado[0]["marca"]." ".$modeloAsociado[0]["modelo"];
+                    ?>
+                </td>
             <?php endforeach; ?>
         
+        <script>
+            cargarTabla('tableOrdenes');
+        </script>
     </tbody>
     </table>
 </div>
@@ -178,7 +195,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                             <h5>Auto</h5>
 
                             <div class="row">
-                                <div class="col">
+                                <div class="col" id="colAuto">
                                     <div class="form-floating mb-2">
                                         <input autocomplete="off" class="form-control " list="dataListAutos" name="ordenAuto" id="ordenAuto" placeholder="Ingrese auto" required>
                                         <label for="floatingInput">Auto</label>
@@ -186,7 +203,9 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                                             Ingrese un auto valido
                                         </div>
                                     </div>
-                                    <div class="form-floating mb-2 dataOrden" style="display: none;">
+                                </div>
+                                <div class="col dataOrden" style="display: none;">
+                                    <div class="form-floating mb-2">
                                         <input autocomplete="off" class="form-control" type="text" name="ordenAutoPatente" id="ordenAutoPatente" placeholder="Ingrese patente" disabled readonly>
                                         <label for="floatingInput">Patente</label>
                                         <div class="invalid-feedback">
@@ -203,15 +222,6 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div class="col" style="display: none;">
-                                    <div class="form-floating mb-2" >
-                                        <input autocomplete="off" class="form-control" list="marcas" name="autoMarca" id="autoMarca" placeholder="Ingrese marca" required>
-                                        <label for="floatingInput">Marca</label>
-                                        <div class="invalid-feedback">
-                                            Ingrese una marca valida
-                                        </div>
-                                    </div>
-                                </div> -->
                                 <div class="col dataOrden" style="display: none;">
                                     <div class="form-floating mb-2">
                                         <input autocomplete="off" class="form-control" type="text" name="ordenAutoModelo" id="ordenAutoModelo" placeholder="Ingrese modelo" disabled readonly>
@@ -283,19 +293,19 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
 
                                 <div class="row mb-3 container-fluid">
                                     <div class="col">
-                                        <a id="btnLlegada" tipoModal="llegada" class="btn btn-bg text-bg-info btn-outline-dark btnLlegada">
+                                        <button id="btnLlegada" tipoModal="llegada" class="btn btn-bg text-bg-info btn-outline-dark btnLlegada">
                                             <i class="fa-solid fa-list-check"></i> <i class="fa-solid"> Llegada </i> <i class="fa-solid fa-list-check"> </i>
-                                        </a>
+                                        </button>
                                     </div>
                                     <div class="col">
-                                        <a id="btnTrabajo" tipoModal="trabajo" class="btn btn-bg text-bg-warning btn-outline-dark btnTrabajo">
+                                        <button id="btnTrabajo" tipoModal="trabajo" class="btn btn-bg text-bg-warning btn-outline-dark btnTrabajo">
                                             <i class="fa-solid fa-gears"></i> <i class="fa-solid"> Trabajo </i> <i class="fa-solid fa-gears fa-flip-horizontal"> </i>
-                                        </a>
+                                        </button>
                                     </div>
                                     <div class="col-auto">
-                                        <a id="btnEntrega" tipoModal="entrega" class="btn btn-bg text-bg-success btn-outline-dark btnEntrega">
+                                        <button id="btnEntrega" tipoModal="entrega" class="btn btn-bg text-bg-success btn-outline-dark btnEntrega">
                                         <i class="fa-solid fa-car-burst fa-flip-horizontal"></i> <i class="fa-solid"> Entrega </i> <i class="fa-solid fa-car-burst"></i>
-                                        </a>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -318,7 +328,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                     </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DisplayVolver('HOME')">Cerrar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DisplayVolver('HOME');">Cerrar</button>
                 <input type="submit" id="btn_orden_modal" name="btn_orden_modal" class="btn btn-primary" value="Crear"/>
             </div>
             
@@ -472,7 +482,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
 
                 <div class="container-fluid" style="border-style: solid">
                     <?php 
-                        include "vista/utils/presupuesto.php";
+                        include "vista/utils/presupuesto_plantilla.php";
                     ?>
                 </div>
                 
