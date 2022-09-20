@@ -10,6 +10,20 @@ class ControladorFormularios {
         return $respuesta;
     }
 
+    // SELECCIONAR ORDENES
+    static public function ctrlSeleccionarOrdenes(){
+        $respuesta = ModeloFormularios::mdlSeleccionarOrdenes();
+        
+        return $respuesta;
+    }
+    
+    // SELECCIONAR AUTOS
+    static public function ctrlSeleccionarAutos(){
+        $respuesta = ModeloFormularios::mdlSeleccionarAutos();
+        
+        return $respuesta;
+    } 
+
     // SELECCIONAR CLIENTE
     static public function ctrlSeleccionarCliente($id){
         $tabla = "clientes";
@@ -36,6 +50,7 @@ class ControladorFormularios {
         
         return $respuesta;
     } 
+
     // SELECCIONAR AUTO
     static public function ctrlSeleccionarAuto($id){
         $tabla = "autos";
@@ -43,7 +58,7 @@ class ControladorFormularios {
         $respuesta = ModeloFormularios::mdlSeleccionarId($tabla, $id);
         
         return $respuesta;
-    } 
+    }
 
     // SELECCIONAR ORDEN
     static public function ctrlSeleccionarOrden($id){
@@ -144,9 +159,8 @@ class ControladorFormularios {
         if(isset($_POST["patente"])){
 
             $tabla = "autos";  
-            // id_estado patente	id_modelo	anio	id_cliente
-            $datos = array("id_estado" => $_POST["id_estado"],
-                            "patente" => strtoupper($_POST["patente"]),
+            // patente	id_modelo	anio	id_cliente
+            $datos = array("patente" => strtoupper($_POST["patente"]),
                             "id_modelo" => $_POST["id_modelo"],
                             "anio" => $_POST["anio"],
                             "id_cliente" => $_POST["id_cliente"]

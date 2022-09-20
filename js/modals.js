@@ -3,10 +3,6 @@ var clientes = obtenerClientes();
 var marcas = obtenerMarcas();
 var modelos = obtenerModelos();
 
-// VAR DATA LIST MARCA
-var dataListMarca = document.getElementById("marcas");
-var dataListModelo = document.getElementById("modelos");
-
 // VAR MODAL MARCA
 var marcaModalTitle = document.getElementById("marcaModalTitle");
 var marcaId = document.getElementById("marcaId");
@@ -34,7 +30,6 @@ var autoModalTitle = document.getElementById("autoModalTitle");
 var autoId = document.getElementById("autoId");
 var autoIdModelo = document.getElementById("autoIdModelo");
 var autoIdCliente = document.getElementById("autoIdCliente");
-var autoIdEstado = document.getElementById("autoIdEstado");
 var autoPatente = document.getElementById("autoPatente");
 var autoMarca = document.getElementById("autoMarca");
 var autoModelo = document.getElementById("autoModelo");
@@ -117,6 +112,7 @@ $( document ).ready(function() {
         e.preventDefault();
         var id_marca = $(this).attr('id-marca');
         var action = 'borrarMarca';
+        console.log(id_marca);
 
         $.ajax({
             type: "POST",
@@ -124,6 +120,7 @@ $( document ).ready(function() {
             async: true,
             data: {action:action, id:id_marca, marca:marcaValor.value},
             success: function(response) {
+                console.log(response);
                 if (response != "error") {
                     var marca = JSON.parse(response);
                     if(marca){
@@ -364,7 +361,6 @@ $( document ).ready(function() {
             
             autoIdModelo.value = 0;
             autoIdCliente.value = 0;
-            autoIdEstado.value = 3;
             
             var modeloBuscado = obtenerModeloPorNombre(autoModelo.value);
             modeloBuscado.done(function(responseModelo){
@@ -384,8 +380,8 @@ $( document ).ready(function() {
                                 type: "POST",
                                 url: "ajax.php",
                                 async: true,
-                                // id_estado patente	id_modelo	anio	id_cliente
-                                data: {action:action, id:autoId.value, id_estado:autoIdEstado.value, id_modelo:autoIdModelo.value, patente:autoPatente.value, anio:autoYear.value, id_cliente:autoIdCliente.value},
+                                // patente	id_modelo	anio	id_cliente
+                                data: {action:action, id:autoId.value, id_modelo:autoIdModelo.value, patente:autoPatente.value, anio:autoYear.value, id_cliente:autoIdCliente.value},
                                 success: function(response) {
                                     console.log(response);
                                     if (response != "error") {
@@ -394,7 +390,7 @@ $( document ).ready(function() {
                                             if(window.history.replaceState) {
                                                 window.history.replaceState(null, null, window.location.href);
                                             }
-
+                                            modalAbierto = false;
                                             ocultarModal("autoModal");
                                             mostrarModal("successModal");
                                         }

@@ -15,155 +15,40 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
 </div>
 
 <!-- LSITADO DE ORDENES -->
-<div class="container-fluid mt-2">     
+<div class="container-fluid mt-2">
+    <div class="d-grid gap-2 mx-3 py-3 d-md-flex justify-content-md-center">
+        <button type="button" class="btn btn-dark btn-outline-info" onclick="sortTablaOrdenes()">Ordenar</button>
+    </div>
     <table cellspacing=0 class="table table-responsive table-info table-bordered table-hover table-inverse table-striped text-center table-sm" role="grid" id="tableOrdenes" width=100% >
     <thead>
         <tr>
-            <th scope="col" class="sorting hidden" style="display: none;">
-                <div class="row">
-                    <div class="col-10">
-                        Estado Orden
-                    </div>
-                    <div class="col">
-                        <i class="fa-solid fa-sort"></i>
-                    </div>
-                </div>
+            <th scope="col" class="sorting">
+                Estado Orden
             </th>
             <th scope="col" class="sorting"  style="max-width: 200px;">
-                <div class="row">
-                    <div class="col-10">
-                        Estado
-                    </div>
-                    <div class="col">
-                        <i class="fa-solid fa-sort"></i>
-                    </div>
-                </div>
+                Estado
             </th>
             <th scope="col" class="sorting" style="max-width: 150px;">
-                <div class="row">
-                    <div class="col-9">
-                        Auto
-                    </div>
-                    <div class="col">
-                        <i class="fa-solid fa-sort"></i>
-                    </div>
-                </div>
+                Auto
+            </th>
+            <th scope="col" class="sorting">
+                Modelo
             </th>
             <th scope="col" class="sorting" style="max-width: 160px;">
-                <div class="row">
-                    <div class="col-9">
-                        Llegada
-                    </div>
-                    <div class="col">
-                        <i class="fa-solid fa-sort"></i>
-                    </div>
-                </div>
+                Llegada
             </th>
-            <th scope="col" class="sorting" style="max-width: 200px;" >
-                <div class="row">
-                    <div class="col-10">
-                        Problema
-                    </div>
-                    <div class="col">
-                        <a class="sortBy" id="sortByProblema"><i class="fa-solid fa-sort"></i></a>
-                    </div>
-                </div>
+            <th scope="col" class="sorting" style="max-width: 100px;" >
+                Problema
             </th>
             <th scope="col" class="sorting" style="max-width: 160px;">
-                <div class="row">
-                    <div class="col-9">
-                        Devolucion
-                    </div>
-                    <div class="col">
-                        <i class="fa-solid fa-sort"></i>
-                    </div>
-                </div>
+                Devolucion
             </th>
-            <th scope="col" class="sorting hidden" style="display: none;">
-                <div class="row">
-                    <div class="col-9">
-                        Modelo
-                    </div>
-                    <div class="col">
-                        <i class="fa-solid fa-sort"></i>
-                    </div>
-                </div>
+            <th scope="col" class="sorting">
+                Solucion
             </th>
         </tr>
     </thead>
-    <tbody class="table-group-divider">
-
-        <?php foreach ($ordenes as $key => $orden) : ?>
-            <tr class="fila" id="<?php echo $orden["id"];?>" tipoModal="orden" >
-                <td class="hidden" style="display: none;"> <!-- POSICION ESTADO -->
-                    <script type='text/JavaScript'>;document.write(posicionEstado('<?php echo $orden['estado']; ?>')); </script>
-                </td>
-                <td> <!-- ESTADO -->
-                <?php
-                    if($orden["estado"] == 1){
-                        $clase_btn_estado = "text-bg-danger";
-                        $estado = "Pendiente";
-                        $iconoBtn = '<i class="fa-solid fa-screwdriver-wrench fa-flip-horizontal"></i> <i class="fa-solid"> '.$estado.'</i> <i class="fa-solid fa-screwdriver-wrench"></i>';
-                    }
-                    else if($orden["estado"] == 2){
-                        $clase_btn_estado = "text-bg-secondary";
-                        $estado = "Cancelado";
-                        $iconoBtn = '<i class="fa-solid fa-rectangle-xmark"> '.$estado.' </i> <i class="fa-solid fa-rectangle-xmark"></i>';
-                    }
-                    else if($orden["estado"] == 3){
-                        $clase_btn_estado = "text-bg-warning";
-                        $estado = "Finalizado";
-                        $iconoBtn = '<i class="fa-solid fa-car-on"> '.$estado.' </i> <i class="fa-solid fa-car-on"></i>';
-                    }
-                    else if($orden["estado"] == 4){
-                        $clase_btn_estado = "text-bg-success";
-                        $estado = "Entregado";
-                        $iconoBtn = '<i class="fa-solid fa-car-burst fa-flip-horizontal"></i> <i class="fa-solid"> '.$estado.' </i> <i class="fa-solid fa-car-burst"> </i>';
-                    }
-                    else if($orden["estado"] == 5){
-                        $clase_btn_estado = "text-bg-danger text-dark";
-                        $estado = "Pendiente de pago";  
-                        $iconoBtn = '<i class="fa-solid fa-hand-holding-dollar fa-flip-horizontal"> </i> <i class="fa-solid"> '.$estado.' </i> <i class="fa-solid fa-hand-holding-dollar"></i>';
-                    }
-                ?>
-                    <a id="<?php echo $orden["id"];?>" tipoModal="orden" class="btn btn-sm <?php echo $clase_btn_estado;?> btn-outline-dark btnOrden">
-                        <?php echo $iconoBtn;?>
-                    </a>
-                </td>
-                <td> <!-- AUTO ASOCIADO -->
-                    <?php
-                        $autoAsociado = ControladorFormularios::ctrlSeleccionarAuto($orden["id_auto"]);
-                        echo $autoAsociado[0]["patente"];
-                    ?>
-                </td>
-                <td> <!-- FECHA RECIBIDO -->
-                    <script type='text/JavaScript'>;document.write(transDate('<?php echo $orden['fecha_recibido']; ?>')); </script>
-                </td>
-                <td style="max-width: 600px; overflow: hidden; text-overflow: ellipsis;"> <!-- PROBLEMA -->
-                    <?php echo $orden["problema"]; ?>
-                </td>
-                <td> <!-- DEVOLUCION -->
-                    <?php
-                        if($orden["estado"] > 3 ) {
-                    ?>
-                            <script type='text/JavaScript'>;document.write(transDate('<?php echo $orden['fecha_devolucion']; ?>')); </script>
-                    <?php
-                        }
-                        else{
-                            echo "-"; 
-                        }
-                    ?>
-                </td>
-                <!-- MODELO AUTO ASOCIADO OCULTO -->
-                <td class="hidden" style="display: none;">
-                    <?php   
-                        $modeloAsociado = ControladorFormularios::ctrlSeleccionarModelo($autoAsociado[0]["id_modelo"]);
-                        $marcaAsociado = ControladorFormularios::ctrlSeleccionarMarca($modeloAsociado[0]["id_marca"]);
-                        echo $marcaAsociado[0]["marca"]." ".$modeloAsociado[0]["modelo"];
-                    ?>
-                </td>
-            <?php endforeach; ?>
-        
+    <tbody class="table-group-divider" id="tableOrdenes_rows">
         <script>
             cargarTabla('tableOrdenes');
         </script>

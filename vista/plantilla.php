@@ -42,30 +42,12 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/a0e4ca76a9.js" crossorigin="anonymous"></script>
-    <script>
-        function transDate(date){
-            var d = new Date(date);
-
-            return d.getDate() + "/" + (+d.getMonth()+1) + "/" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
-        }
-        function posicionEstado(estado){
-            switch(estado){
-                case '1': //Pendiente
-                    return 2;
-                case '2': //Cancelado
-                    return 5;
-                case '3': //Finalizado
-                    return 1;
-                case '4': //Entregado
-                    return 4;
-                case '5': //Pendiente de pago
-                    return 0;
-                default: //Estado incorrecto
-                    return -1;
-            }
-        }
-    </script>
+    <link rel='stylesheet' type='text/css' href='http://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css'>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.20/js/dataTables.bootstrap4.min.js"></script>
     
+    <script src="js/init.js"></script>
+
     <!-- <script src="js/modals.js"></script>
     <script src="js/functions.js"></script> -->
 
@@ -308,7 +290,6 @@
                             <input class="form-control" type="hidden" name="autoId" id="autoId" required>
                             <input class="form-control" type="hidden" name="autoIdModelo" id="autoIdModelo" required>
                             <input class="form-control" type="hidden" name="autoIdCliente" id="autoIdCliente" required>
-                            <input class="form-control" type="hidden" name="autoIdEstado" id="autoIdEstado" required>
 
                             <div class="form-floating mb-2">
                                 <input autocomplete="off" class="form-control" type="text" placeholder="Ingrese patente" name="autoPatente" id="autoPatente" required>
@@ -478,12 +459,8 @@
         load_js("js/functions.js");
         
     </script> -->
-    
-    <script src="js/modals.js"></script>
     <script src="js/functions.js"></script>
+    <script src="js/modals.js"></script>
     <script src="js/ordenes.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.20/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.20/js/dataTables.bootstrap4.min.js"></script>
 </body>
 </html>

@@ -17,6 +17,57 @@ class ModeloFormularios {
 
         $stmt = null;
     }
+    // SELECCIONAR ORDENES
+    static public function mdlSeleccionarOrdenes(){
+
+        $stmt = Conexion::conectar()->prepare("SELECT
+                                            ord.id, ord.id_auto, DATE_FORMAT(ord.fecha_recibido, '%d/%m/%Y %H:%i:%s') as fecha_recibido, ord.problema,
+                                            ord.solucion, DATE_FORMAT(ord.fecha_devolucion, '%d/%m/%Y %H:%i:%s') as fecha_devolucion, ord.estado,
+                                            au.patente, au.anio,
+                                            cl.nombre, cl.telefono, cl.mail, cl.domicilio,
+                                            CONCAT(ma.marca, ' ', mo.modelo) as modelo
+                                            FROM ordenes ord
+                                            INNER JOIN autos au
+                                            ON ord.id_auto = au.id
+                                            INNER JOIN clientes cl
+                                            ON au.id_cliente = cl.id
+                                            INNER JOIN modelos mo
+                                            ON au.id_modelo = mo.id
+                                            INNER JOIN marcas ma
+                                            ON mo.id_marca = ma.id;");
+
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+
+        $stmt->close();
+
+        $stmt = null;
+    }
+    
+    // SELECCIONAR AUTOS
+    static public function mdlSeleccionarAutos(){
+
+        $stmt = Conexion::conectar()->prepare("SELECT
+                                            au.id, au.patente, au.anio,
+                                            cl.nombre, cl.telefono,
+                                            CONCAT(ma.marca, ' ', mo.modelo) as modelo
+                                            FROM autos au
+                                            INNER JOIN clientes cl
+                                            ON au.id_cliente = cl.id
+                                            INNER JOIN modelos mo
+                                            ON au.id_modelo = mo.id
+                                            INNER JOIN marcas ma
+                                            ON mo.id_marca = ma.id;");
+
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+
+        $stmt->close();
+
+        $stmt = null;
+    }
     
     // SELECCIONAR ID
     static public function mdlSeleccionarId($tabla, $id){
@@ -119,10 +170,9 @@ class ModeloFormularios {
     // AGREGAR AUTO
     static public function mdlAgregarAuto($tabla, $datos){
 
-        $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(id_estado, patente, id_modelo, anio, id_cliente) VALUES (:id_estado, :patente, :id_modelo, :anio, :id_cliente)");
+        $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(patente, id_modelo, anio, id_cliente) VALUES (:patente, :id_modelo, :anio, :id_cliente)");
 
-        // id_estado patente id_modelo anio id_cliente
-        $stmt->bindParam(":id_estado", $datos["id_estado"], PDO::PARAM_INT);
+        // patente id_modelo anio id_cliente
         $stmt->bindParam(":patente", $datos["patente"], PDO::PARAM_STR);
         $stmt->bindParam(":id_modelo", $datos["id_modelo"], PDO::PARAM_INT);
         $stmt->bindParam(":anio", $datos["anio"], PDO::PARAM_INT);

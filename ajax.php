@@ -53,6 +53,15 @@ $modelosDeseados = array();
             echo "error";
             exit;
         }
+        if($_POST["action"] == "seleccionarAutos"){
+            $autos = ControladorFormularios::ctrlSeleccionarAutos();
+            if($autos){
+                echo json_encode($autos, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
         if($_POST["action"] == "seleccionarOrden"){
             $id = $_POST["id_orden"];
             $ordenSeleccionada = ControladorFormularios::ctrlSeleccionarOrden($id);
@@ -64,7 +73,7 @@ $modelosDeseados = array();
             exit;
         }
         if($_POST["action"] == "seleccionarOrdenes"){
-            $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
+            $ordenes = ControladorFormularios::ctrlSeleccionarOrdenes();
             if($ordenes){
                 echo json_encode($ordenes, JSON_UNESCAPED_UNICODE);
                 exit;
