@@ -36,7 +36,7 @@
                 </td>
                 <td><?php echo $cliente["nombre"]; ?></td>
                 <td><?php echo $cliente["telefono"]; ?></td>
-                <td><?php echo $cliente["mail"]; ?></td>
+                <td style="max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><?php echo $cliente["mail"]; ?></td>
                 <td><?php echo $cliente["domicilio"]; ?></td>
             </tr>
             <?php endforeach; ?>

@@ -117,7 +117,7 @@ $( document ).ready(function() {
         $.ajax({
             type: "POST",
             url: "ajax.php",
-            async: true,
+            async: false,
             data: {action:action, id:id_marca, marca:marcaValor.value},
             success: function(response) {
                 console.log(response);
@@ -148,7 +148,7 @@ $( document ).ready(function() {
         $.ajax({
             type: "POST",
             url: "ajax.php",
-            async: true,
+            async: false,
             data: {action:action, id:id_modelo},
             success: function(response) {
                 if (response != "error") {
@@ -178,7 +178,7 @@ $( document ).ready(function() {
         $.ajax({
             type: "POST",
             url: "ajax.php",
-            async: true,
+            async: false,
             data: {action:action, id:id_cliente},
             success: function(response) {
                 if (response != "error") {
@@ -212,7 +212,7 @@ $( document ).ready(function() {
             $.ajax({
                 type: "POST",
                 url: "ajax.php",
-                async: true,
+                async: false,
                 data: {action:action, id:marcaId.value, marca:marcaValor.value},
                 success: function(response) {
                     if (response != "error") {
@@ -254,7 +254,7 @@ $( document ).ready(function() {
             $.ajax({
                 type: "POST",
                 url: "ajax.php",
-                async: true,
+                async: false,
                 data: {action:action, id:modeloId.value, modelo:modeloValor.value, marcaModelo:marcaModelo.value},
                 success: function(response) {
                     console.log(response);
@@ -301,7 +301,7 @@ $( document ).ready(function() {
             $.ajax({
                 type: "POST",
                 url: "ajax.php",
-                async: true,
+                async: false,
                 data: {action:action, id:clienteId.value, nombre:clienteNombre.value, telefono:clienteTelefono.value, mail:clienteMail.value, domicilio:clienteDomicilio.value},
                 success: function(response) {
                     console.log(response);
@@ -379,7 +379,7 @@ $( document ).ready(function() {
                             $.ajax({
                                 type: "POST",
                                 url: "ajax.php",
-                                async: true,
+                                async: false,
                                 // patente	id_modelo	anio	id_cliente
                                 data: {action:action, id:autoId.value, id_modelo:autoIdModelo.value, patente:autoPatente.value, anio:autoYear.value, id_cliente:autoIdCliente.value},
                                 success: function(response) {
@@ -551,6 +551,7 @@ function abrirModalAuto(id) {
     else{
         autoModalTitle.innerHTML = "Auto";
         autoId.value = id;
+        mostrarCambiosAuto(id);
         var autoEditar = obtenerAuto(id);
         autoEditar.done(function(responseAuto){
             var info_auto = JSON.parse(responseAuto);
@@ -598,7 +599,7 @@ function obtenerMarcas() {
     return $.ajax({
         type: "POST",
         url: "ajax.php",
-        async: true,
+        async: false,
         data: { action:action}
     });
 }
@@ -609,7 +610,7 @@ function obtenerModelos() {
     return $.ajax({
         type: "POST",
         url: "ajax.php",
-        async: true,
+        async: false,
         data: { action:action}
     });
 }
@@ -621,7 +622,7 @@ function obtenerClientes() {
     return $.ajax({
         type: "POST",
         url: "ajax.php",
-        async: true,
+        async: false,
         data: { action:action}
     });
 }
@@ -632,7 +633,7 @@ function obtenerMarca(id_marca) {
     return $.ajax({
         type: "POST",
         url: "ajax.php",
-        async: true,
+        async: false,
         data: { action:action, id_marca:id_marca}
     });
 }
@@ -643,7 +644,7 @@ function obtenerModelo(id_modelo) {
     return $.ajax({
         type: "POST",
         url: "ajax.php",
-        async: true,
+        async: false,
         data: { action:action, id_modelo:id_modelo}
     });
 }
@@ -654,7 +655,7 @@ function obtenerAutoPorPatente(patente) {
     return $.ajax({
         type: "POST",
         url: "ajax.php",
-        async: true,
+        async: false,
         data: { action:action, patente:patente}
     });
 }
@@ -665,7 +666,7 @@ function obtenerModeloPorNombre(modelo) {
     return $.ajax({
         type: "POST",
         url: "ajax.php",
-        async: true,
+        async: false,
         data: { action:action, modelo:modelo}
     });
 }
@@ -676,7 +677,7 @@ function obtenerCliente(id_cliente) {
     return $.ajax({
         type: "POST",
         url: "ajax.php",
-        async: true,
+        async: false,
         data: { action:action, id_cliente:id_cliente}
     });
 }
@@ -687,7 +688,7 @@ function obtenerAuto(id_auto) {
     return $.ajax({
         type: "POST",
         url: "ajax.php",
-        async: true,
+        async: false,
         data: { action:action, id_auto:id_auto}
     });
 }

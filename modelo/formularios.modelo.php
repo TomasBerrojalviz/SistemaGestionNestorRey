@@ -21,8 +21,8 @@ class ModeloFormularios {
     static public function mdlSeleccionarOrdenes(){
 
         $stmt = Conexion::conectar()->prepare("SELECT
-                                            ord.id, ord.id_auto, DATE_FORMAT(ord.fecha_recibido, '%d/%m/%Y %H:%i:%s') as fecha_recibido, ord.problema,
-                                            ord.solucion, DATE_FORMAT(ord.fecha_devolucion, '%d/%m/%Y %H:%i:%s') as fecha_devolucion, ord.estado,
+                                            ord.id, ord.id_auto, DATE_FORMAT(ord.fecha_recibido, '%d/%m/%Y') as fecha_recibido, ord.problema,
+                                            ord.solucion, DATE_FORMAT(ord.fecha_devolucion, '%d/%m/%Y') as fecha_devolucion, ord.estado,
                                             au.patente, au.anio,
                                             cl.nombre, cl.telefono, cl.mail, cl.domicilio,
                                             CONCAT(ma.marca, ' ', mo.modelo) as modelo

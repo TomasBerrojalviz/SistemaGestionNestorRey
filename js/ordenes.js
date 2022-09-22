@@ -12,7 +12,6 @@ var ordenAuto = document.getElementById("ordenAuto");
 var ordenAutoPatente = document.getElementById("ordenAutoPatente");
 var ordenAutoMarca = document.getElementById("ordenAutoMarca");
 var ordenAutoModelo = document.getElementById("ordenAutoModelo");
-var ordenNotas = document.getElementById("ordenNotas");
 var ordenAutoCliente = document.getElementById("ordenAutoCliente");
 var btn_orden_modal = document.getElementById("btn_orden_modal");
 var id_orden = 0;
@@ -78,7 +77,7 @@ $( document ).ready(function() {
                 $.ajax({
                     type: "POST",
                     url: "ajax.php",
-                    async: true,
+                    async: false,
                     // id   id_auto fecha_recibido  problema	notas	adjuntos	id_recibo	id_presupuesto	solucion	fecha_devolucion	estado
                     data: {
                         action:action,
@@ -197,7 +196,7 @@ $( document ).ready(function() {
         $.ajax({
             type: "POST",
             url: "ajax.php",
-            async: true,
+            async: false,
             data: {action:action, id_auto:autoCambio.value, fecha_cambio:fecha_cambio_aux, aceite:aceite_aux, km_actual:km_actual_aux, prox_cambio:prox_cambio_aux, filtro_aceite:filtro_aceite_aux, filtro_aire:filtro_aire_aux, filtro_combustible:filtro_combustible_aux, filtro_habitaculo:filtro_habitaculo_aux},
             success: function(response) {
                 if (response != "error") {
@@ -237,7 +236,7 @@ $( document ).ready(function() {
         $.ajax({
             type: "POST",
             url: "ajax.php",
-            async: true,
+            async: false,
             // id_presupuesto descripcion cantidad precio precio_total
             data: {
                 action:action,
@@ -299,7 +298,6 @@ function abrirModalOrden(id) {
 
         // id_recibo = obtenerRecibo();
         // ordenProblema = obtenerProblema();
-        // ordenNotas = obtenerNotas();
         for (var i = 0; i < dataOrden.length; i++) {
             var element = dataOrden[i];
             element.style.display = "initial";
@@ -344,7 +342,6 @@ function abrirModalOrden(id) {
             fecha_recibido.value = transDate(info_orden[0].fecha_recibido);
             id_recibo.value = info_orden[0].id_recibo;
             ordenProblema.value = info_orden[0].problema;
-            ordenNotas.value = info_orden[0].notas;
         });
         
         btn_orden_modal.setAttribute("accion", "editarOrden");
@@ -360,7 +357,7 @@ function obtenerOrden(id_buscado) {
     return $.ajax({
         type: "POST",
         url: "ajax.php",
-        async: true,
+        async: false,
         data: { action:action, id_orden:id_buscado}
     });
 }
@@ -394,7 +391,7 @@ function obtenerPresupuesto(id) {
     return $.ajax({
         type: "POST",
         url: "ajax.php",
-        async: true,
+        async: false,
         data: { action:action, id:id}
     });
 }
@@ -404,7 +401,7 @@ function crearPresupuesto(id) {
     return $.ajax({
         type: "POST",
         url: "ajax.php",
-        async: true,
+        async: false,
         data: { action:action, id:id}
     });        
 }
@@ -544,7 +541,7 @@ function obtenerInsumosPresupuesto(id_presupuesto){
     return $.ajax({
         type: "POST",
         url: "ajax.php",
-        async: true,
+        async: false,
         data: { action:action, id:id_presupuesto}
     });
 }
@@ -555,7 +552,7 @@ function obtenerCambios(id_auto){
     return $.ajax({
         type: "POST",
         url: "ajax.php",
-        async: true,
+        async: false,
         data: { action:action, id_auto:id_auto}
     });
 
@@ -583,6 +580,9 @@ function mostrarCambiosAuto(id_auto){
             var strDate = maxDate(fecha_cambio_aux);
             if(strDate == "0000-00-00 00:00:00"){
                 fecha_cambio.innerHTML = "Sin cambios";
+                aceite.innerHTML = "-";
+                km_actual.innerHTML = "-";
+                prox_cambio.innerHTML = "-";
             }
             else{
                 for(i=0; i<info_cambios.length; i++){

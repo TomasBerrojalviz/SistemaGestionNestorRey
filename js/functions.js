@@ -26,7 +26,7 @@ $( document ).ready(function() {
         $.ajax({
             type: "POST",
             url: "ajax.php",
-            async: true,
+            async: false,
             data: { action:action, marca:marca},
             success: function(response) {
                 // console.log(response);
@@ -127,7 +127,7 @@ function verificarCliente(){
     $.ajax({
         type: "POST",
         url: "ajax.php",
-        async: true,
+        async: false,
         data: { action:action, nombreCliente:nombreCliente},
         success: function(response) {
             if (response != "error") {
@@ -152,7 +152,7 @@ function verificarMarca(marcaLabel){
     $.ajax({
         type: "POST",
         url: "ajax.php",
-        async: true,
+        async: false,
         data: { action:action, marcaAuto:marcaAuto},
         success: function(response) {
             if (response != "error") {
@@ -179,7 +179,7 @@ function verificarModelo(){
     $.ajax({
         type: "POST",
         url: "ajax.php",
-        async: true,
+        async: false,
         data: { action:action, modeloAuto:modeloAuto},
         success: function(response) {
             if (response != "error") {
@@ -294,23 +294,32 @@ function editarModal(){
 }
 
 function setTablas(){
-    $('#tableMarca').DataTable();
-    $("#tableMarca_filter").addClass('text-light float-end');
-    $("#tableMarca_paginate").addClass('text-light float-end');
-    $("#tableMarca_length").addClass('text-light mx-1');
-    $("#tableMarca_info").addClass('text-light mx-1');
+    $('#tableMarca').DataTable({order: [[1, 'asc']]});
+    if(document.getElementById("tableMarca_paginate")){
+        $("#tableMarca_filter").addClass('text-light float-end mx-2');
+        document.getElementById("tableMarca_paginate").removeAttribute('class');
+        $("#tableMarca_paginate").addClass('text-light float-end my-2');
+        $("#tableMarca_length").addClass('text-light mx-1');
+        $("#tableMarca_info").addClass('text-light mx-1');
+    }
 
-    $('#tableModelo').DataTable();
-    $("#tableModelo_filter").addClass('text-light float-end');
-    $("#tableModelo_paginate").addClass('text-light float-end');
-    $("#tableModelo_length").addClass('text-light  mx-1');
-    $("#tableModelo_info").addClass('text-light mx-1');
+    $('#tableModelo').DataTable({order: [[1, 'asc']]});
+    if(document.getElementById("tableModelo_paginate")){
+        $("#tableModelo_filter").addClass('text-light float-end mx-2');
+        document.getElementById("tableModelo_paginate").removeAttribute('class');
+        $("#tableModelo_paginate").addClass('text-light float-end my-2');
+        $("#tableModelo_length").addClass('text-light mx-1');
+        $("#tableModelo_info").addClass('text-light mx-1');
+    }
     
-    $('#tableCliente').DataTable();
-    $("#tableCliente_filter").addClass('text-light float-end');
-    $("#tableCliente_paginate").addClass('text-light float-end');
-    $("#tableCliente_length").addClass('text-light  mx-1');
-    $("#tableCliente_info").addClass('text-light mx-1');
+    $('#tableCliente').DataTable({order: [[1, 'asc']]});
+    if(document.getElementById("tableCliente_paginate")){
+        $("#tableCliente_filter").addClass('text-light float-end mx-2');
+        document.getElementById("tableCliente_paginate").removeAttribute('class');
+        $("#tableCliente_paginate").addClass('text-light float-end my-2');
+        $("#tableCliente_length").addClass('text-light mx-1');
+        $("#tableCliente_info").addClass('text-light mx-1');
+    }
     
 
 

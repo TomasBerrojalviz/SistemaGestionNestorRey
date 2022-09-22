@@ -8,12 +8,12 @@ var columnaModelo = document.getElementsByClassName("columnaModelo");
 var columnaAnio = document.getElementsByClassName("columnaAnio");
 var columnaClienteNombre = document.getElementsByClassName("columnaClienteNombre");
 function cargarTabla(nombreTabla){
-    // var width = $(document).innerWidth();
-    // if(width < 720){
-    //     var show = false;
-    // }else{
-    //     var show = true;
-    // }
+    var width = $(document).innerWidth();
+    if(width < 720){
+        var show = false;
+    }else{
+        var show = true;
+    }
     if(nombreTabla == "tableOrdenes"){
         $('#tableOrdenes').DataTable().destroy();
         $('#tableOrdenes_rows').empty();
@@ -92,11 +92,11 @@ function cargarTabla(nombreTabla){
                 }
             }
             for(var i=0; i<columnaEstado.length; i++) {
-                columnaEstado[i].setAttribute("style", "max-width: 200px;");
-                columnaPatente[i].setAttribute("style", "max-width: 150px;");
-                columnaLlegada[i].setAttribute("style", "max-width: 160px;");
-                columnaProblema[i].setAttribute("style", "max-width: 600px; overflow: hidden; text-overflow: ellipsis;");
-                columnaDevolucion[i].setAttribute("style", "max-width: 160px;");
+                columnaEstado[i].setAttribute("style", "max-width: 160px;");
+                columnaPatente[i].setAttribute("style", "max-width: 100px;");
+                columnaLlegada[i].setAttribute("style", "max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;");
+                columnaProblema[i].setAttribute("style", "max-width: 400px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;");
+                columnaDevolucion[i].setAttribute("style", "max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;");
             }
             $("#tableOrdenes_filter").addClass('text-light float-end mx-2');
             document.getElementById("tableOrdenes_paginate").removeAttribute('class');
@@ -249,7 +249,7 @@ function setBotonEstado(id, estado){
     }
     else if(estado == 5){
         clase_btn_estado = "text-bg-danger text-dark";
-        estado_str = "Pendiente de pago";  
+        estado_str = "Falta pagar";  
         iconoBtn = '<i class="fa-solid fa-hand-holding-dollar fa-flip-horizontal"> </i> <i class="fa-solid"> '+estado_str+' </i> <i class="fa-solid fa-hand-holding-dollar"></i>';
     }
     var boton = "<button id='"+id+"' tipoModal='orden' class='btn btn-sm btn-outline-dark btnOrden "+clase_btn_estado+"'>";
