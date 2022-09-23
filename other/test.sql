@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-08-2022 a las 20:08:00
+-- Tiempo de generación: 23-09-2022 a las 04:31:44
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -29,7 +29,6 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `autos` (
   `id` int(11) NOT NULL,
-  `id_estado` int(11) NOT NULL,
   `patente` text NOT NULL,
   `id_modelo` int(11) NOT NULL,
   `anio` text NOT NULL,
@@ -40,13 +39,45 @@ CREATE TABLE `autos` (
 -- Volcado de datos para la tabla `autos`
 --
 
-INSERT INTO `autos` (`id`, `id_estado`, `patente`, `id_modelo`, `anio`, `id_cliente`) VALUES
-(1, 0, 'HDC940', 1, '2009', 1),
-(4, 1, 'ASD123', 32, '2020', 1),
-(5, 2, 'QWE', 3, '123', 8),
-(6, 5, 'QAZ', 2, '456', 8),
-(7, 3, 'HDP666', 33, '2001', 10),
-(8, 3, 'QWE123', 31, '2003', 10);
+INSERT INTO `autos` (`id`, `patente`, `id_modelo`, `anio`, `id_cliente`) VALUES
+(1, 'HDC940', 1, '2009', 1),
+(4, 'ASD123', 32, '2020', 1),
+(5, 'QWE', 3, '123', 8),
+(6, 'QAZ', 2, '456', 8),
+(7, 'HDP666', 33, '2001', 10),
+(8, 'QWE123', 31, '2003', 10),
+(9, 'AAA666', 30, '2022', 8),
+(10, 'ZXC123', 10, '123', 1),
+(11, '123', 28, '123', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cambios`
+--
+
+CREATE TABLE `cambios` (
+  `id` int(11) NOT NULL,
+  `id_auto` int(11) NOT NULL,
+  `fecha_cambio` datetime NOT NULL DEFAULT current_timestamp(),
+  `aceite` text NOT NULL,
+  `km_actual` int(11) NOT NULL,
+  `prox_cambio` int(11) NOT NULL,
+  `filtro_aceite` datetime NOT NULL DEFAULT current_timestamp(),
+  `filtro_aire` datetime NOT NULL DEFAULT current_timestamp(),
+  `filtro_combustible` datetime NOT NULL DEFAULT current_timestamp(),
+  `filtro_habitaculo` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `cambios`
+--
+
+INSERT INTO `cambios` (`id`, `id_auto`, `fecha_cambio`, `aceite`, `km_actual`, `prox_cambio`, `filtro_aceite`, `filtro_aire`, `filtro_combustible`, `filtro_habitaculo`) VALUES
+(1, 1, '2022-09-19 09:56:46', 'ACEITIN', 1750, 3000, '0000-00-00 00:00:00', '2022-09-19 09:56:46', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 1, '2022-09-19 09:57:37', 'PEPITO', 3500, 4500, '2022-09-19 09:57:37', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2022-09-19 09:57:37'),
+(3, 1, '0000-00-00 00:00:00', '', 0, 0, '0000-00-00 00:00:00', '2022-09-19 09:58:16', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, 7, '0000-00-00 00:00:00', '', 0, 0, '2022-09-19 09:59:37', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -74,12 +105,49 @@ INSERT INTO `clientes` (`id`, `nombre`, `telefono`, `mail`, `domicilio`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `insumos_presupuestos`
+--
+
+CREATE TABLE `insumos_presupuestos` (
+  `id` int(11) NOT NULL,
+  `id_presupuesto` int(11) NOT NULL,
+  `descripcion` text NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `precio` int(11) NOT NULL,
+  `precio_total` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `insumos_presupuestos`
+--
+
+INSERT INTO `insumos_presupuestos` (`id`, `id_presupuesto`, `descripcion`, `cantidad`, `precio`, `precio_total`) VALUES
+(1, 1, 'MANO DE OBRA', 1, 10000, 10000),
+(2, 1, 'FRENOS', 1, 7000, 7000),
+(3, 1, 'PINTURA', 2, 3000, 6000),
+(4, 2, 'MANO DE OBRA', 1, 10000, 10000),
+(5, 2, 'ACEITE', 1, 2700, 2700),
+(6, 2, 'FILTROS', 3, 850, 2550),
+(7, 2, 'LLANTAS', 4, 5000, 20000),
+(8, 1, 'FRENOS', 1, 500, 500),
+(9, 3, 'MANO DE OBRA', 1, 10000, 10000),
+(10, 3, 'FRENOS', 2, 1500, 3000),
+(11, 4, 'MANO DE OBRA', 1, 10000, 10000),
+(12, 4, 'BUJIA', 1, 10000, 10000),
+(13, 4, 'FRENOS', 2, 7500, 15000),
+(14, 5, 'MANO DE OBRA', 1, 10000, 10000),
+(15, 6, 'MANO DE OBRA', 1, 10000, 10000),
+(16, 7, 'MANO DE OBRA', 1, 10000, 10000);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `marcas`
 --
 
 CREATE TABLE `marcas` (
   `id` int(11) NOT NULL,
-  `marca` varchar(45) NOT NULL
+  `marca` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -87,18 +155,44 @@ CREATE TABLE `marcas` (
 --
 
 INSERT INTO `marcas` (`id`, `marca`) VALUES
-(1, 'HONDA'),
-(2, 'FORD'),
-(3, 'FIAT'),
-(4, 'AUDI'),
-(5, 'BMW'),
-(6, 'TOYOTA'),
-(7, 'HYUNDAI'),
-(8, 'PEUGEOT'),
-(9, 'LAMBORGHINI'),
-(10, 'FERRARI'),
-(29, 'CHEVROLET'),
-(36, 'VOLKSWAGEN');
+(1, 'ALFA ROMEO'),
+(2, 'AUDI'),
+(3, 'BENTLEY'),
+(4, 'BMW'),
+(5, 'BUGATTI'),
+(6, 'CADILLAC'),
+(7, 'CHERRY'),
+(8, 'CHEVROLET'),
+(9, 'CITROEN'),
+(10, 'CORVETTE'),
+(11, 'DODGE'),
+(12, 'FERRARI'),
+(13, 'FIAT'),
+(14, 'FORD'),
+(15, 'HONDA'),
+(16, 'HUMMER'),
+(17, 'HYUNDAI'),
+(18, 'JAGUAR'),
+(19, 'JEEP'),
+(20, 'KIA'),
+(21, 'LAMBORGHINI'),
+(22, 'MASERATI'),
+(23, 'MAZDA'),
+(24, 'MERCEDES BENZ'),
+(25, 'MINI'),
+(26, 'MITSUBISHI'),
+(27, 'NISSAN'),
+(28, 'PEUGEOT'),
+(29, 'PORSCHE'),
+(30, 'RENAULT'),
+(31, 'ROLLS ROYCE'),
+(32, 'SUBARU'),
+(33, 'SUBARU'),
+(34, 'SUZUKI'),
+(35, 'SUZUKI'),
+(36, 'TOYOTA'),
+(37, 'VOLKSWAGEN'),
+(38, 'VOLVO');
 
 -- --------------------------------------------------------
 
@@ -109,7 +203,7 @@ INSERT INTO `marcas` (`id`, `marca`) VALUES
 CREATE TABLE `modelos` (
   `id` int(11) NOT NULL,
   `id_marca` int(11) NOT NULL,
-  `modelo` varchar(45) NOT NULL
+  `modelo` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -117,24 +211,24 @@ CREATE TABLE `modelos` (
 --
 
 INSERT INTO `modelos` (`id`, `id_marca`, `modelo`) VALUES
-(1, 1, 'FIT'),
-(2, 6, 'ETIOS'),
-(3, 2, 'KA'),
-(4, 3, '147'),
-(10, 8, '207'),
-(11, 8, '206'),
-(18, 8, '408'),
-(19, 8, '308'),
-(20, 8, '2008'),
-(23, 3, 'UNO'),
-(25, 3, 'CRONOS'),
-(26, 3, '500X'),
-(28, 1, 'CR-V'),
-(29, 6, 'COROLLA'),
-(30, 8, 'PARTNER'),
-(31, 2, 'FOCUS'),
-(32, 29, 'ONIX'),
-(33, 36, 'VENTO');
+(1, 15, 'FIT'),
+(2, 36, 'ETIOS'),
+(3, 14, 'KA'),
+(4, 13, '147'),
+(10, 28, '207'),
+(11, 28, '206'),
+(18, 28, '408'),
+(19, 28, '308'),
+(20, 28, '2008'),
+(23, 13, 'UNO'),
+(25, 13, 'CRONOS'),
+(26, 13, '500X'),
+(28, 15, 'CR-V'),
+(29, 36, 'COROLLA'),
+(30, 28, 'PARTNER'),
+(31, 14, 'FOCUS'),
+(32, 8, 'ONIX'),
+(33, 37, 'VENTO');
 
 -- --------------------------------------------------------
 
@@ -145,14 +239,10 @@ INSERT INTO `modelos` (`id`, `id_marca`, `modelo`) VALUES
 CREATE TABLE `ordenes` (
   `id` int(11) NOT NULL,
   `id_auto` int(11) NOT NULL,
-  `fecha_recibido` date NOT NULL DEFAULT current_timestamp(),
+  `fecha_recibido` datetime NOT NULL DEFAULT current_timestamp(),
   `problema` text NOT NULL,
-  `notas` text DEFAULT NULL,
-  `adjuntos` int(11) DEFAULT NULL,
-  `id_recibo` int(11) NOT NULL,
-  `id_presupuesto` int(11) NOT NULL,
   `solucion` text DEFAULT NULL,
-  `fecha_devolucion` date DEFAULT NULL,
+  `fecha_devolucion` datetime DEFAULT NULL,
   `estado` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -160,11 +250,40 @@ CREATE TABLE `ordenes` (
 -- Volcado de datos para la tabla `ordenes`
 --
 
-INSERT INTO `ordenes` (`id`, `id_auto`, `fecha_recibido`, `problema`, `notas`, `adjuntos`, `id_recibo`, `id_presupuesto`, `solucion`, `fecha_devolucion`, `estado`) VALUES
-(3, 1, '2022-08-27', 'QWE', 'ASD', NULL, 0, 0, NULL, NULL, 1),
-(4, 1, '2022-08-27', 'PROBLEMAS CON LA CORREA', 'REVISAR X COSA', NULL, 0, 0, NULL, NULL, 1),
-(5, 4, '2022-08-27', 'QUILOMBO CON EL ONIX', 'TEST', NULL, 0, 0, NULL, NULL, 1),
-(6, 8, '2022-08-27', 'AUTO GIANE', '', NULL, 0, 0, NULL, NULL, 1);
+INSERT INTO `ordenes` (`id`, `id_auto`, `fecha_recibido`, `problema`, `solucion`, `fecha_devolucion`, `estado`) VALUES
+(4, 7, '2022-08-30 00:00:00', 'ASDFASFDASFASASDFASFDASFASASDFASFDASFASASD FASFDASFASASDFASFDASFASASDFASFDASFASASDFASFDASFASASDFASFDASFASASDFASFDASFASASDFASFDASFASASDFASFDASFAS', NULL, NULL, 1),
+(5, 5, '2022-09-02 00:00:00', 'BUJIAS', NULL, NULL, 2),
+(6, 7, '2022-09-08 14:16:18', 'FRENOS', NULL, '2022-09-09 21:58:19', 5),
+(7, 1, '2022-09-12 19:43:06', 'QWEQWEQWE\nASHDAHJSD', NULL, NULL, 1),
+(8, 1, '2022-09-14 23:21:08', 'EL TOPY SE QUIZO HACER EL RETO TOKYO Y CHOCO TODO EL AUTO', NULL, NULL, 1),
+(9, 1, '2022-09-17 19:51:51', 'BUJIA ROTA', NULL, '2022-09-19 16:08:28', 4),
+(10, 4, '2022-09-19 11:50:11', 'TEST', NULL, NULL, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `presupuestos`
+--
+
+CREATE TABLE `presupuestos` (
+  `id` int(11) NOT NULL,
+  `id_orden` int(11) NOT NULL,
+  `id_cliente` int(11) NOT NULL,
+  `fecha` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `presupuestos`
+--
+
+INSERT INTO `presupuestos` (`id`, `id_orden`, `id_cliente`, `fecha`) VALUES
+(1, 8, 1, '2022-09-15 20:47:00'),
+(2, 6, 10, '2022-09-16 15:17:07'),
+(3, 5, 8, '2022-09-16 16:13:42'),
+(4, 9, 1, '2022-09-17 19:54:00'),
+(5, 10, 1, '2022-09-19 11:54:43'),
+(6, 4, 10, '2022-09-19 15:22:46'),
+(7, 7, 1, '2022-09-22 23:30:17');
 
 --
 -- Índices para tablas volcadas
@@ -174,13 +293,29 @@ INSERT INTO `ordenes` (`id`, `id_auto`, `fecha_recibido`, `problema`, `notas`, `
 -- Indices de la tabla `autos`
 --
 ALTER TABLE `autos`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_modelo` (`id_modelo`),
+  ADD KEY `id_cliente` (`id_cliente`);
+
+--
+-- Indices de la tabla `cambios`
+--
+ALTER TABLE `cambios`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_auto` (`id_auto`);
 
 --
 -- Indices de la tabla `clientes`
 --
 ALTER TABLE `clientes`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `insumos_presupuestos`
+--
+ALTER TABLE `insumos_presupuestos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_presupuesto` (`id_presupuesto`);
 
 --
 -- Indices de la tabla `marcas`
@@ -192,13 +327,23 @@ ALTER TABLE `marcas`
 -- Indices de la tabla `modelos`
 --
 ALTER TABLE `modelos`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_marca` (`id_marca`);
 
 --
 -- Indices de la tabla `ordenes`
 --
 ALTER TABLE `ordenes`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_auto` (`id_auto`);
+
+--
+-- Indices de la tabla `presupuestos`
+--
+ALTER TABLE `presupuestos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_orden` (`id_orden`),
+  ADD KEY `id_cliente` (`id_cliente`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -208,7 +353,13 @@ ALTER TABLE `ordenes`
 -- AUTO_INCREMENT de la tabla `autos`
 --
 ALTER TABLE `autos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT de la tabla `cambios`
+--
+ALTER TABLE `cambios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `clientes`
@@ -217,10 +368,16 @@ ALTER TABLE `clientes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT de la tabla `insumos_presupuestos`
+--
+ALTER TABLE `insumos_presupuestos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
 -- AUTO_INCREMENT de la tabla `marcas`
 --
 ALTER TABLE `marcas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT de la tabla `modelos`
@@ -232,7 +389,55 @@ ALTER TABLE `modelos`
 -- AUTO_INCREMENT de la tabla `ordenes`
 --
 ALTER TABLE `ordenes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `presupuestos`
+--
+ALTER TABLE `presupuestos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `autos`
+--
+ALTER TABLE `autos`
+  ADD CONSTRAINT `autos_ibfk_2` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `autos_ibfk_3` FOREIGN KEY (`id_modelo`) REFERENCES `modelos` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `cambios`
+--
+ALTER TABLE `cambios`
+  ADD CONSTRAINT `cambios_ibfk_1` FOREIGN KEY (`id_auto`) REFERENCES `autos` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `insumos_presupuestos`
+--
+ALTER TABLE `insumos_presupuestos`
+  ADD CONSTRAINT `insumos_presupuestos_ibfk_1` FOREIGN KEY (`id_presupuesto`) REFERENCES `presupuestos` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `modelos`
+--
+ALTER TABLE `modelos`
+  ADD CONSTRAINT `modelos_ibfk_1` FOREIGN KEY (`id_marca`) REFERENCES `marcas` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `ordenes`
+--
+ALTER TABLE `ordenes`
+  ADD CONSTRAINT `ordenes_ibfk_1` FOREIGN KEY (`id_auto`) REFERENCES `autos` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `presupuestos`
+--
+ALTER TABLE `presupuestos`
+  ADD CONSTRAINT `presupuestos_ibfk_1` FOREIGN KEY (`id_orden`) REFERENCES `ordenes` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `presupuestos_ibfk_2` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
