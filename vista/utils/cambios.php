@@ -1,11 +1,11 @@
-<div class="accordion" id="accordionPanelsStayOpenExample">
+<div class="accordion" id="accordionCambios">
     <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-            <button class="accordion-button collapsed" type="button" id="panelsStayOpen_btn" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
+        <h2 class="accordion-header" id="panel-cambiosHead">
+            <button class="accordion-button collapsed bg-dark bg-opacity-10" type="button" id="btn_panel_cambios" data-bs-toggle="collapse" data-bs-target="#panel-cambios" aria-expanded="false" aria-controls="panel-cambios">
                 Listado de cambios
             </button>
         </h2>
-        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+        <div id="panel-cambios" class="accordion-collapse collapse" aria-labelledby="panel-cambiosHead">
             <div class="accordion-body">
                 <div class="card">
                     <!-- <img src="..." class="card-img-top" alt="Aceite"> -->

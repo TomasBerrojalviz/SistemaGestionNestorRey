@@ -364,8 +364,8 @@ function actualizarTablas() {
 
 function generarPDF(tipo, id){
     // 210 x 297 mm
-    var ancho = 1000;
-    var alto = 800;
+    var ancho = 824;
+    var alto = 568;
 
     var x = parseInt((window.screen.width/2) - (ancho / 2));
     var y = parseInt((window.screen.height/2) - (alto / 2));

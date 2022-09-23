@@ -72,18 +72,17 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                     <input class="form-control" type="hidden" name="ordenId" id="ordenId" required>
                     <input class="form-control" type="hidden" name="id_recibo" id="id_recibo" required>
                     <input class="form-control" type="hidden" name="ordenSolucion" id="solucion" required>
-                    <input class="form-control" type="hidden" name="ordenAutoCliente" id="ordenAutoCliente" required>
+                    <input class="form-control" type="hidden" name="ordenCliente" id="ordenCliente" required>
 
                     <div class="mb-2">
-                        <h5>Auto</h5>
-                        <div class="accordion accordion-flush bg-secondary" id="accordionFlushExample">
+                        <div class="accordion accordion-flush bg-secondary" id="accordionFlushAuto">
                             <div class="accordion-item">
-                                <h2 class="accordion-header" id="flush-headingOne">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                    Informacion del auto
+                                <h5 class="accordion-header" id="flush-autoHead">
+                                <button class="accordion-button collapsed bg-dark bg-opacity-10" type="button" data-bs-toggle="collapse" data-bs-target="#flush-auto" aria-expanded="false" aria-controls="flush-auto">
+                                    <h5>Auto</h5>
                                 </button>
-                                </h2>
-                                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                </h5>
+                                <div id="flush-auto" class="accordion-collapse collapse" aria-labelledby="flush-autoHead" data-bs-parent="#accordionFlushAuto">
                                     <div class="accordion-body">
                                         <div class="row">
                                             <div class="col" id="colAuto">
@@ -97,29 +96,20 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                                             </div>
                                             <div class="col dataOrden" style="display: none;">
                                                 <div class="form-floating mb-2">
-                                                    <input autocomplete="off" class="form-control" type="text" name="ordenAutoPatente" id="ordenAutoPatente" placeholder="Ingrese patente" disabled readonly>
+                                                    <input autocomplete="off" class="form-control" type="text" name="ordenAutoPatente" id="ordenAutoPatente" disabled readonly>
                                                     <label for="floatingInput">Patente</label>
-                                                    <div class="invalid-feedback">
-                                                        Ingrese una patente valida
-                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col dataOrden" style="display: none;">
                                                 <div class="form-floating mb-2">
-                                                    <input autocomplete="off" class="form-control" type="text" name="ordenAutoMarca" id="ordenAutoMarca" placeholder="Ingrese marca" disabled readonly>
-                                                    <label for="floatingInput">Marca</label>
-                                                    <div class="invalid-feedback">
-                                                        Ingrese una marca valida
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col dataOrden" style="display: none;">
-                                                <div class="form-floating mb-2">
-                                                    <input autocomplete="off" class="form-control" type="text" name="ordenAutoModelo" id="ordenAutoModelo" placeholder="Ingrese modelo" disabled readonly>
+                                                    <input autocomplete="off" class="form-control" type="text" name="ordenAutoModelo" id="ordenAutoModelo" disabled readonly>
                                                     <label for="floatingInput">Modelo</label>
-                                                    <div class="invalid-feedback">
-                                                        Ingrese un modelo valido
-                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col dataOrden" style="display: none;">
+                                                <div class="form-floating mb-2">
+                                                    <input autocomplete="off" class="form-control" type="number" name="ordenAutoAnio" id="ordenAutoAnio" disabled readonly>
+                                                    <label for="floatingInput">Año</label>
                                                 </div>
                                             </div>
                                         </div> 
@@ -137,34 +127,45 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                     </div>
                     <div class="mb-2">
                         <hr>
-                        <h5>Cliente</h5>
-
-                        <div class="div dataOrden" style="display: none;">
-                            <div class="row mb-3">
-                                <div class="col">
-                                    <div class="form-floating mb-2">
-                                        <input autocomplete="off" class="form-control" type="text" name="ordenClienteNombre" id="ordenClienteNombre" placeholder="Nombre" disabled readonly>
-                                        <label for="floatingInput">Nombre</label>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-floating mb-2">
-                                        <input autocomplete="off" class="form-control" type="text" name="ordenClienteTelefono" id="ordenClienteTelefono" placeholder="Telefono" disabled readonly>
-                                        <label for="floatingInput">Telefono</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col">
-                                    <div class="form-floating mb-2">
-                                        <input autocomplete="off" class="form-control" type="text" name="ordenClienteMail" id="ordenClienteMail" placeholder="Mail" disabled readonly>
-                                        <label for="floatingInput">Mail</label>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-floating mb-2">
-                                        <input autocomplete="off" class="form-control" type="text" name="ordenClienteDomicilio" id="ordenClienteDomicilio" placeholder="Domicilio" disabled readonly>
-                                        <label for="floatingInput">Domicilio</label>
+                        <div class="accordion accordion-flush" id="accordionFlushCliente">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="flush-clienteHead">
+                                <button class="accordion-button collapsed bg-dark bg-opacity-10" type="button" data-bs-toggle="collapse" data-bs-target="#flush-cliente" aria-expanded="false" aria-controls="flush-cliente">
+                                    <h5>Cliente</h5>
+                                </button>
+                                </h2>
+                                <div id="flush-cliente" class="accordion-collapse collapse" aria-labelledby="flush-clienteHead" data-bs-parent="#accordionFlushCliente">
+                                    <div class="accordion-body">
+                                        <div class="div dataOrden" style="display: none;">
+                                            <div class="row mb-3">
+                                                <div class="col">
+                                                    <div class="form-floating mb-2">
+                                                        <input autocomplete="off" class="form-control" type="text" name="ordenClienteNombre" id="ordenClienteNombre" placeholder="Nombre" disabled readonly>
+                                                        <label for="floatingInput">Nombre</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="form-floating mb-2">
+                                                        <input autocomplete="off" class="form-control" type="text" name="ordenClienteTelefono" id="ordenClienteTelefono" placeholder="Telefono" disabled readonly>
+                                                        <label for="floatingInput">Telefono</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col">
+                                                    <div class="form-floating mb-2">
+                                                        <input autocomplete="off" class="form-control" type="text" name="ordenClienteMail" id="ordenClienteMail" placeholder="Mail" disabled readonly>
+                                                        <label for="floatingInput">Mail</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="form-floating mb-2">
+                                                        <input autocomplete="off" class="form-control" type="text" name="ordenClienteDomicilio" id="ordenClienteDomicilio" placeholder="Domicilio" disabled readonly>
+                                                        <label for="floatingInput">Domicilio</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -241,31 +242,6 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('ORDEN')"></button>
             </div>
             <div class="modal-body">
-                    
-                <h5> Comentarios </h5>
-                <!-- <br> -->
-
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-floating mb-2">
-                                <textarea  autocomplete="off" class="form-control" type="text" placeholder="Ingrese notas" name="llegadaNotas" id="llegadaNotas" style="height: 150px" required></textarea >
-                                <label for="floatingInput">Notas</label>
-                            </div>  
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="mb-2">
-                                <label for="formFileMultiple" class="form-label">Adjuntos</label>
-                                <input class="form-control" type="file" id="formFileMultiple" multiple>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <hr>
-                <!-- <br> -->
                 <h5> Formularios </h5>
                 
                 <div class="row mb-3 container-fluid">

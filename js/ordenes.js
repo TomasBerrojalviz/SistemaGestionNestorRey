@@ -10,9 +10,15 @@ var ordenEstado = document.getElementById("ordenEstado");
 var colAuto = document.getElementById("colAuto");
 var ordenAuto = document.getElementById("ordenAuto");
 var ordenAutoPatente = document.getElementById("ordenAutoPatente");
-var ordenAutoMarca = document.getElementById("ordenAutoMarca");
+var ordenAutoAnio = document.getElementById("ordenAutoAnio");
 var ordenAutoModelo = document.getElementById("ordenAutoModelo");
-var ordenAutoCliente = document.getElementById("ordenAutoCliente");
+var ordenCliente = document.getElementById("ordenCliente");
+
+var ordenClienteNombre = document.getElementById("ordenClienteNombre");
+var ordenClienteTelefono = document.getElementById("ordenClienteTelefono");
+var ordenClienteMail = document.getElementById("ordenClienteMail");
+var ordenClienteDomicilio = document.getElementById("ordenClienteDomicilio");
+
 var btn_orden_modal = document.getElementById("btn_orden_modal");
 var id_orden = 0;
 var presupuestoNro = document.getElementById("presupuestoNro");
@@ -69,7 +75,7 @@ $( document ).ready(function() {
                 var auto_id = 0;
                 if(action == "crearOrden"){
                     var info_auto = JSON.parse(responseAuto);
-                    ordenAutoCliente.value = info_auto[0].id_cliente;
+                    ordenCliente.value = info_auto[0].id_cliente;
                     auto_id = info_auto[0].id;
 
                 }
@@ -271,9 +277,9 @@ function abrirModalOrden(id) {
     $(ordenAuto).removeClass('is-invalid').removeClass('is-valid');
     $(ordenAuto).removeClass('is-invalid').removeClass('is-valid');
     $('#panelsStayOpen-collapseOne').removeClass('show');
-    var panelsStayOpen_btn = document.getElementById("panelsStayOpen_btn");
-    $(panelsStayOpen_btn).addClass('collapsed');
-    panelsStayOpen_btn.setAttribute("aria-expanded", "false");
+    var btn_panel_cambios = document.getElementById("btn_panel_cambios");
+    $(btn_panel_cambios).addClass('collapsed');
+    btn_panel_cambios.setAttribute("aria-expanded", "false");
 
     if (id == 0){
         colAuto.style.display = "initial";
@@ -310,14 +316,14 @@ function abrirModalOrden(id) {
                 var info_auto = JSON.parse(responseAuto);
                 mostrarCambiosAuto(info_auto[0].id);
                 ordenAutoPatente.value = info_auto[0].patente;
+                ordenAutoAnio.value = info_auto[0].anio;
                 var modeloAuto = obtenerModelo(info_auto[0].id_modelo);
                 modeloAuto.done(function(responseModelo){
                     var info_modelo = JSON.parse(responseModelo);
-                    ordenAutoModelo.value = info_modelo[0].modelo;
                     var marcaAuto = obtenerMarca(info_modelo[0].id_marca);
                     marcaAuto.done(function(responseMarca){
                         var info_marca = JSON.parse(responseMarca);
-                        ordenAutoMarca.value = info_marca[0].marca;
+                        ordenAutoModelo.value = info_marca[0].marca + " " + info_modelo[0].modelo;
                     });
                     
                 });
@@ -325,8 +331,11 @@ function abrirModalOrden(id) {
                 var clienteAuto = obtenerCliente(info_auto[0].id_cliente);
                 clienteAuto.done(function(responseCliente){
                     var info_cliente = JSON.parse(responseCliente);
-                    ordenAutoCliente.value = info_cliente[0].nombre;
-                    
+                    ordenCliente.value = info_cliente[0].id;
+                    ordenClienteNombre.value = info_cliente[0].nombre;
+                    ordenClienteTelefono.value = info_cliente[0].telefono;
+                    ordenClienteMail.value = info_cliente[0].mail;
+                    ordenClienteDomicilio.value = info_cliente[0].domicilio;
                 });
                 
             });
