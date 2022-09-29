@@ -373,7 +373,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="historialModalTitle">Editar marca</h5>
+                <h5 class="modal-title" id="historialModalTitle">Historial</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -383,10 +383,13 @@
                                 <thead>
                                     <tr class="text-bg-primary">
                                         <th scope="col" class="sorting">
-                                            Fecha
+                                            Col1
                                         </th>
                                         <th scope="col" class="sorting">
-                                            Descripcion
+                                            Col2
+                                        </th>
+                                        <th scope="col" class="sorting">
+                                            Col3
                                         </th>
                                     </tr>
                                 </thead>

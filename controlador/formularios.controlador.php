@@ -193,6 +193,25 @@ class ControladorFormularios {
 
     }
 
+    // AGREGAR NOTA
+    static public function ctrlAgregarNota(){
+        // id_auto  problema
+
+        if(isset($_POST["problema"])){
+
+            $tabla = "ordenes";  
+            $datos = array("id_auto" => $_POST["id_auto"],
+                            "problema" => strtoupper($_POST["problema"])
+                        );
+
+            
+            $respuesta = ModeloFormularios::mdlCrearOrden($tabla, $datos);
+            
+            return $respuesta;
+        }
+
+    }
+
     // EDITAR ORDEN
     static public function ctrlEditarOrden(){
         // id_auto  problema    id_recibo	id_presupuesto  estado notas

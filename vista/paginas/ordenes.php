@@ -278,6 +278,22 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
             </div>
             <div class="modal-body">
                 <h5> Comentarios </h5>
+                <table cellspacing=0 class="table table-responsive table-bordered text-center">
+                    <thead>
+                        <tr class="text-bg-primary">
+                            <th scope="col" id="btn_historial_nota">
+                                <a href="#" class="text-bg-primary">
+                                <i class="fa-sharp fa-solid fa-clock-rotate-left"></i> <i class="fa-solid"> Historial </i>
+                                </a>
+                            </th>
+                            <th scope="col" id="btn_agregar_nota">
+                                <a href="#" class="text-bg-primary">
+                                    <i class="fa-solid fa-plus"></i> <i class="fa-solid"> Agregar </i>
+                                </a>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
 
                 <div class="container-fluid">
                     <div class="row">
@@ -448,6 +464,46 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                 <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="DisplayVolver('TRABAJO')">Cerrar</button>
                 <input type="submit" id="btn_insumos_modal" name="btn_insumos_modal" class="btn btn-primary" value="Guardar" />
                 
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal NOTAS -->
+<div class="modal fade modal-lg" id="notaModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="notaModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title">Agregar nota</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('ORDEN')"></button>
+            </div>
+            <div class="modal-body">
+                <input class="form-control" type="hidden" name="notaId" id="notaId" required>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating mb-2">
+                                <textarea  autocomplete="off" class="form-control form-control-lg" type="text" placeholder="Ingrese notas" name="notaTxt" id="notaTxt" style="height: 150px" required></textarea >
+                                <label for="floatingInput">Notas</label>
+                            </div>  
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-2">
+                                <label for="notaAdjuntos" class="form-label">Adjuntos</label>
+                                <input class="form-control form-control-lg" type="file" id="notaAdjuntos" multiple>
+                            </div>
+                            <div class="mb-2 pt-2" id="adjuntos">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="DisplayVolver('TRABAJO')">Cerrar</button>
+                <input type="submit" accion="agregarNota" id="btn_nota_modal" name="btn_nota_modal" class="btn btn-primary" value="Agregar" />
             </div>
         </div>
     </div>
