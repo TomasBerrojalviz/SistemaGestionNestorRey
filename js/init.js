@@ -269,3 +269,17 @@ function seleccionarAutos(){
         data: { action:action}
     });
 }
+
+function setFormatTabla(tabla, blanco){
+    document.getElementById(""+tabla+"_paginate").removeAttribute('class');
+    $("#"+tabla+"_filter").addClass('float-end mx-2');
+    $("#"+tabla+"_paginate").addClass('float-end my-2');
+    $("#"+tabla+"_length").addClass('mx-1');
+    $("#"+tabla+"_info").addClass('mx-1');
+    if(blanco){
+        $("#"+tabla+"_filter").addClass('text-light');
+        $("#"+tabla+"_paginate").addClass('text-light');
+        $("#"+tabla+"_length").addClass('text-light');
+        $("#"+tabla+"_info").addClass('text-light');
+    }
+}

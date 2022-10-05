@@ -294,26 +294,6 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                         </tr>
                     </thead>
                 </table>
-
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-floating mb-2">
-                                <textarea  autocomplete="off" class="form-control" type="text" placeholder="Ingrese notas" name="trabajoNotas" id="trabajoNotas" style="height: 150px" required></textarea >
-                                <label for="floatingInput">Notas</label>
-                            </div>  
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="mb-2">
-                                <label for="formFileMultiple" class="form-label">Adjuntos</label>
-                                <input class="form-control" type="file" id="formFileMultiple" multiple>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <hr>
                 <h5> Formularios </h5>
                     

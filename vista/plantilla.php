@@ -368,47 +368,71 @@
         </div>
     </div>
         
-    <!-- Modal HISTORIAL -->
-    <div class="modal fade" id="historialModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="historialModalTitle">Historial</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <!-- Modal HISTORIAL -->
+        <div class="modal fade" id="historialModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="historialModalTitle">Historial</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="row" id="form_editar_historial" method="POST">
+                            <div class="container-fluid">
+                                <table cellspacing=0 class="table table-responsive table-bordered table-hover table-inverse table-striped text-center table-sm" role="grid" id="tablaHistorial" width=100%>
+                                    <thead>
+                                        <tr class="text-bg-primary">
+                                            <th scope="col" class="sorting">
+                                                Col1
+                                            </th>
+                                            <th scope="col" class="sorting">
+                                                Col2
+                                            </th>
+                                            <th scope="col" class="sorting">
+                                                Col3
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tabla_historial">
+                                    </tbody>
+                                </table>
+                            </div>
+                    </div>
+    
+                    <div class="modal-footer">
+                        <button type="button" id="btn_cerrar_historial" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DisplayVolver('HOME')">Cerrar</button>
+                        <input type="submit" name="btn_marca_modal" id="btn_marca_modal" class="btn btn-primary" value="Guardar" />
+                    </div>
+                    
+                        </form>
+                    
                 </div>
-                <div class="modal-body">
-                    <form class="row" id="form_editar_historial" method="POST">
-                        <div class="container-fluid">
-                            <table cellspacing=0 class="table table-responsive table-bordered table-hover table-inverse table-striped text-center table-sm" role="grid" id="tablaHistorial" width=100%>
-                                <thead>
-                                    <tr class="text-bg-primary">
-                                        <th scope="col" class="sorting">
-                                            Col1
-                                        </th>
-                                        <th scope="col" class="sorting">
-                                            Col2
-                                        </th>
-                                        <th scope="col" class="sorting">
-                                            Col3
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tabla_historial">
-                                </tbody>
-                            </table>
-                        </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DisplayVolver('HOME')">Cerrar</button>
-                    <input type="submit" name="btn_marca_modal" id="btn_marca_modal" class="btn btn-primary" value="Guardar" />
-                </div>
-                
-                    </form>
-                
             </div>
         </div>
-    </div>
+        
+        <!-- Modal ADJUNTOS -->
+        <div class="modal fade" id="adjuntosModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="adjuntosModalTitle">Adjuntos</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                            <div class="container-fluid">
+                                <div class="mb-2 pt-2" id="adjuntos_view">
+                                </div>
+                            </div>
+                    </div>
+    
+                    <div class="modal-footer">
+                        <button type="button" id="btn_cerrar_historial" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DisplayVolver('ADJUNTOS')">Cerrar</button>
+                        <input type="submit" name="btn_marca_modal" id="btn_marca_modal" class="btn btn-primary" value="Guardar" />
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
 
 
     

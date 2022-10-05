@@ -213,6 +213,55 @@ class ModeloFormularios {
 
         $stmt = null;
     }
+
+    // CREAR ORDEN
+    static public function mdlAgregarNota($tabla, $datos){
+        
+        // 	id	fecha	nota	id_orden
+        $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(nota, id_orden) VALUES (:nota, :id_orden);
+                                                SELECT * FROM $tabla WHERE (SELECT MAX(id) FROM $tabla) = id;");
+
+        $stmt->bindParam(":nota", $datos["nota"], PDO::PARAM_STR);
+        $stmt->bindParam(":id_orden", $datos["id_orden"], PDO::PARAM_INT);
+
+        if($stmt->execute()){
+            $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE (SELECT MAX(id) FROM $tabla) = id;");
+            if($stmt->execute()){
+                return $stmt->fetchAll();
+            }
+            else{
+                print_r(Conexion::conectar()->error_info());
+            }
+        }
+        else{
+            print_r(Conexion::conectar()->error_info());
+        }
+
+        $stmt->close();
+
+        $stmt = null;
+    }
+    
+    // UPDATE ADJUNTOS NOTAS
+    static public function mdlUpdateAdjuntosNotas($tabla, $datos){
+        
+        $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET adjuntos = :adjuntos WHERE id = :id");
+
+        $stmt->bindParam(":adjuntos", $datos["adjuntos"], PDO::PARAM_INT);
+        $stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
+
+        if($stmt->execute()){
+
+            return TRUE;
+        }
+        else{
+            print_r(Conexion::conectar()->error_info());
+        }
+
+        $stmt->close();
+
+        $stmt = null;
+    }
     
     // EDITAR CLIENTE
     static public function mdlEditarCliente($tabla, $datos){
@@ -531,12 +580,33 @@ class ModeloFormularios {
 
         $stmt = null;
     }
+
     // OBTENER CAMBIOS
     static public function mdlObtenerCambios($tabla, $id_auto){
         // id	id_auto	fecha_cambio	aceite	km_actual	prox_cambio	filtro_aceite	filtro_aire	filtro_combustible	filtro_habitaculo
         $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE id_auto = :id_auto");
 
         $stmt->bindParam(":id_auto", $id_auto, PDO::PARAM_INT);
+
+        if($stmt->execute()){
+
+            return $stmt->fetchAll();
+        }
+        else{
+            print_r(Conexion::conectar()->error_info());
+        }
+
+        $stmt->close();
+
+        $stmt = null;
+    }
+    
+    // OBTENER NOTAS
+    static public function mdlObtenerNotas($tabla, $id_orden){
+        
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE id_orden = :id_orden");
+
+        $stmt->bindParam(":id_orden", $id_orden, PDO::PARAM_INT);
 
         if($stmt->execute()){
 

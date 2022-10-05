@@ -36,6 +36,11 @@ var notaTxt = document.getElementById("notaTxt");
 var notaAdjuntos = document.getElementById("notaAdjuntos");
 var adjuntos =  document.getElementById("adjuntos");
 
+var adjuntos_view = document.getElementById("adjuntos_view");
+
+//VAR HISTORIAL
+var btn_cerrar_historial = document.getElementById("btn_cerrar_historial");
+
 //VAR CAMBIOS
 var cambiosModalTitle = document.getElementById("cambiosModalTitle");
 var aceiteCheck = document.getElementById("aceiteCheck");
@@ -61,6 +66,10 @@ var filtro_habitaculo = document.getElementById("filtro_habitaculo");
 var autoCambio = document.getElementById("autoCambio");
 
 $( document ).ready(function() {
+    //MODAL ADJUNTOS VIEW
+    $('.btnAdjuntos').click(function(e){
+    });
+
     //MODAL FORM CREAR ORDEN
     $('#btnAgregarOrden').click(function(e){ 
         e.preventDefault();
@@ -145,57 +154,6 @@ $( document ).ready(function() {
     //ADJUNTOS NOTA
     $('#notaAdjuntos').change(function(e){
         mostrarAdjuntos();
-        // var j = -1;
-        // var row = [];
-            
-        // while (adjuntos.firstChild) {
-        //     adjuntos.removeChild(adjuntos.firstChild);
-        // }
-        // for(var i = 0; i < notaAdjuntos.files.length; i++){
-            
-        //     var src = URL.createObjectURL(notaAdjuntos.files[i]);
-        //     var split_file = notaAdjuntos.files[i].name.split(".");
-        //     var ext = split_file[split_file.length - 1];
-        //     var col = document.createElement("div");
-        //     col.className = 'col-4';
-
-        //     var preview = document.createElement("img");
-        //     if(ext == "pdf"){
-        //         preview.src = "img/pdf.png";
-        //     }
-        //     else if(ext == "doc" || ext == "docx" || ext == "dot" || ext == "dotx"){
-        //         preview.src = "img/word.png";
-        //     }
-        //     else if(ext == "xlsx" || ext == "xlsm" || ext == "xls" || ext == "xml" || ext == "xlr"){
-        //         preview.src = "img/excel.png";
-        //     }
-        //     else if(ext == "rar" || ext == "zip" || ext == "7z"){
-        //         preview.src = "img/rar.png";
-        //     }
-        //     else if(ext == "mp4" || ext == "mov" || ext == "wmv" || ext == "avi" || ext == "mkv"){
-        //         preview.src = "img/video.png";
-        //     }
-        //     else{
-        //         preview.src = src;
-        //     }
-
-        //     preview.style.display = "block";
-        //     preview.width = "150";
-        //     preview.className = 'img-thumbnail';
-
-        //     col.appendChild(preview);
-
-        //     if((i % 3) == 0){
-        //         j++;
-        //         row[j] = document.createElement("div");
-        //         row[j].className = 'row mb-2';
-
-        //     }
-        //     row[j].appendChild(col);
-        // }
-        // for(var i = 0; i < row.length; i++){
-        //     adjuntos.appendChild(row[i]);
-        // }
     });
     //BTN CARGAR NOTA
     $('#btn_nota_modal').click(function(e){
@@ -203,9 +161,9 @@ $( document ).ready(function() {
         
         // cargarNota();
         console.log(notaAdjuntos.files);
-        if(notaAdjuntos.files.length > 0) {
-            subirArchivos(notaAdjuntos.files,"notas", notaId.value);
-        }
+        // if(notaAdjuntos.files.length > 0) {
+            subirNota(notaAdjuntos.files,"notas", notaId.value);
+        // }
         
     });
     //MODAL NOTAS AGREGAR
@@ -355,7 +313,6 @@ $( document ).ready(function() {
     });
 
 });
-
 
 function abrirModalOrden(id) {
     $(ordenAuto).removeClass('is-invalid').removeClass('is-valid');
@@ -782,9 +739,19 @@ function maxDate(dates){
 }
 
 function abrirModalHistorial(tipo){
+    switch(modalAbierto){
+        case "ORDEN":
+            ocultarModal("ordenModal");
+            ocultarModal("trabajoModal");
+        break;
+        case "AUTO":
+            ocultarModal("autoModal");
+        break;
+    }
     if($('#tablaHistorial').DataTable())
         $('#tablaHistorial').DataTable().destroy();
     if(tipo == "CAMBIOS"){
+        btn_cerrar_historial.setAttribute("onclick","DisplayVolver('ORDEN')");
         var tablaHistorial = $('#tablaHistorial').DataTable({
             columns: [
                 {title: 'Fecha', targets: 0, ordering: true},
@@ -821,43 +788,76 @@ function abrirModalHistorial(tipo){
         });
     }
     else if(tipo == "NOTAS"){
+        btn_cerrar_historial.setAttribute("onclick","DisplayVolver('TRABAJO')");
         var tablaHistorial = $('#tablaHistorial').DataTable({
+            "language": {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ notas",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningúna orden cargada",
+                "sInfo":           "Mostrando notas del _START_ al _END_ de un total de _TOTAL_ notas",
+                "sInfoEmpty":      "Mostrando notas del 0 al 0 de un total de 0 notas",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ notas)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
             columns: [
                 {title: 'Fecha', targets: 0, ordering: true},
                 {title: 'Nota', targets: 1, ordering: true},
                 {title: 'Adjuntos', targets: 2, ordering: true}
             ],
             order: [[0, 'desc']],
+            responsive: true,
+            autoWidth: false,
+            
+            lengthMenu: [
+                [10, 25, 50, 100, -1],
+                [10, 25, 50, 100, 'Todos'],
+            ]
         });
         tablaHistorial.rows().remove().draw();
         
-        var notasObtenidas = obtenerNotas(id_orden);
+        var notasObtenidas = obtenerNotas();
         // id	id_orden	id_cliente	fecha
         notasObtenidas.done(function(responseCambios) {
             if(responseCambios != "error"){
                 var info_notas = JSON.parse(responseCambios);
                 for(var i = 0; i < info_notas.length; i++){
-                    tablaHistorial.row.add([transDate(info_notas[i].fecha), info_notas[i].nota, info_notas[i].adjuntos]).draw(false);
+                    tablaHistorial.row.add([transDate(info_notas[i].fecha), info_notas[i].nota, setBotonAdjuntos(info_notas[i].id, info_notas[i].adjuntos)]).draw(false);
                 }
             }
         });
     }
+    setFormatTabla("tablaHistorial", 0);
     mostrarModal("historialModal");
 }
 
-function obtenerNotas(id){
-    var action = 'obtenerCambios';
+function obtenerNotas(){
+    var action = 'obtenerNotas';
 
     return $.ajax({
         type: "POST",
         url: "ajax.php",
         async: false,
-        data: { action:action, id:id}
+        data: { action:action, id_orden:id_orden}
     });
 
 }
 
-function subirArchivos(archivos, tipo, id){
+function subirNota(archivos, tipo, id){
     var formData = new FormData();
 			
     // Read selected files
@@ -865,7 +865,10 @@ function subirArchivos(archivos, tipo, id){
         formData.append("files[]", archivos[i]);
     }
     formData.append("dir_base", tipo);
+    formData.append("nota", notaTxt.value);
     formData.append("id", id);
+    formData.append("id_orden", id_orden);
+    formData.append("action", "cargarAdjuntosNota");
 
     var xhttp = new XMLHttpRequest();
 
@@ -885,87 +888,68 @@ function subirArchivos(archivos, tipo, id){
     
     // Send request with data
     xhttp.send(formData);
-    // var action = 'obtenerCambios';
-
-    // return $.ajax({
-    //     type: "POST",
-    //     url: "ajax.php",
-    //     async: false,
-    //     data: { action:action, files:archivos, dir_base: tipo}
-    // });
-
 }
 
 function mostrarAdjuntos() {
-    var j = -1;
-    var row = [];
-        
-    while (adjuntos.firstChild) {
-        adjuntos.removeChild(adjuntos.firstChild);
-    }
+    var archivos = [];
     for(var i = 0; i < notaAdjuntos.files.length; i++){
-        
-        var src = URL.createObjectURL(notaAdjuntos.files[i]);
-        var split_file = notaAdjuntos.files[i].name.split(".");
-        var ext = split_file[split_file.length - 1];
-        var not_valid_ext = ["exe", "lnk"];
-        var alert = "";
-
-        if(not_valid_ext.includes(ext)){
-            alert = '<div class="alert alert-danger" role="alert">';
-            alert += 'Tipo incorrecto <i class="fa-solid fa-circle-exclamation"></i>';
-            alert += '</div>';
-            src = "img/error.png";
-        }
-        
-        if(ext == "pdf"){
-            src = "img/pdf.png";
-        }
-        else if(ext == "doc" || ext == "docx" || ext == "dot" || ext == "dotx"){
-            src = "img/word.png";
-        }
-        else if(ext == "xlsx" || ext == "xlsm" || ext == "xls" || ext == "xml" || ext == "xlr"){
-            src = "img/excel.png";
-        }
-        else if(ext == "rar" || ext == "zip" || ext == "7z"){
-            src = "img/rar.png";
-        }
-        else if(ext == "mp4" || ext == "mov" || ext == "wmv" || ext == "avi" || ext == "mkv"){
-            src = "img/video.png";
-        }
-        else{
-            // src = src;
-        }
-        var preview = '<div class="card col-4 mt-2 text-center" style="display: block;">';
-            preview += '<img src='+src+' class="card-img-top" height="150px" style="width: auto;">';
-            // preview += '<button type="button" class="btn-close" onclick="borrarAdjunto(\''+notaAdjuntos.files[i].name+'\')"></button>';
-            preview += '<div class="card-body">';
-                preview += '<h5 class="card-title">'+notaAdjuntos.files[i].name+'</h5>';
-                preview += alert;
-            preview += '</div>';
-        preview += '</div>';
-
-        if((i % 3) == 0){
-            j++;
-            row[j] = document.createElement("div");
-            row[j].className = 'row mb-2';
-
-        }
-        row[j].innerHTML += preview;
+        var aux = [];
+        aux["url"] = URL.createObjectURL(notaAdjuntos.files[i]);
+        aux["name"] = notaAdjuntos.files[i].name;
+        archivos[i] = aux;
     }
-    for(var i = 0; i < row.length; i++){
-        adjuntos.appendChild(row[i]);
-    }
+    crearVisualizadorAdjuntos(adjuntos, archivos, false);
 }
 
-function borrarAdjunto(nombre){
-    for(var i = 0; i < notaAdjuntos.files.length; i++){
-        if(notaAdjuntos.files[i].name == nombre){
-            console.log(notaAdjuntos.files);
-            notaAdjuntos.files[i].name += ".exe";
-            console.log(notaAdjuntos.files);
-            mostrarAdjuntos();
-        }
+function setBotonAdjuntos(id, cantidad_adjuntos){
+    var boton = '<a id="'+id+'" onclick="displayAdjuntos(\''+id+'\');" ';
+    if(cantidad_adjuntos != 0){
+        boton += 'class="btn btn-sm btn-outline-dark text-bg-success">';
     }
-    console.log(notaAdjuntos.files);
+    else{
+        boton += 'class="btn btn-sm btn-outline-dark text-bg-warning">';
+    }
+    boton += cantidad_adjuntos+" adjuntos";
+    boton += "</a>";
+
+    return boton;
+}
+
+function abrirModalAdjuntos(id) {
+    var action = "bajarAdjuntosNota";
+    var src = 'uploads/notas/'+id;
+
+    $.ajax({
+        type: "POST",
+        url: "ajax.php",
+        async: false,
+        data: { action:action, src:src},
+        success: function(response) {
+            if (response != "error") {
+                var adjuntos = JSON.parse(response);
+                var archivos = [];
+                var nombres_archivos = Object.values(adjuntos);
+
+                for(var i  = 0; i < nombres_archivos.length; i++) {
+                    var aux = [];
+                    aux["url"] = src+'/'+nombres_archivos[i];
+                    aux["name"] = nombres_archivos[i];
+                    console.log(aux);
+                    archivos[i] = aux;
+                }
+
+                crearVisualizadorAdjuntos(adjuntos_view, archivos, true);
+                mostrarModal("adjuntosModal");
+            }
+        },
+        error: function(error) {
+            alert(error);
+        }
+    });
+}
+
+function displayAdjuntos(id){
+    console.log(id);
+
+    abrirModalAdjuntos(id);
 }

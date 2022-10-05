@@ -709,7 +709,7 @@ function recargar(){
 }
 
 function DisplayVolver(FORM){
-    // console.log(modalAbierto);
+    console.log(modalAbierto);
 
     if(modalAbierto && FORM == "HOME"){
         FORM = modalAbierto;
@@ -749,6 +749,10 @@ function DisplayVolver(FORM){
         $("#deleteModal").modal('hide');
         $("#insumosModal").modal('hide');
         $("#trabajoModal").modal('show');
+    }
+    else if(FORM == "ADJUNTOS"){
+        $("#adjuntosModal").modal('hide');
+        $("#historialModal").modal('show');
     }
     // if(FORM == "VINCULADOS"){
     //     $("#ModalMessageReturn").modal('hide');

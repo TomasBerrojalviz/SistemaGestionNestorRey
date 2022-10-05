@@ -361,6 +361,26 @@ $modelosDeseados = array();
             echo "error";
             exit;
         }
+        if($_POST["action"] == "obtenerNotas"){
+            $cambioObtenido = ControladorFormularios::ctrlObtenerNotas();
+            if($cambioObtenido){
+                echo json_encode($cambioObtenido, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
+        if($_POST["action"] == "bajarAdjuntosNota"){
+            if (file_exists($_POST['src'])) {
+                $myfiles = array_diff(scandir($_POST['src']), array('.', '..')); 
+                if($myfiles){
+                    echo json_encode($myfiles, JSON_UNESCAPED_UNICODE);
+                    exit;
+                }
+            }
+            echo "error";
+            exit;
+        }
 
     }
     exit;

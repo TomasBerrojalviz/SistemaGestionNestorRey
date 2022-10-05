@@ -379,6 +379,91 @@ function generarPDF(tipo, id){
     window.open(url, nombreVentana, "left="+x+",top="+y+",height="+alto+",width="+ancho+",scrollbar=si,location=no,resizeble=si,menubar=no");
 }
 
+function abrirArchivo(url, nombreVentana){
+    // window.location.href = url;
+
+    var ancho = 824;
+    var alto = 568;
+
+    var x = parseInt((window.screen.width/2) - (ancho / 2));
+    var y = parseInt((window.screen.height/2) - (alto / 2));
+
+    var ventana = window.open(url, nombreVentana, "left="+x+",top="+y+",height="+alto+",width="+ancho+",scrollbar=si,location=no,resizeble=no,menubar=no");
+    if(!(url.includes("pdf") || url.includes("jpg") || url.includes("jpeg") || url.includes("png") || url.includes("tiff") || url.includes("svg"))){
+        setTimeout(() => {
+            ventana.close();
+        }, 500);
+        
+    }
+}
+
+function crearVisualizadorAdjuntos(visualizador, archivos, click){
+    var clickAbrir = '';
+    var j = -1;
+    var row = [];
+        
+    while (visualizador.firstChild) {
+        visualizador.removeChild(visualizador.firstChild);
+    }
+    for(var i = 0; i < archivos.length; i++){
+        if(click){
+            clickAbrir = 'onclick="abrirArchivo(\''+archivos[i].url+'\',\''+archivos[i].name+'\');"';
+        }
+        var src = archivos[i].url;
+        var split_file = archivos[i].name.split(".");
+        var ext = split_file[split_file.length - 1];
+        var not_valid_ext = ["exe", "lnk"];
+        var alert = "";
+
+        if(not_valid_ext.includes(ext)){
+            alert = '<div class="alert alert-danger" role="alert">';
+            alert += 'Tipo incorrecto <i class="fa-solid fa-circle-exclamation"></i>';
+            alert += '</div>';
+            src = "img/error.png";
+        }
+        
+        if(ext == "pdf"){
+            src = "img/pdf.png";
+        }
+        else if(ext == "doc" || ext == "docx" || ext == "dot" || ext == "dotx"){
+            src = "img/word.png";
+        }
+        else if(ext == "xlsx" || ext == "xlsm" || ext == "xls" || ext == "xml" || ext == "xlr"){
+            src = "img/excel.png";
+        }
+        else if(ext == "rar" || ext == "zip" || ext == "7z"){
+            src = "img/rar.png";
+        }
+        else if(ext == "mp4" || ext == "mov" || ext == "wmv" || ext == "avi" || ext == "mkv"){
+            src = "img/video.png";
+        }
+        else{
+            // src = src;
+        }
+
+        var preview = '<a ';
+            preview += '<div class="card col-4 mt-2 text-center" style="display: block;" '+clickAbrir+'>';
+                preview += '<img src='+src+' class="card-img-top" height="150px" style="width: auto;">';
+                preview += '<div class="card-body">';
+                    preview += '<h5 class="card-title">'+archivos[i].name+'</h5>';
+                    preview += alert;
+                preview += '</div>';
+            preview += '</div>';
+        preview += '</div>';
+
+        if((i % 3) == 0){
+            j++;
+            row[j] = document.createElement("div");
+            row[j].className = 'row mb-2';
+
+        }
+        row[j].innerHTML += preview;
+    }
+    for(var i = 0; i < row.length; i++){
+        visualizador.appendChild(row[i]);
+    }
+}
+
 function imprimir(){
 
     btn_print.style.display = "none";

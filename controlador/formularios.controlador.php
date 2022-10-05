@@ -195,17 +195,17 @@ class ControladorFormularios {
 
     // AGREGAR NOTA
     static public function ctrlAgregarNota(){
-        // id_auto  problema
+        // 	id	fecha	nota	id_orden
 
-        if(isset($_POST["problema"])){
+        if(isset($_POST["nota"])){
 
-            $tabla = "ordenes";  
-            $datos = array("id_auto" => $_POST["id_auto"],
-                            "problema" => strtoupper($_POST["problema"])
+            $tabla = "notas";  
+            $datos = array("nota" => strtoupper($_POST["nota"]),
+                            "id_orden" => $_POST["id_orden"]
                         );
 
             
-            $respuesta = ModeloFormularios::mdlCrearOrden($tabla, $datos);
+            $respuesta = ModeloFormularios::mdlAgregarNota($tabla, $datos);
             
             return $respuesta;
         }
@@ -230,6 +230,21 @@ class ControladorFormularios {
             
             return $respuesta;
         }
+
+    }
+
+    // EDITAR CLIENTE
+    static public function ctrlUpdateAdjuntosNotas($id, $adjuntos){
+
+        $tabla = "notas"; 
+        
+        $datos = array("adjuntos" => $adjuntos,
+                        "id" => $id
+                    );
+    
+        $respuesta = ModeloFormularios::mdlUpdateAdjuntosNotas($tabla, $datos);
+        
+        return $respuesta;
 
     }
 
@@ -503,6 +518,21 @@ class ControladorFormularios {
             $id_auto = $_POST["id_auto"];
             
             $respuesta = ModeloFormularios::mdlObtenerCambios($tabla, $id_auto);
+            
+            return $respuesta;
+        }
+
+    }
+
+    // OBTENER CAMBIOS
+    static public function ctrlObtenerNotas(){
+
+        if(isset($_POST["id_orden"])){
+
+            $tabla = "notas";
+            $id_orden = $_POST["id_orden"];
+            
+            $respuesta = ModeloFormularios::mdlObtenerNotas($tabla, $id_orden);
             
             return $respuesta;
         }

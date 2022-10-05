@@ -194,7 +194,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="DisplayVolver('ORDEN')">Cerrar</button>
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cerrar</button>
                 <input type="submit" accion="agregarCambios" id="btn_cambios_modal" name="btn_cambios_modal" class="btn btn-primary" value="Agregar" />
             </div>
         </div>
