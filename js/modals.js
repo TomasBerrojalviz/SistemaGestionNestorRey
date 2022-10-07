@@ -715,6 +715,7 @@ function DisplayVolver(FORM){
         FORM = modalAbierto;
     }
     if(FORM == "AUTO"){
+        $("#errorModal").modal('hide');
         $("#successModal").modal('hide');
         $("#deleteModal").modal('hide');
         $("#clienteModal").modal('hide');
@@ -724,6 +725,7 @@ function DisplayVolver(FORM){
         actualizarTablas();
     }
     else if(FORM == "ORDEN"){
+        $("#errorModal").modal('hide');
         $("#successModal").modal('hide');
         $("#deleteModal").modal('hide');
         // $("#clienteModal").modal('hide');
@@ -733,18 +735,21 @@ function DisplayVolver(FORM){
         $("#ordenModal").modal('show');
     }
     else if(FORM == "HOME"){
+        $("#errorModal").modal('hide');
         $("#successModal").modal('hide');
         $("#deleteModal").modal('hide');
         actualizarTablas();
         location.reload();
     }
     else if(FORM == "LLEGADA"){
+        $("#errorModal").modal('hide');
         $("#successModal").modal('hide');
         $("#deleteModal").modal('hide');
         $("#presupuestoModal").modal('hide');
         $("#llegadaModal").modal('show');
     }
     else if(FORM == "TRABAJO"){
+        $("#errorModal").modal('hide');
         $("#successModal").modal('hide');
         $("#deleteModal").modal('hide');
         $("#insumosModal").modal('hide');

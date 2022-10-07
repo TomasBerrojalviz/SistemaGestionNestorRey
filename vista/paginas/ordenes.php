@@ -280,13 +280,18 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                 <h5> Comentarios </h5>
                 <table cellspacing=0 class="table table-responsive table-bordered text-center">
                     <thead>
+                        <tr class="text-bg-secondary bg-opacity-25">
+                            <td colspan="2">
+                                <h5 class="text-dark">Notas de la orden</h5>
+                            </td>
+                        </tr>
                         <tr class="text-bg-primary">
-                            <th scope="col" id="btn_historial_nota">
+                            <th class="col-6" id="btn_historial_nota">
                                 <a href="#" class="text-bg-primary">
-                                <i class="fa-sharp fa-solid fa-clock-rotate-left"></i> <i class="fa-solid"> Historial </i>
+                                    <i class="fa-sharp fa-solid fa-clock-rotate-left"></i> <i class="fa-solid"> Historial </i>
                                 </a>
                             </th>
-                            <th scope="col" id="btn_agregar_nota">
+                            <th class="col-6" id="btn_agregar_nota">
                                 <a href="#" class="text-bg-primary">
                                     <i class="fa-solid fa-plus"></i> <i class="fa-solid"> Agregar </i>
                                 </a>

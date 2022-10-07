@@ -161,9 +161,15 @@ $( document ).ready(function() {
         
         // cargarNota();
         console.log(notaAdjuntos.files);
-        // if(notaAdjuntos.files.length > 0) {
+        if(!adjuntos.getAttribute("error")) {
             subirNota(notaAdjuntos.files,"notas", notaId.value);
-        // }
+        }
+        else {
+            var alert = '<div class="alert alert-danger text-center" role="alert">';
+            alert += '<i class="fa-solid fa-circle-exclamation"></i> No se puede agregar mientras haya errores <i class="fa-solid fa-circle-exclamation"></i>';
+            alert += '</div>';
+            adjuntos.innerHTML += alert;
+        }
         
     });
     //MODAL NOTAS AGREGAR
@@ -754,8 +760,8 @@ function abrirModalHistorial(tipo){
         btn_cerrar_historial.setAttribute("onclick","DisplayVolver('ORDEN')");
         var tablaHistorial = $('#tablaHistorial').DataTable({
             columns: [
-                {title: 'Fecha', targets: 0, ordering: true},
-                {title: 'Descripcion', targets: 1, ordering: true},
+                {title: 'Fecha', targets: 0, ordering: true, width: "25%"},
+                {title: 'Descripcion', targets: 1, ordering: true, width: "75%"},
                 {targets: 2, visible:false, data: null}
             ],
             order: [[0, 'desc']],
@@ -815,9 +821,9 @@ function abrirModalHistorial(tipo){
                 }
             },
             columns: [
-                {title: 'Fecha', targets: 0, ordering: true},
+                {title: 'Fecha', targets: 0, width: "25%", ordering: true},
                 {title: 'Nota', targets: 1, ordering: true},
-                {title: 'Adjuntos', targets: 2, ordering: true}
+                {title: 'Adjuntos', targets: 2, ordering: true, width: "15%"}
             ],
             order: [[0, 'desc']],
             responsive: true,
@@ -836,7 +842,7 @@ function abrirModalHistorial(tipo){
             if(responseCambios != "error"){
                 var info_notas = JSON.parse(responseCambios);
                 for(var i = 0; i < info_notas.length; i++){
-                    tablaHistorial.row.add([transDate(info_notas[i].fecha), info_notas[i].nota, setBotonAdjuntos(info_notas[i].id, info_notas[i].adjuntos)]).draw(false);
+                    tablaHistorial.row.add([transDate(info_notas[i].fecha), info_notas[i].nota, setBotonAdjuntos(info_notas[i].id, info_notas[i].adjuntos)]).draw();
                 }
             }
         });
@@ -880,6 +886,14 @@ function subirNota(archivos, tipo, id){
         if (this.readyState == 4 && this.status == 200) {
             
             var response = this.responseText;
+            ocultarModal("notaModal");
+            if(response.includes("correctamente")){
+                mostrarModal("successModal");
+            }
+            else{
+                mostrarModal("errorModal");
+            }
+            
 
             alert(response);
             
@@ -896,6 +910,7 @@ function mostrarAdjuntos() {
         var aux = [];
         aux["url"] = URL.createObjectURL(notaAdjuntos.files[i]);
         aux["name"] = notaAdjuntos.files[i].name;
+        aux["size"] = notaAdjuntos.files[i].size;
         archivos[i] = aux;
     }
     crearVisualizadorAdjuntos(adjuntos, archivos, false);

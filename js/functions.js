@@ -415,12 +415,22 @@ function crearVisualizadorAdjuntos(visualizador, archivos, click){
         var not_valid_ext = ["exe", "lnk"];
         var alert = "";
 
+        console.log(archivos[i].size);
         if(not_valid_ext.includes(ext)){
+            visualizador.setAttribute("error","error");
             alert = '<div class="alert alert-danger" role="alert">';
             alert += 'Tipo incorrecto <i class="fa-solid fa-circle-exclamation"></i>';
             alert += '</div>';
             src = "img/error.png";
         }
+        else if(archivos[i].size > 10000000){
+            visualizador.setAttribute("error","error");
+            alert = '<div class="alert alert-danger" role="alert">';
+            alert += 'Excede tamaño maximo <i class="fa-solid fa-circle-exclamation"></i>';
+            alert += '</div>';
+            src = "img/error.png";
+        }
+
         
         if(ext == "pdf"){
             src = "img/pdf.png";
@@ -441,11 +451,10 @@ function crearVisualizadorAdjuntos(visualizador, archivos, click){
             // src = src;
         }
 
-        var preview = '<a ';
-            preview += '<div class="card col-4 mt-2 text-center" style="display: block;" '+clickAbrir+'>';
-                preview += '<img src='+src+' class="card-img-top" height="150px" style="width: auto;">';
+        var preview = '<div class="card col-4 mt-2 text-center" style="display: block;" '+clickAbrir+'>'; // PROBLEMA CON ROW
+                preview += '<img src="'+src+'" class="rounded" height="150px" style="width: auto;">';
                 preview += '<div class="card-body">';
-                    preview += '<h5 class="card-title">'+archivos[i].name+'</h5>';
+                    preview += '<h5 class="card-text">'+archivos[i].name+'</h5>';
                     preview += alert;
                 preview += '</div>';
             preview += '</div>';

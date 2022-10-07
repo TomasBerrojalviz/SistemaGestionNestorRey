@@ -133,6 +133,29 @@
         </div>
     </div>
 
+    <!-- Modal ERROR -->
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title">Error</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('HOME')"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <p> La operacion no se pudo realizar correctamente </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-error" id="btn_error_modal" data-bs-dismiss="modal" onclick="DisplayVolver('HOME')">Cerrar</button>
+                    
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+
     <!-- Modal ELIMINADO CORRECTAMENTE -->
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -370,7 +393,7 @@
         
         <!-- Modal HISTORIAL -->
         <div class="modal fade" id="historialModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
                     <h5 class="modal-title" id="historialModalTitle">Historial</h5>
