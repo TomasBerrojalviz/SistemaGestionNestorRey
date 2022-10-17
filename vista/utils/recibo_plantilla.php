@@ -11,19 +11,18 @@
         <div class="col-4">
             <div class="card">
                 <div class="card-header text-bg-primary pt-0 pb-0 text-center">
-                    Presupuesto
+                    Recibo
                 </div>
                 <div class="card-body pt-0">
-                    Nro. Presupuesto: <b id="presupuestoNro"></b>
+                    Nro. Recibo: <b id="reciboNro"></b>
                     <div class="row">
                         <div class="col">
-                            Fecha: <b id="presupuestoFecha"></b>
+                            Fecha: <b id="reciboFecha"></b>
                         </div>
                         <div class="col">
-                            Hora: <b id="presupuestoHora"></b>
+                            Hora: <b id="reciboHora"></b>
                         </div>
                     </div>
-                    Vto Presupuesto: <b class="presupuestoVto"></b>
                 </div>
             </div>
         </div>
@@ -39,32 +38,28 @@
             <div class="mb-3 row">
                 <label class="col-2 col-form-label"><b>Nombre:</b></label>
                 <div class="col-4">
-                    <input type="text" class="form-control-plaintext" id="presupuestoClienteNombre" name="presupuestoClienteNombre" value="JHONNY FABIAN CAÑETE BOGADO" readonly>
+                    <input type="text" class="form-control-plaintext" id="reciboClienteNombre" name="reciboClienteNombre" value="JHONNY FABIAN CAÑETE BOGADO" readonly>
                 </div>
                 <label class="col-2 col-form-label"><b>Mail:</b></label>
                 <div class="col-4">
-                    <input type="email" class="form-control-plaintext" id="presupuestoClienteMail" name="presupuestoClienteMail" value="CAI.BERROJALVIZ.TOMAS@GMAIL.COM" readonly>
+                    <input type="email" class="form-control-plaintext" id="reciboClienteMail" name="reciboClienteMail" value="CAI.BERROJALVIZ.TOMAS@GMAIL.COM" readonly>
                 </div>
             </div>
             <div class="mb-3 row">
                 <label class="col-2 col-form-label"><b>Telefono:</b></label>
                 <div class="col-4">
-                    <input type="text" class="form-control-plaintext" id="presupuestoClienteTelefono" name="presupuestoClienteTelefono" value="+54 9 11 6500-6784" readonly>
+                    <input type="text" class="form-control-plaintext" id="reciboClienteTelefono" name="reciboClienteTelefono" value="+54 9 11 6500-6784" readonly>
                 </div>
                 <label class="col-2 col-form-label"><b>Domicilio:</b></label>
                 <div class="col-4">
-                    <input type="text" class="form-control-plaintext" id="presupuestoClienteDomicilio" name="presupuestoClienteDomicilio" value="SANTIAGO DEL ESTERO 1767, LANUS OESTE" readonly>
+                    <input type="text" class="form-control-plaintext" id="reciboClienteDomicilio" name="reciboClienteDomicilio" value="SANTIAGO DEL ESTERO 1767, LANUS OESTE" readonly>
                 </div>
             </div>
         </form>
     </div>
 </div>
 
-<div class="text-muted text-center mb-3">
-    Presupuesto valido hasta <b class="presupuestoVto"></b>
-</div>
-
-<table cellspacing=0 class="table table-responsive table-bordered table-hover table-inverse table-striped text-center table-sm" role="grid" id="tablePresupuesto" width=100% >
+<table cellspacing=0 class="table table-responsive table-bordered table-hover table-inverse table-striped text-center table-sm" role="grid" id="tableRecibo" width=100% >
     <thead>
         <tr class="text-bg-primary">
             <th scope="col">
@@ -85,19 +80,19 @@
         </tr>
         <tr>
             <th>
-                <input class="text-dark text-bg-secondary bg-opacity-25" type="text" name="descripcion" id="descripcion" placeholder="-" required>
+                <input class="text-dark text-bg-secondary bg-opacity-25" type="text" name="descripcionRecibo" id="descripcionRecibo" placeholder="-" required>
             </th>
             <th>
-                <input class="text-dark text-bg-secondary bg-opacity-25" onchange="actualizarPrecioPresupuesto()" type="number" name="cantidad" id="cantidad" placeholder="0" required>
+                <input class="text-dark text-bg-secondary bg-opacity-25" onchange="actualizarPrecioRecibo()" type="number" name="cantidadRecibo" id="cantidadRecibo" placeholder="0" required>
             </th>
             <th>
-                <input class="text-dark text-bg-secondary bg-opacity-25" onchange="actualizarPrecioPresupuesto()" type="number" name="precio" id="precio" min="0.00" step="100.00" placeholder="0.00" required>
+                <input class="text-dark text-bg-secondary bg-opacity-25" onchange="actualizarPrecioRecibo()" type="number" name="precioRecibo" id="precioRecibo" min="0.00" step="100.00" placeholder="0.00" required>
             </th>
-            <th id="precio_total">
+            <th id="precio_total_insumo">
                 0.00
             </th>
             <th>
-                <a href="#" id="agregar_producto_presupuesto">
+                <a href="#" id="agregar_producto_recibo">
                     <i class="fa-solid fa-plus"></i>
                     Agregar
                 </a>
@@ -111,12 +106,12 @@
             <th>Accion</th>
         </tr>
     </thead>
-    <tbody id="tabla_insumos_presupuesto">
+    <tbody id="tabla_insumos_recibo">
     </tbody>
     <tfoot>
         <tr>
             <th colspan="3" class="table-active text-start">TOTAL</th>
-            <th id="total_presupuesto">10.000,00</th>
+            <th id="total_recibo">10.000,00</th>
         </tr>
 
     </tfoot>

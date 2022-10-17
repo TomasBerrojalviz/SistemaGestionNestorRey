@@ -376,6 +376,10 @@ function generarPDF(tipo, id){
         url = 'vista/utils/generarPresupuesto.php?pr='+id;
         nombreVentana = "Presupuesto";
     }
+    else if(tipo == "recibo"){
+        url = 'vista/utils/generarRecibo.php?re='+id;
+        nombreVentana = "Recibo";
+    }
     window.open(url, nombreVentana, "left="+x+",top="+y+",height="+alto+",width="+ancho+",scrollbar=si,location=no,resizeble=si,menubar=no");
 }
 

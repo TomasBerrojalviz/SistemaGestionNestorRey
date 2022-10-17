@@ -214,7 +214,7 @@ class ControladorFormularios {
 
     // EDITAR ORDEN
     static public function ctrlEditarOrden(){
-        // id_auto  problema    id_recibo	id_presupuesto  estado notas
+        // id_auto  problema    id_recibo	id_comprobante  estado notas
 
         if(isset($_POST["id"])){
 
@@ -395,12 +395,12 @@ class ControladorFormularios {
     // AGREGAR INSUMO
     static public function ctrlAgregarInsumo(){
 
-        if(isset($_POST["id_presupuesto"])){
+        if(isset($_POST["id_comprobante"])){
 
             $tabla = "insumos_presupuestos";
 
-            // id_presupuesto descripcion cantidad precio precio_total
-            $datos = array("id_presupuesto" => $_POST["id_presupuesto"],
+            // id_comprobante descripcion cantidad precio precio_total
+            $datos = array("id_comprobante" => $_POST["id_comprobante"],
                             "descripcion" => strtoupper($_POST["descripcion"]),
                             "cantidad" => $_POST["cantidad"],
                             "precio" => $_POST["precio"],
@@ -416,51 +416,50 @@ class ControladorFormularios {
     }
 
     // OBTENER INSUMOS PRESUPUESTO
-    static public function ctrlObtenerInsumosPresupuesto(){
+    static public function ctrlObtenerInsumos(){
 
         if(isset($_POST["id"])){
 
-            $tabla = "insumos_presupuestos";
-            $id_presupuesto = $_POST["id"];
+            $tabla = "insumos_".$_POST['comprobante'];
+            $id_comprobante = $_POST["id"];
             
-            $respuesta = ModeloFormularios::mdlObtenerInsumosPresupuesto($tabla, $id_presupuesto);
+            $respuesta = ModeloFormularios::mdlObtenerInsumos($tabla, $id_comprobante);
             
             return $respuesta;
         }
 
     }
-    // OBTENER PRESUPUESTO
-    static public function ctrlObtenerPresupuesto(){
+    
+    // OBTENER COMPROBANTE
+    static public function ctrlObtenerComprobante($tabla){
 
         if(isset($_POST["id"])){
 
-            $tabla = "presupuestos";
             $id_orden = $_POST["id"];
             
-            $respuesta = ModeloFormularios::mdlObtenerPresupuesto($tabla, $id_orden);
+            $respuesta = ModeloFormularios::mdlObtenerComprobante($tabla, $id_orden);
             
             return $respuesta;
         }
 
     }
 
-    // CREAR PRESUPUESTO
-    static public function ctrlCrearPresupuesto(){
+    // CREAR COMPROBANTE
+    static public function ctrlCrearComprobante($tabla){
 
         if(isset($_POST["id"])){
 
-            $tabla = "presupuestos";
             $id_orden = $_POST["id"];
             
-            $respuesta = ModeloFormularios::mdlCrearPresupuesto($tabla, $id_orden);
+            $respuesta = ModeloFormularios::mdlCrearComprobante($tabla, $id_orden);
 
             if($respuesta){
-                $presupuestoCreado = ModeloFormularios::mdlObtenerPresupuesto($tabla, $id_orden);
+                $comprobanteCreado = ModeloFormularios::mdlObtenerComprobante($tabla, $id_orden);
 
-                if($presupuestoCreado){
-                    $tabla2 = "insumos_presupuestos";
-                    // id_presupuesto descripcion cantidad precio precio_total
-                    $datos = array("id_presupuesto" => $presupuestoCreado[0]['id'],
+                if($comprobanteCreado){
+                    $tabla2 = "insumos_$tabla";
+                    // id_comprobante descripcion cantidad precio precio_total
+                    $datos = array("id_comprobante" => $comprobanteCreado[0]['id'],
                                     "descripcion" => "MANO DE OBRA",
                                     "cantidad" => "1",
                                     "precio" => "10000",
@@ -471,7 +470,7 @@ class ControladorFormularios {
                     $respuesta = ModeloFormularios::mdlAgregarInsumo($tabla2, $datos);
                 }
                 
-                return $presupuestoCreado;
+                return $comprobanteCreado;
 
             }
             

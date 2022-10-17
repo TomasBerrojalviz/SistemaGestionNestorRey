@@ -381,6 +381,12 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                 <!-- <br> -->
 
                 <div class="container-fluid" style="border-style: solid">
+                    <?php 
+                        include "vista/utils/recibo_plantilla.php";
+                    ?>
+                </div>
+
+                <!-- <div class="container-fluid" style="border-style: solid">
                     <table cellspacing=0 class="table table-responsive table-bordered table-hover table-inverse table-striped text-center table-sm" role="grid" id="tablePresupuesto" width=100% >
                         <thead>
                             <tr class="text-bg-primary">
@@ -428,7 +434,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                                 <th>Accion</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tabla_insumos_trabajo">
 
                         </tbody>
                         <tfoot>
@@ -440,7 +446,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                         </tfoot>
 
                     </table>
-                </div>
+                </div> -->
                 
                 <hr>
 

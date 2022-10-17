@@ -310,8 +310,8 @@ $modelosDeseados = array();
             echo "error";
             exit;
         }
-        if($_POST["action"] == "obtenerInsumosPresupuesto"){
-            $insumosPresupuesto = ControladorFormularios::ctrlObtenerInsumosPresupuesto();
+        if($_POST["action"] == "obtenerInsumos"){
+            $insumosPresupuesto = ControladorFormularios::ctrlObtenerInsumos();
             if($insumosPresupuesto){
                 echo json_encode($insumosPresupuesto, JSON_UNESCAPED_UNICODE);
                 exit;
@@ -320,7 +320,7 @@ $modelosDeseados = array();
             exit;
         }
         if($_POST["action"] == "obtenerPresupuesto"){
-            $presupuestoObtenido = ControladorFormularios::ctrlObtenerPresupuesto();
+            $presupuestoObtenido = ControladorFormularios::ctrlObtenerComprobante("presupuestos");
             if($presupuestoObtenido){
                 echo json_encode($presupuestoObtenido, JSON_UNESCAPED_UNICODE);
                 exit;
@@ -329,11 +329,34 @@ $modelosDeseados = array();
             exit;
         }
         if($_POST["action"] == "crearPresupuesto"){
-            $presupuestoCreado = ControladorFormularios::ctrlCrearPresupuesto();
+            $presupuestoCreado = ControladorFormularios::ctrlCrearComprobante("presupuestos");
             if($presupuestoCreado){
-                $presupuestoObtenido = ControladorFormularios::ctrlObtenerPresupuesto();
+                $presupuestoObtenido = ControladorFormularios::ctrlObtenerComprobante("presupuestos");
                 if($presupuestoObtenido){
                     echo json_encode($presupuestoObtenido, JSON_UNESCAPED_UNICODE);
+                    exit;
+                }
+                echo "error";
+                exit;
+            }
+            echo "error";
+            exit;
+        }
+        if($_POST["action"] == "obtenerRecibo"){
+            $reciboObtenido = ControladorFormularios::ctrlObtenerComprobante("recibos");
+            if($reciboObtenido){
+                echo json_encode($reciboObtenido, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
+        if($_POST["action"] == "crearRecibo"){
+            $reciboCreado = ControladorFormularios::ctrlCrearComprobante("recibos");
+            if($reciboCreado){
+                $reciboObtenido = ControladorFormularios::ctrlObtenerComprobante("recibos");
+                if($reciboObtenido){
+                    echo json_encode($reciboObtenido, JSON_UNESCAPED_UNICODE);
                     exit;
                 }
                 echo "error";

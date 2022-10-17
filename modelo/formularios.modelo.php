@@ -194,7 +194,7 @@ class ModeloFormularios {
     // CREAR ORDEN
     static public function mdlCrearOrden($tabla, $datos){
         
-        // id_auto  problema    id_recibo	id_presupuesto  estado
+        // id_auto  problema    id_recibo	id_comprobante  estado
 
         $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(id_auto, problema) VALUES (:id_auto, :problema)");
 
@@ -426,11 +426,11 @@ class ModeloFormularios {
 
         $stmt = null;
     }
-    // CREAR PRESUPUESTO
-    static public function mdlCrearPresupuesto($tabla, $id_orden){
+    // CREAR COMPROBANTE
+    static public function mdlCrearComprobante($tabla, $id_orden){
         // id	id_orden	id_cliente	fecha
         
-        $stmt = Conexion::conectar()->prepare("INSERT INTO presupuestos (id_orden, id_cliente)
+        $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla (id_orden, id_cliente)
                                             SELECT ord.id, cl.id
                                             FROM ordenes ord
                                             INNER JOIN autos au
@@ -453,17 +453,17 @@ class ModeloFormularios {
 
         $stmt = null;
     }
-    // OBTENER PRESUPUESTO
-    static public function mdlObtenerPresupuesto($tabla, $id_orden){
+    // OBTENER COMPROBANTE
+    static public function mdlObtenerComprobante($tabla, $id_orden){
         // id	id_orden	id_cliente	fecha
 
-        $stmt = Conexion::conectar()->prepare("SELECT p.id, p.id_cliente, DATE_FORMAT(p.fecha, '%d/%m/%Y') as fecha,
-                                            DATE_FORMAT(p.fecha, '%H:%i:%s') as hora,
+        $stmt = Conexion::conectar()->prepare("SELECT comp.id, comp.id_cliente, DATE_FORMAT(comp.fecha, '%d/%m/%Y') as fecha,
+                                            DATE_FORMAT(comp.fecha, '%H:%i:%s') as hora,
                                             cl.nombre, cl.telefono, cl.mail, cl.domicilio
-                                            FROM $tabla p
+                                            FROM $tabla comp
                                             INNER JOIN clientes cl
-                                            ON p.id_cliente = cl.id
-                                            WHERE p.id_orden = :id_orden");
+                                            ON comp.id_cliente = cl.id
+                                            WHERE comp.id_orden = :id_orden");
 
         $stmt->bindParam(":id_orden", $id_orden, PDO::PARAM_INT);
 
@@ -480,11 +480,11 @@ class ModeloFormularios {
         $stmt = null;
     }
     
-    // OBTENER INSUMOS PRESUPUESTO
-    static public function mdlObtenerInsumosPresupuesto($tabla, $id_presupuesto){
-        $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE id_presupuesto = :id_presupuesto");
+    // OBTENER INSUMOS 
+    static public function mdlObtenerInsumos($tabla, $id_comprobante){
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE id_comprobante = :id_comprobante");
 
-        $stmt->bindParam(":id_presupuesto", $id_presupuesto, PDO::PARAM_INT);
+        $stmt->bindParam(":id_comprobante", $id_comprobante, PDO::PARAM_INT);
 
         if($stmt->execute()){
 
@@ -502,10 +502,10 @@ class ModeloFormularios {
     // AGREGAR INSUMO PRESUPUESTO
     static public function mdlAgregarInsumo($tabla, $datos){
 
-        $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla (id_presupuesto, descripcion, cantidad, precio, precio_total) VALUES (:id_presupuesto, :descripcion, :cantidad, :precio, :precio_total)");
+        $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla (id_comprobante, descripcion, cantidad, precio, precio_total) VALUES (:id_comprobante, :descripcion, :cantidad, :precio, :precio_total)");
 
-        // id_presupuesto descripcion cantidad precio precio_total
-        $stmt->bindParam(":id_presupuesto", $datos["id_presupuesto"], PDO::PARAM_INT);
+        // id_comprobante descripcion cantidad precio precio_total
+        $stmt->bindParam(":id_comprobante", $datos["id_comprobante"], PDO::PARAM_INT);
         $stmt->bindParam(":descripcion", $datos["descripcion"], PDO::PARAM_STR);
         $stmt->bindParam(":cantidad", $datos["cantidad"], PDO::PARAM_INT);
         $stmt->bindParam(":precio", $datos["precio"], PDO::PARAM_INT);

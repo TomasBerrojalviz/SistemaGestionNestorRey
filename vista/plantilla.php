@@ -512,5 +512,6 @@
     <script src="js/functions.js"></script>
     <script src="js/modals.js"></script>
     <script src="js/ordenes.js"></script>
+    <script src="js/facturacion.js"></script>
 </body>
 </html>

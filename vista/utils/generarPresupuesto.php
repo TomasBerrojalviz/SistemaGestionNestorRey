@@ -32,8 +32,8 @@ else {
     }
     $stmt = null;
 
-    $stmt = Conexion::conectar()->prepare("SELECT * FROM insumos_presupuestos WHERE id_presupuesto = :id_presupuesto");
-    $stmt->bindParam(":id_presupuesto", $_REQUEST['pr'], PDO::PARAM_INT);
+    $stmt = Conexion::conectar()->prepare("SELECT * FROM insumos_presupuestos WHERE id_comprobante = :id_comprobante");
+    $stmt->bindParam(":id_comprobante", $_REQUEST['pr'], PDO::PARAM_INT);
     if($stmt->execute()){
         $insumos = $stmt->fetchAll();
     }
