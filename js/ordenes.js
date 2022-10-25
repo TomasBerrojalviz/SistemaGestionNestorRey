@@ -83,7 +83,6 @@ $( document ).ready(function() {
                     var info_auto = JSON.parse(responseAuto);
                     ordenCliente.value = info_auto[0].id_cliente;
                     auto_id = info_auto[0].id;
-
                 }
                 $.ajax({
                     type: "POST",
@@ -105,10 +104,14 @@ $( document ).ready(function() {
                                 if(window.history.replaceState) {
                                     window.history.replaceState(null, null, window.location.href);
                                 }
-
-                                ocultarModal("ordenModal");
+                                if(action == "editarOrden"){
+                                    mostrarModal("ordenModal");
+                                }
+                                else{
+                                    ocultarModal("ordenModal");
+                                    modalAbierto = null;
+                                }
                                 mostrarModal("successModal");
-                                modalAbierto = null;
                             }
                         }
                     },
@@ -132,9 +135,7 @@ $( document ).ready(function() {
     $('#btnTrabajo').click(function(e){
         e.preventDefault();
 
-        $('#ordenModal').modal('hide');
-        
-        mostrarModal("trabajoModal");
+        abrirModalTrabajo();
     });
     //MODAL HISTORIAL AGREGAR
     $('#btn_historial_nota').click(function(e){
@@ -184,8 +185,8 @@ $( document ).ready(function() {
 
         abrirModalPresupuesto();
     });
-    //MODAL INSUMOS
-    $('#btnInsumos').click(function(e){
+    //MODAL RECIBO
+    $('#btnRecibo').click(function(e){
         e.preventDefault();
         abrirModalInsumosTrabajo();
     });
@@ -643,16 +644,15 @@ function subirNota(archivos, tipo, id){
             
             var response = this.responseText;
             ocultarModal("notaModal");
-            if(response.includes("correctamente")){
-                mostrarModal("successModal");
+            if(response){
+                if(response.includes("correctamente")){
+                    mostrarModal("successModal");
+                }
+                else{
+                    mostrarModal("errorModal");
+                }
+                alert(response);
             }
-            else{
-                mostrarModal("errorModal");
-            }
-            
-
-            alert(response);
-            
         }
     };
     
@@ -723,4 +723,34 @@ function displayAdjuntos(id){
     console.log(id);
 
     abrirModalAdjuntos(id);
+}
+
+function abrirModalTrabajo() {
+    ocultarModal("ordenModal");
+
+    var cargoOrden = document.getElementById('cargoOrden');
+    var precioRecibo = 0;
+    // var precioRecibo = obtenerCobroOrden(id_orden);
+
+    var reciboObtenido = obtenerRecibo(id_orden);
+    // id	id_orden	id_cliente	fecha
+    reciboObtenido.done(function(responseRecibo) {
+        if(responseRecibo != "error"){
+            console.log(responseRecibo);
+            var info_recibo = JSON.parse(responseRecibo)[0];
+            
+            var insumosRecibo = obtenerInsumos(info_recibo.id, "recibos");
+            insumosRecibo.done(function(responseInsumosRecibo) {
+                if(responseInsumosRecibo != "error"){
+                    var info_insumos = JSON.parse(responseInsumosRecibo);
+                    for (var i = 0; i < info_insumos.length; i++) {
+                        precioRecibo += info_insumos[i].precio_total
+                    }
+                }
+            });
+        }
+    });
+
+    cargoOrden.value = precioRecibo;
+    mostrarModal("trabajoModal");
 }

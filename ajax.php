@@ -310,6 +310,17 @@ $modelosDeseados = array();
             echo "error";
             exit;
         }
+    
+        if($_POST["action"] == "actualizarManoObra"){
+            $manoObraActualizada = ControladorFormularios::ctrlActualizarManoObra();
+            if($manoObraActualizada){
+                echo json_encode($manoObraActualizada, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
+        
         if($_POST["action"] == "obtenerInsumos"){
             $insumosPresupuesto = ControladorFormularios::ctrlObtenerInsumos();
             if($insumosPresupuesto){

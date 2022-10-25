@@ -163,7 +163,7 @@ function actualizarTablaPresupuesto(id_comprobante){
             for (var i = 0; i < info_insumos.length; i++) {
                 if(info_insumos[i].descripcion == "MANO DE OBRA"){
                     var accion = "";
-                    accion = '<a href="#" class="text-success" onclick="editManoDeObraPresupuesto(\'' + info_insumos[i].id + '\')">';
+                    accion = '<a href="#" class="text-success" onclick="editManoObraPresupuesto(\'' + info_insumos[i].id + '\')">';
                         accion += '<i class="fa-solid fa-floppy-disk"></i>';
                     accion += '<b> Guardar </b> </a>';
 
@@ -252,7 +252,7 @@ function abrirModalInsumosTrabajo(){
     });
     // actualizarTablaRecibo(id_recibo);
     
-    mostrarModal("insumosModal");
+    mostrarModal("reciboModal");
 }
 
 function actualizarTablaRecibo(id_recibo){
@@ -393,4 +393,62 @@ function actualizarPrecioRecibo() {
     manoObraTotal.innerHTML = parseFloat(manoObra.value).toFixed(2);
     total = parseFloat(parseFloat(total_recibo.innerHTML).toFixed(2)) + parseFloat(parseFloat(manoObraTotal.innerHTML).toFixed(2));
     total_recibo.innerHTML = parseFloat(total).toFixed(2);
+}
+
+function editManoObraPresupuesto(id) {
+    var manoObra = document.getElementById("manoObra");
+    console.log(manoObra.value + " " + id);
+    var manoObraUpdate = actualizarManoObra(id, manoObra.value, "insumos_presupuestos");
+    manoObraUpdate.done(function(response) {
+        if(response != "error"){
+            console.log(response);
+            // var rowManoObra = $($('#tabla_insumos_presupuesto')[0].rows[0]);
+            manoObraGradiente($($('#tabla_insumos_presupuesto')[0].rows[0]));
+        }
+        else{
+            alert(response);
+        }
+    });
+}
+
+function editManoDeObraTrabajo(id) {
+    var manoObra = document.getElementById("manoObra");
+    console.log(manoObra.value + " " + id);
+    var manoObraUpdate = actualizarManoObra(id, manoObra.value, "insumos_recibos");
+    manoObraUpdate.done(function(response) {
+        if(response != "error"){
+            console.log(response);
+            manoObraGradiente($($('#tabla_insumos_recibo')[0].rows[0]));
+        }
+        else{
+            alert(response);
+        }
+    });
+}
+
+
+
+function actualizarManoObra(id, precio, tabla) {
+    var action = 'actualizarManoObra';
+
+    return $.ajax({
+        type: "POST",
+        url: "ajax.php",
+        async: false,
+        data: { action:action, id:id, precio:precio, tabla:tabla}
+    });
+}
+
+function manoObraGradiente(rowManoObra){
+    var clases = "text-bg-success bg-opacity-50 bg-gradient";
+    rowManoObra.addClass(clases);
+    setTimeout(() => {
+        rowManoObra.removeClass(clases);
+        clases = "text-bg-success bg-opacity-25 bg-gradient";
+        rowManoObra.addClass(clases);
+        setTimeout(() => {
+            rowManoObra.removeClass(clases);
+        }, 150);
+     }, 1350);
+
 }

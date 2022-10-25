@@ -80,7 +80,9 @@ function cargarTabla(nombreTabla){
                     var estado = setBotonEstado(ordenes[i].id, ordenes[i].estado);
                     var patente = ordenes[i].patente;
                     var modelo = ordenes[i].modelo; //hidden
-                    var llegada = ordenes[i].fecha_recibido;
+                    
+                    var fechaOrdenable = ordenes[i].fecha_recibido.split("/");
+                    var llegada = '<span style="display: none;">'+fechaOrdenable[2]+fechaOrdenable[1]+fechaOrdenable[0]+'</span>'+ordenes[i].fecha_recibido;
                     var problema = ordenes[i].problema;
                     var devolucion = ordenes[i].fecha_devolucion;
                     var solucion = ordenes[i].solucion; //hidden

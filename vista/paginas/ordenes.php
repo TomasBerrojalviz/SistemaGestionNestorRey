@@ -75,7 +75,16 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                     <input class="form-control" type="hidden" name="ordenCliente" id="ordenCliente" required>
 
                     <div class="mb-2">
-                        <div class="accordion accordion-flush bg-secondary" id="accordionFlushAuto">
+                        <div class="col" id="colAuto">
+                            <div class="form-floating mb-2">
+                                <input autocomplete="off" class="form-control " list="dataListAutos" name="ordenAuto" id="ordenAuto" placeholder="Ingrese auto" required>
+                                <label for="floatingInput">Auto</label>
+                                <div class="invalid-feedback">
+                                    Ingrese un auto valido
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion accordion-flush bg-secondary dataOrden" style="display: none;" id="accordionFlushAuto">
                             <div class="accordion-item">
                                 <h5 class="accordion-header" id="flush-autoHead">
                                 <button class="accordion-button collapsed bg-dark bg-opacity-10" type="button" data-bs-toggle="collapse" data-bs-target="#flush-auto" aria-expanded="false" aria-controls="flush-auto">
@@ -85,15 +94,6 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                                 <div id="flush-auto" class="accordion-collapse collapse" aria-labelledby="flush-autoHead" data-bs-parent="#accordionFlushAuto">
                                     <div class="accordion-body">
                                         <div class="row">
-                                            <div class="col" id="colAuto">
-                                                <div class="form-floating mb-2">
-                                                    <input autocomplete="off" class="form-control " list="dataListAutos" name="ordenAuto" id="ordenAuto" placeholder="Ingrese auto" required>
-                                                    <label for="floatingInput">Auto</label>
-                                                    <div class="invalid-feedback">
-                                                        Ingrese un auto valido
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="col dataOrden" style="display: none;">
                                                 <div class="form-floating mb-2">
                                                     <input autocomplete="off" class="form-control" type="text" name="ordenAutoPatente" id="ordenAutoPatente" disabled readonly>
@@ -126,8 +126,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
 
                     </div>
                     <div class="mb-2">
-                        <hr>
-                        <div class="accordion accordion-flush" id="accordionFlushCliente">
+                        <div class="accordion accordion-flushd dataOrden" style="display: none;" id="accordionFlushCliente">
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="flush-clienteHead">
                                 <button class="accordion-button collapsed bg-dark bg-opacity-10" type="button" data-bs-toggle="collapse" data-bs-target="#flush-cliente" aria-expanded="false" aria-controls="flush-cliente">
@@ -203,7 +202,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                                 </div>
                             </div>
 
-                            <div class="row mb-3 container-fluid">
+                            <div class="row mb-3 container-fluid text-center">
                                 <div class="col">
                                     <button id="btnLlegada" tipoModal="llegada" class="btn btn-bg text-bg-info btn-outline-dark btnLlegada">
                                         <i class="fa-solid fa-list-check"></i> <i class="fa-solid"> Llegada </i> <i class="fa-solid fa-list-check"> </i>
@@ -214,7 +213,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                                         <i class="fa-solid fa-gears"></i> <i class="fa-solid"> Trabajo </i> <i class="fa-solid fa-gears fa-flip-horizontal"> </i>
                                     </button>
                                 </div>
-                                <div class="col-auto">
+                                <div class="col-auto" hidden>
                                     <button id="btnEntrega" tipoModal="entrega" class="btn btn-bg text-bg-success btn-outline-dark btnEntrega">
                                     <i class="fa-solid fa-car-burst fa-flip-horizontal"></i> <i class="fa-solid"> Entrega </i> <i class="fa-solid fa-car-burst"></i>
                                     </button>
@@ -299,21 +298,53 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                         </tr>
                     </thead>
                 </table>
+
                 <hr>
                 <h5> Formularios </h5>
-                    
-                <div class="row mb-3 container-fluid">
+                <div class="row mb-3 text-center container-fluid">
                     <div class="col">
-                        <a id="btnInsumos" tipoModal="insumos" class="btn btn-bg text-bg-info btn-outline-dark btnInsumos">
-                            <i class="fa-solid fa-list-check"></i> <i class="fa-solid"> Insumos </i> <i class="fa-solid fa-list-check"> </i>
+                        <a id="btnRecibo" tipoModal="recibo" class="btn btn-lg text-bg-info btn-outline-dark btnRecibo">
+                        <i class="fa-solid fa-receipt"> </i> <i class="fa-solid"> Recibo </i> <i class="fa-solid fa-receipt"> </i>
                         </a>
+                    </div>
+                    <!-- <div class="col">
+                        <a id="btnPago" tipoModal="pago" class="btn btn-bg text-bg-success btn-outline-dark btnPago">
+                            <i class="fa-solid fa-money-check-dollar"> </i> <i class="fa-solid"> Pago </i> <i class="fa-solid fa-money-check-dollar"> </i>
+                        </a> -->
+                    <!-- </div> -->
+                </div>
+
+                <hr>
+                <h5> Pago </h5>
+                <div class="row my-3 text-center container-fluid">
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            Cargo por servicio
+                        </span>
+                        <input class="form-control" type="number" min="0.00" step="100.00" name="cargoOrden" id="cargoOrden" placeholder="0">
+                        <span class="input-group-text text-bg-success">
+                            <a href="#" id="guardar_cobro_orden">
+                                <i class="fa-solid fa-floppy-disk text-bg-success h3"></i>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+                <div class="row mb-3 text-center container-fluid">
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            Pago del cliente
+                        </span>
+                        <input class="form-control" type="number" min="0.00" step="100.00" name="pagoOrden" id="pagoOrden" placeholder="0">
+                        <span class="input-group-text text-bg-success">
+                            <a href="#" id="guardar_pago_orden">
+                                <i class="fa-solid fa-floppy-disk text-bg-success h3"></i>
+                            </a>
+                        </span>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="DisplayVolver('ORDEN')">Cerrar</button>
-                <input type="submit" id="btn_trabajo_modal" name="btn_llegada_modal" class="btn btn-primary" value="Guardar" />
-                
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DisplayVolver('ORDEN')">Cerrar</button>                
             </div>
         </div>
     </div>
@@ -367,93 +398,24 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
     </div>
 </div>
 
-<!-- Modal INSUMOS -->
-<div class="modal fade modal-xl" id="insumosModal" tabindex="-1" aria-labelledby="insumosModalLabel" aria-hidden="true">
+<!-- Modal recibo -->
+<div class="modal fade modal-xl" id="reciboModal" tabindex="-1" aria-labelledby="reciboModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title">Insumos</h5>
+            <h5 class="modal-title">Recibo</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('TRABAJO')"></button>
             </div>
             <div class="modal-body">
-                    
-                <h5> Listado de insumos </h5>
-                <!-- <br> -->
-
                 <div class="container-fluid" style="border-style: solid">
                     <?php 
                         include "vista/utils/recibo_plantilla.php";
                     ?>
                 </div>
-
-                <!-- <div class="container-fluid" style="border-style: solid">
-                    <table cellspacing=0 class="table table-responsive table-bordered table-hover table-inverse table-striped text-center table-sm" role="grid" id="tablePresupuesto" width=100% >
-                        <thead>
-                            <tr class="text-bg-primary">
-                                <th scope="col">
-                                    Descripcion
-                                </th>
-                                <th scope="col">
-                                    Cantidad
-                                </th>
-                                <th scope="col">
-                                    Precio
-                                </th>
-                                <th scope="col">
-                                    Precio total
-                                </th>
-                                <th scope="col">
-                                    Accion
-                                </th>
-                            </tr>
-                            <tr>
-                                <th>
-                                    <input class="text-dark text-bg-secondary bg-opacity-25" type="text" name="descripcion" id="descripcion" placeholder="-" required>
-                                </th>
-                                <th>
-                                    <input class="text-dark text-bg-secondary bg-opacity-25" type="number" name="cantidad" id="cantidad" placeholder="0" required>
-                                </th>
-                                <th>
-                                    <input class="text-dark text-bg-secondary bg-opacity-25" type="number" name="precio" id="precio" min="0.00" step="0.01" placeholder="0.00" required>
-                                </th>
-                                <th id="precio_total">
-                                    0.00
-                                </th>
-                                <th>
-                                    <a href="#" id="agregar_producto_trabajo">
-                                        <i class="fa-solid fa-plus"></i>
-                                        Agregar
-                                    </a>
-                                </th>
-                            </tr>
-                            <tr class="text-bg-primary">
-                                <th>Descripcion</th>
-                                <th>Cantidad</th>
-                                <th>Precio</th>
-                                <th>Precio total</th>
-                                <th>Accion</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabla_insumos_trabajo">
-
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th colspan="3" class="table-active text-start">TOTAL</th>
-                                <th>00,00</th>
-                            </tr>
-
-                        </tfoot>
-
-                    </table>
-                </div> -->
-                
-                <hr>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="DisplayVolver('TRABAJO')">Cerrar</button>
-                <input type="submit" id="btn_insumos_modal" name="btn_insumos_modal" class="btn btn-primary" value="Guardar" />
+                <input type="submit" id="btn_recibo_modal" name="btn_recibo_modal" class="btn btn-primary" value="Guardar" />
                 
             </div>
         </div>

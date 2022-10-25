@@ -512,7 +512,35 @@ class ModeloFormularios {
         $stmt->bindParam(":precio_total", $datos["precio_total"], PDO::PARAM_INT);
 
         if($stmt->execute()){
+            if($tabla == "recibos"){
+                // id_comprobante descripcion cantidad precio precio_total
+                $datosCobro = array("cobro_extra" => $datos["precio_total"],
+                                "id" => $datos["id_orden"]
+                            );
+                return ModeloFormularios::mdlSumarCobro("ordenes", $datosCobro);
+            }
+            return TRUE;
 
+        }
+        else{
+            print_r(Conexion::conectar()->error_info());
+        }
+
+        $stmt->close();
+
+        $stmt = null;
+    }
+    
+    // SUMAR INSUMO AL COBRO
+    static public function mdlSumarCobro($tabla, $datos){
+
+        $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET cobro = cobro + :cobro_extra WHERE id = :id");
+
+        // id_comprobante descripcion cantidad precio precio_total
+        $stmt->bindParam(":cobro_extra", $datos["cobro_extra"], PDO::PARAM_INT);
+        $stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
+
+        if($stmt->execute()){
             return TRUE;
         }
         else{
@@ -523,6 +551,30 @@ class ModeloFormularios {
 
         $stmt = null;
     }
+    
+    // SUMAR INSUMO AL COBRO
+    static public function mdlActualizarManoObra($tabla, $datos){
+
+        $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET precio = :precio, precio_total = :precio_total WHERE id = :id");
+        
+        // UPDATE insumos_presupuestos SET id='[value-1]',`id_comprobante`='[value-2]',`descripcion`='[value-3]',`cantidad`='[value-4]',`precio`='[value-5]',`precio_total`='[value-6]' WHERE 1
+
+        $stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
+        $stmt->bindParam(":precio", $datos["precio"], PDO::PARAM_INT);
+        $stmt->bindParam(":precio_total", $datos["precio"], PDO::PARAM_INT);
+
+        if($stmt->execute()){
+            return TRUE;
+        }
+        else{
+            print_r(Conexion::conectar()->error_info());
+        }
+
+        $stmt->close();
+
+        $stmt = null;
+    }
+
     // AGREGAR CAMBIOS
     static public function mdlAgregarCambios($tabla, $datos){
         // id	id_auto	fecha_cambio	aceite	km_actual	prox_cambio	filtro_aceite	filtro_aire	filtro_combustible	filtro_habitaculo

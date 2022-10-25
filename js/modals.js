@@ -752,8 +752,8 @@ function DisplayVolver(FORM){
         $("#errorModal").modal('hide');
         $("#successModal").modal('hide');
         $("#deleteModal").modal('hide');
-        $("#insumosModal").modal('hide');
-        $("#trabajoModal").modal('show');
+        $("#reciboModal").modal('hide');
+        abrirModalTrabajo();
     }
     else if(FORM == "ADJUNTOS"){
         $("#adjuntosModal").modal('hide');

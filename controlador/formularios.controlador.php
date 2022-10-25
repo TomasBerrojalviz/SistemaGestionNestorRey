@@ -214,7 +214,7 @@ class ControladorFormularios {
 
     // EDITAR ORDEN
     static public function ctrlEditarOrden(){
-        // id_auto  problema    id_recibo	id_comprobante  estado notas
+        // id_auto  problema 	id_comprobante  estado notas
 
         if(isset($_POST["id"])){
 
@@ -391,7 +391,7 @@ class ControladorFormularios {
         return $datoRequerido;
 
     }
-
+    
     // AGREGAR INSUMO
     static public function ctrlAgregarInsumo(){
 
@@ -404,11 +404,29 @@ class ControladorFormularios {
                             "descripcion" => strtoupper($_POST["descripcion"]),
                             "cantidad" => $_POST["cantidad"],
                             "precio" => $_POST["precio"],
-                            "precio_total" => $_POST["precio_total"]
+                            "precio_total" => $_POST["precio_total"],
+                            // "id_orden" => $_POST["id_orden"]
                         );
 
             
             $respuesta = ModeloFormularios::mdlAgregarInsumo($tabla, $datos);
+            
+            return $respuesta;
+        }
+
+    }
+    
+    // AGREGAR INSUMO
+    static public function ctrlActualizarManoObra(){
+
+        if(isset($_POST["id"])){
+            $tabla = $_POST["tabla"];
+            
+            // id_comprobante descripcion cantidad precio precio_total
+            $datos = array("id" => $_POST["id"],
+                            "precio" => $_POST["precio"]
+                        );
+            $respuesta = ModeloFormularios::mdlActualizarManoObra($tabla, $datos);
             
             return $respuesta;
         }
@@ -463,7 +481,8 @@ class ControladorFormularios {
                                     "descripcion" => "MANO DE OBRA",
                                     "cantidad" => "1",
                                     "precio" => "10000",
-                                    "precio_total" => "10000"
+                                    "precio_total" => "10000",
+                                    "id_orden" => $id_orden
                                 );
         
                     
