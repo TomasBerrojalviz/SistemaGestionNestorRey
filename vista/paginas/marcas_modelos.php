@@ -22,7 +22,7 @@
                                     <a class="btn btn-warning editMarca" id-marca="<?php echo $marca["id"];?>" > <i class="fa-solid fa-pen-to-square"></i> </a>
                                 </div>
                                 <div class="px-1">
-                                    <a class="btn btn-danger deleteMarca" id-marca="<?php echo $marca["id"];?>" > <i class="fa-solid fa-trash-can"></i> </a>
+                                    <a class="btn btn-danger deleteMarca2" id-marca="<?php echo $marca["id"];?>" > <i class="fa-solid fa-trash-can"></i> </a>
                                 </div>
                             </div>
                         </td>
@@ -56,7 +56,7 @@
                                         <a class="btn btn-warning editModelo" id-modelo="<?php echo $modelo["id"];?>" > <i class="fa-solid fa-pen-to-square"></i> </a>
                                     </div>
                                     <div class="px-1">
-                                        <a class="btn btn-danger deleteModelo" id-modelo="<?php echo $modelo["id"];?>" > <i class="fa-solid fa-trash-can"></i> </a>
+                                        <a class="btn btn-danger deleteModelo2" id-modelo="<?php echo $modelo["id"];?>" > <i class="fa-solid fa-trash-can"></i> </a>
                                     </div>
                             </div>
                             

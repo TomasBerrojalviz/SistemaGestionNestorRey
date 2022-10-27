@@ -57,12 +57,12 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
 </div>
 
 <!-- Modal ORDEN -->
-<div class="modal fade modal-lg" id="ordenModal" tabindex="-1" aria-labelledby="ordenModalLabel" aria-hidden="true">
+<div class="modal fade modal-lg" id="ordenModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ordenModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="ordenModalTitle">Crear orden</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('HOME')"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('HOME_ORDEN')"></button>
             </div>
             <div class="modal-body">
                 <div class="container">
@@ -205,7 +205,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                             <div class="row mb-3 container-fluid text-center">
                                 <div class="col">
                                     <button id="btnLlegada" tipoModal="llegada" class="btn btn-bg text-bg-info btn-outline-dark btnLlegada">
-                                        <i class="fa-solid fa-list-check"></i> <i class="fa-solid"> Llegada </i> <i class="fa-solid fa-list-check"> </i>
+                                        <i class="fa-solid fa-car-side"></i> <i class="fa-solid"> Llegada </i> <i class="fa-solid fa-car-side fa-flip-horizontal"> </i>
                                     </button>
                                 </div>
                                 <div class="col">
@@ -224,7 +224,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DisplayVolver('HOME');">Cerrar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DisplayVolver('HOME_ORDEN');">Cerrar</button>
                 <input type="submit" id="btn_orden_modal" name="btn_orden_modal" class="btn btn-primary" value="Crear"/>
             </div>
         </div>
@@ -233,7 +233,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
 
 
 <!-- Modal LLEGADA -->
-<div class="modal fade" id="llegadaModal" tabindex="-1" aria-labelledby="llegadaModalLabel" aria-hidden="true">
+<div class="modal fade" id="llegadaModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="llegadaModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -243,10 +243,15 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
             <div class="modal-body">
                 <h5> Formularios </h5>
                 
-                <div class="row mb-3 container-fluid">
+                <div class="row mb-3 container-fluid text-center">
                     <div class="col">
                         <a id="btnPresupuesto" tipoModal="presupuesto" class="btn btn-bg text-bg-info btn-outline-dark btnPresupuesto">
-                            <i class="fa-solid fa-list-check"></i> <i class="fa-solid"> Presupuesto </i> <i class="fa-solid fa-list-check"> </i>
+                        <i class="fa-solid fa-file-invoice-dollar"> </i> <i class="fa-solid"> Presupuesto </i> <i class="fa-solid fa-file-invoice-dollar"> </i>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a id="btncheckIn" tipoModal="checkIn" class="btn btn-bg text-bg-info btn-outline-dark btncheckIn">
+                            <i class="fa-solid fa-list-check"></i> <i class="fa-solid"> Checkin </i> <i class="fa-solid fa-list-check"> </i>
                         </a>
                     </div>
                     <!-- <div class="col-auto">
@@ -259,16 +264,14 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="DisplayVolver('ORDEN')">Cerrar</button>
-                <input type="submit" id="btn_llegada_modal" name="btn_llegada_modal" class="btn btn-primary" value="Guardar" />
-                
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DisplayVolver('ORDEN')">Cerrar</button>                
             </div>
         </div>
     </div>
 </div>
 
 <!-- Modal TRABAJO -->
-<div class="modal fade" id="trabajoModal" tabindex="-1" aria-labelledby="trabajoModalLabel" aria-hidden="true">
+<div class="modal fade" id="trabajoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="trabajoModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -321,23 +324,29 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                         <span class="input-group-text">
                             Cargo por servicio
                         </span>
-                        <input class="form-control" type="number" min="0.00" step="100.00" name="cargoOrden" id="cargoOrden" placeholder="0">
+                        <!-- <input class="form-control" type="number" min="0.00" step="100.00" name="cargoOrden" id="cargoOrden" placeholder="0">
                         <span class="input-group-text text-bg-success">
                             <a href="#" id="guardar_cobro_orden">
                                 <i class="fa-solid fa-floppy-disk text-bg-success h3"></i>
                             </a>
-                        </span>
+                        </span> -->
+                        <input class="form-control text-center" type="number" name="cargoOrden" id="cargoOrden" placeholder="0" disabled readonly>
                     </div>
                 </div>
                 <div class="row mb-3 text-center container-fluid">
                     <div class="input-group">
-                        <span class="input-group-text">
+                        <span class="input-group-text pagoGrupo">
                             Pago del cliente
                         </span>
-                        <input class="form-control" type="number" min="0.00" step="100.00" name="pagoOrden" id="pagoOrden" placeholder="0">
+                        <input class="form-control pagoGrupo" type="number" min="0.00" step="100.00" name="pagoOrden" id="pagoOrden" placeholder="0">
+                        <span class="input-group-text text-bg-primary">
+                            <a href="#" id="total_pago_orden">
+                                <i class="fa-solid fa-money-bill-1-wave text-bg-primary h3 mt-2"></i>
+                            </a>
+                        </span>
                         <span class="input-group-text text-bg-success">
                             <a href="#" id="guardar_pago_orden">
-                                <i class="fa-solid fa-floppy-disk text-bg-success h3"></i>
+                                <i class="fa-solid fa-floppy-disk text-bg-success h3 mt-2"></i>
                             </a>
                         </span>
                     </div>
@@ -351,7 +360,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
 </div>
 
 <!-- Modal ENTREGA -->
-<div class="modal fade" id="entregaModal" tabindex="-1" aria-labelledby="entregaModalLabel" aria-hidden="true">
+<div class="modal fade" id="entregaModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="entregaModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -364,7 +373,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="DisplayVolver('ORDEN')">Cerrar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DisplayVolver('ORDEN')">Cerrar</button>
                 <input type="submit" id="btn_entrega_modal" name="btn_entrega_modal" class="btn btn-primary" value="Guardar" />
                 
             </div>
@@ -373,7 +382,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
 </div>
 
 <!-- Modal PRESUPUESTO -->
-<div class="modal fade modal-xl" id="presupuestoModal" tabindex="-1" aria-labelledby="presupuestoModalLabel" aria-hidden="true">
+<div class="modal fade modal-xl" id="presupuestoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="presupuestoModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -390,7 +399,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="DisplayVolver('LLEGADA')">Cerrar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DisplayVolver('LLEGADA')">Cerrar</button>
                 <input type="submit" id="btn_presupuesto_modal" name="btn_presupuesto_modal" class="btn btn-primary" value="Generar pdf" />
                 
             </div>
@@ -399,7 +408,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
 </div>
 
 <!-- Modal recibo -->
-<div class="modal fade modal-xl" id="reciboModal" tabindex="-1" aria-labelledby="reciboModalLabel" aria-hidden="true">
+<div class="modal fade modal-xl" id="reciboModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="reciboModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -414,8 +423,8 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="DisplayVolver('TRABAJO')">Cerrar</button>
-                <input type="submit" id="btn_recibo_modal" name="btn_recibo_modal" class="btn btn-primary" value="Guardar" />
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DisplayVolver('TRABAJO')">Cerrar</button>
+                <input type="submit" id="btn_print_recibo" name="btn_print_recibo" class="btn btn-primary" value="Generar pdf" />
                 
             </div>
         </div>
@@ -423,12 +432,12 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
 </div>
 
 <!-- Modal NOTAS -->
-<div class="modal fade modal-lg" id="notaModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="notaModalLabel" aria-hidden="true">
+<div class="modal fade modal-lg" id="notaModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" data-bs-backdrop="static" aria-labelledby="notaModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
             <h5 class="modal-title">Agregar nota</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('ORDEN')"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('TRABAJO')"></button>
             </div>
             <div class="modal-body">
                 <input class="form-control" type="hidden" name="notaId" id="notaId" required>
@@ -455,7 +464,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="DisplayVolver('TRABAJO')">Cerrar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DisplayVolver('TRABAJO')">Cerrar</button>
                 <input type="submit" accion="agregarNota" id="btn_nota_modal" name="btn_nota_modal" class="btn btn-primary" value="Agregar" />
             </div>
         </div>

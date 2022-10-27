@@ -1,3 +1,4 @@
+const pagoGrupo = document.getElementsByClassName("pagoGrupo");
 
 var presupuestoNro = document.getElementById("presupuestoNro");
 var presupuestoFecha = document.getElementById("presupuestoFecha");
@@ -8,6 +9,15 @@ var presupuestoClienteMail = document.getElementById("presupuestoClienteMail");
 var presupuestoClienteTelefono = document.getElementById("presupuestoClienteTelefono");
 var presupuestoClienteDomicilio = document.getElementById("presupuestoClienteDomicilio");
 
+var reciboNro = document.getElementById("reciboNro");
+var reciboFecha = document.getElementById("reciboFecha");
+var reciboHora = document.getElementById("reciboHora");
+var reciboVto = document.getElementsByClassName("reciboVto");
+var reciboClienteNombre = document.getElementById("reciboClienteNombre");
+var reciboClienteMail = document.getElementById("reciboClienteMail");
+var reciboClienteTelefono = document.getElementById("reciboClienteTelefono");
+var reciboClienteDomicilio = document.getElementById("reciboClienteDomicilio");
+
 
 $( document ).ready(function() {
     //GENERAR PDF PRESUPUESTO
@@ -16,10 +26,81 @@ $( document ).ready(function() {
         
         generarPDF("presupuesto", presupuestoNro.innerHTML);
     });
+    //GENERAR PDF RECIBO
+    $('#btn_print_recibo').click(function(e){
+        e.preventDefault();
+        
+        var action = "actualizarFecha";
+        var tabla = "recibos";
+
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            async: false,
+            // id_comprobante descripcion cantidad precio precio_total
+            data: {
+                action:action,
+                id:reciboNro.innerHTML,
+                tabla:tabla
+            },
+            success: function(response) {
+                if (response != "error") {
+                    var fechaActualizada = JSON.parse(response);
+                    if(fechaActualizada){
+                        generarPDF("recibo",reciboNro.innerHTML);
+                    }
+                }
+            },
+            error: function(error) {
+                alert(error);
+            }
+        });
+    });
+    // INSERTAR TOTAL DEL PAGO
+    $('#total_pago_orden').click(function(e){
+        e.preventDefault();
+        var cargoOrden = document.getElementById('cargoOrden');
+        var pagoOrden = document.getElementById("pagoOrden");
+        
+        pagoOrden.value = cargoOrden.value
+    });
+    //GUARDAR PAGO DEL CLIENTE
+    $('#guardar_pago_orden').click(function(e){
+        e.preventDefault();
+        
+        var action = "guardarPago";
+        var pagoOrden = document.getElementById("pagoOrden");
+
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            async: false,
+            // id_comprobante descripcion cantidad precio precio_total
+            data: {
+                action:action,
+                id:id_orden,
+                pago:pagoOrden.value
+            },
+            success: function(response) {
+                if (response != "error") {
+                    var pagoGuardado = JSON.parse(response);
+                    if(pagoGuardado){
+                        for (var i = 0; i < pagoGrupo.length; i++) {
+                            successGradiente($(pagoGrupo[i]));
+                        }
+                    }
+                }
+            },
+            error: function(error) {
+                alert(error);
+            }
+        });
+    });
     //AGREGAR PRODUCTO PRESUPUESTO
     $('#agregar_producto_presupuesto').click(function(e){
         e.preventDefault();
         var action = "agregarInsumo";
+        var tabla = "insumos_presupuestos";
         
         var descripcion = document.getElementById("descripcion");
         var cantidad = document.getElementById("cantidad");
@@ -33,6 +114,7 @@ $( document ).ready(function() {
             // id_comprobante descripcion cantidad precio precio_total
             data: {
                 action:action,
+                tabla:tabla,
                 id_comprobante:presupuestoNro.innerHTML,
                 descripcion:descripcion.value,
                 cantidad:cantidad.value,
@@ -43,8 +125,45 @@ $( document ).ready(function() {
                 if (response != "error") {
                     var insumoAgregado = JSON.parse(response);
                     if(insumoAgregado){
-                        console.log(insumoAgregado);
                         actualizarTablaPresupuesto(presupuestoNro.innerHTML);
+                    }
+                }
+            },
+            error: function(error) {
+                alert(error);
+            }
+        });        
+    });
+    //AGREGAR PRODUCTO RECIBO
+    $('#agregar_producto_recibo').click(function(e){
+        e.preventDefault();
+        var action = "agregarInsumo";
+        var tabla = "insumos_recibos";
+        
+        var descripcion = document.getElementById("descripcionRecibo");
+        var cantidad = document.getElementById("cantidadRecibo");
+        var precio = document.getElementById("precioRecibo");
+        var precio_total = document.getElementById("precio_total_insumo");
+
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            async: false,
+            // id_comprobante descripcion cantidad precio precio_total
+            data: {
+                action:action,
+                tabla:tabla,
+                id_comprobante:reciboNro.innerHTML,
+                descripcion:descripcion.value,
+                cantidad:cantidad.value,
+                precio:precio.value,
+                precio_total:precio_total.innerHTML
+            },
+            success: function(response) {
+                if (response != "error") {
+                    var insumoAgregado = JSON.parse(response);
+                    if(insumoAgregado){
+                        actualizarTablaRecibo(reciboNro.innerHTML);
                     }
                 }
             },
@@ -61,7 +180,6 @@ function abrirModalPresupuesto(){
     // id	id_orden	id_cliente	fecha
     presupuestoObtenido.done(function(responsePresupuesto) {
         if(responsePresupuesto != "error"){
-            console.log(responsePresupuesto);
             var info_presupuesto = JSON.parse(responsePresupuesto)[0];
             insertarPresupuesto(info_presupuesto);
         }
@@ -173,10 +291,12 @@ function actualizarTablaPresupuesto(id_comprobante){
                     let cell1_3 = row1.insertCell(2);
                     let cell1_4 = row1.insertCell(3);
                     let cell1_5 = row1.insertCell(4);
+                    $(cell1_5).addClass("modelo");
         
                     cell1_1.innerHTML = info_insumos[i].descripcion;
                     cell1_2.innerHTML = 1;
-                    cell1_3.innerHTML = "<input class='text-dark text-bg-secondary bg-opacity-25' type='number' onchange='actualizarPrecioPresupuesto()' name='manoObra' id='manoObra' min='0.00' step='100.00' value='" + parseFloat(info_insumos[i].precio).toFixed(2) +"' placeholder='10.000,00' required>";
+                    cell1_3.id = "manoObraCell";
+                    cell1_3.innerHTML = "<input class='text-dark text-bg-secondary bg-opacity-25 modelo' type='number' onchange='actualizarPrecioPresupuesto()' name='manoObra' id='manoObra' min='0.00' step='100.00' value='" + parseFloat(info_insumos[i].precio).toFixed(2) +"' placeholder='10.000,00' required>";
                     cell1_4.innerHTML = parseFloat(info_insumos[i].precio_total).toFixed(2);
                     cell1_4.id = "manoObraTotal";
                     cell1_5.innerHTML = accion;
@@ -194,6 +314,7 @@ function actualizarTablaPresupuesto(id_comprobante){
                     let cell3 = row.insertCell(2);  
                     let cell4 = row.insertCell(3);
                     let cell5 = row.insertCell(4);
+                    $(cell5).addClass("modelo");
     
                     cell1.innerHTML = info_insumos[i].descripcion;
                     cell2.innerHTML = info_insumos[i].cantidad;
@@ -229,14 +350,13 @@ function obtenerInsumos(id_comprobante, comprobante){
     });
 }
 
-function abrirModalInsumosTrabajo(){
+function abrirModalRecibo(){
     $('#trabajoModal').modal('hide');
 
     var reciboObtenido = obtenerRecibo(id_orden);
     // id	id_orden	id_cliente	fecha
     reciboObtenido.done(function(responseRecibo) {
         if(responseRecibo != "error"){
-            console.log(responseRecibo);
             var info_recibo = JSON.parse(responseRecibo)[0];
             insertarRecibo(info_recibo);
         }
@@ -268,7 +388,7 @@ function actualizarTablaRecibo(id_recibo){
             for (var i = 0; i < info_insumos.length; i++) {
                 if(info_insumos[i].descripcion == "MANO DE OBRA"){
                     var accion = "";
-                    accion = '<a href="#" class="text-success" onclick="editManoDeObraTrabajo(\'' + info_insumos[i].id + '\')">';
+                    accion = '<a href="#" class="text-success" onchange="actualizarPrecioRecibo()" onclick="editManoDeObraTrabajo(\'' + info_insumos[i].id + '\')">';
                         accion += '<i class="fa-solid fa-floppy-disk"></i>';
                     accion += '<b> Guardar </b> </a>';
 
@@ -278,10 +398,12 @@ function actualizarTablaRecibo(id_recibo){
                     let cell1_3 = row1.insertCell(2);
                     let cell1_4 = row1.insertCell(3);
                     let cell1_5 = row1.insertCell(4);
+                    $(cell1_5).addClass("modelo");
         
                     cell1_1.innerHTML = info_insumos[i].descripcion;
                     cell1_2.innerHTML = 1;
-                    cell1_3.innerHTML = "<input class='text-dark text-bg-secondary bg-opacity-25' type='number' onchange='actualizarPrecioRecibo()' name='manoObra' id='manoObra' min='0.00' step='100.00' value='" + parseFloat(info_insumos[i].precio).toFixed(2) +"' placeholder='10.000,00' required>";
+                    cell1_3.id = "manoObraCell";
+                    cell1_3.innerHTML = "<input class='text-dark text-bg-secondary bg-opacity-25 modelo' type='number' onchange='actualizarPrecioRecibo()' name='manoObra' id='manoObra' min='0.00' step='100.00' value='" + parseFloat(info_insumos[i].precio).toFixed(2) +"' placeholder='10.000,00' required>";
                     cell1_4.innerHTML = parseFloat(info_insumos[i].precio_total).toFixed(2);
                     cell1_4.id = "manoObraTotal";
                     cell1_5.innerHTML = accion;
@@ -299,6 +421,7 @@ function actualizarTablaRecibo(id_recibo){
                     let cell3 = row.insertCell(2);  
                     let cell4 = row.insertCell(3);
                     let cell5 = row.insertCell(4);
+                    $(cell5).addClass("modelo");
     
                     cell1.innerHTML = info_insumos[i].descripcion;
                     cell2.innerHTML = info_insumos[i].cantidad;
@@ -346,32 +469,32 @@ function crearRecibo(id) {
 }
 
 function insertarRecibo(recibo) {
-    presupuestoNro.innerHTML = recibo.id;
-    presupuestoFecha.innerHTML = recibo.fecha;
-    presupuestoHora.innerHTML = recibo.hora;
+    reciboNro.innerHTML = recibo.id;
+    reciboFecha.innerHTML = recibo.fecha;
+    reciboHora.innerHTML = recibo.hora;
 
     var fechaVto = new Date();
-    var fechaPresupuesto = recibo.fecha.split("/");
-    fechaVto.setFullYear(fechaPresupuesto[2],fechaPresupuesto[1],fechaPresupuesto[0]);
+    var fecharecibo = recibo.fecha.split("/");
+    fechaVto.setFullYear(fecharecibo[2],fecharecibo[1],fecharecibo[0]);
     fechaVto.setDate(fechaVto.getDate()+7);
     
-    for(var i = 0; i < presupuestoVto.length; i++) {
-        presupuestoVto[i].innerHTML = fechaVto.getDate()+"/"+fechaVto.getMonth()+"/"+fechaVto.getFullYear();
+    for(var i = 0; i < reciboVto.length; i++) {
+        reciboVto[i].innerHTML = fechaVto.getDate()+"/"+fechaVto.getMonth()+"/"+fechaVto.getFullYear();
     }
 
-    presupuestoClienteNombre.value = recibo.nombre;
+    reciboClienteNombre.value = recibo.nombre;
     if(recibo.mail){
-        presupuestoClienteMail.value = recibo.mail;
+        reciboClienteMail.value = recibo.mail;
     }
     else{
-        presupuestoClienteMail.value = "-";        
+        reciboClienteMail.value = "-";        
     }
-    presupuestoClienteTelefono.value = recibo.telefono;
+    reciboClienteTelefono.value = recibo.telefono;
     if(recibo.domicilio){
-        presupuestoClienteDomicilio.value = recibo.domicilio;
+        reciboClienteDomicilio.value = recibo.domicilio;
     }
     else{
-        presupuestoClienteDomicilio.value = "-";        
+        reciboClienteDomicilio.value = "-";        
     }
 
     actualizarTablaRecibo(recibo.id);
@@ -397,13 +520,11 @@ function actualizarPrecioRecibo() {
 
 function editManoObraPresupuesto(id) {
     var manoObra = document.getElementById("manoObra");
-    console.log(manoObra.value + " " + id);
     var manoObraUpdate = actualizarManoObra(id, manoObra.value, "insumos_presupuestos");
     manoObraUpdate.done(function(response) {
         if(response != "error"){
-            console.log(response);
             // var rowManoObra = $($('#tabla_insumos_presupuesto')[0].rows[0]);
-            manoObraGradiente($($('#tabla_insumos_presupuesto')[0].rows[0]));
+            successGradiente($($('#tabla_insumos_presupuesto')[0].rows[0]));
         }
         else{
             alert(response);
@@ -413,20 +534,16 @@ function editManoObraPresupuesto(id) {
 
 function editManoDeObraTrabajo(id) {
     var manoObra = document.getElementById("manoObra");
-    console.log(manoObra.value + " " + id);
     var manoObraUpdate = actualizarManoObra(id, manoObra.value, "insumos_recibos");
     manoObraUpdate.done(function(response) {
         if(response != "error"){
-            console.log(response);
-            manoObraGradiente($($('#tabla_insumos_recibo')[0].rows[0]));
+            successGradiente($($('#tabla_insumos_recibo')[0].rows[0]));
         }
         else{
             alert(response);
         }
     });
 }
-
-
 
 function actualizarManoObra(id, precio, tabla) {
     var action = 'actualizarManoObra';
@@ -439,16 +556,51 @@ function actualizarManoObra(id, precio, tabla) {
     });
 }
 
-function manoObraGradiente(rowManoObra){
+function successGradiente(rowManoObra){
     var clases = "text-bg-success bg-opacity-50 bg-gradient";
     rowManoObra.addClass(clases);
     setTimeout(() => {
         rowManoObra.removeClass(clases);
-        clases = "text-bg-success bg-opacity-25 bg-gradient";
-        rowManoObra.addClass(clases);
-        setTimeout(() => {
-            rowManoObra.removeClass(clases);
-        }, 150);
-     }, 1350);
+        // clases = "text-bg-success bg-opacity-25 bg-gradient";
+        // rowManoObra.addClass(clases);
+        // setTimeout(() => {
+        //     rowManoObra.removeClass(clases);
+        // }, 150);
+     }, 1500);
 
+}
+
+function eliminarInsumoRecibo(id){
+    var eliminarInsumoSeleccionado = eliminarInsumo(id, "insumos_recibos");
+    eliminarInsumoSeleccionado.done(function(response) {
+        if(response != "error"){
+            actualizarTablaRecibo(reciboNro.innerHTML);
+        }
+        else{
+            alert(response);
+        }
+    });
+}
+
+function eliminarInsumoPresupuesto(id){
+    var eliminarInsumoSeleccionado = eliminarInsumo(id, "insumos_presupuestos");
+    eliminarInsumoSeleccionado.done(function(response) {
+        if(response != "error"){
+            actualizarTablaPresupuesto(presupuestoNro.innerHTML);
+        }
+        else{
+            alert(response);
+        }
+    });
+}
+
+function eliminarInsumo(id, tabla) {
+    var action = 'eliminarInsumo';
+
+    return $.ajax({
+        type: "POST",
+        url: "ajax.php",
+        async: false,
+        data: { action:action, id:id, tabla:tabla}
+    });
 }

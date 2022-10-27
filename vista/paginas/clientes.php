@@ -30,7 +30,7 @@
                             <a class="btn btn-warning editCliente" id-cliente="<?php echo $cliente["id"];?>" > <i class="fa-solid fa-pen-to-square"></i> </a>
                         </div>
                         <div class="px-1">
-                            <a class="btn btn-danger deleteCliente" id-cliente="<?php echo $cliente["id"];?>" > <i class="fa-solid fa-trash-can"></i> </a>
+                            <a class="btn btn-danger deleteCliente2" id-cliente="<?php echo $cliente["id"];?>" > <i class="fa-solid fa-trash-can"></i> </a>
                         </div>
                     </div>
                 </td>

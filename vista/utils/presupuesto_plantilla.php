@@ -1,9 +1,9 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-2">
+        <div class="col-3">
             <img src="img/logo-min.png" class="mx-auto my-auto"  alt="Logo Nestor Rey Mecanica">
         </div>
-        <div class="col-6 text-center">
+        <div class="col-5 text-center">
             <p><b>Nestor Rey Mecanica</b></p>
             <p>Juncal 4849, Monte Chingolo</p>
             <p>Telefono: +54 9 11 3179-7334</p>

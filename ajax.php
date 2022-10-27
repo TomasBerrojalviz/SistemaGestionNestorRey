@@ -301,10 +301,21 @@ $modelosDeseados = array();
             echo "error";
             exit;
         }
+        
         if($_POST["action"] == "agregarInsumo"){
             $insumoCargado = ControladorFormularios::ctrlAgregarInsumo();
             if($insumoCargado){
                 echo json_encode($insumoCargado, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
+        
+        if($_POST["action"] == "eliminarInsumo"){
+            $insumoEliminado = ControladorFormularios::ctrlEliminarInsumo();
+            if($insumoEliminado){
+                echo json_encode($insumoEliminado, JSON_UNESCAPED_UNICODE);
                 exit;
             }
             echo "error";
@@ -399,6 +410,24 @@ $modelosDeseados = array();
             $cambioObtenido = ControladorFormularios::ctrlObtenerNotas();
             if($cambioObtenido){
                 echo json_encode($cambioObtenido, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
+        if($_POST["action"] == "guardarPago"){
+            $pagoGuardado = ControladorFormularios::ctrlGuardarPago();
+            if($pagoGuardado){
+                echo json_encode($pagoGuardado, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
+        if($_POST["action"] == "actualizarFecha"){
+            $fechaActualizada = ControladorFormularios::ctrlActualizarFecha();
+            if($fechaActualizada){
+                echo json_encode($fechaActualizada, JSON_UNESCAPED_UNICODE);
                 exit;
             }
             echo "error";

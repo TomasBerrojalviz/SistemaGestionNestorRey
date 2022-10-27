@@ -672,6 +672,47 @@ class ModeloFormularios {
 
         $stmt = null;
     }
+    
+    // OBTENER NOTAS
+    static public function mdlGuardarPago($tabla, $id, $pago){
+        
+        $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET pago = :pago WHERE id = :id");
+
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+        $stmt->bindParam(":pago", $pago, PDO::PARAM_INT);
+
+        if($stmt->execute()){
+
+            return TRUE;
+        }
+        else{
+            print_r(Conexion::conectar()->error_info());
+        }
+
+        $stmt->close();
+
+        $stmt = null;
+    }
+    
+    // OBTENER NOTAS
+    static public function mdlActualizarFecha($tabla, $id){
+        
+        $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET fecha = CURRENT_TIMESTAMP WHERE id = :id");
+
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+
+        if($stmt->execute()){
+
+            return TRUE;
+        }
+        else{
+            print_r(Conexion::conectar()->error_info());
+        }
+
+        $stmt->close();
+
+        $stmt = null;
+    }
 
     
 }

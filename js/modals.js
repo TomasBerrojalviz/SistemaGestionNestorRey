@@ -709,11 +709,10 @@ function recargar(){
 }
 
 function DisplayVolver(FORM){
-    console.log(modalAbierto);
-
-    if(modalAbierto && FORM == "HOME"){
+    if(modalAbierto && FORM == "HOME" && FORM != "HOME_ORDEN"){
         FORM = modalAbierto;
     }
+    console.log(FORM);
     if(FORM == "AUTO"){
         $("#errorModal").modal('hide');
         $("#successModal").modal('hide');
@@ -728,13 +727,15 @@ function DisplayVolver(FORM){
         $("#errorModal").modal('hide');
         $("#successModal").modal('hide');
         $("#deleteModal").modal('hide');
+        actualizarTablas();
         // $("#clienteModal").modal('hide');
         // $("#marcaModal").modal('hide');
         // $("#modeloModal").modal('hide');
         // $("#autoModal").modal('hide');
-        $("#ordenModal").modal('show');
+        // $("#ordenModal").modal('show');
+        abrirModalOrden(id_orden);
     }
-    else if(FORM == "HOME"){
+    else if(FORM == "HOME" || FORM == "HOME_ORDEN"){
         $("#errorModal").modal('hide');
         $("#successModal").modal('hide');
         $("#deleteModal").modal('hide');

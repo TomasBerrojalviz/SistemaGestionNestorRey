@@ -391,13 +391,28 @@ class ControladorFormularios {
         return $datoRequerido;
 
     }
+
+    // ELIMINAR INSUMO
+    static public function ctrlEliminarInsumo(){
+        if(isset($_POST["id"])){
+
+            $id = $_POST["id"];
+            $tabla = $_POST["tabla"];
+
+            $respuesta = ModeloFormularios::mdlBorrarId($tabla, $id);
+
+            return $respuesta;
+
+        }
+
+    }
     
     // AGREGAR INSUMO
     static public function ctrlAgregarInsumo(){
 
         if(isset($_POST["id_comprobante"])){
 
-            $tabla = "insumos_presupuestos";
+            $tabla = $_POST["tabla"];
 
             // id_comprobante descripcion cantidad precio precio_total
             $datos = array("id_comprobante" => $_POST["id_comprobante"],
@@ -551,6 +566,37 @@ class ControladorFormularios {
             $id_orden = $_POST["id_orden"];
             
             $respuesta = ModeloFormularios::mdlObtenerNotas($tabla, $id_orden);
+            
+            return $respuesta;
+        }
+
+    }
+
+    // GUARDAR PAGO DEL CLIENTE
+    static public function ctrlGuardarPago(){
+
+        if(isset($_POST["id"])){
+
+            $tabla = "ordenes";
+            $id = $_POST["id"];
+            $pago = $_POST["pago"];
+            
+            $respuesta = ModeloFormularios::mdlGuardarPago($tabla, $id, $pago);
+            
+            return $respuesta;
+        }
+
+    }
+
+    // ACTUALIZAR FECHA
+    static public function ctrlActualizarFecha(){
+
+        if(isset($_POST["id"])){
+
+            $id = $_POST["id"];
+            $tabla = $_POST["tabla"];
+            
+            $respuesta = ModeloFormularios::mdlActualizarFecha($tabla, $id);
             
             return $respuesta;
         }

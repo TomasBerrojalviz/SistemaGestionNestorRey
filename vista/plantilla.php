@@ -111,7 +111,7 @@
     <!-- <input type="hidden" name="modalAbierto" id="modalAbierto" value=""> -->
     
     <!-- Modal REALIZADO CORRECTAMENTE -->
-    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal fade" id="successModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -134,7 +134,7 @@
     </div>
 
     <!-- Modal ERROR -->
-    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal fade" id="errorModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -157,7 +157,7 @@
     </div>
 
     <!-- Modal ELIMINADO CORRECTAMENTE -->
-    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -179,12 +179,12 @@
         </div>
     </div>
     <!-- Modal CLIENTE -->
-    <div class="modal fade" id="clienteModal" tabindex="-1" aria-labelledby="clienteModalLabel" aria-hidden="true">
+    <div class="modal fade" id="clienteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="clienteModalLabel" aria-hidden="true">
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
             <h5 class="modal-title" id="clienteModalTitle">Agregar cliente</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('HOME')"></button>
             </div>
             <div class="modal-body">
                 <form class="row" name="form" method="POST">
@@ -232,12 +232,12 @@
     </div>
         
     <!-- Modal MARCA -->
-    <div class="modal fade" id="marcaModal" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="marcaModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                 <h5 class="modal-title" id="marcaModalTitle">Editar marca</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('HOME')"></button>
                 </div>
                 <div class="modal-body">
                     <form class="row" id="form_editar_marca" method="POST">
@@ -262,12 +262,12 @@
     </div>
 
     <!-- Modal MODELO -->
-    <div class="modal fade" id="modeloModal" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="modeloModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                 <h5 class="modal-title" id="modeloModalTitle">Editar marca</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('HOME')"></button>
                 </div>
                 <div class="modal-body">
                     <form class="row" id="form_editar_marca" method="POST">
@@ -299,12 +299,12 @@
     </div>
     
     <!-- Modal AUTO -->
-    <div class="modal modal-lg fade" id="autoModal" tabindex="-1" aria-labelledby="autoModalLabel" aria-hidden="true">
+    <div class="modal modal-lg fade" id="autoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="autoModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="autoModalTitle">Agregar auto</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('HOME')"></button>
                 </div>
                 <div class="modal-body">
                     <form class="row" name="form" method="POST">
@@ -392,12 +392,12 @@
     </div>
         
         <!-- Modal HISTORIAL -->
-        <div class="modal fade" id="historialModal" tabindex="-1" aria-hidden="true">
+        <div class="modal fade" id="historialModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
                     <h5 class="modal-title" id="historialModalTitle">Historial</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn_cerrar_historial" data-bs-dismiss="modal" onclick="DisplayVolver('HOME') aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form class="row" id="form_editar_historial" method="POST">
@@ -423,7 +423,7 @@
                     </div>
     
                     <div class="modal-footer">
-                        <button type="button" id="btn_cerrar_historial" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DisplayVolver('HOME')">Cerrar</button>
+                        <button type="button" class="btn btn-secondary btn_cerrar_historial" data-bs-dismiss="modal" onclick="DisplayVolver('HOME')">Cerrar</button>
                         <input type="submit" name="btn_marca_modal" id="btn_marca_modal" class="btn btn-primary" value="Guardar" />
                     </div>
                     
@@ -434,12 +434,12 @@
         </div>
         
         <!-- Modal ADJUNTOS -->
-        <div class="modal fade" id="adjuntosModal" tabindex="-1" aria-hidden="true">
+        <div class="modal fade" id="adjuntosModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                     <h5 class="modal-title" id="adjuntosModalTitle">Adjuntos</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn_cerrar_historial" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                             <div class="container-fluid">
@@ -449,7 +449,7 @@
                     </div>
     
                     <div class="modal-footer">
-                        <button type="button" id="btn_cerrar_historial" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DisplayVolver('ADJUNTOS')">Cerrar</button>
+                        <button type="button" class="btn btn-secondary btn_cerrar_historial" data-bs-dismiss="modal" onclick="DisplayVolver('ADJUNTOS')">Cerrar</button>
                         <input type="submit" name="btn_marca_modal" id="btn_marca_modal" class="btn btn-primary" value="Guardar" />
                     </div>
                     

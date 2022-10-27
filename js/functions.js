@@ -91,6 +91,7 @@ $( document ).ready(function() {
     //TOCAR FILA
     $('.fila').click(function(e){
         e.preventDefault();
+        console.log(this);
         if (e.target.parentNode.className  == ' columnaAccion' || e.target.parentNode.parentNode.className  == ' columnaAccion'){
             return;
         }
@@ -276,13 +277,18 @@ function estadosSelect(id, select){
         select.removeChild(select.firstChild);
     }
     for(let i = 1; i < 6; i++) {
-        var option = document.createElement("option");
-        option.innerHTML = estadoText(i);
-        option.value = i;
-        if(id == i) {
-            option.selected = true;
+        if(i == 4 && pago < traerCobroRecibo()){
+            continue;
         }
-        select.appendChild(option);
+        else{
+            var option = document.createElement("option");
+            option.innerHTML = estadoText(i);
+            option.value = i;
+            if(id == i) {
+                option.selected = true;
+            }
+            select.appendChild(option);
+        }
     }
 
 }
@@ -328,38 +334,46 @@ function setTablas(){
 }
 
 function actualizarTablas() {
+    let params = new URLSearchParams(location.search);
+    var pagina = params.get('pagina');
+    if(pagina == "autos"){
+        cargarTabla('tableAuto');
+    }
+    if(pagina == "ordenes"){
+        cargarTabla('tableOrdenes');
+    }
+    else{
+        marcas = obtenerMarcas();
+        modelos = obtenerModelos();
+        
+        marcas.done(function(responseMarcas){
+            if(responseMarcas != "error"){
+                var info_marcas = JSON.parse(responseMarcas);
+                console.log(info_marcas);
+                while (dataListMarca.firstChild) {
+                    dataListMarca.removeChild(dataListMarca.firstChild);
+                }
     
-    clientes = obtenerClientes();
-    marcas = obtenerMarcas();
-    modelos = obtenerModelos();
-    
-    marcas.done(function(responseMarcas){
-        if(responseMarcas != "error"){
-            var info_marcas = JSON.parse(responseMarcas);
-            console.log(info_marcas);
-            while (dataListMarca.firstChild) {
-                dataListMarca.removeChild(dataListMarca.firstChild);
+                info_marcas.forEach(marca => {
+                    dataListMarca.appendChild(agregarOptionMarca(marca));
+                });
             }
-
-            info_marcas.forEach(marca => {
-                dataListMarca.appendChild(agregarOptionMarca(marca));
-            });
-        }
-    });
-    modelos.done(function(responseModelos){
-        if(responseModelos != "error"){
-            var info_modelos = JSON.parse(responseModelos);
-            console.log(info_modelos);
-            
-            while (dataListModelo.firstChild) {
-                dataListModelo.removeChild(dataListModelo.firstChild);
+        });
+        modelos.done(function(responseModelos){
+            if(responseModelos != "error"){
+                var info_modelos = JSON.parse(responseModelos);
+                console.log(info_modelos);
+                
+                while (dataListModelo.firstChild) {
+                    dataListModelo.removeChild(dataListModelo.firstChild);
+                }
+                
+                info_modelos.forEach(modelo => {
+                    dataListModelo.appendChild(agregarOptionMarca(modelo));
+                });
             }
-            
-            info_modelos.forEach(modelo => {
-                dataListModelo.appendChild(agregarOptionMarca(modelo));
-            });
-        }
-    });
+        });
+    }
 }
 
 function generarPDF(tipo, id){
@@ -494,4 +508,19 @@ function sortTablaOrdenes(){
     tablaOrdenes
         .order( [ 0, 'asc' ] )
         .draw();
+}
+
+function ocultarClase(clase){
+    // colAuto.style.display = "initial";
+    for (var i = 0; i < clase.length; i++) {
+        var element = clase[i];
+        element.style.display = "none";
+    }
+}
+function mostrarClase(clase){
+    // colAuto.style.display = "none";
+    for (var i = 0; i < clase.length; i++) {
+        var element = clase[i];
+        element.style.display = "initial";
+    }
 }

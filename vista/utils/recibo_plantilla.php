@@ -1,9 +1,9 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-2">
+        <div class="col-3">
             <img src="img/logo-min.png" class="mx-auto my-auto"  alt="Logo Nestor Rey Mecanica">
         </div>
-        <div class="col-6 text-center">
+        <div class="col-5 text-center">
             <p><b>Nestor Rey Mecanica</b></p>
             <p>Juncal 4849, Monte Chingolo</p>
             <p>Telefono: +54 9 11 3179-7334</p>
@@ -61,7 +61,7 @@
 
 <table cellspacing=0 class="table table-responsive table-bordered table-hover table-inverse table-striped text-center table-sm" role="grid" id="tableRecibo" width=100% >
     <thead>
-        <tr class="text-bg-primary">
+        <tr class="text-bg-primary modelo">
             <th scope="col">
                 Descripcion
             </th>
@@ -78,7 +78,7 @@
                 Accion
             </th>
         </tr>
-        <tr>
+        <tr class="modelo">
             <th>
                 <input class="text-dark text-bg-secondary bg-opacity-25" type="text" name="descripcionRecibo" id="descripcionRecibo" placeholder="-" required>
             </th>
@@ -103,7 +103,7 @@
             <th>Cantidad</th>
             <th>Precio</th>
             <th>Precio total</th>
-            <th>Accion</th>
+            <th class="modelo">Accion</th>
         </tr>
     </thead>
     <tbody id="tabla_insumos_recibo">

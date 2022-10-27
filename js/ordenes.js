@@ -13,6 +13,8 @@ var ordenAutoPatente = document.getElementById("ordenAutoPatente");
 var ordenAutoAnio = document.getElementById("ordenAutoAnio");
 var ordenAutoModelo = document.getElementById("ordenAutoModelo");
 var ordenCliente = document.getElementById("ordenCliente");
+var pagoOrden = document.getElementById('pagoOrden');
+var pago = 0;
 
 var ordenClienteNombre = document.getElementById("ordenClienteNombre");
 var ordenClienteTelefono = document.getElementById("ordenClienteTelefono");
@@ -31,7 +33,7 @@ var adjuntos =  document.getElementById("adjuntos");
 var adjuntos_view = document.getElementById("adjuntos_view");
 
 //VAR HISTORIAL
-var btn_cerrar_historial = document.getElementById("btn_cerrar_historial");
+const btn_cerrar_historial = document.getElementsByClassName("btn_cerrar_historial");
 
 //VAR CAMBIOS
 var cambiosModalTitle = document.getElementById("cambiosModalTitle");
@@ -188,7 +190,7 @@ $( document ).ready(function() {
     //MODAL RECIBO
     $('#btnRecibo').click(function(e){
         e.preventDefault();
-        abrirModalInsumosTrabajo();
+        abrirModalRecibo();
     });
     //MODAL HISTORIAL AGREGAR
     $('#btn_historial_cambios').click(function(e){
@@ -327,18 +329,33 @@ function abrirModalOrden(id) {
                 });
                 
             });
+            fecha_recibido.value = transDate(info_orden[0].fecha_recibido);
+            id_recibo.value = info_orden[0].id_recibo;
+            ordenProblema.value = info_orden[0].problema;
+            pago = info_orden[0].pago;
+            pagoOrden.value = pago;
+
             estadosSelect(info_orden[0].estado, ordenEstado);
             
             var btnEntrega = document.getElementById("btnEntrega");
+            var btnTrabajo = document.getElementById("btnTrabajo");
+            var btnLlegada = document.getElementById("btnLlegada");
             if(ordenEstado.value > 3){
                 btnEntrega.disabled = false;
             }
             else{
                 btnEntrega.disabled = true;
             }
-            fecha_recibido.value = transDate(info_orden[0].fecha_recibido);
-            id_recibo.value = info_orden[0].id_recibo;
-            ordenProblema.value = info_orden[0].problema;
+            if(ordenEstado.value == 2){
+                btnEntrega.disabled = true;
+                btnTrabajo.disabled = true;
+                btnLlegada.disabled = true;
+            }
+            else{
+                btnEntrega.disabled = false;
+                btnTrabajo.disabled = false;
+                btnLlegada.disabled = false;
+            }
         });
         
         btn_orden_modal.setAttribute("accion", "editarOrden");
@@ -502,19 +519,25 @@ function maxDate(dates){
 }
 
 function abrirModalHistorial(tipo){
+    var volver = "";
     switch(modalAbierto){
         case "ORDEN":
             ocultarModal("ordenModal");
             ocultarModal("trabajoModal");
+            volver = 'ORDEN';
         break;
         case "AUTO":
             ocultarModal("autoModal");
+            volver = 'AUTO';
         break;
     }
     if($('#tablaHistorial').DataTable())
         $('#tablaHistorial').DataTable().destroy();
     if(tipo == "CAMBIOS"){
-        btn_cerrar_historial.setAttribute("onclick","DisplayVolver('ORDEN')");
+        for (var i = 0; i < btn_cerrar_historial.length; i++) {
+            var element = btn_cerrar_historial[i];
+            element.setAttribute("onclick","DisplayVolver('"+volver+"')");
+        }
         var tablaHistorial = $('#tablaHistorial').DataTable({
             columns: [
                 {title: 'Fecha', targets: 0, ordering: true, width: "25%"},
@@ -551,7 +574,10 @@ function abrirModalHistorial(tipo){
         });
     }
     else if(tipo == "NOTAS"){
-        btn_cerrar_historial.setAttribute("onclick","DisplayVolver('TRABAJO')");
+        for (var i = 0; i < btn_cerrar_historial.length; i++) {
+            var element = btn_cerrar_historial[i];
+            element.setAttribute("onclick","DisplayVolver('TRABAJO')");
+        }
         var tablaHistorial = $('#tablaHistorial').DataTable({
             "language": {
                 "sProcessing":     "Procesando...",
@@ -729,14 +755,18 @@ function abrirModalTrabajo() {
     ocultarModal("ordenModal");
 
     var cargoOrden = document.getElementById('cargoOrden');
-    var precioRecibo = 0;
-    // var precioRecibo = obtenerCobroOrden(id_orden);
 
+    cargoOrden.value = traerCobroRecibo();
+    pagoOrden.value = pago;
+    mostrarModal("trabajoModal");
+}
+
+function traerCobroRecibo(){
+    var precioRecibo = 0;
     var reciboObtenido = obtenerRecibo(id_orden);
     // id	id_orden	id_cliente	fecha
     reciboObtenido.done(function(responseRecibo) {
         if(responseRecibo != "error"){
-            console.log(responseRecibo);
             var info_recibo = JSON.parse(responseRecibo)[0];
             
             var insumosRecibo = obtenerInsumos(info_recibo.id, "recibos");
@@ -750,7 +780,5 @@ function abrirModalTrabajo() {
             });
         }
     });
-
-    cargoOrden.value = precioRecibo;
-    mostrarModal("trabajoModal");
+    return precioRecibo;
 }
