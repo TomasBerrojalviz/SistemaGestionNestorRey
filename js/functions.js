@@ -336,6 +336,11 @@ function setTablas(){
 function actualizarTablas() {
     let params = new URLSearchParams(location.search);
     var pagina = params.get('pagina');
+    var paginasConTablas = ["autos", "ordenes", "marcas_modelos"];
+    
+    if(!paginasConTablas.includes(pagina)){
+        return;
+    }
     if(pagina == "autos"){
         cargarTabla('tableAuto');
     }
