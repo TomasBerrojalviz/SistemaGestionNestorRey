@@ -91,7 +91,6 @@ $( document ).ready(function() {
     //TOCAR FILA
     $('.fila').click(function(e){
         e.preventDefault();
-        console.log(this);
         if (e.target.parentNode.className  == ' columnaAccion' || e.target.parentNode.parentNode.className  == ' columnaAccion'){
             return;
         }
@@ -245,13 +244,19 @@ function verificarMail(){
 function verificarTelefono(){
     var telefonoCliente = $("#clienteTelefono").val();
     $("#clienteTelefono").removeClass('is-invalid').removeClass('is-valid');
-    const regex = /(\+)*([0-9]+)/;
+    var telefonoFeedback = document.getElementById("telefonoFeedback");
+    const regex = /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g;
 
-    if(telefonoCliente.match(regex)){
+    if(telefonoCliente.length < 8){
+        $("#clienteTelefono").addClass('is-invalid');
+        telefonoFeedback.innerHTML = "Demasiado corto. Ingrese un telefono valido";
+    }
+    else if(regex.test(telefonoCliente)){
         $("#clienteTelefono").addClass('is-valid');
     }
     else{
         $("#clienteTelefono").addClass('is-invalid');
+        telefonoFeedback.innerHTML = "Formato incorrecto. Ingrese un telefono valido";
     }
 }
 

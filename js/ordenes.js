@@ -125,13 +125,10 @@ $( document ).ready(function() {
         });
                 
     });
-    //MODAL LLEGADA
-    $('#btnLlegada').click(function(e){
+    //MODAL FACTURACION
+    $('#btnFacturacion').click(function(e){
         e.preventDefault();
-
-        $('#ordenModal').modal('hide');
-        
-        mostrarModal("llegadaModal");
+        abrirModalFacturacion();
     });
     //MODAL TRABAJO
     $('#btnTrabajo').click(function(e){
@@ -339,7 +336,7 @@ function abrirModalOrden(id) {
             
             var btnEntrega = document.getElementById("btnEntrega");
             var btnTrabajo = document.getElementById("btnTrabajo");
-            var btnLlegada = document.getElementById("btnLlegada");
+            var btnFacturacion = document.getElementById("btnFacturacion");
             if(ordenEstado.value > 3){
                 btnEntrega.disabled = false;
             }
@@ -349,12 +346,12 @@ function abrirModalOrden(id) {
             if(ordenEstado.value == 2){
                 btnEntrega.disabled = true;
                 btnTrabajo.disabled = true;
-                btnLlegada.disabled = true;
+                btnFacturacion.disabled = true;
             }
             else{
                 btnEntrega.disabled = false;
                 btnTrabajo.disabled = false;
-                btnLlegada.disabled = false;
+                btnFacturacion.disabled = false;
             }
         });
         
@@ -753,11 +750,6 @@ function displayAdjuntos(id){
 
 function abrirModalTrabajo() {
     ocultarModal("ordenModal");
-
-    var cargoOrden = document.getElementById('cargoOrden');
-
-    cargoOrden.value = traerCobroRecibo();
-    pagoOrden.value = pago;
     mostrarModal("trabajoModal");
 }
 
@@ -781,4 +773,15 @@ function traerCobroRecibo(){
         }
     });
     return precioRecibo;
+}
+
+function abrirModalFacturacion(){
+    $('#ordenModal').modal('hide');
+
+    var cargoOrden = document.getElementById('cargoOrden');
+
+    cargoOrden.value = traerCobroRecibo();
+    pagoOrden.value = pago;
+    
+    mostrarModal("facturacionModal");
 }

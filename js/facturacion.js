@@ -1,5 +1,8 @@
 const pagoGrupo = document.getElementsByClassName("pagoGrupo");
 
+var pagoOrden = document.getElementById("pagoOrden");
+var pagoFeedback = document.getElementById("pagoFeedback");
+
 var presupuestoNro = document.getElementById("presupuestoNro");
 var presupuestoFecha = document.getElementById("presupuestoFecha");
 var presupuestoHora = document.getElementById("presupuestoHora");
@@ -60,16 +63,20 @@ $( document ).ready(function() {
     $('#total_pago_orden').click(function(e){
         e.preventDefault();
         var cargoOrden = document.getElementById('cargoOrden');
-        var pagoOrden = document.getElementById("pagoOrden");
         
         pagoOrden.value = cargoOrden.value
     });
     //GUARDAR PAGO DEL CLIENTE
     $('#guardar_pago_orden').click(function(e){
         e.preventDefault();
+        $(pagoOrden).removeClass("is-valid is-invalid");
+        if(pagoOrden.value < 0){
+            $(pagoOrden).addClass("is-invalid");
+            pagoFeedback.innerHTML = "Debe ingresar un monto mayor a 0";
+            return;
+        }
         
         var action = "guardarPago";
-        var pagoOrden = document.getElementById("pagoOrden");
 
         $.ajax({
             type: "POST",
@@ -92,6 +99,8 @@ $( document ).ready(function() {
                 }
             },
             error: function(error) {
+                $(pagoOrden).addClass("is-invalid");
+                pagoFeedback.innerHTML = "No se guardo correctamente";
                 alert(error);
             }
         });
@@ -175,7 +184,7 @@ $( document ).ready(function() {
 });
 
 function abrirModalPresupuesto(){
-    $('#llegadaModal').modal('hide');
+    $('#facturacionModal').modal('hide');
     var presupuestoObtenido = obtenerPresupuesto(id_orden);
     // id	id_orden	id_cliente	fecha
     presupuestoObtenido.done(function(responsePresupuesto) {
@@ -557,7 +566,7 @@ function actualizarManoObra(id, precio, tabla) {
 }
 
 function successGradiente(rowManoObra){
-    var clases = "text-bg-success bg-opacity-50 bg-gradient";
+    var clases = "text-bg-success bg-opacity-50 bg-gradient is-valid";
     rowManoObra.addClass(clases);
     setTimeout(() => {
         rowManoObra.removeClass(clases);
@@ -566,7 +575,7 @@ function successGradiente(rowManoObra){
         // setTimeout(() => {
         //     rowManoObra.removeClass(clases);
         // }, 150);
-     }, 1500);
+     }, 2000);
 
 }
 

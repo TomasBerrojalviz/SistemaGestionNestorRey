@@ -537,7 +537,9 @@ function abrirModalAuto(id) {
     $(autoModelo).removeClass('is-invalid').removeClass('is-valid');
     $(autoCliente).removeClass('is-invalid').removeClass('is-valid');
 
+    var cambiosDisplay = document.getElementById("cambiosDisplay");
     if (id == 0){
+        cambiosDisplay.style.display = "none";
         autoModalTitle.innerHTML = "Agregar auto";
         autoId.value = 0;
         autoPatente.value = "";
@@ -549,6 +551,7 @@ function abrirModalAuto(id) {
         btn_auto_modal.value = "Agregar auto";
     }
     else{
+        cambiosDisplay.style.display = "initial";
         autoModalTitle.innerHTML = "Auto";
         autoId.value = id;
         mostrarCambiosAuto(id);
@@ -742,12 +745,12 @@ function DisplayVolver(FORM){
         actualizarTablas();
         location.reload();
     }
-    else if(FORM == "LLEGADA"){
+    else if(FORM == "FACTURACION"){
         $("#errorModal").modal('hide');
         $("#successModal").modal('hide');
         $("#deleteModal").modal('hide');
         $("#presupuestoModal").modal('hide');
-        $("#llegadaModal").modal('show');
+        abrirModalFacturacion();
     }
     else if(FORM == "TRABAJO"){
         $("#errorModal").modal('hide');

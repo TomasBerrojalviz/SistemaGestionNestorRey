@@ -203,7 +203,7 @@
                             <input autocomplete="off" onchange="verificarTelefono()" class="form-control" type="tel" pattern="(\+)*([0-9]+)" placeholder="Telefono del nuevo cliente" name="clienteTelefono" id="clienteTelefono" required>
                             <label for="inputTel floatingInput">Telefono</label>
                             <div class="invalid-feedback">
-                                Ingrese un telefono valido
+                                <p id="telefonoFeedback"></p>
                             </div>
                         </div>
                         <div class="form-floating mb-2">
@@ -304,7 +304,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="autoModalTitle">Agregar auto</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('HOME')"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="modalAbierto = false; DisplayVolver('HOME');"></button>
                 </div>
                 <div class="modal-body">
                     <form class="row" name="form" method="POST">
@@ -374,7 +374,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div id="cambiosDisplay" class="row">
                                 <?php 
                                     include "vista/utils/cambios.php";
                                 ?>
@@ -382,7 +382,7 @@
                         </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DisplayVolver('HOME')">Cerrar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="modalAbierto = false; DisplayVolver('HOME')">Cerrar</button>
                     <input type="submit" id="btn_auto_modal" name="btn_auto_modal" class="btn btn-primary" value="Agregar"/>
                 </div>
                 

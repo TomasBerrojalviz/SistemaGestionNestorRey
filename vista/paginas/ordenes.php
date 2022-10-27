@@ -204,8 +204,8 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
 
                             <div class="row mb-3 container-fluid text-center">
                                 <div class="col">
-                                    <button id="btnLlegada" tipoModal="llegada" class="btn btn-bg text-bg-info btn-outline-dark btnLlegada">
-                                        <i class="fa-solid fa-car-side"></i> <i class="fa-solid"> Llegada </i> <i class="fa-solid fa-car-side fa-flip-horizontal"> </i>
+                                    <button id="btnFacturacion" tipoModal="facturacion" class="btn btn-bg text-bg-info btn-outline-dark btnFacturacion">
+                                    <i class="fa-solid fa-money-check-dollar"></i> <i class="fa-solid"> Facturacion </i> <i class="fa-solid fa-money-check-dollar"></i>
                                     </button>
                                 </div>
                                 <div class="col">
@@ -232,34 +232,74 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
 </div>
 
 
-<!-- Modal LLEGADA -->
-<div class="modal fade" id="llegadaModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="llegadaModalLabel" aria-hidden="true">
+<!-- Modal FACTURACIOM -->
+<div class="modal fade" id="facturacionModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="facturacionModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Informacion de llegada</h5>
+                <h5 class="modal-title">Informacion de facturacion</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('ORDEN')"></button>
             </div>
             <div class="modal-body">
                 <h5> Formularios </h5>
                 
                 <div class="row mb-3 container-fluid text-center">
-                    <div class="col">
-                        <a id="btnPresupuesto" tipoModal="presupuesto" class="btn btn-bg text-bg-info btn-outline-dark btnPresupuesto">
+                    <div class="col-7">
+                        <a id="btnPresupuesto" tipoModal="presupuesto" class="btn btn-lg text-bg-info btn-outline-dark btnPresupuesto">
                         <i class="fa-solid fa-file-invoice-dollar"> </i> <i class="fa-solid"> Presupuesto </i> <i class="fa-solid fa-file-invoice-dollar"> </i>
                         </a>
                     </div>
                     <div class="col">
+                        <a id="btnRecibo" tipoModal="recibo" class="btn btn-lg text-bg-info btn-outline-dark btnRecibo">
+                            <i class="fa-solid fa-receipt"> </i> <i class="fa-solid"> Recibo </i> <i class="fa-solid fa-receipt"> </i>
+                        </a>
+                    </div>
+                    <!-- <div class="col">
                         <a id="btncheckIn" tipoModal="checkIn" class="btn btn-bg text-bg-info btn-outline-dark btncheckIn">
                             <i class="fa-solid fa-list-check"></i> <i class="fa-solid"> Checkin </i> <i class="fa-solid fa-list-check"> </i>
                         </a>
-                    </div>
-                    <!-- <div class="col-auto">
-                        <a id="btnEntrega" tipoModal="llegada" class="btn btn-bg text-bg-success btn-outline-dark btnEntrega">
-                        <i class="fa-solid fa-car-burst fa-flip-horizontal"></i> <i class="fa-solid"> Entrega </i> <i class="fa-solid fa-car-burst"></i>
-                        </a>
                     </div> -->
+                </div>
 
+                <hr>
+                <h5> Pago </h5>
+                <div class="row my-3 text-center container-fluid">
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            Cargo por servicio
+                        </span>
+                        <!-- <input class="form-control" type="number" min="0.00" step="100.00" name="cargoOrden" id="cargoOrden" placeholder="0">
+                        <span class="input-group-text text-bg-success">
+                            <a href="#" id="guardar_cobro_orden">
+                                <i class="fa-solid fa-floppy-disk text-bg-success h3"></i>
+                            </a>
+                        </span> -->
+                        <input class="form-control text-center" type="number" name="cargoOrden" id="cargoOrden" placeholder="0" disabled readonly>
+                    </div>
+                </div>
+                <div class="row mb-3 text-center container-fluid">
+                    <div class="input-group">
+                        <span class="input-group-text pagoGrupo">
+                            Pago del cliente
+                        </span>
+                        <input class="form-control pagoGrupo" type="number" min="0.00" step="100.00" name="pagoOrden" id="pagoOrden" placeholder="0">
+                        <span class="input-group-text text-bg-primary">
+                            <a href="#" id="total_pago_orden">
+                                <i class="fa-solid fa-money-bill-1-wave text-bg-primary h3 mt-2"></i>
+                            </a>
+                        </span>
+                        <span class="input-group-text text-bg-success">
+                            <a href="#" id="guardar_pago_orden">
+                                <i class="fa-solid fa-floppy-disk text-bg-success h3 mt-2"></i>
+                            </a>
+                        </span>
+                        <div class="valid-feedback mt-2">
+                            Se guardo correctamente
+                        </div>
+                        <div class="invalid-feedback mt-2">
+                            <p id="pagoFeedback"></p>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -301,56 +341,6 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                         </tr>
                     </thead>
                 </table>
-
-                <hr>
-                <h5> Formularios </h5>
-                <div class="row mb-3 text-center container-fluid">
-                    <div class="col">
-                        <a id="btnRecibo" tipoModal="recibo" class="btn btn-lg text-bg-info btn-outline-dark btnRecibo">
-                        <i class="fa-solid fa-receipt"> </i> <i class="fa-solid"> Recibo </i> <i class="fa-solid fa-receipt"> </i>
-                        </a>
-                    </div>
-                    <!-- <div class="col">
-                        <a id="btnPago" tipoModal="pago" class="btn btn-bg text-bg-success btn-outline-dark btnPago">
-                            <i class="fa-solid fa-money-check-dollar"> </i> <i class="fa-solid"> Pago </i> <i class="fa-solid fa-money-check-dollar"> </i>
-                        </a> -->
-                    <!-- </div> -->
-                </div>
-
-                <hr>
-                <h5> Pago </h5>
-                <div class="row my-3 text-center container-fluid">
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            Cargo por servicio
-                        </span>
-                        <!-- <input class="form-control" type="number" min="0.00" step="100.00" name="cargoOrden" id="cargoOrden" placeholder="0">
-                        <span class="input-group-text text-bg-success">
-                            <a href="#" id="guardar_cobro_orden">
-                                <i class="fa-solid fa-floppy-disk text-bg-success h3"></i>
-                            </a>
-                        </span> -->
-                        <input class="form-control text-center" type="number" name="cargoOrden" id="cargoOrden" placeholder="0" disabled readonly>
-                    </div>
-                </div>
-                <div class="row mb-3 text-center container-fluid">
-                    <div class="input-group">
-                        <span class="input-group-text pagoGrupo">
-                            Pago del cliente
-                        </span>
-                        <input class="form-control pagoGrupo" type="number" min="0.00" step="100.00" name="pagoOrden" id="pagoOrden" placeholder="0">
-                        <span class="input-group-text text-bg-primary">
-                            <a href="#" id="total_pago_orden">
-                                <i class="fa-solid fa-money-bill-1-wave text-bg-primary h3 mt-2"></i>
-                            </a>
-                        </span>
-                        <span class="input-group-text text-bg-success">
-                            <a href="#" id="guardar_pago_orden">
-                                <i class="fa-solid fa-floppy-disk text-bg-success h3 mt-2"></i>
-                            </a>
-                        </span>
-                    </div>
-                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DisplayVolver('ORDEN')">Cerrar</button>                
@@ -387,7 +377,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
         <div class="modal-content">
             <div class="modal-header">
             <h5 class="modal-title">PRESUPUESTO</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('LLEGADA')"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('FACTURACION')"></button>
             </div>
             <div class="modal-body">
 
@@ -399,7 +389,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DisplayVolver('LLEGADA')">Cerrar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DisplayVolver('FACTURACION')">Cerrar</button>
                 <input type="submit" id="btn_presupuesto_modal" name="btn_presupuesto_modal" class="btn btn-primary" value="Generar pdf" />
                 
             </div>
@@ -413,7 +403,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
         <div class="modal-content">
             <div class="modal-header">
             <h5 class="modal-title">Recibo</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('TRABAJO')"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('FACTURACION')"></button>
             </div>
             <div class="modal-body">
                 <div class="container-fluid" style="border-style: solid">
@@ -423,7 +413,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DisplayVolver('TRABAJO')">Cerrar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DisplayVolver('FACTURACION')">Cerrar</button>
                 <input type="submit" id="btn_print_recibo" name="btn_print_recibo" class="btn btn-primary" value="Generar pdf" />
                 
             </div>
