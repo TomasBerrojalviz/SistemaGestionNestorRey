@@ -30,7 +30,7 @@
     </thead>
     <tbody class="table-group-divider" id="tableAuto_rows">
         <script>
-            cargarTabla('tableAuto');
+            // cargarTabla('tableAuto');
         </script>
     </tbody>
     </table>

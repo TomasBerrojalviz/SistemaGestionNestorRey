@@ -110,74 +110,6 @@
 
     <!-- <input type="hidden" name="modalAbierto" id="modalAbierto" value=""> -->
     
-    <!-- Modal REALIZADO CORRECTAMENTE -->
-    <div class="modal fade" id="successModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title">Realizado correctamente</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('HOME')"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="container">
-                        <p> Se realizo la operacion correctamente </p>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" id="btn_success_modal" data-bs-dismiss="modal" onclick="DisplayVolver('HOME')">Cerrar</button>
-                    
-                </div>
-                
-                
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal ERROR -->
-    <div class="modal fade" id="errorModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title">Error</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('HOME')"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="container">
-                        <p> La operacion no se pudo realizar correctamente </p>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-error" id="btn_error_modal" data-bs-dismiss="modal" onclick="DisplayVolver('HOME')">Cerrar</button>
-                    
-                </div>
-                
-                
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal ELIMINADO CORRECTAMENTE -->
-    <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title">Eliminado correctamente</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('HOME')"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="container">
-                        <p> Se elimino correctamente </p>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="DisplayVolver('HOME')">Cerrar</button>
-                    
-                </div>
-                
-                
-            </div>
-        </div>
-    </div>
     <!-- Modal CLIENTE -->
     <div class="modal fade" id="clienteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="clienteModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -375,6 +307,11 @@
                                 </div>
                             </div>
                             <div id="cambiosDisplay" class="row">
+                                <div class="container-fluid text-center mb-3">
+                                    <button id="btnOrdenes" onclick="buscarOrdenesRelacionadas()" class="btn btn-lg btn-warning">
+                                        <i class="fa-solid fa-sheet-plastic"></i> <i class="fa-solid"> Ordenes cargadas </i> <i class="fa-solid fa-sheet-plastic"></i>
+                                    </button>
+                                </div>
                                 <?php 
                                     include "vista/utils/cambios.php";
                                 ?>
@@ -400,34 +337,30 @@
                     <button type="button" class="btn-close btn_cerrar_historial" data-bs-dismiss="modal" onclick="DisplayVolver('HOME') aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form class="row" id="form_editar_historial" method="POST">
-                            <div class="container-fluid">
-                                <table cellspacing=0 class="table table-responsive table-bordered table-hover table-inverse table-striped text-center table-sm" role="grid" id="tablaHistorial" width=100%>
-                                    <thead>
-                                        <tr class="text-bg-primary">
-                                            <th scope="col" class="sorting">
-                                                Col1
-                                            </th>
-                                            <th scope="col" class="sorting">
-                                                Col2
-                                            </th>
-                                            <th scope="col" class="sorting">
-                                                Col3
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tabla_historial">
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="container-fluid">
+                            <table cellspacing=0 class="table table-responsive table-bordered table-hover table-inverse table-striped text-center table-sm" role="grid" id="tablaHistorial" width=100%>
+                                <thead>
+                                    <tr class="text-bg-primary">
+                                        <th scope="col" class="sorting">
+                                            Col1
+                                        </th>
+                                        <th scope="col" class="sorting">
+                                            Col2
+                                        </th>
+                                        <th scope="col" class="sorting">
+                                            Col3
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabla_historial">
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
     
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn_cerrar_historial" data-bs-dismiss="modal" onclick="DisplayVolver('HOME')">Cerrar</button>
-                        <input type="submit" name="btn_marca_modal" id="btn_marca_modal" class="btn btn-primary" value="Guardar" />
                     </div>
-                    
-                        </form>
                     
                 </div>
             </div>
@@ -509,6 +442,74 @@
         load_js("js/functions.js");
         
     </script> -->
+    <!-- Modal REALIZADO CORRECTAMENTE -->
+    <div class="modal fade" id="successModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title">Realizado correctamente</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('HOME')"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <p> Se realizo la operacion correctamente </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="btn_success_modal" data-bs-dismiss="modal" onclick="DisplayVolver('HOME')">Cerrar</button>
+                    
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal ERROR -->
+    <div class="modal fade" id="errorModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title">Error</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('HOME')"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <p> La operacion no se pudo realizar correctamente </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-error" id="btn_error_modal" data-bs-dismiss="modal" onclick="DisplayVolver('HOME')">Cerrar</button>
+                    
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal ELIMINADO CORRECTAMENTE -->
+    <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title">Eliminado correctamente</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('HOME')"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <p> Se elimino correctamente </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="DisplayVolver('HOME')">Cerrar</button>
+                    
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
     <script src="js/functions.js"></script>
     <script src="js/modals.js"></script>
     <script src="js/ordenes.js"></script>

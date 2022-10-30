@@ -358,7 +358,7 @@ $( document ).ready(function() {
         else{
             e.preventDefault(); 
             var action = btn_auto_modal.getAttribute('accion');
-            
+            console.log(action);
             autoIdModelo.value = 0;
             autoIdCliente.value = 0;
             
@@ -470,7 +470,12 @@ function abrirModalModelo(id) {
     if (id == 0){
         modeloModalTitle.innerHTML = "Agregar modelo";
         modeloId.value = 0;
-        marcaModelo.value = "";
+        if(modalAbierto){
+            marcaModelo.value = autoMarca.value;
+        }
+        else{
+            marcaModelo.value = "";
+        }
         modeloValor.value = "";
         btn_modelo_modal.setAttribute("accion", "agregarModelo");
         btn_modelo_modal.value = "Agregar modelo";
@@ -723,7 +728,7 @@ function DisplayVolver(FORM){
         $("#clienteModal").modal('hide');
         $("#marcaModal").modal('hide');
         $("#modeloModal").modal('hide');
-        $("#autoModal").modal('show');
+        abrirModalAuto(autoId.value);
         actualizarTablas();
     }
     else if(FORM == "ORDEN"){

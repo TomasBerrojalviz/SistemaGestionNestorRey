@@ -1,0 +1,139 @@
+16/08/2021 08:25:02 p. m. :: Function RemoveAMDRMService Started.
+16/08/2021 08:25:02 p. m. :: Function ReadRegistryKey started.
+16/08/2021 08:25:02 p. m. :: Function ReadRegistryKey KeyValue is 
+16/08/2021 08:25:02 p. m. :: Function ReadRegistryKey Ended.
+16/08/2021 08:25:02 p. m. :: SDK install path as per environment variable : C:\Program Files\AMD\RyzenMasterSDK\
+16/08/2021 08:25:02 p. m. :: Path from which service runs as per registry : 
+16/08/2021 08:25:02 p. m. :: Not uninstalling driver service as it does not belong to current installer being removed.
+16/08/2021 08:25:02 p. m. :: Function RemoveAMDRMService. Minor Upgrade property is : 
+16/08/2021 08:25:02 p. m. :: Function RemoveAMDRMService Ended.
+2/12/2021 17:46:13 :: Occurance of 'PRO' found at : 26. Needs further verification.
+2/12/2021 17:46:13 :: Occurance of 'PRO' found at : 26 is NOT single word. Check for 'processor'.
+2/12/2021 17:46:13 :: Occurance of 'PRO' found at : 26 is part of PROCESSOR.Discard and check in remaining string.
+2/12/2021 17:46:13 :: Updated processor name : AMD Ryzen 7 3700X 8-Core               
+2/12/2021 17:46:13 :: Occurance of 'PRO' NOT found.Proceed with installation.
+2/12/2021 17:46:13 :: Installation can CONTINUE. Processor : AMD Ryzen 7 3700X 8-Core                Manufacturer : System manufacturer
+9/12/2021 18:10:16 :: Occurance of 'PRO' found at : 26. Needs further verification.
+9/12/2021 18:10:16 :: Occurance of 'PRO' found at : 26 is NOT single word. Check for 'processor'.
+9/12/2021 18:10:16 :: Occurance of 'PRO' found at : 26 is part of PROCESSOR.Discard and check in remaining string.
+9/12/2021 18:10:16 :: Updated processor name : AMD Ryzen 7 3700X 8-Core               
+9/12/2021 18:10:16 :: Occurance of 'PRO' NOT found.Proceed with installation.
+9/12/2021 18:10:16 :: Installation can CONTINUE. Processor : AMD Ryzen 7 3700X 8-Core                Manufacturer : System manufacturer
+09/12/2021 06:10:16 p. m. :: Function RemoveAMDRMService Started.
+09/12/2021 06:10:16 p. m. :: Function ReadRegistryKey started.
+09/12/2021 06:10:16 p. m. :: Function ReadRegistryKey KeyValue is \??\C:\Program Files\AMD\RyzenMasterSDK\bin\AMDRyzenMasterDriver.sys
+09/12/2021 06:10:16 p. m. :: Function ReadRegistryKey Ended.
+09/12/2021 06:10:16 p. m. :: SDK install path as per environment variable : C:\Program Files\AMD\RyzenMasterSDK\
+09/12/2021 06:10:16 p. m. :: Path from which service runs as per registry : \??\C:\Program Files\AMD\RyzenMasterSDK\bin\AMDRyzenMasterDriver.sys
+09/12/2021 06:10:16 p. m. :: Uninstalling driver service as it belongs to current installer being removed.
+09/12/2021 06:10:16 p. m. :: Function ExecuteFiles strBatchFilePath "C:\Program Files\AMD\RyzenMasterSDK\DriverUtility.bat" -u
+09/12/2021 06:10:17 p. m. :: Function ExecuteFiles errReturn 0 for file "C:\Program Files\AMD\RyzenMasterSDK\DriverUtility.bat" -u.
+09/12/2021 06:10:17 p. m. :: Function RemoveAMDRMService. Minor Upgrade property is : 
+09/12/2021 06:10:17 p. m. :: Function RemoveAMDRMService Ended.
+14/1/2022 11:09:13 :: Occurance of 'PRO' found at : 26. Needs further verification.
+14/1/2022 11:09:13 :: Occurance of 'PRO' found at : 26 is NOT single word. Check for 'processor'.
+14/1/2022 11:09:13 :: Occurance of 'PRO' found at : 26 is part of PROCESSOR.Discard and check in remaining string.
+14/1/2022 11:09:13 :: Updated processor name : AMD Ryzen 7 3700X 8-Core               
+14/1/2022 11:09:13 :: Occurance of 'PRO' NOT found.Proceed with installation.
+14/1/2022 11:09:13 :: Installation can CONTINUE. Processor : AMD Ryzen 7 3700X 8-Core                Manufacturer : System manufacturer
+14/01/2022 11:09:14 a. m. :: Function RemoveAMDRMService Started.
+14/01/2022 11:09:14 a. m. :: Function ReadRegistryKey started.
+14/01/2022 11:09:14 a. m. :: Function ReadRegistryKey KeyValue is \??\C:\Program Files\AMD\RyzenMasterSDK\bin\AMDRyzenMasterDriver.sys
+14/01/2022 11:09:14 a. m. :: Function ReadRegistryKey Ended.
+14/01/2022 11:09:14 a. m. :: SDK install path as per environment variable : C:\Program Files\AMD\RyzenMasterSDK\
+14/01/2022 11:09:14 a. m. :: Path from which service runs as per registry : \??\C:\Program Files\AMD\RyzenMasterSDK\bin\AMDRyzenMasterDriver.sys
+14/01/2022 11:09:14 a. m. :: Uninstalling driver service as it belongs to current installer being removed.
+14/01/2022 11:09:14 a. m. :: Function ExecuteFiles strBatchFilePath "C:\Program Files\AMD\RyzenMasterSDK\DriverUtility.bat" -u
+14/01/2022 11:09:14 a. m. :: Function ExecuteFiles errReturn 0 for file "C:\Program Files\AMD\RyzenMasterSDK\DriverUtility.bat" -u.
+14/01/2022 11:09:14 a. m. :: Function RemoveAMDRMService. Minor Upgrade property is : 
+14/01/2022 11:09:14 a. m. :: Function RemoveAMDRMService Ended.
+29/3/2022 13:15:53 :: Occurance of 'PRO' found at : 26. Needs further verification.
+29/3/2022 13:15:53 :: Occurance of 'PRO' found at : 26 is NOT single word. Check for 'processor'.
+29/3/2022 13:15:53 :: Occurance of 'PRO' found at : 26 is part of PROCESSOR.Discard and check in remaining string.
+29/3/2022 13:15:53 :: Updated processor name : AMD Ryzen 7 3700X 8-Core               
+29/3/2022 13:15:53 :: Occurance of 'PRO' NOT found.Proceed with installation.
+29/3/2022 13:15:53 :: Installation can CONTINUE. Processor : AMD Ryzen 7 3700X 8-Core                Manufacturer : System manufacturer
+29/03/2022 01:15:54 p. m. :: Function RemoveAMDRMService Started.
+29/03/2022 01:15:54 p. m. :: Function ReadRegistryKey started.
+29/03/2022 01:15:54 p. m. :: Function ReadRegistryKey KeyValue is \??\C:\Program Files\AMD\RyzenMasterSDK\bin\AMDRyzenMasterDriver.sys
+29/03/2022 01:15:54 p. m. :: Function ReadRegistryKey Ended.
+29/03/2022 01:15:54 p. m. :: SDK install path as per environment variable : C:\Program Files\AMD\RyzenMasterSDK\
+29/03/2022 01:15:54 p. m. :: Path from which service runs as per registry : \??\C:\Program Files\AMD\RyzenMasterSDK\bin\AMDRyzenMasterDriver.sys
+29/03/2022 01:15:54 p. m. :: Uninstalling driver service as it belongs to current installer being removed.
+29/03/2022 01:15:54 p. m. :: Function ExecuteFiles strBatchFilePath "C:\Program Files\AMD\RyzenMasterSDK\DriverUtility.bat" -u
+29/03/2022 01:15:54 p. m. :: Function ExecuteFiles errReturn 0 for file "C:\Program Files\AMD\RyzenMasterSDK\DriverUtility.bat" -u.
+29/03/2022 01:15:54 p. m. :: Function RemoveAMDRMService. Minor Upgrade property is : 
+29/03/2022 01:15:54 p. m. :: Function RemoveAMDRMService Ended.
+23/5/2022 23:27:13 :: Occurance of 'PRO' found at : 26. Needs further verification.
+23/5/2022 23:27:13 :: Occurance of 'PRO' found at : 26 is NOT single word. Check for 'processor'.
+23/5/2022 23:27:13 :: Occurance of 'PRO' found at : 26 is part of PROCESSOR.Discard and check in remaining string.
+23/5/2022 23:27:13 :: Updated processor name : AMD Ryzen 7 3700X 8-Core               
+23/5/2022 23:27:13 :: Occurance of 'PRO' NOT found.Proceed with installation.
+23/5/2022 23:27:13 :: Installation can CONTINUE. Processor : AMD Ryzen 7 3700X 8-Core                Manufacturer : System manufacturer
+23/05/2022 11:27:14 p. m. :: Function RemoveAMDRMService Started.
+23/05/2022 11:27:14 p. m. :: Function ReadRegistryKey started.
+23/05/2022 11:27:14 p. m. :: Function ReadRegistryKey KeyValue is \??\C:\Program Files\AMD\RyzenMasterSDK\bin\AMDRyzenMasterDriver.sys
+23/05/2022 11:27:14 p. m. :: Function ReadRegistryKey Ended.
+23/05/2022 11:27:14 p. m. :: SDK install path as per environment variable : C:\Program Files\AMD\RyzenMasterSDK\
+23/05/2022 11:27:14 p. m. :: Path from which service runs as per registry : \??\C:\Program Files\AMD\RyzenMasterSDK\bin\AMDRyzenMasterDriver.sys
+23/05/2022 11:27:14 p. m. :: Uninstalling driver service as it belongs to current installer being removed.
+23/05/2022 11:27:14 p. m. :: Function ExecuteFiles strBatchFilePath "C:\Program Files\AMD\RyzenMasterSDK\DriverUtility.bat" -u
+23/05/2022 11:27:14 p. m. :: Function ExecuteFiles errReturn 0 for file "C:\Program Files\AMD\RyzenMasterSDK\DriverUtility.bat" -u.
+23/05/2022 11:27:14 p. m. :: Function RemoveAMDRMService. Minor Upgrade property is : 
+23/05/2022 11:27:14 p. m. :: Function RemoveAMDRMService Ended.
+22/6/2022 10:30:00 :: Occurance of 'PRO' found at : 26. Needs further verification.
+22/6/2022 10:30:00 :: Occurance of 'PRO' found at : 26 is NOT single word. Check for 'processor'.
+22/6/2022 10:30:00 :: Occurance of 'PRO' found at : 26 is part of PROCESSOR.Discard and check in remaining string.
+22/6/2022 10:30:00 :: Updated processor name : AMD Ryzen 7 3700X 8-Core               
+22/6/2022 10:30:00 :: Occurance of 'PRO' NOT found.Proceed with installation.
+22/6/2022 10:30:00 :: Installation can CONTINUE. Processor : AMD Ryzen 7 3700X 8-Core                Manufacturer : System manufacturer
+22/06/2022 10:30:01 a. m. :: Function RemoveAMDRMService Started.
+22/06/2022 10:30:01 a. m. :: Function ReadRegistryKey started.
+22/06/2022 10:30:01 a. m. :: Function ReadRegistryKey KeyValue is \??\C:\Program Files\AMD\RyzenMasterSDK\bin\AMDRyzenMasterDriver.sys
+22/06/2022 10:30:01 a. m. :: Function ReadRegistryKey Ended.
+22/06/2022 10:30:01 a. m. :: SDK install path as per environment variable : C:\Program Files\AMD\RyzenMasterSDK\
+22/06/2022 10:30:01 a. m. :: Path from which service runs as per registry : \??\C:\Program Files\AMD\RyzenMasterSDK\bin\AMDRyzenMasterDriver.sys
+22/06/2022 10:30:01 a. m. :: Uninstalling driver service as it belongs to current installer being removed.
+22/06/2022 10:30:01 a. m. :: Function ExecuteFiles strBatchFilePath "C:\Program Files\AMD\RyzenMasterSDK\DriverUtility.bat" -u
+22/06/2022 10:30:01 a. m. :: Function ExecuteFiles errReturn 0 for file "C:\Program Files\AMD\RyzenMasterSDK\DriverUtility.bat" -u.
+22/06/2022 10:30:01 a. m. :: Function RemoveAMDRMService. Minor Upgrade property is : 
+22/06/2022 10:30:01 a. m. :: Function RemoveAMDRMService Ended.
+2/9/2022 09:56:57 :: Occurance of 'PRO' found at : 26. Needs further verification.
+2/9/2022 09:56:57 :: Occurance of 'PRO' found at : 26 is NOT single word. Check for 'processor'.
+2/9/2022 09:56:57 :: Occurance of 'PRO' found at : 26 is part of PROCESSOR.Discard and check in remaining string.
+2/9/2022 09:56:57 :: Updated processor name : AMD Ryzen 7 3700X 8-Core               
+2/9/2022 09:56:57 :: Occurance of 'PRO' NOT found.Proceed with installation.
+2/9/2022 09:56:57 :: Installation can CONTINUE. Processor : AMD Ryzen 7 3700X 8-Core                Manufacturer : System manufacturer
+02/09/2022 09:56:58 a. m. :: Function RemoveAMDRMService Started.
+02/09/2022 09:56:58 a. m. :: Function ReadRegistryKey started.
+02/09/2022 09:56:58 a. m. :: Function ReadRegistryKey KeyValue is 
+02/09/2022 09:56:58 a. m. :: Function ReadRegistryKey Ended.
+02/09/2022 09:56:58 a. m. :: SDK install path as per environment variable : C:\Program Files\AMD\RyzenMasterSDK\
+02/09/2022 09:56:58 a. m. :: Path from which service runs as per registry : 
+02/09/2022 09:56:58 a. m. :: Not uninstalling driver service as it does not belong to current installer being removed.
+02/09/2022 09:56:58 a. m. :: Function RemoveAMDRMService. Minor Upgrade property is : 1
+02/09/2022 09:56:58 a. m. :: Uninstalling driver service as it is minor upgrade.
+02/09/2022 09:56:58 a. m. :: Function ExecuteFiles strBatchFilePath "C:\Program Files\AMD\RyzenMasterSDK\DriverUtility.bat" -u
+02/09/2022 09:56:58 a. m. :: Function ExecuteFiles errReturn 0 for file "C:\Program Files\AMD\RyzenMasterSDK\DriverUtility.bat" -u.
+02/09/2022 09:56:58 a. m. :: Function RemoveAMDRMService Ended.
+5/10/2022 14:03:08 :: Occurance of 'PRO' found at : 26. Needs further verification.
+5/10/2022 14:03:08 :: Occurance of 'PRO' found at : 26 is NOT single word. Check for 'processor'.
+5/10/2022 14:03:08 :: Occurance of 'PRO' found at : 26 is part of PROCESSOR.Discard and check in remaining string.
+5/10/2022 14:03:08 :: Updated processor name : AMD Ryzen 7 3700X 8-Core               
+5/10/2022 14:03:09 :: Occurance of 'PRO' NOT found.Proceed with installation.
+5/10/2022 14:03:09 :: Installation can CONTINUE. Processor : AMD Ryzen 7 3700X 8-Core                Manufacturer : System manufacturer
+5/10/2022 14:03:09 :: Function RemoveFile_Up - Deleted AMDRyzenMasterAPI.chm during upgrade
+05/10/2022 02:03:09 p. m. :: Function RemoveAMDRMService Started.
+05/10/2022 02:03:09 p. m. :: Function ReadRegistryKey started.
+05/10/2022 02:03:09 p. m. :: Function ReadRegistryKey KeyValue is \??\C:\Program Files\AMD\RyzenMasterSDK\bin\AMDRyzenMasterDriver.sys
+05/10/2022 02:03:09 p. m. :: Function ReadRegistryKey Ended.
+05/10/2022 02:03:09 p. m. :: SDK install path as per environment variable : C:\Program Files\AMD\RyzenMasterSDK\
+05/10/2022 02:03:09 p. m. :: Path from which service runs as per registry : \??\C:\Program Files\AMD\RyzenMasterSDK\bin\AMDRyzenMasterDriver.sys
+05/10/2022 02:03:09 p. m. :: Uninstalling driver service as it belongs to current installer being removed.
+05/10/2022 02:03:09 p. m. :: Function ExecuteFiles strBatchFilePath "C:\Program Files\AMD\RyzenMasterSDK\DriverUtility.bat" -u
+05/10/2022 02:03:09 p. m. :: Function ExecuteFiles errReturn 0 for file "C:\Program Files\AMD\RyzenMasterSDK\DriverUtility.bat" -u.
+05/10/2022 02:03:10 p. m. :: Function RemoveAMDRMService. Minor Upgrade property is : 1
+05/10/2022 02:03:10 p. m. :: Uninstalling driver service as it is minor upgrade.
+05/10/2022 02:03:10 p. m. :: Function ExecuteFiles strBatchFilePath "C:\Program Files\AMD\RyzenMasterSDK\DriverUtility.bat" -u
+05/10/2022 02:03:10 p. m. :: Function ExecuteFiles errReturn 0 for file "C:\Program Files\AMD\RyzenMasterSDK\DriverUtility.bat" -u.
+05/10/2022 02:03:10 p. m. :: Function RemoveAMDRMService Ended.

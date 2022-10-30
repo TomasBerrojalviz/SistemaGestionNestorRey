@@ -9,7 +9,7 @@ $( document ).ready(function() {
     // modalAbierto = false;
     setTablas();
 
-    
+
     for (var i = 0; i < tablasVacias.length; i++) {
         var element = tablasVacias[i];
         element.innerHTML  = "No hay informacion cargada";
@@ -30,7 +30,7 @@ $( document ).ready(function() {
             data: { action:action, marca:marca},
             success: function(response) {
                 // console.log(response);
-                if (response != "error") {  
+                if (response != "error") {
                     var modelosDeseados = JSON.parse(response);
 
                     var listaModelos = document.getElementById("modelosMarca");
@@ -40,7 +40,7 @@ $( document ).ready(function() {
                     modelosDeseados.forEach(modelo => {
                         listaModelos.appendChild(agregarOptionModelo(modelo));
                     });
-                    
+
                     verificarModelo();
 
                     // console.log(response);
@@ -53,13 +53,13 @@ $( document ).ready(function() {
             }
         });
     });
-    
+
     //MODAL FORM MODELO PARA AUTO
     $('#autoModelo').change(function(e){
         verificarModelo();
         // var modeloCorrecto = false;
         // var listaModelos = document.getElementById("modelosMarca");
-        // var elemModelos = listaModelos.childNodes;  
+        // var elemModelos = listaModelos.childNodes;
         // var modeloAuto = $("#agregarModeloAuto").val().toUpperCase();
         // for (i = 0; i < elemModelos.length; i++) {
         //     if(elemModelos[i].value == modeloAuto) {
@@ -67,7 +67,7 @@ $( document ).ready(function() {
         //     }
 
         // }
-        
+
         // if(modeloCorrecto) {
         //     $("#agregarModeloAuto").removeClass('is-invalid');
         //     $("#agregarModeloAuto").addClass('is-valid');
@@ -88,34 +88,34 @@ $( document ).ready(function() {
 
     // });
 
-    //TOCAR FILA
-    $('.fila').click(function(e){
-        e.preventDefault();
-        if (e.target.parentNode.className  == ' columnaAccion' || e.target.parentNode.parentNode.className  == ' columnaAccion'){
-            return;
-        }
-        var id = $(this).attr('id');
-        var tipoModal = $(this).attr('tipoModal');
+    // //TOCAR FILA
+    // $('.fila').click(function(e){
+    //     e.preventDefault();
+    //     if (e.target.parentNode.className  == ' columnaAccion' || e.target.parentNode.parentNode.className  == ' columnaAccion'){
+    //         return;
+    //     }
+    //     var id = $(this).attr('id');
+    //     var tipoModal = $(this).attr('tipoModal');
 
-        if(tipoModal == "orden"){
-            modalAbierto = "ORDEN";
-            abrirModalOrden(id);
-        }
-        else if(tipoModal == "auto"){
-            modalAbierto = "AUTO";
-            abrirModalAuto(id);
-        }
+    //     if(tipoModal == "orden"){
+    //         modalAbierto = "ORDEN";
+    //         abrirModalOrden(id);
+    //     }
+    //     else if(tipoModal == "auto"){
+    //         modalAbierto = "AUTO";
+    //         abrirModalAuto(id);
+    //     }
 
-    });
+    // });
 });
 
 function verificarCliente(){
     var nombreCliente = $("#autoCliente").val();
     $("#autoCliente").removeClass('is-invalid').removeClass('is-valid');
     // $.get("../mod_ou/procesos/procesar_sector_search.php", {SEARCH:SECTOR},
-    // function(data) {	
+    // function(data) {
     //     if(data.ID_OU != 0 && data.DISPONIBLE == 'TRUE'){
-    //         $("#f_id_sector").val(data.ID_OU);	
+    //         $("#f_id_sector").val(data.ID_OU);
     //         $("#f_sector").addClass('is-valid');
     //     }else{
     //         $("#f_sector").addClass('is-invalid');
@@ -194,7 +194,7 @@ function verificarModelo(){
             $("#autoModelo").addClass('is-invalid');
         }
     });
-    
+
     var modeloCorrecto = false;
     var listaModelos = document.getElementById("modelosMarca");
     var elemModelos = listaModelos.childNodes;
@@ -206,7 +206,7 @@ function verificarModelo(){
         }
 
     }
-    
+
     if(modeloCorrecto) {
         $("#autoModelo").removeClass('is-invalid');
         $("#autoModelo").addClass('is-valid');
@@ -301,7 +301,7 @@ function estadosSelect(id, select){
 function editarModal(){
     // preventDefault();
     $('#editarModeloModal').modal('show');
-    
+
 }
 
 function setTablas(){
@@ -322,7 +322,7 @@ function setTablas(){
         $("#tableModelo_length").addClass('text-light mx-1');
         $("#tableModelo_info").addClass('text-light mx-1');
     }
-    
+
     $('#tableCliente').DataTable({order: [[1, 'asc']]});
     if(document.getElementById("tableCliente_paginate")){
         $("#tableCliente_filter").addClass('text-light float-end mx-2');
@@ -331,10 +331,6 @@ function setTablas(){
         $("#tableCliente_length").addClass('text-light mx-1');
         $("#tableCliente_info").addClass('text-light mx-1');
     }
-    
-
-
-
     actualizarTablas();
 }
 
@@ -342,7 +338,7 @@ function actualizarTablas() {
     let params = new URLSearchParams(location.search);
     var pagina = params.get('pagina');
     var paginasConTablas = ["autos", "ordenes", "marcas_modelos"];
-    
+
     if(!paginasConTablas.includes(pagina)){
         return;
     }
@@ -355,7 +351,7 @@ function actualizarTablas() {
     else{
         marcas = obtenerMarcas();
         modelos = obtenerModelos();
-        
+
         marcas.done(function(responseMarcas){
             if(responseMarcas != "error"){
                 var info_marcas = JSON.parse(responseMarcas);
@@ -363,7 +359,7 @@ function actualizarTablas() {
                 while (dataListMarca.firstChild) {
                     dataListMarca.removeChild(dataListMarca.firstChild);
                 }
-    
+
                 info_marcas.forEach(marca => {
                     dataListMarca.appendChild(agregarOptionMarca(marca));
                 });
@@ -373,11 +369,11 @@ function actualizarTablas() {
             if(responseModelos != "error"){
                 var info_modelos = JSON.parse(responseModelos);
                 console.log(info_modelos);
-                
+
                 while (dataListModelo.firstChild) {
                     dataListModelo.removeChild(dataListModelo.firstChild);
                 }
-                
+
                 info_modelos.forEach(modelo => {
                     dataListModelo.appendChild(agregarOptionMarca(modelo));
                 });
@@ -421,7 +417,7 @@ function abrirArchivo(url, nombreVentana){
         setTimeout(() => {
             ventana.close();
         }, 500);
-        
+
     }
 }
 
@@ -429,7 +425,7 @@ function crearVisualizadorAdjuntos(visualizador, archivos, click){
     var clickAbrir = '';
     var j = -1;
     var row = [];
-        
+
     while (visualizador.firstChild) {
         visualizador.removeChild(visualizador.firstChild);
     }
@@ -459,7 +455,7 @@ function crearVisualizadorAdjuntos(visualizador, archivos, click){
             src = "img/error.png";
         }
 
-        
+
         if(ext == "pdf"){
             src = "img/pdf.png";
         }
@@ -504,7 +500,7 @@ function crearVisualizadorAdjuntos(visualizador, archivos, click){
 function imprimir(){
 
     btn_print.style.display = "none";
-    
+
 }
 
 function transDate(date){
@@ -514,7 +510,7 @@ function transDate(date){
 }
 function sortTablaOrdenes(){
     var tablaOrdenes = $('#tableOrdenes').DataTable();
- 
+
     tablaOrdenes
         .order( [ 0, 'asc' ] )
         .draw();
@@ -533,4 +529,9 @@ function mostrarClase(clase){
         var element = clase[i];
         element.style.display = "initial";
     }
+}
+
+function buscarOrdenesRelacionadas(){
+    sessionStorage.setItem('autoBuscado', autoPatente.value);
+    window.history.pushState(null,null,'index.php?pagina=ordenes');
 }

@@ -315,8 +315,7 @@ class ControladorFormularios {
 
             $tabla = "autos";  
             // id_estado patente	id_modelo	anio	id_cliente
-            $datos = array("id_estado" => $_POST["id_estado"],
-                            "patente" => strtoupper($_POST["patente"]),
+            $datos = array("patente" => strtoupper($_POST["patente"]),
                             "id_modelo" => $_POST["id_modelo"],
                             "anio" => $_POST["anio"],
                             "id_cliente" => $_POST["id_cliente"],

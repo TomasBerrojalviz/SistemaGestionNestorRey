@@ -146,13 +146,25 @@ $( document ).ready(function() {
     $('#notaAdjuntos').change(function(e){
         mostrarAdjuntos();
     });
+    //ADJUNTOS NOTA
+    $('#notaTxt').change(function(e){
+        console.log(notaTxt.value.length);
+        if(notaTxt.value.length > 600){
+            notaTxt.setAttribute("error", "error");
+            $(notaTxt).addClass('is-invalid');
+        }
+        else{
+            notaTxt.setAttribute("error", "no-error");
+            $(notaTxt).removeClass('is-invalid');
+        }
+    });
     //BTN CARGAR NOTA
     $('#btn_nota_modal').click(function(e){
         e.preventDefault();
         
         // cargarNota();
         console.log(notaAdjuntos.files);
-        if(!adjuntos.getAttribute("error")) {
+        if(adjuntos.getAttribute("error") != "error" && notaTxt.getAttribute("error") != "error") {
             subirNota(notaAdjuntos.files,"notas", notaId.value);
         }
         else {
@@ -246,12 +258,12 @@ $( document ).ready(function() {
                     var cambioAgregado = JSON.parse(response);
                     if(cambioAgregado){
                         ocultarModal("ordenModal");
+                        ocultarModal("autoModal");
                         ocultarModal("cambiosModal");
+                        // if(window.history.replaceState) {
+                        //     window.history.replaceState(null, null, window.location.href);
+                        // }
                         mostrarModal("successModal");
-                        if(window.history.replaceState) {
-                            window.history.replaceState(null, null, window.location.href);
-                        }
-                        abrirModalOrden(id_orden);
                     }
                 }
             },
@@ -286,7 +298,6 @@ function abrirModalOrden(id) {
     else{ //TODO TERMINAR OBTENER DATOS
         colAuto.style.display = "none";
         
-        ordenModalTitle.innerHTML = "Orden";
         ordenId.value = id;
         
         id_orden = id;
@@ -326,6 +337,7 @@ function abrirModalOrden(id) {
                 });
                 
             });
+            ordenModalTitle.innerHTML = "Orden Nro°" + id + " - Auto: " + ordenAutoPatente.value + " " + ordenAutoModelo.value + " - Cliente: " + ordenClienteNombre.value;
             fecha_recibido.value = transDate(info_orden[0].fecha_recibido);
             id_recibo.value = info_orden[0].id_recibo;
             ordenProblema.value = info_orden[0].problema;
@@ -622,7 +634,10 @@ function abrirModalHistorial(tipo){
             if(responseCambios != "error"){
                 var info_notas = JSON.parse(responseCambios);
                 for(var i = 0; i < info_notas.length; i++){
-                    tablaHistorial.row.add([transDate(info_notas[i].fecha), info_notas[i].nota, setBotonAdjuntos(info_notas[i].id, info_notas[i].adjuntos)]).draw();
+                    var fechaCompleta = info_notas[i].fecha + " " + info_notas[i].hora;
+                    var fechaOrdenable = info_notas[i].fecha.split("/");
+                    var fechaInput = '<span style="display: none;">'+fechaOrdenable[2]+fechaOrdenable[1]+fechaOrdenable[0]+" "+info_notas[i].hora+'</span>'+fechaCompleta;
+                    tablaHistorial.row.add([fechaInput, info_notas[i].nota, setBotonAdjuntos(info_notas[i].id, info_notas[i].adjuntos)]).draw();
                 }
             }
         });

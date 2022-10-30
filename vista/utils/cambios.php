@@ -106,7 +106,7 @@
         <div class="modal-content">
             <div class="modal-header">
             <h5 class="modal-title">Agregar cambios</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="DisplayVolver('HOME')" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <input class="form-control" type="hidden" name="autoCambio" id="autoCambio" required>
@@ -194,7 +194,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DisplayVolver('HOME')">Cerrar</button>
                 <input type="submit" accion="agregarCambios" id="btn_cambios_modal" name="btn_cambios_modal" class="btn btn-primary" value="Agregar" />
             </div>
         </div>

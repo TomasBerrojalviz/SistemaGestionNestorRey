@@ -50,7 +50,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
     </thead>
     <tbody class="table-group-divider" id="tableOrdenes_rows">
         <script>
-            cargarTabla('tableOrdenes');
+            // cargarTabla('tableOrdenes');
         </script>
     </tbody>
     </table>
@@ -62,7 +62,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="ordenModalTitle">Crear orden</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('HOME_ORDEN')"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="container">
@@ -224,7 +224,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DisplayVolver('HOME_ORDEN');">Cerrar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 <input type="submit" id="btn_orden_modal" name="btn_orden_modal" class="btn btn-primary" value="Crear"/>
             </div>
         </div>
@@ -437,6 +437,9 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                             <div class="form-floating mb-2">
                                 <textarea  autocomplete="off" class="form-control form-control-lg" type="text" placeholder="Ingrese notas" name="notaTxt" id="notaTxt" style="height: 150px" required></textarea >
                                 <label for="floatingInput">Notas</label>
+                                <div class="invalid-feedback">
+                                    La nota no puede superar los 600 caracteres.
+                                </div>
                             </div>  
                         </div>
                     </div>

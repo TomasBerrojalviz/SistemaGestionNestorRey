@@ -18,6 +18,7 @@ if(isset($_POST)){
 
 		$archivos_subidos = 0;
 		$archivos_fallidos = 0;
+		$respuesta = "Se cargo la nota correctamente.\n";
 		if(isset($_FILES['files'])){
 			for($i = 0; $i < count($_FILES['files']['name']); $i++){
 
@@ -55,7 +56,7 @@ if(isset($_POST)){
 					$archivos_fallidos += 1;
 				}
 			}
-			$respuesta = "Se subieron $archivos_subidos archivos correctamente.\n";
+			$respuesta .= "Se subieron $archivos_subidos archivos correctamente.\n";
 			if($archivos_fallidos > 0){
 				$respuesta .= "Fallaron $archivos_fallidos archivos.";
 			}
@@ -64,7 +65,7 @@ if(isset($_POST)){
 			}
 		}
 		else {
-
+			echo $respuesta;
 		}
 	}
 }

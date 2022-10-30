@@ -364,11 +364,9 @@ class ModeloFormularios {
     // EDITAR AUTO
     static public function mdlEditarAuto($tabla, $datos){
 
-        $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET id_marca = :id_marca, modelo = :modelo WHERE id = :id");
-        $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET id_estado = :id_estado, patente = :patente, id_modelo = :id_modelo, anio = :anio, id_cliente = :id_cliente WHERE id = :id");
+        $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET patente = :patente, id_modelo = :id_modelo, anio = :anio, id_cliente = :id_cliente WHERE id = :id");
 
         // id_estado patente id_modelo anio id_cliente
-        $stmt->bindParam(":id_estado", $datos["id_estado"], PDO::PARAM_INT);
         $stmt->bindParam(":patente", $datos["patente"], PDO::PARAM_STR);
         $stmt->bindParam(":id_modelo", $datos["id_modelo"], PDO::PARAM_INT);
         $stmt->bindParam(":anio", $datos["anio"], PDO::PARAM_INT);
@@ -656,7 +654,10 @@ class ModeloFormularios {
     // OBTENER NOTAS
     static public function mdlObtenerNotas($tabla, $id_orden){
         
-        $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE id_orden = :id_orden");
+        $stmt = Conexion::conectar()->prepare("SELECT *,
+                                            DATE_FORMAT(nota.fecha, '%d/%m/%Y') as fecha, DATE_FORMAT(nota.fecha, '%H:%i:%s') as hora
+                                            FROM $tabla nota
+                                            WHERE id_orden = :id_orden");
 
         $stmt->bindParam(":id_orden", $id_orden, PDO::PARAM_INT);
 

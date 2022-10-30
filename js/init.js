@@ -7,6 +7,21 @@ var columnaDevolucion = document.getElementsByClassName("columnaDevolucion");
 var columnaModelo = document.getElementsByClassName("columnaModelo");
 var columnaAnio = document.getElementsByClassName("columnaAnio");
 var columnaClienteNombre = document.getElementsByClassName("columnaClienteNombre");
+
+function fila(elem){
+    var id = $(elem).attr('id');
+    var tipoModal = $(elem).attr('tipoModal');
+
+    if(tipoModal == "orden"){
+        modalAbierto = "ORDEN";
+        abrirModalOrden(id);
+    }
+    else if(tipoModal == "auto"){
+        modalAbierto = "AUTO";
+        abrirModalAuto(id);
+    }
+}
+
 function cargarTabla(nombreTabla){
     var width = $(document).innerWidth();
     if(width < 720){
@@ -15,6 +30,7 @@ function cargarTabla(nombreTabla){
         var show = true;
     }
     if(nombreTabla == "tableOrdenes"){
+        // alert("Entramos a cargarTabla");
         $('#tableOrdenes').DataTable().destroy();
         $('#tableOrdenes_rows').empty();
         // Estado Posicion hidden
@@ -26,7 +42,7 @@ function cargarTabla(nombreTabla){
         // Devolucion
         // Solucion hidden
         
-        $('#tableOrdenes').DataTable({
+        var tablaOrdenes = $('#tableOrdenes').DataTable({
             "language": {
                 "sProcessing":     "Procesando...",
                 "sLengthMenu":     "Mostrar _MENU_ ordenes",
@@ -70,7 +86,7 @@ function cargarTabla(nombreTabla){
                 [10, 25, 50, 100, 'Todos'],
             ]
         });
-        var tablaOrdenes = $('#tableOrdenes').DataTable();
+        // var tablaOrdenes = $('#tableOrdenes').DataTable();
         var ordenesSeleccionadas = seleccionarOrdenes();
         ordenesSeleccionadas.done(function(responseOrdenes) {
             if(responseOrdenes != "error"){
@@ -91,10 +107,11 @@ function cargarTabla(nombreTabla){
                     tr.id = ordenes[i].id;
                     $(tr).addClass('fila');
                     tr.setAttribute("tipoModal", "orden");
+                    tr.setAttribute("onclick", "fila(this)");   
                 }
             }
             for(var i=0; i<columnaEstado.length; i++) {
-                columnaEstado[i].setAttribute("style", "max-width: 160px;");
+                columnaEstado[i].setAttribute("style", "max-width: 170px;");
                 columnaPatente[i].setAttribute("style", "max-width: 100px;");
                 columnaLlegada[i].setAttribute("style", "max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;");
                 columnaProblema[i].setAttribute("style", "max-width: 400px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;");
@@ -106,6 +123,14 @@ function cargarTabla(nombreTabla){
             $("#tableOrdenes_length").addClass('text-light');
             $("#tableOrdenes_info").addClass('text-light');
         });
+        var autoBuscado = sessionStorage.getItem('autoBuscado');
+        // alert(autoBuscado);
+        if(autoBuscado){
+            // alert(autoBuscado);
+            // var table = $('#tableOrdenes').DataTable();
+            tablaOrdenes.search(autoBuscado).draw(true);
+            sessionStorage.setItem('autoBuscado', "");
+        }
     }
     else if(nombreTabla == "tableAuto"){
         $('#tableAuto').DataTable().destroy();
@@ -176,6 +201,7 @@ function cargarTabla(nombreTabla){
                     tr.id = autos[i].id;
                     $(tr).addClass('fila');
                     tr.setAttribute("tipoModal", "auto");
+                    tr.setAttribute("onclick", "fila(this)");   
                 }
             }
             for(var i=0; i<columnaPatente.length; i++) {
@@ -254,7 +280,7 @@ function setBotonEstado(id, estado){
         estado_str = "Falta pagar";  
         iconoBtn = '<i class="fa-solid fa-hand-holding-dollar fa-flip-horizontal"> </i> <i class="fa-solid"> '+estado_str+' </i> <i class="fa-solid fa-hand-holding-dollar"></i>';
     }
-    var boton = "<button id='"+id+"' tipoModal='orden' class='btn btn-sm btn-outline-dark btnOrden "+clase_btn_estado+"'>";
+    var boton = "<button id='"+id+"' tipoModal='orden' class='btn btn-sm btn-outline-dark btnOrden "+clase_btn_estado+"' style='width: 170px;'>";
     boton += iconoBtn;
     boton += "</button>";
 
