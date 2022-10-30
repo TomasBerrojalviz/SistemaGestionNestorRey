@@ -452,6 +452,9 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                             <div class="mb-2 pt-2" id="adjuntos">
 
                             </div>
+                            <div class="mb-2 pt-2" id="adjuntos_error">
+
+                            </div>
                         </div>
                     </div>
                 </div>

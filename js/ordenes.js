@@ -29,6 +29,7 @@ var notaId = document.getElementById("notaId");
 var notaTxt = document.getElementById("notaTxt");
 var notaAdjuntos = document.getElementById("notaAdjuntos");
 var adjuntos =  document.getElementById("adjuntos");
+var adjuntos_error =  document.getElementById("adjuntos_error");
 
 var adjuntos_view = document.getElementById("adjuntos_view");
 
@@ -163,6 +164,9 @@ $( document ).ready(function() {
         e.preventDefault();
         
         // cargarNota();
+        while (adjuntos_error.firstChild) {
+            adjuntos_error.removeChild(adjuntos_error.firstChild);
+        }
         console.log(notaAdjuntos.files);
         if(adjuntos.getAttribute("error") != "error" && notaTxt.getAttribute("error") != "error") {
             subirNota(notaAdjuntos.files,"notas", notaId.value);
@@ -171,7 +175,7 @@ $( document ).ready(function() {
             var alert = '<div class="alert alert-danger text-center" role="alert">';
             alert += '<i class="fa-solid fa-circle-exclamation"></i> No se puede agregar mientras haya errores <i class="fa-solid fa-circle-exclamation"></i>';
             alert += '</div>';
-            adjuntos.innerHTML += alert;
+            adjuntos_error.innerHTML += alert;
         }
         
     });
@@ -180,7 +184,7 @@ $( document ).ready(function() {
         e.preventDefault();
         
         // abrirModalCambios();
-        abrirModalNota(0);
+        abrirModalNota();
     });
     //MODAL ENTREGA
     $('#btnEntrega').click(function(e){
@@ -491,7 +495,15 @@ function abrirModalCambios(){
     mostrarModal("cambiosModal");
 }
 
-function abrirModalNota(id){
+function abrirModalNota(){
+    while (adjuntos_error.firstChild) {
+        adjuntos_error.removeChild(adjuntos_error.firstChild);
+    }
+    while (adjuntos.firstChild) {
+        adjuntos.removeChild(adjuntos.firstChild);
+    }
+    $(notaTxt).removeClass('is-invalid');
+    notaAdjuntos.value = "";
     
     notaId.value=0;
     notaTxt.value="";
@@ -564,19 +576,24 @@ function abrirModalHistorial(tipo){
                 var info_cambios = JSON.parse(responseCambios);
                 for(var i = 0; i < info_cambios.length; i++){
                     if(info_cambios[i].fecha_cambio != "0000-00-00 00:00:00"){
-                        tablaHistorial.row.add([transDate(info_cambios[i].fecha_cambio), "Cambio de aceite "+info_cambios[i].aceite+" a "+info_cambios[i].km_actual]).draw(false);
+                        var fechaInput = '<span style="display: none;">'+info_cambios[i].fecha_cambio+'</span>'+transDate(info_cambios[i].fecha_cambio);
+                        tablaHistorial.row.add([fechaInput, "Cambio de aceite "+info_cambios[i].aceite+" a "+info_cambios[i].km_actual]).draw(false);
                     }
                     if(info_cambios[i].filtro_aceite != "0000-00-00 00:00:00"){
-                        tablaHistorial.row.add([transDate(info_cambios[i].filtro_aceite), "Cambio de filtro de aceite"]).draw(false);
+                        var fechaInput = '<span style="display: none;">'+info_cambios[i].filtro_aceite+'</span>'+transDate(info_cambios[i].filtro_aceite);
+                        tablaHistorial.row.add([fechaInput, "Cambio de filtro de aceite"]).draw(false);
                     }
                     if(info_cambios[i].filtro_aire != "0000-00-00 00:00:00"){
-                        tablaHistorial.row.add([transDate(info_cambios[i].filtro_aire), "Cambio de filtro de aire"]).draw(false);
+                        var fechaInput = '<span style="display: none;">'+info_cambios[i].filtro_aire+'</span>'+transDate(info_cambios[i].filtro_aire);
+                        tablaHistorial.row.add([fechaInput, "Cambio de filtro de aire"]).draw(false);
                     }
                     if(info_cambios[i].filtro_combustible != "0000-00-00 00:00:00"){
-                        tablaHistorial.row.add([transDate(info_cambios[i].filtro_combustible), "Cambio de filtro de combustible"]).draw(false);
+                        var fechaInput = '<span style="display: none;">'+info_cambios[i].filtro_combustible+'</span>'+transDate(info_cambios[i].filtro_combustible);
+                        tablaHistorial.row.add([fechaInput, "Cambio de filtro de combustible"]).draw(false);
                     }
                     if(info_cambios[i].filtro_habitaculo != "0000-00-00 00:00:00"){
-                        tablaHistorial.row.add([transDate(info_cambios[i].filtro_habitaculo), "Cambio de filtro de habitaculo"]).draw(false);
+                        var fechaInput = '<span style="display: none;">'+info_cambios[i].filtro_habitaculo+'</span>'+transDate(info_cambios[i].filtro_habitaculo);
+                        tablaHistorial.row.add([fechaInput, "Cambio de filtro de habitaculo"]).draw(false);
                     }
                 }
             }
