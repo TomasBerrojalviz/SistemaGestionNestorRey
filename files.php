@@ -1,10 +1,7 @@
 <?php
 
-
-require_once "controlador/plantilla.controlador.php";
-
-require_once "controlador/formularios.controlador.php";
-require_once "modelo/formularios.modelo.php";
+require_once "controlador/controladores.php";
+require_once "modelo/modelos.php";
 
 if(isset($_POST)){
 	if($_POST["action"] == "cargarAdjuntosNota"){

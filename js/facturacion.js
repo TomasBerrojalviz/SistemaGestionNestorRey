@@ -479,6 +479,7 @@ function crearRecibo(id) {
 
 function insertarRecibo(recibo) {
     reciboNro.innerHTML = recibo.id;
+    reciboNroOrden.innerHTML = id_orden;
     reciboFecha.innerHTML = recibo.fecha;
     reciboHora.innerHTML = recibo.hora;
 

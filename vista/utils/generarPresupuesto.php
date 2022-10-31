@@ -1,9 +1,8 @@
 <?php
 
-require_once "../../controlador/plantilla.controlador.php";
+require_once "../../controlador/controladores.php";
+require_once "../../modelo/modelos.php";
 
-require_once "../../controlador/formularios.controlador.php";
-require_once "../../modelo/formularios.modelo.php";
 require_once "../../pdf/vendor/autoload.php";
 
 use Dompdf\Dompdf;

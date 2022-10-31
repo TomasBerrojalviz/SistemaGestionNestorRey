@@ -1,9 +1,8 @@
 <?php
 
-require_once "../../controlador/plantilla.controlador.php";
+require_once "../../controlador/controladores.php";
+require_once "../../modelo/modelos.php";
 
-require_once "../../controlador/formularios.controlador.php";
-require_once "../../modelo/formularios.modelo.php";
 require_once "../../pdf/vendor/autoload.php";
 
 use Dompdf\Dompdf;
@@ -15,7 +14,7 @@ else {
     $nroPresupuesto = $_REQUEST['re'];
 
 
-    $stmt = Conexion::conectar()->prepare("SELECT r.id, r.id_cliente, DATE_FORMAT(r.fecha, '%d/%m/%Y') as fecha,
+    $stmt = Conexion::conectar()->prepare("SELECT r.id, r.id_cliente, DATE_FORMAT(r.fecha, '%d/%m/%Y') as fecha, r.id_orden,
                                         DATE_FORMAT(r.fecha, '%H:%i:%s') as hora,
                                         cl.nombre, cl.telefono, cl.mail, cl.domicilio
                                         FROM recibos r

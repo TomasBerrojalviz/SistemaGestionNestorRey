@@ -1,10 +1,7 @@
 <?php
 
-require_once "controlador/plantilla.controlador.php";
-
-require_once "controlador/formularios.controlador.php";
-require_once "modelo/formularios.modelo.php";
-
+require_once "controlador/controladores.php";
+require_once "modelo/modelos.php";
 
 $clientes = ControladorFormularios::ctrlSeleccionarTabla("clientes");
 
@@ -303,7 +300,7 @@ $modelosDeseados = array();
         }
         
         if($_POST["action"] == "agregarInsumo"){
-            $insumoCargado = ControladorFormularios::ctrlAgregarInsumo();
+            $insumoCargado = ControladorFacturacion::ctrlAgregarInsumo();
             if($insumoCargado){
                 echo json_encode($insumoCargado, JSON_UNESCAPED_UNICODE);
                 exit;
@@ -313,7 +310,7 @@ $modelosDeseados = array();
         }
         
         if($_POST["action"] == "eliminarInsumo"){
-            $insumoEliminado = ControladorFormularios::ctrlEliminarInsumo();
+            $insumoEliminado = ControladorFacturacion::ctrlEliminarInsumo();
             if($insumoEliminado){
                 echo json_encode($insumoEliminado, JSON_UNESCAPED_UNICODE);
                 exit;
@@ -323,7 +320,7 @@ $modelosDeseados = array();
         }
     
         if($_POST["action"] == "actualizarManoObra"){
-            $manoObraActualizada = ControladorFormularios::ctrlActualizarManoObra();
+            $manoObraActualizada = ControladorFacturacion::ctrlActualizarManoObra();
             if($manoObraActualizada){
                 echo json_encode($manoObraActualizada, JSON_UNESCAPED_UNICODE);
                 exit;
@@ -333,7 +330,7 @@ $modelosDeseados = array();
         }
         
         if($_POST["action"] == "obtenerInsumos"){
-            $insumosPresupuesto = ControladorFormularios::ctrlObtenerInsumos();
+            $insumosPresupuesto = ControladorFacturacion::ctrlObtenerInsumos();
             if($insumosPresupuesto){
                 echo json_encode($insumosPresupuesto, JSON_UNESCAPED_UNICODE);
                 exit;
@@ -342,7 +339,7 @@ $modelosDeseados = array();
             exit;
         }
         if($_POST["action"] == "obtenerPresupuesto"){
-            $presupuestoObtenido = ControladorFormularios::ctrlObtenerComprobante("presupuestos");
+            $presupuestoObtenido = ControladorFacturacion::ctrlObtenerComprobante("presupuestos");
             if($presupuestoObtenido){
                 echo json_encode($presupuestoObtenido, JSON_UNESCAPED_UNICODE);
                 exit;
@@ -351,9 +348,9 @@ $modelosDeseados = array();
             exit;
         }
         if($_POST["action"] == "crearPresupuesto"){
-            $presupuestoCreado = ControladorFormularios::ctrlCrearComprobante("presupuestos");
+            $presupuestoCreado = ControladorFacturacion::ctrlCrearComprobante("presupuestos");
             if($presupuestoCreado){
-                $presupuestoObtenido = ControladorFormularios::ctrlObtenerComprobante("presupuestos");
+                $presupuestoObtenido = ControladorFacturacion::ctrlObtenerComprobante("presupuestos");
                 if($presupuestoObtenido){
                     echo json_encode($presupuestoObtenido, JSON_UNESCAPED_UNICODE);
                     exit;
@@ -365,7 +362,7 @@ $modelosDeseados = array();
             exit;
         }
         if($_POST["action"] == "obtenerRecibo"){
-            $reciboObtenido = ControladorFormularios::ctrlObtenerComprobante("recibos");
+            $reciboObtenido = ControladorFacturacion::ctrlObtenerComprobante("recibos");
             if($reciboObtenido){
                 echo json_encode($reciboObtenido, JSON_UNESCAPED_UNICODE);
                 exit;
@@ -374,9 +371,9 @@ $modelosDeseados = array();
             exit;
         }
         if($_POST["action"] == "crearRecibo"){
-            $reciboCreado = ControladorFormularios::ctrlCrearComprobante("recibos");
+            $reciboCreado = ControladorFacturacion::ctrlCrearComprobante("recibos");
             if($reciboCreado){
-                $reciboObtenido = ControladorFormularios::ctrlObtenerComprobante("recibos");
+                $reciboObtenido = ControladorFacturacion::ctrlObtenerComprobante("recibos");
                 if($reciboObtenido){
                     echo json_encode($reciboObtenido, JSON_UNESCAPED_UNICODE);
                     exit;
@@ -416,7 +413,7 @@ $modelosDeseados = array();
             exit;
         }
         if($_POST["action"] == "guardarPago"){
-            $pagoGuardado = ControladorFormularios::ctrlGuardarPago();
+            $pagoGuardado = ControladorFacturacion::ctrlGuardarPago();
             if($pagoGuardado){
                 echo json_encode($pagoGuardado, JSON_UNESCAPED_UNICODE);
                 exit;
@@ -425,7 +422,7 @@ $modelosDeseados = array();
             exit;
         }
         if($_POST["action"] == "actualizarFecha"){
-            $fechaActualizada = ControladorFormularios::ctrlActualizarFecha();
+            $fechaActualizada = ControladorFacturacion::ctrlActualizarFecha();
             if($fechaActualizada){
                 echo json_encode($fechaActualizada, JSON_UNESCAPED_UNICODE);
                 exit;

@@ -720,7 +720,7 @@ function DisplayVolver(FORM){
     if(modalAbierto && FORM == "HOME" && FORM != "HOME_ORDEN"){
         FORM = modalAbierto;
     }
-    console.log(FORM);
+    // console.log(FORM);
     if(FORM == "AUTO"){
         $("#errorModal").modal('hide');
         $("#successModal").modal('hide');
