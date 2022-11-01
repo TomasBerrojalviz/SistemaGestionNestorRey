@@ -760,7 +760,6 @@ function abrirModalAdjuntos(id) {
                     var aux = [];
                     aux["url"] = src+'/'+nombres_archivos[i];
                     aux["name"] = nombres_archivos[i];
-                    console.log(aux);
                     archivos[i] = aux;
                 }
 
@@ -775,8 +774,6 @@ function abrirModalAdjuntos(id) {
 }
 
 function displayAdjuntos(id){
-    console.log(id);
-
     abrirModalAdjuntos(id);
 }
 

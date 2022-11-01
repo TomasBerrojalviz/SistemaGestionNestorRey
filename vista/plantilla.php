@@ -372,7 +372,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                     <h5 class="modal-title" id="adjuntosModalTitle">Adjuntos</h5>
-                    <button type="button" class="btn-close btn_cerrar_historial" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                             <div class="container-fluid">
@@ -382,7 +382,7 @@
                     </div>
     
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary btn_cerrar_historial" data-bs-dismiss="modal" onclick="DisplayVolver('ADJUNTOS')">Cerrar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                         <input type="submit" name="btn_marca_modal" id="btn_marca_modal" class="btn btn-primary" value="Guardar" />
                     </div>
                     

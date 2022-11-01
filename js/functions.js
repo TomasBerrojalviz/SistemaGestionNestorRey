@@ -432,25 +432,25 @@ function crearVisualizadorAdjuntos(visualizador, archivos, click){
     for(var i = 0; i < archivos.length; i++){
         if(click){
             clickAbrir = 'onclick="abrirArchivo(\''+archivos[i].url+'\',\''+archivos[i].name+'\');"';
+            if(archivos[i].size > 10000000){
+                visualizador.setAttribute("error","error");
+                alert = '<div class="alert alert-danger" role="alert">';
+                alert += 'Excede tamaño maximo <i class="fa-solid fa-circle-exclamation"></i>';
+                alert += '</div>';
+                src = "img/error.png";
+            }   
         }
         var src = archivos[i].url;
         var split_file = archivos[i].name.split(".");
         var ext = split_file[split_file.length - 1];
         var not_valid_ext = ["exe", "lnk"];
         var alert = "";
+        var style = "width: auto;";
 
-        console.log(archivos[i].size);
         if(not_valid_ext.includes(ext)){
             visualizador.setAttribute("error","error");
             alert = '<div class="alert alert-danger" role="alert">';
             alert += 'Tipo incorrecto <i class="fa-solid fa-circle-exclamation"></i>';
-            alert += '</div>';
-            src = "img/error.png";
-        }
-        else if(archivos[i].size > 10000000){
-            visualizador.setAttribute("error","error");
-            alert = '<div class="alert alert-danger" role="alert">';
-            alert += 'Excede tamaño maximo <i class="fa-solid fa-circle-exclamation"></i>';
             alert += '</div>';
             src = "img/error.png";
         }
@@ -471,12 +471,16 @@ function crearVisualizadorAdjuntos(visualizador, archivos, click){
         else if(ext == "mp4" || ext == "mov" || ext == "wmv" || ext == "avi" || ext == "mkv"){
             src = "img/video.png";
         }
+        else if(ext == "txt"){
+            src = "img/txt.png";
+        }
         else{
             // src = src;
+            style = "width: 100%;";
         }
 
-        var preview = '<div class="card col-4 mt-2 text-center" style="display: block;" '+clickAbrir+'>'; // PROBLEMA CON ROW
-                preview += '<img src="'+src+'" class="rounded" height="150px" style="width: auto;">';
+        var preview = '<div class="card col-4 mt-2 text-center" style="display: block; padding: 0px 0px 0px 0px;" '+clickAbrir+'>'; // PROBLEMA CON ROW
+                preview += '<img src="'+src+'" class="rounded-top" height="150px" style="'+style+'">';
                 preview += '<div class="card-body">';
                     preview += '<h5 class="card-text">'+archivos[i].name+'</h5>';
                     preview += alert;
