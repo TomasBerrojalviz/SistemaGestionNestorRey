@@ -26,21 +26,28 @@
             <div class="col-3">
                 <img src="../../img/logo-min.png" class="mx-auto my-auto"  alt="Logo Nestor Rey Mecanica">
             </div>
-            <div class="col-5 text-center">
+            <div class="col-4 text-center">
             <small><small>
                 <p><b>Nestor Rey Mecanica</b></p>
                 <p>Juncal 4849, Monte Chingolo</p>
                 <p>Telefono: +54 9 11 3179-7334</p>
             </small></small>
             </div>
-            <div class="col-4">
+            <div class="col-5">
                 <div class="card">
                     <div class="card-header text-bg-primary pt-0 pb-0 text-center">
                         Presupuesto
                     </div>
             <small><small>
                     <div class="card-body pt-0">
-                        Nro. Presupuesto: <b><?php echo $presupuesto['id'] ?></b>
+                        <div class="row">
+                            <div class="col">
+                                Nro. Presupuesto: <b><?php echo $presupuesto['id'] ?></b>
+                            </div>
+                            <div class="col">
+                                Nro. Orden: <b><?php echo $presupuesto['id_orden'] ?></b>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col">
                                 Fecha: <b><?php echo $presupuesto['fecha'] ?></b>

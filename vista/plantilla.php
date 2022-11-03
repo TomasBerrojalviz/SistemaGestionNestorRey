@@ -4,23 +4,29 @@
     $clase_boton_lg = 'class="btn btn-dark btn-outline-info btn-lg"';
     $clase_boton_sm = 'class="btn btn-dark btn-outline-info btn-sm"';
 
-    if(isset($_GET["pagina"])):
-        if($_GET["pagina"] == "menu"):
+    if(isset($_GET["pagina"])){
+        if($_GET["pagina"] == "menu"){
             $titulo = "Menu";
-        elseif($_GET["pagina"] == "autos"):
+        }
+        else if($_GET["pagina"] == "autos"){
             $titulo = "Autos";
-        elseif($_GET["pagina"] == "clientes"):
+        }
+        else if($_GET["pagina"] == "clientes"){
             $titulo = "Clientes";
-        elseif($_GET["pagina"] == "marcas_modelos"):
+        }
+        else if($_GET["pagina"] == "marcas_modelos"){
             $titulo = "Marcas y Modelos";
-        elseif($_GET["pagina"] == "ordenes"):
+        }
+        else if($_GET["pagina"] == "ordenes"){
             $titulo = "Ordenes";
-        else:
+        }
+        else{
             $titulo = "Not found";
-        endif;
-    else:
+        }
+    }
+    else{
         $titulo = "Menu";
-    endif;
+    }
 
     $marcas = ControladorFormularios::ctrlSeleccionarTabla("marcas");
     $modelos = ControladorFormularios::ctrlSeleccionarTabla("modelos");
@@ -50,15 +56,14 @@
 
     <!-- <script src="js/modals.js"></script>
     <script src="js/functions.js"></script> -->
-
-    <title>Sistema Gestion</title>
+    <title>Sistema Gestion<?php echo " - ".$titulo; ?></title>
 
 </head>
 <body style="background-color: #006666;">
 
     <header  style="margin-bottom: 70px">
         <!-- MENU DESPLEGABLE  -->
-        <nav class="navbar navbar-dark bg-dark bg-opacity-75 fixed-top" style="margin-bottom: 70px">
+        <nav class="navbar navbar-dark bg-dark fixed-top" style="margin-bottom: 70px">
             <div class="container-fluid">
                 <button class="navbar-toggler bg-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                 <span class="navbar-toggler-icon"></span>

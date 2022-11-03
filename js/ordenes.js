@@ -72,58 +72,100 @@ $( document ).ready(function() {
         abrirModalOrden(0);
     });
 
+    //CHANGE CARGAR AUTO ORDEN
+    $('#ordenAuto').change(function(e){
+        e.preventDefault();
+        $(ordenAuto).removeClass('is-invalid').removeClass('is-valid');
+        // ordenAuto.value
+        var listaAutos = document.getElementById("dataListAutos");
+        var autoInvalido = true;
+        for(var i = 0; i < listaAutos.childElementCount; i++){
+            if(listaAutos.children[i].value == ordenAuto.value){
+                $(ordenAuto).addClass('is-valid');
+                return;
+            }
+        }
+        if(!ordenAuto.validity.valid || autoInvalido){
+            $(ordenAuto).addClass('is-invalid');
+        }
+
+    });
+
+    //CHANGE PROBLEMA ORDEN
+    $('#ordenProblema').change(function(e){
+        e.preventDefault();
+        $(ordenProblema).removeClass('is-invalid');
+
+        if(!ordenProblema.validity.valid){
+            $(ordenProblema).addClass('is-invalid');
+        }
+
+    });
+
     //BTN MODAL ORDEN 
     $('#btn_orden_modal').click(function(e){
-        e.preventDefault();
-        var action = btn_orden_modal.getAttribute('accion');
-        var autoSeleccionado = ordenAuto.value.split(" - ");
+        if(!ordenAuto.validity.valid){
+            $(ordenAuto).addClass('is-invalid');
+        }
+        if(!ordenProblema.validity.valid){
+            $(ordenProblema).addClass('is-invalid');
+        }
+        if(ordenAuto.classList.contains('is-invalid') || ordenProblema.classList.contains('is-invalid')){
+            e.preventDefault();
+            return;
+        }
+        else{
+            e.preventDefault();
+            var action = btn_orden_modal.getAttribute('accion');
+            var autoSeleccionado = ordenAuto.value.split(" - ");
 
-        var autoBuscado = obtenerAutoPorPatente(autoSeleccionado[0]);
-        autoBuscado.done(function(responseAuto){
-            if(responseAuto != "error" || action == "editarOrden"){
-                var auto_id = 0;
-                if(action == "crearOrden"){
-                    var info_auto = JSON.parse(responseAuto);
-                    ordenCliente.value = info_auto[0].id_cliente;
-                    auto_id = info_auto[0].id;
-                }
-                $.ajax({
-                    type: "POST",
-                    url: "ajax.php",
-                    async: false,
-                    // id   id_auto fecha_recibido  problema	notas	adjuntos	id_recibo	id_comprobante	solucion	fecha_devolucion	estado
-                    data: {
-                        action:action,
-                        id:ordenId.value,
-                        estado:ordenEstado.value,
-                        id_auto:auto_id,
-                        problema:ordenProblema.value,
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        if (response != "error") {
-                            var autoCargado = JSON.parse(response);
-                            if(autoCargado){
-                                if(window.history.replaceState) {
-                                    window.history.replaceState(null, null, window.location.href);
-                                }
-                                if(action == "editarOrden"){
-                                    mostrarModal("ordenModal");
-                                }
-                                else{
-                                    ocultarModal("ordenModal");
-                                    modalAbierto = null;
-                                }
-                                mostrarModal("successModal");
-                            }
-                        }
-                    },
-                    error: function(error) {
-                        alert(error);
+            var autoBuscado = obtenerAutoPorPatente(autoSeleccionado[0]);
+            autoBuscado.done(function(responseAuto){
+                if(responseAuto != "error" || action == "editarOrden"){
+                    var auto_id = 0;
+                    if(action == "crearOrden"){
+                        var info_auto = JSON.parse(responseAuto);
+                        ordenCliente.value = info_auto[0].id_cliente;
+                        auto_id = info_auto[0].id;
                     }
-                });
-            }
-        });
+                    $.ajax({
+                        type: "POST",
+                        url: "ajax.php",
+                        async: false,
+                        // id   id_auto fecha_recibido  problema	notas	adjuntos	id_recibo	id_comprobante	solucion	fecha_devolucion	estado
+                        data: {
+                            action:action,
+                            id:ordenId.value,
+                            estado:ordenEstado.value,
+                            id_auto:auto_id,
+                            problema:ordenProblema.value,
+                        },
+                        success: function(response) {
+                            console.log(response);
+                            if (response != "error") {
+                                var autoCargado = JSON.parse(response);
+                                if(autoCargado){
+                                    if(window.history.replaceState) {
+                                        window.history.replaceState(null, null, window.location.href);
+                                    }
+                                    if(action == "editarOrden"){
+                                        mostrarModal("ordenModal");
+                                    }
+                                    else{
+                                        ocultarModal("ordenModal");
+                                        modalAbierto = null;
+                                    }
+                                    mostrarModal("successModal");
+                                }
+                            }
+                        },
+                        error: function(error) {
+                            alert(error);
+                        }
+                    });
+                }
+            });
+        }
                 
     });
     //MODAL FACTURACION
@@ -280,7 +322,7 @@ $( document ).ready(function() {
 
 function abrirModalOrden(id) {
     $(ordenAuto).removeClass('is-invalid').removeClass('is-valid');
-    $(ordenAuto).removeClass('is-invalid').removeClass('is-valid');
+    $(ordenProblema).removeClass('is-invalid').removeClass('is-valid');
     $('#panelsStayOpen-collapseOne').removeClass('show');
     var btn_panel_cambios = document.getElementById("btn_panel_cambios");
     $(btn_panel_cambios).addClass('collapsed');

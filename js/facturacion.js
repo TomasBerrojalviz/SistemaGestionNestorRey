@@ -4,6 +4,7 @@ var pagoOrden = document.getElementById("pagoOrden");
 var pagoFeedback = document.getElementById("pagoFeedback");
 
 var presupuestoNro = document.getElementById("presupuestoNro");
+var presupuestoNroOrden = document.getElementById("presupuestoNroOrden");
 var presupuestoFecha = document.getElementById("presupuestoFecha");
 var presupuestoHora = document.getElementById("presupuestoHora");
 var presupuestoVto = document.getElementsByClassName("presupuestoVto");
@@ -229,6 +230,7 @@ function crearPresupuesto(id) {
 
 function insertarPresupuesto(presupuesto) {
     presupuestoNro.innerHTML = presupuesto.id;
+    presupuestoNroOrden.innerHTML = id_orden;
     presupuestoFecha.innerHTML = presupuesto.fecha;
     presupuestoHora.innerHTML = presupuesto.hora;
 

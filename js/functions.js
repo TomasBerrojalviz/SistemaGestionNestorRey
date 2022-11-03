@@ -413,7 +413,7 @@ function abrirArchivo(url, nombreVentana){
     var y = parseInt((window.screen.height/2) - (alto / 2));
 
     var ventana = window.open(url, nombreVentana, "left="+x+",top="+y+",height="+alto+",width="+ancho+",scrollbar=si,location=no,resizeble=no,menubar=no");
-    if(!(url.includes("pdf") || url.includes("jpg") || url.includes("jpeg") || url.includes("png") || url.includes("tiff") || url.includes("svg"))){
+    if(!(url.includes("pdf") || url.includes("jpg") || url.includes("jpeg") || url.includes("png") || url.includes("tiff") || url.includes("svg") || url.includes("txt"))){
         setTimeout(() => {
             ventana.close();
         }, 500);
@@ -480,7 +480,7 @@ function crearVisualizadorAdjuntos(visualizador, archivos, click){
         }
 
         var preview = '<div class="card col-4 mt-2 text-center" style="display: block; padding: 0px 0px 0px 0px;" '+clickAbrir+'>'; // PROBLEMA CON ROW
-                preview += '<img src="'+src+'" class="rounded-top" height="150px" style="'+style+'">';
+                preview += '<img src="'+src+'" alt="'+archivos[i].name+'" class="rounded-top" height="150px" style="'+style+'">';
                 preview += '<div class="card-body">';
                     preview += '<h5 class="card-text">'+archivos[i].name+'</h5>';
                     preview += alert;

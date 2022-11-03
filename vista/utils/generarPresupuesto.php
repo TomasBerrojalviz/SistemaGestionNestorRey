@@ -14,7 +14,7 @@ else {
     $nroPresupuesto = $_REQUEST['pr'];
 
 
-    $stmt = Conexion::conectar()->prepare("SELECT p.id, p.id_cliente, DATE_FORMAT(p.fecha, '%d/%m/%Y') as fecha,
+    $stmt = Conexion::conectar()->prepare("SELECT p.id, p.id_cliente, DATE_FORMAT(p.fecha, '%d/%m/%Y') as fecha, p.id_orden,
                                         DATE_FORMAT(p.fecha, '%H:%i:%s') as hora,
                                         cl.nombre, cl.telefono, cl.mail, cl.domicilio
                                         FROM presupuestos p

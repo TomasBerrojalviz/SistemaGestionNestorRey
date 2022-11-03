@@ -3,18 +3,25 @@
         <div class="col-3">
             <img src="img/logo-min.png" class="mx-auto my-auto"  alt="Logo Nestor Rey Mecanica">
         </div>
-        <div class="col-5 text-center">
+        <div class="col-4 text-center">
             <p><b>Nestor Rey Mecanica</b></p>
             <p>Juncal 4849, Monte Chingolo</p>
             <p>Telefono: +54 9 11 3179-7334</p>
         </div>
-        <div class="col-4">
+        <div class="col-5">
             <div class="card">
                 <div class="card-header text-bg-primary pt-0 pb-0 text-center">
                     Presupuesto
                 </div>
                 <div class="card-body pt-0">
-                    Nro. Presupuesto: <b id="presupuestoNro"></b>
+                    <div class="row">
+                        <div class="col">
+                            Nro. Presupuesto: <b id="presupuestoNro"></b>
+                        </div>
+                        <div class="col">
+                            Nro. Orden: <b id="presupuestoNroOrden"></b>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col">
                             Fecha: <b id="presupuestoFecha"></b>

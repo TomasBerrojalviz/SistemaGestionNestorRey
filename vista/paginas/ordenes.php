@@ -77,7 +77,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                     <div class="mb-2">
                         <div class="col" id="colAuto">
                             <div class="form-floating mb-2">
-                                <input autocomplete="off" class="form-control " list="dataListAutos" name="ordenAuto" id="ordenAuto" placeholder="Ingrese auto" required>
+                                <input autocomplete="off" class="form-control" list="dataListAutos" name="ordenAuto" id="ordenAuto" placeholder="Ingrese auto" required>
                                 <label for="floatingInput">Auto</label>
                                 <div class="invalid-feedback">
                                     Ingrese un auto valido
@@ -180,6 +180,9 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                                     <div class="form-floating mb-2">
                                         <textarea autocomplete="off" class="form-control" type="text" placeholder="Ingrese problema" name="ordenProblema" id="ordenProblema" style="height: 150px"  required></textarea >
                                         <label for="floatingInput">Problema</label>
+                                        <div class="invalid-feedback">
+                                            Ingrese un problema
+                                        </div>
                                     </div>  
                                 </div>
                             </div>
@@ -224,6 +227,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                 </div>
             </div>
             <div class="modal-footer">
+            <!-- PARA SEPARAR LOS BOTONES USAR justify-content-between -->
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 <input type="submit" id="btn_orden_modal" name="btn_orden_modal" class="btn btn-primary" value="Crear"/>
             </div>

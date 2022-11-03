@@ -95,7 +95,7 @@ function cargarTabla(nombreTabla){
                     var estadoPosicion = posicionEstado(ordenes[i].estado); //hidden
                     var estado = setBotonEstado(ordenes[i].id, ordenes[i].estado);
                     var patente = ordenes[i].patente;
-                    var modelo = ordenes[i].modelo; //hidden
+                    var modelo_orden = ordenes[i].modelo + " Nro orden " + ordenes[i].id; //hidden
                     
                     var fechaOrdenable = ordenes[i].fecha_recibido.split("/");
                     var llegada = '<span style="display: none;">'+fechaOrdenable[2]+fechaOrdenable[1]+fechaOrdenable[0]+'</span>'+ordenes[i].fecha_recibido;
@@ -103,7 +103,7 @@ function cargarTabla(nombreTabla){
                     var devolucion = ordenes[i].fecha_devolucion;
                     var solucion = ordenes[i].solucion; //hidden
 
-                    var tr = tablaOrdenes.row.add([estadoPosicion, estado, patente, modelo, llegada, problema, devolucion, solucion]).draw().node();
+                    var tr = tablaOrdenes.row.add([estadoPosicion, estado, patente, modelo_orden, llegada, problema, devolucion, solucion]).draw().node();
                     tr.id = ordenes[i].id;
                     $(tr).addClass('fila');
                     tr.setAttribute("tipoModal", "orden");
