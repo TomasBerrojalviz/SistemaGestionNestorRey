@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-11-2022 a las 00:22:48
+-- Tiempo de generación: 03-11-2022 a las 18:49:10
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -40,7 +40,8 @@ CREATE TABLE `autos` (
 --
 
 REPLACE INTO `autos` (`id`, `patente`, `id_modelo`, `anio`, `id_cliente`) VALUES
-(1, 'HDC940', 1, '2009', 1);
+(1, 'HDC940', 1, '2009', 1),
+(2, 'TST123', 33, '1234', 8);
 
 -- --------------------------------------------------------
 
@@ -60,6 +61,13 @@ CREATE TABLE `cambios` (
   `filtro_combustible` datetime NOT NULL DEFAULT current_timestamp(),
   `filtro_habitaculo` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `cambios`
+--
+
+REPLACE INTO `cambios` (`id`, `id_auto`, `fecha_cambio`, `aceite`, `km_actual`, `prox_cambio`, `filtro_aceite`, `filtro_aire`, `filtro_combustible`, `filtro_habitaculo`) VALUES
+(1, 1, '2022-11-02 03:50:51', 'ELAION', 157000, 167000, '2022-11-02 03:50:51', '2022-11-02 03:50:51', '0000-00-00 00:00:00', '2022-11-02 03:50:51');
 
 -- --------------------------------------------------------
 
@@ -104,7 +112,8 @@ CREATE TABLE `insumos_presupuestos` (
 
 REPLACE INTO `insumos_presupuestos` (`id`, `id_comprobante`, `descripcion`, `cantidad`, `precio`, `precio_total`) VALUES
 (1, 1, 'MANO DE OBRA', 1, 5000, 5000),
-(2, 1, 'CORREA', 1, 12000, 12000);
+(2, 1, 'CORREA', 1, 12000, 12000),
+(3, 2, 'MANO DE OBRA', 1, 10000, 10000);
 
 -- --------------------------------------------------------
 
@@ -127,7 +136,8 @@ CREATE TABLE `insumos_recibos` (
 
 REPLACE INTO `insumos_recibos` (`id`, `id_comprobante`, `descripcion`, `cantidad`, `precio`, `precio_total`) VALUES
 (1, 1, 'MANO DE OBRA', 1, 5000, 5000),
-(2, 1, 'CORREA', 1, 12000, 12000);
+(2, 1, 'CORREA', 1, 12000, 12000),
+(3, 2, 'MANO DE OBRA', 1, 10000, 10000);
 
 -- --------------------------------------------------------
 
@@ -264,7 +274,8 @@ CREATE TABLE `ordenes` (
 --
 
 REPLACE INTO `ordenes` (`id`, `id_auto`, `fecha_recibido`, `problema`, `solucion`, `fecha_devolucion`, `estado`, `cobro`, `pago`) VALUES
-(1, 1, '2022-11-01 15:31:52', 'RUIDOS EN EL MOTOR POR CORREA', NULL, '2022-11-01 15:34:44', 4, 0, 17000);
+(1, 1, '2022-11-01 15:31:52', 'RUIDOS EN EL MOTOR POR CORREA', NULL, '2022-11-01 15:34:44', 4, 0, 17000),
+(2, 2, '2022-11-02 16:12:55', 'CREAMOS ORDEN DE PRUEBA JUNTO CON UN AUTO DE PRUEBA.', NULL, NULL, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -284,7 +295,8 @@ CREATE TABLE `presupuestos` (
 --
 
 REPLACE INTO `presupuestos` (`id`, `id_orden`, `id_cliente`, `fecha`) VALUES
-(1, 1, 1, '2022-11-01 15:32:10');
+(1, 1, 1, '2022-11-01 15:32:10'),
+(2, 2, 8, '2022-11-02 16:46:48');
 
 -- --------------------------------------------------------
 
@@ -304,7 +316,8 @@ CREATE TABLE `recibos` (
 --
 
 REPLACE INTO `recibos` (`id`, `id_orden`, `id_cliente`, `fecha`) VALUES
-(1, 1, 1, '2022-11-01 15:32:57');
+(1, 1, 1, '2022-11-01 15:32:57'),
+(2, 2, 8, '2022-11-02 22:10:54');
 
 --
 -- Índices para tablas volcadas
@@ -396,13 +409,13 @@ ALTER TABLE `recibos`
 -- AUTO_INCREMENT de la tabla `autos`
 --
 ALTER TABLE `autos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `cambios`
 --
 ALTER TABLE `cambios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `clientes`
@@ -414,13 +427,13 @@ ALTER TABLE `clientes`
 -- AUTO_INCREMENT de la tabla `insumos_presupuestos`
 --
 ALTER TABLE `insumos_presupuestos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `insumos_recibos`
 --
 ALTER TABLE `insumos_recibos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `marcas`
@@ -444,19 +457,19 @@ ALTER TABLE `notas`
 -- AUTO_INCREMENT de la tabla `ordenes`
 --
 ALTER TABLE `ordenes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `presupuestos`
 --
 ALTER TABLE `presupuestos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `recibos`
 --
 ALTER TABLE `recibos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
@@ -572,6 +585,32 @@ USE `phpmyadmin`;
 --
 -- Metadatos para la base de datos sgnr
 --
+
+--
+-- Volcado de datos para la tabla `pma__pdf_pages`
+--
+
+REPLACE INTO `pma__pdf_pages` (`db_name`, `page_descr`) VALUES
+('sgnr', 'sgnr');
+
+SET @LAST_PAGE = LAST_INSERT_ID();
+
+--
+-- Volcado de datos para la tabla `pma__table_coords`
+--
+
+REPLACE INTO `pma__table_coords` (`db_name`, `table_name`, `pdf_page_number`, `x`, `y`) VALUES
+('sgnr', 'autos', @LAST_PAGE, 410, 331),
+('sgnr', 'cambios', @LAST_PAGE, 118, 33),
+('sgnr', 'clientes', @LAST_PAGE, 769, 611),
+('sgnr', 'insumos_presupuestos', @LAST_PAGE, 1412, 78),
+('sgnr', 'insumos_recibos', @LAST_PAGE, 1421, 584),
+('sgnr', 'marcas', @LAST_PAGE, 54, 459),
+('sgnr', 'modelos', @LAST_PAGE, 222, 403),
+('sgnr', 'notas', @LAST_PAGE, 1066, 36),
+('sgnr', 'ordenes', @LAST_PAGE, 730, 242),
+('sgnr', 'presupuestos', @LAST_PAGE, 1177, 267),
+('sgnr', 'recibos', @LAST_PAGE, 1175, 563);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
