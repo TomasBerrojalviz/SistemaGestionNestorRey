@@ -388,7 +388,6 @@
     
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <input type="submit" name="btn_marca_modal" id="btn_marca_modal" class="btn btn-primary" value="Guardar" />
                     </div>
                     
                 </div>
@@ -458,6 +457,7 @@
                 <div class="modal-body">
                     <div class="container">
                         <p> Se realizo la operacion correctamente </p>
+                        <p id="successRespuesta"></p>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -481,6 +481,7 @@
                 <div class="modal-body">
                     <div class="container">
                         <p> La operacion no se pudo realizar correctamente </p>
+                        <p id="errorRespuesta"></p>
                     </div>
                 </div>
                 <div class="modal-footer">

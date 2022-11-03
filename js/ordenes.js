@@ -743,12 +743,16 @@ function subirNota(archivos, tipo, id){
             ocultarModal("notaModal");
             if(response){
                 if(response.includes("correctamente")){
+                    var successRespuesta = document.getElementById("successRespuesta");
+                    successRespuesta.innerHTML = response;
                     mostrarModal("successModal");
                 }
                 else{
+                    var errorRespuesta = document.getElementById("successRespuesta");
+                    errorRespuesta.innerHTML = response;
                     mostrarModal("errorModal");
                 }
-                alert(response);
+                // alert(response);
             }
         }
     };

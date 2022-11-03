@@ -239,7 +239,7 @@ $( document ).ready(function() {
     $('#btn_modelo_modal').click(function(e){
 
         if(marcaModelo.classList.contains('is-invalid')){
-            alert("Ingrese un modelo valido");  
+            // alert("Ingrese un modelo valido");  TODO
         }
         else if(!marcaModelo.validity.valid){
             $(marcaModelo).addClass('is-invalid');
@@ -281,11 +281,11 @@ $( document ).ready(function() {
     $('#btn_cliente_modal').click(function(e){ 
 
         if(clienteTelefono.classList.contains('is-invalid')){
-            alert("Ingrese un telefono valido");  
+            // alert("Ingrese un telefono valido");  TODO
             e.preventDefault();
         }
         else if(clienteMail.classList.contains('is-invalid')){
-            alert("Ingrese un mail valido");  
+            // alert("Ingrese un mail valido");  TODO
             e.preventDefault();
         }
         else if(!clienteNombre.validity.valid){
@@ -328,19 +328,19 @@ $( document ).ready(function() {
     $('#btn_auto_modal').click(function(e){
  
         if(autoPatente.classList.contains('is-invalid')){
-            alert("Ingrese una patente valida");  
+            // alert("Ingrese una patente valida");  TODO
             e.preventDefault();
         }
         else if(autoMarca.classList.contains('is-invalid')){
-            alert("Ingrese una marca valida");  
+            // alert("Ingrese una marca valida");  TODO
             e.preventDefault();
         }
         else if(autoModelo.classList.contains('is-invalid')){
-            alert("Ingrese un modelo valido");  
+            // alert("Ingrese un modelo valido");  TODO
             e.preventDefault();
         }
         else if(autoCliente.classList.contains('is-invalid')){
-            alert("Ingrese un cliente valido");  
+            // alert("Ingrese un cliente valido");  TODO
             e.preventDefault();
         }
         else if(!autoPatente.validity.valid){

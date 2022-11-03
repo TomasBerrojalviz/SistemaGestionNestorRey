@@ -427,6 +427,8 @@ function crearVisualizadorAdjuntos(visualizador, archivos, click){
     var row = [];
 
     while (visualizador.firstChild) {
+        visualizador.setAttribute("error", "no-error");
+        $(visualizador).removeClass('is-invalid');
         visualizador.removeChild(visualizador.firstChild);
     }
     for(var i = 0; i < archivos.length; i++){
