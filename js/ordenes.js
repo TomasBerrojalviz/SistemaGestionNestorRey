@@ -104,19 +104,19 @@ $( document ).ready(function() {
 
     //BTN MODAL ORDEN 
     $('#btn_orden_modal').click(function(e){
+        var action = btn_orden_modal.getAttribute('accion');
         if(!ordenAuto.validity.valid){
             $(ordenAuto).addClass('is-invalid');
         }
         if(!ordenProblema.validity.valid){
             $(ordenProblema).addClass('is-invalid');
         }
-        if(ordenAuto.classList.contains('is-invalid') || ordenProblema.classList.contains('is-invalid')){
+        if((ordenAuto.classList.contains('is-invalid') && action == "crearOrden") || ordenProblema.classList.contains('is-invalid')){
             e.preventDefault();
             return;
         }
         else{
             e.preventDefault();
-            var action = btn_orden_modal.getAttribute('accion');
             var autoSeleccionado = ordenAuto.value.split(" - ");
 
             var autoBuscado = obtenerAutoPorPatente(autoSeleccionado[0]);
@@ -141,7 +141,6 @@ $( document ).ready(function() {
                             problema:ordenProblema.value,
                         },
                         success: function(response) {
-                            console.log(response);
                             if (response != "error") {
                                 var autoCargado = JSON.parse(response);
                                 if(autoCargado){
@@ -651,7 +650,7 @@ function abrirModalHistorial(tipo){
                 "sProcessing":     "Procesando...",
                 "sLengthMenu":     "Mostrar _MENU_ notas",
                 "sZeroRecords":    "No se encontraron resultados",
-                "sEmptyTable":     "Ningúna orden cargada",
+                "sEmptyTable":     "Ningúna nota cargada",
                 "sInfo":           "Mostrando notas del _START_ al _END_ de un total de _TOTAL_ notas",
                 "sInfoEmpty":      "Mostrando notas del 0 al 0 de un total de 0 notas",
                 "sInfoFiltered":   "(filtrado de un total de _MAX_ notas)",

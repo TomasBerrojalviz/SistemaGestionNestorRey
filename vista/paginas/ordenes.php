@@ -83,6 +83,14 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                                     Ingrese un auto valido
                                 </div>
                             </div>
+                            <div class="container-fluid text-center">
+                                <a id="btnAgregarAuto" <?php echo $clase_boton_lg ?>>
+                                    <i class="fa-solid fa-car">
+                                        Agregar auto
+                                    </i>
+                                    <i class="fa-solid fa-car"></i>
+                                </a>
+                            </div>
                         </div>
                         <div class="accordion accordion-flush bg-secondary dataOrden" style="display: none;" id="accordionFlushAuto">
                             <div class="accordion-item">

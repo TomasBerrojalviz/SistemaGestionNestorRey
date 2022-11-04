@@ -717,6 +717,8 @@ function recargar(){
 }
 
 function DisplayVolver(FORM){
+    successRespuesta.innerHTML = "";
+    errorRespuesta.innerHTML = "";
     if(modalAbierto && FORM == "HOME" && FORM != "HOME_ORDEN"){
         FORM = modalAbierto;
     }
