@@ -13,11 +13,9 @@ function fila(elem){
     var tipoModal = $(elem).attr('tipoModal');
 
     if(tipoModal == "orden"){
-        modalAbierto = "ORDEN";
         abrirModalOrden(id);
     }
     else if(tipoModal == "auto"){
-        modalAbierto = "AUTO";
         abrirModalAuto(id);
     }
 }

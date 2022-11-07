@@ -320,6 +320,7 @@ $( document ).ready(function() {
 });
 
 function abrirModalOrden(id) {
+    modalAbierto = "ORDEN";
     $(ordenAuto).removeClass('is-invalid').removeClass('is-valid');
     $(ordenProblema).removeClass('is-invalid').removeClass('is-valid');
     $('#panelsStayOpen-collapseOne').removeClass('show');
@@ -856,6 +857,9 @@ function displayAdjuntos(id){
 
 function abrirModalTrabajo() {
     ocultarModal("ordenModal");
+
+    // modalAbierto = "TRABAJO";
+
     mostrarModal("trabajoModal");
 }
 
@@ -883,6 +887,7 @@ function traerCobroRecibo(){
 
 function abrirModalFacturacion(){
     $('#ordenModal').modal('hide');
+    // modalAbierto = "FACTURACION";
 
     var cargoOrden = document.getElementById('cargoOrden');
 

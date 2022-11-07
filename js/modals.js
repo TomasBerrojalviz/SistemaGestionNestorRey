@@ -104,7 +104,6 @@ $( document ).ready(function() {
         e.preventDefault();
 
         abrirModalAuto(0);
-        modalAbierto = "AUTO";
     });
 
     //MODAL FORM ELIMINAR MARCA
@@ -408,9 +407,15 @@ $( document ).ready(function() {
                 
     });
 
-    
-            
-    
+    $('.modal').keydown(function(e){
+        if(e.key == "Escape"){
+            e.preventDefault();
+            // console.log(e.key);
+            // console.log(e.target.children[0].children[0].children[0].children[1]);
+            e.target.children[0].children[0].children[0].children[1].click()
+            // DisplayVolver("HOME");
+        }
+    });
     
 });
 
@@ -537,6 +542,7 @@ function abrirModalCliente(id) {
 }
 
 function abrirModalAuto(id) {
+    modalAbierto = "AUTO";
     $(autoPatente).removeClass('is-invalid').removeClass('is-valid');
     $(autoMarca).removeClass('is-invalid').removeClass('is-valid');
     $(autoModelo).removeClass('is-invalid').removeClass('is-valid');

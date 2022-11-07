@@ -101,7 +101,7 @@
 
 
 <!-- Modal CAMBIOS -->
-<div class="modal fade" id="cambiosModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="cambiosModalLabel" aria-hidden="true">
+<div class="modal fade" id="cambiosModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="cambiosModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
