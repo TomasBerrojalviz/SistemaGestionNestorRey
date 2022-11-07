@@ -57,7 +57,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
 </div>
 
 <!-- Modal ORDEN -->
-<div class="modal fade modal-lg" id="ordenModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ordenModalLabel" aria-hidden="true">
+<div class="modal fade modal-lg" id="ordenModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="ordenModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -245,7 +245,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
 
 
 <!-- Modal FACTURACIOM -->
-<div class="modal fade" id="facturacionModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="facturacionModalLabel" aria-hidden="true">
+<div class="modal fade" id="facturacionModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="facturacionModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -323,7 +323,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
 </div>
 
 <!-- Modal TRABAJO -->
-<div class="modal fade" id="trabajoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="trabajoModalLabel" aria-hidden="true">
+<div class="modal fade" id="trabajoModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="trabajoModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -362,7 +362,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
 </div>
 
 <!-- Modal ENTREGA -->
-<div class="modal fade" id="entregaModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="entregaModalLabel" aria-hidden="true">
+<div class="modal fade" id="entregaModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="entregaModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -384,7 +384,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
 </div>
 
 <!-- Modal PRESUPUESTO -->
-<div class="modal fade modal-xl" id="presupuestoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="presupuestoModalLabel" aria-hidden="true">
+<div class="modal fade modal-xl" id="presupuestoModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="presupuestoModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -410,7 +410,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
 </div>
 
 <!-- Modal recibo -->
-<div class="modal fade modal-xl" id="reciboModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="reciboModalLabel" aria-hidden="true">
+<div class="modal fade modal-xl" id="reciboModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="reciboModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -434,7 +434,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
 </div>
 
 <!-- Modal NOTAS -->
-<div class="modal fade modal-lg" id="notaModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" data-bs-backdrop="static" aria-labelledby="notaModalLabel" aria-hidden="true">
+<div class="modal fade modal-lg" id="notaModal" data-bs-backdrop="static" tabindex="-1" data-bs-backdrop="static" aria-labelledby="notaModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

@@ -60,6 +60,18 @@ class ControladorFormularios {
         return $respuesta;
     }
 
+    // SELECCIONAR AUTO COMPLETO
+    static public function ctrlSeleccionarAutoCompleto(){
+        if(isset($_POST["id_auto"])){
+            $id = $_POST["id_auto"];
+            $tabla = "autos";
+
+            $respuesta = ModeloFormularios::mdlSeleccionarAuto($tabla, $id);
+            
+            return $respuesta;
+        }
+    }
+
     // SELECCIONAR ORDEN
     static public function ctrlSeleccionarOrden($id){
         $tabla = "ordenes";

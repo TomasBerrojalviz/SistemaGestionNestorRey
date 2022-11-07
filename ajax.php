@@ -50,6 +50,15 @@ $modelosDeseados = array();
             echo "error";
             exit;
         }
+        if($_POST["action"] == "seleccionarAutoCompleto"){
+            $autoSeleccionado = ControladorFormularios::ctrlSeleccionarAutoCompleto();
+            if($autoSeleccionado){
+                echo json_encode($autoSeleccionado, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
         if($_POST["action"] == "seleccionarAutos"){
             $autos = ControladorFormularios::ctrlSeleccionarAutos();
             if($autos){

@@ -43,6 +43,37 @@ class ModeloFormularios {
         $stmt = null;
     }
     
+    // SELECCIONAR ORDEN
+    static public function mdlSeleccionarOrden($tabla, $id){
+
+        $stmt = Conexion::conectar()->prepare("SELECT
+                                            ord.id, ord.id_auto, DATE_FORMAT(ord.fecha_recibido, '%d/%m/%Y') as fecha_recibido, ord.problema,
+                                            ord.solucion, DATE_FORMAT(ord.fecha_devolucion, '%d/%m/%Y') as fecha_devolucion, ord.estado,
+                                            au.patente, au.anio,
+                                            cl.nombre, cl.telefono, cl.mail, cl.domicilio,
+                                            CONCAT(ma.marca, ' ', mo.modelo) as modelo
+                                            FROM orden ord
+                                            INNER JOIN autos au
+                                            ON ord.id_auto = au.id
+                                            INNER JOIN clientes cl
+                                            ON au.id_cliente = cl.id
+                                            INNER JOIN modelos mo
+                                            ON au.id_modelo = mo.id
+                                            INNER JOIN marcas ma
+                                            ON mo.id_marca = ma.id
+                                            WHERE ord.id = :id");
+                                            
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+
+        $stmt->close();
+
+        $stmt = null;
+    }
+    
     // SELECCIONAR AUTOS
     static public function mdlSeleccionarAutos(){
 
@@ -58,6 +89,32 @@ class ModeloFormularios {
                                             INNER JOIN marcas ma
                                             ON mo.id_marca = ma.id;");
 
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+
+        $stmt->close();
+
+        $stmt = null;
+    }
+    
+    // SELECCIONAR AUTO
+    static public function mdlSeleccionarAuto($tabla, $id){
+
+        $stmt = Conexion::conectar()->prepare("SELECT
+                                            au.id, au.patente, au.anio,
+                                            cl.nombre, cl.telefono,
+                                            CONCAT(ma.marca, ' ', mo.modelo) as modelo
+                                            FROM $tabla au
+                                            INNER JOIN clientes cl
+                                            ON au.id_cliente = cl.id
+                                            INNER JOIN modelos mo
+                                            ON au.id_modelo = mo.id
+                                            INNER JOIN marcas ma
+                                            ON mo.id_marca = ma.id
+                                            WHERE au.id = :id");
+
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
         $stmt->execute();
 
         return $stmt->fetchAll();

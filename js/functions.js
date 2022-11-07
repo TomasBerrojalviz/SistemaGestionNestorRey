@@ -305,7 +305,33 @@ function editarModal(){
 }
 
 function setTablas(){
-    $('#tableMarca').DataTable({order: [[1, 'asc']]});
+    $('#tableMarca').DataTable({
+        "language": {
+            "sProcessing":     "Procesando...",
+            "sLengthMenu":     "Mostrar _MENU_ marcas",
+            "sZeroRecords":    "No se encontraron resultados",
+            "sEmptyTable":     "Ningúna marca cargada",
+            "sInfo":           "Mostrando marcas del _START_ al _END_ de un total de _TOTAL_ marcas",
+            "sInfoEmpty":      "Mostrando marcas del 0 al 0 de un total de 0 marcas",
+            "sInfoFiltered":   "(filtrado de un total de _MAX_ marcas)",
+            "sInfoPostFix":    "",
+            "sSearch":         "Buscar:",
+            "sUrl":            "",
+            "sInfoThousands":  ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst":    "Primero",
+                "sLast":     "Último",
+                "sNext":     "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        },
+        order: [[1, 'asc']]
+    });
     if(document.getElementById("tableMarca_paginate")){
         $("#tableMarca_filter").addClass('text-light float-end mx-2');
         document.getElementById("tableMarca_paginate").removeAttribute('class');
@@ -314,7 +340,33 @@ function setTablas(){
         $("#tableMarca_info").addClass('text-light mx-1');
     }
 
-    $('#tableModelo').DataTable({order: [[1, 'asc']]});
+    $('#tableModelo').DataTable({
+        "language": {
+            "sProcessing":     "Procesando...",
+            "sLengthMenu":     "Mostrar _MENU_ modelos",
+            "sZeroRecords":    "No se encontraron resultados",
+            "sEmptyTable":     "Ningún modelo cargado",
+            "sInfo":           "Mostrando modelos del _START_ al _END_ de un total de _TOTAL_ modelos",
+            "sInfoEmpty":      "Mostrando modelos del 0 al 0 de un total de 0 modelos",
+            "sInfoFiltered":   "(filtrado de un total de _MAX_ modelos)",
+            "sInfoPostFix":    "",
+            "sSearch":         "Buscar:",
+            "sUrl":            "",
+            "sInfoThousands":  ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst":    "Primero",
+                "sLast":     "Último",
+                "sNext":     "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        },
+        order: [[1, 'asc']]
+    });
     if(document.getElementById("tableModelo_paginate")){
         $("#tableModelo_filter").addClass('text-light float-end mx-2');
         document.getElementById("tableModelo_paginate").removeAttribute('class');
@@ -323,7 +375,33 @@ function setTablas(){
         $("#tableModelo_info").addClass('text-light mx-1');
     }
 
-    $('#tableCliente').DataTable({order: [[1, 'asc']]});
+    $('#tableCliente').DataTable({
+        "language": {
+            "sProcessing":     "Procesando...",
+            "sLengthMenu":     "Mostrar _MENU_ clientes",
+            "sZeroRecords":    "No se encontraron resultados",
+            "sEmptyTable":     "Ningún cliente cargado",
+            "sInfo":           "Mostrando clientes del _START_ al _END_ de un total de _TOTAL_ clientes",
+            "sInfoEmpty":      "Mostrando clientes del 0 al 0 de un total de 0 clientes",
+            "sInfoFiltered":   "(filtrado de un total de _MAX_ clientes)",
+            "sInfoPostFix":    "",
+            "sSearch":         "Buscar:",
+            "sUrl":            "",
+            "sInfoThousands":  ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst":    "Primero",
+                "sLast":     "Último",
+                "sNext":     "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        },
+        order: [[1, 'asc']]
+    });
     if(document.getElementById("tableCliente_paginate")){
         $("#tableCliente_filter").addClass('text-light float-end mx-2');
         document.getElementById("tableCliente_paginate").removeAttribute('class');
@@ -540,4 +618,15 @@ function mostrarClase(clase){
 function buscarOrdenesRelacionadas(){
     sessionStorage.setItem('autoBuscado', autoPatente.value);
     window.history.pushState(null,null,'index.php?pagina=ordenes');
+}
+
+function obtenerAutoCompleto(id_auto) {
+    var action = 'seleccionarAutoCompleto';
+
+    return $.ajax({
+        type: "POST",
+        url: "ajax.php",
+        async: false,
+        data: { action:action, id_auto:id_auto}
+    });
 }

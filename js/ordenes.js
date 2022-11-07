@@ -596,11 +596,42 @@ function abrirModalHistorial(tipo){
     if($('#tablaHistorial').DataTable())
         $('#tablaHistorial').DataTable().destroy();
     if(tipo == "CAMBIOS"){
+        var autoObtenido = obtenerAutoCompleto(autoCambio.value);
+        autoObtenido.done(function(responseAuto) {
+            if(responseAuto != "error"){
+                var info_auto = JSON.parse(responseAuto)[0];
+                historialModalTitle.innerHTML += " cambios del auto " + info_auto.patente + " " + info_auto.modelo;
+            }
+        });
         for (var i = 0; i < btn_cerrar_historial.length; i++) {
             var element = btn_cerrar_historial[i];
             element.setAttribute("onclick","DisplayVolver('"+volver+"')");
         }
         var tablaHistorial = $('#tablaHistorial').DataTable({
+            "language": {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ cambios",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún cambio cargado",
+                "sInfo":           "Mostrando cambios del _START_ al _END_ de un total de _TOTAL_ cambios",
+                "sInfoEmpty":      "Mostrando cambios del 0 al 0 de un total de 0 cambios",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ cambios)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
             columns: [
                 {title: 'Fecha', targets: 0, ordering: true, width: "25%"},
                 {title: 'Descripcion', targets: 1, ordering: true, width: "75%"},
@@ -641,6 +672,7 @@ function abrirModalHistorial(tipo){
         });
     }
     else if(tipo == "NOTAS"){
+        historialModalTitle.innerHTML += " notas de la orden " + id_orden;
         for (var i = 0; i < btn_cerrar_historial.length; i++) {
             var element = btn_cerrar_historial[i];
             element.setAttribute("onclick","DisplayVolver('TRABAJO')");

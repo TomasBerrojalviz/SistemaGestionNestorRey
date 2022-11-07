@@ -147,12 +147,12 @@ function cargarTabla(nombreTabla){
         $('#tableAuto').DataTable({
             "language": {
                 "sProcessing":     "Procesando...",
-                "sLengthMenu":     "Mostrar _MENU_ ordenes",
+                "sLengthMenu":     "Mostrar _MENU_ autos",
                 "sZeroRecords":    "No se encontraron resultados",
-                "sEmptyTable":     "Ningúna orden cargada",
-                "sInfo":           "Mostrando ordenes del _START_ al _END_ de un total de _TOTAL_ ordenes",
-                "sInfoEmpty":      "Mostrando ordenes del 0 al 0 de un total de 0 ordenes",
-                "sInfoFiltered":   "(filtrado de un total de _MAX_ ordenes)",
+                "sEmptyTable":     "Ningún auto cargado",
+                "sInfo":           "Mostrando autos del _START_ al _END_ de un total de _TOTAL_ autos",
+                "sInfoEmpty":      "Mostrando autos del 0 al 0 de un total de 0 autos",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ autos)",
                 "sInfoPostFix":    "",
                 "sSearch":         "Buscar:",
                 "sUrl":            "",

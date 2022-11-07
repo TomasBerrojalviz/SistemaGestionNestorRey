@@ -557,7 +557,6 @@ function abrirModalAuto(id) {
     }
     else{
         cambiosDisplay.style.display = "initial";
-        autoModalTitle.innerHTML = "Auto";
         autoId.value = id;
         mostrarCambiosAuto(id);
         var autoEditar = obtenerAuto(id);
@@ -582,6 +581,7 @@ function abrirModalAuto(id) {
                 autoCliente.value = info_cliente[0].nombre;
                 
             });
+            autoModalTitle.innerHTML = "Auto: " + autoPatente.value + " " + autoMarca.value + " " + autoModelo.value + " - Cliente: " + autoCliente.value;
             
         });
         
