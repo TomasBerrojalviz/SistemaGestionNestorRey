@@ -24,41 +24,26 @@ var reciboClienteDomicilio = document.getElementById("reciboClienteDomicilio");
 
 
 $( document ).ready(function() {
+    //MODAL PRESUPUESTO
+    $('#btnPresupuesto').click(function(e){
+        e.preventDefault();
+
+        abrirModalPresupuesto();
+    });
+    //MODAL RECIBO
+    $('#btnRecibo').click(function(e){
+        e.preventDefault();
+        abrirModalRecibo();
+    });
     //GENERAR PDF PRESUPUESTO
     $('#btn_presupuesto_modal').click(function(e){
         e.preventDefault();
-        
         generarPDF("presupuesto", presupuestoNro.innerHTML);
     });
     //GENERAR PDF RECIBO
     $('#btn_print_recibo').click(function(e){
         e.preventDefault();
-        
-        var action = "actualizarFecha";
-        var tabla = "recibos";
-
-        $.ajax({
-            type: "POST",
-            url: "ajax.php",
-            async: false,
-            // id_comprobante descripcion cantidad precio precio_total
-            data: {
-                action:action,
-                id:reciboNro.innerHTML,
-                tabla:tabla
-            },
-            success: function(response) {
-                if (response != "error") {
-                    var fechaActualizada = JSON.parse(response);
-                    if(fechaActualizada){
-                        generarPDF("recibo",reciboNro.innerHTML);
-                    }
-                }
-            },
-            error: function(error) {
-                alert(error);
-            }
-        });
+        generarPDF("recibo",reciboNro.innerHTML);
     });
     // INSERTAR TOTAL DEL PAGO
     $('#total_pago_orden').click(function(e){
@@ -614,5 +599,32 @@ function eliminarInsumo(id, tabla) {
         url: "ajax.php",
         async: false,
         data: { action:action, id:id, tabla:tabla}
+    });
+}
+
+function actualizarFecha(id, tabla){        
+    var action = "actualizarFecha";
+    var tabla = "recibos";
+
+    $.ajax({
+        type: "POST",
+        url: "ajax.php",
+        async: false,
+        // id_comprobante descripcion cantidad precio precio_total
+        data: {
+            action:action,
+            id:id,
+            tabla:tabla
+        },
+        success: function(response) {
+            if (response != "error") {
+                var fechaActualizada = JSON.parse(response);
+                if(fechaActualizada){
+                }
+            }
+        },
+        error: function(error) {
+            alert(error);
+        }
     });
 }

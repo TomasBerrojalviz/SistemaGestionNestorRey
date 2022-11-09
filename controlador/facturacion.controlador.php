@@ -81,6 +81,7 @@ class ControladorFacturacion {
             $id_orden = $_POST["id"];
             
             $respuesta = ModeloFacturacion::mdlObtenerComprobante($tabla, $id_orden);
+            // print_r($respuesta);
             
             return $respuesta;
         }

@@ -101,22 +101,29 @@ class ModeloFacturacion {
     static public function mdlObtenerComprobante($tabla, $id_orden){
         // id	id_orden	id_cliente	fecha
 
-        $stmt = Conexion::conectar()->prepare("SELECT comp.id, comp.id_cliente, DATE_FORMAT(comp.fecha, '%d/%m/%Y') as fecha,
-                                            DATE_FORMAT(comp.fecha, '%H:%i:%s') as hora,
-                                            cl.nombre, cl.telefono, cl.mail, cl.domicilio
-                                            FROM $tabla comp
-                                            INNER JOIN clientes cl
-                                            ON comp.id_cliente = cl.id
-                                            WHERE comp.id_orden = :id_orden");
+        $fecha = 'CURRENT_TIMESTAMP';
 
+        $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET fecha=$fecha WHERE id_orden=:id_orden;");
         $stmt->bindParam(":id_orden", $id_orden, PDO::PARAM_INT);
 
         if($stmt->execute()){
+            $stmt = null;
 
-            return $stmt->fetchAll();
-        }
-        else{
-            print_r(Conexion::conectar()->error_info());
+            $stmt = Conexion::conectar()->prepare("SELECT comp.id, comp.id_cliente, DATE_FORMAT(comp.fecha, '%d/%m/%Y') as fecha,
+                                                DATE_FORMAT(comp.fecha, '%H:%i:%s') as hora,
+                                                cl.nombre, cl.telefono, cl.mail, cl.domicilio
+                                                FROM $tabla comp
+                                                INNER JOIN clientes cl
+                                                ON comp.id_cliente = cl.id
+                                                WHERE comp.id_orden = :id_orden");
+
+            $stmt->bindParam(":id_orden", $id_orden, PDO::PARAM_INT);
+            if($stmt->execute()){
+                return $stmt->fetchAll();
+            }
+            else{
+                print_r(Conexion::conectar()->error_info());
+            }
         }
 
         $stmt->close();

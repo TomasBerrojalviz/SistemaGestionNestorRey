@@ -235,17 +235,6 @@ $( document ).ready(function() {
         
         mostrarModal("entregaModal");
     });
-    //MODAL PRESUPUESTO
-    $('#btnPresupuesto').click(function(e){
-        e.preventDefault();
-
-        abrirModalPresupuesto();
-    });
-    //MODAL RECIBO
-    $('#btnRecibo').click(function(e){
-        e.preventDefault();
-        abrirModalRecibo();
-    });
     //MODAL HISTORIAL AGREGAR
     $('#btn_historial_cambios').click(function(e){
         e.preventDefault();
