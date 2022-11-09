@@ -407,12 +407,12 @@ $( document ).ready(function() {
                 
     });
 
-    $('.modal').keydown(function(e){
+    $('.modal').keyup(function(e){
         if(e.key == "Escape"){
             e.preventDefault();
             // console.log(e.key);
             // console.log(e.target.children[0].children[0].children[0].children[1]);
-            e.target.children[0].children[0].children[0].children[1].click()
+            e.target.children[0].children[0].children[0].children[1].click();
             // DisplayVolver("HOME");
         }
     });
