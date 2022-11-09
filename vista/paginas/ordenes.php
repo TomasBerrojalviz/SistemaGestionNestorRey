@@ -275,7 +275,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
 
                 <hr>
                 <h5> Pago </h5>
-                <div class="row my-3 text-center container-fluid">
+                <div class="row my-3 text-center container-fluid" data-toggle="tooltip" title="Total de dinero que el cliente debe pagar basado en el recibo">
                     <div class="input-group">
                         <span class="input-group-text">
                             Cargo por servicio
@@ -291,11 +291,11 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                 </div>
                 <div class="row mb-3 text-center container-fluid">
                     <div class="input-group">
-                        <span class="input-group-text pagoGrupo">
+                        <span class="input-group-text pagoGrupo" data-toggle="tooltip" title="Dinero total que el cliente pago hasta la fecha">
                             Pago del cliente
                         </span>
-                        <input class="form-control pagoGrupo" type="number" min="0.00" step="100.00" name="pagoOrden" id="pagoOrden" placeholder="0">
-                        <span class="input-group-text text-bg-primary">
+                        <input class="form-control pagoGrupo" type="number" min="0.00" step="100.00" name="pagoOrden" id="pagoOrden" placeholder="0" data-toggle="tooltip" title="Dinero total que el cliente pago hasta la fecha">
+                        <span class="input-group-text text-bg-primary" data-toggle="tooltip" title="Insertar total del dinero que deba pagar el cliente">
                             <a href="#" id="total_pago_orden">
                                 <i class="fa-solid fa-money-bill-1-wave text-bg-primary h3 mt-2"></i>
                             </a>

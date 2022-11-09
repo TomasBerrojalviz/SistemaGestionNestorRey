@@ -61,6 +61,7 @@ var filtro_habitaculo = document.getElementById("filtro_habitaculo");
 var autoCambio = document.getElementById("autoCambio");
 
 $( document ).ready(function() {
+    $('[data-toggle="tooltip"]').tooltip();
     //MODAL ADJUNTOS VIEW
     $('.btnAdjuntos').click(function(e){
     });
@@ -312,10 +313,9 @@ function abrirModalOrden(id) {
     modalAbierto = "ORDEN";
     $(ordenAuto).removeClass('is-invalid').removeClass('is-valid');
     $(ordenProblema).removeClass('is-invalid').removeClass('is-valid');
-    $('#panelsStayOpen-collapseOne').removeClass('show');
-    var btn_panel_cambios = document.getElementById("btn_panel_cambios");
-    $(btn_panel_cambios).addClass('collapsed');
-    btn_panel_cambios.setAttribute("aria-expanded", "false");
+    $('#flush-auto').collapse('hide');
+    $('#panel-cambios').collapse('hide');
+    $('#flush-cliente').collapse('hide');
 
     if (id == 0){
         colAuto.style.display = "initial";

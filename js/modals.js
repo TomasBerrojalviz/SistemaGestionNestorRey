@@ -562,6 +562,7 @@ function abrirModalAuto(id) {
         btn_auto_modal.value = "Agregar auto";
     }
     else{
+        $('#panel-cambios').collapse('hide');
         cambiosDisplay.style.display = "initial";
         autoId.value = id;
         mostrarCambiosAuto(id);
