@@ -247,7 +247,7 @@ function verificarTelefono(){
     var telefonoFeedback = document.getElementById("telefonoFeedback");
     const regex = /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g;
 
-    if(telefonoCliente.length < 8){
+    if(telefonoCliente.length < 8 && telefonoCliente.length != 0){
         $("#clienteTelefono").addClass('is-invalid');
         telefonoFeedback.innerHTML = "Demasiado corto. Ingrese un telefono valido";
     }

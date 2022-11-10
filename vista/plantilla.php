@@ -137,7 +137,7 @@
                         </div>
                         <div class="form-floating mb-2">
                             <!-- /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/ -->
-                            <input autocomplete="off" onchange="verificarTelefono()" class="form-control" type="tel" pattern="(\+)*([0-9]+)" placeholder="Telefono del nuevo cliente" name="clienteTelefono" id="clienteTelefono" required>
+                            <input autocomplete="off" onchange="verificarTelefono()" class="form-control" type="tel" pattern="(\+)*([0-9]+)" placeholder="Telefono del nuevo cliente" name="clienteTelefono" id="clienteTelefono">
                             <label for="inputTel floatingInput">Telefono</label>
                             <div class="invalid-feedback">
                                 <p id="telefonoFeedback"></p>
