@@ -37,6 +37,8 @@ var autoYear = document.getElementById("autoYear");
 var autoCliente = document.getElementById("autoCliente");
 var btn_auto_modal = document.getElementById("btn_auto_modal");
 
+var enter = false;
+
 
 $( document ).ready(function() {
     //MODAL FORM AGREGAR MARCA
@@ -305,14 +307,19 @@ $( document ).ready(function() {
                 success: function(response) {
                     console.log(response);
                     if (response != "error") {
-                        var clienteCargado = JSON.parse(response);
-                        if(clienteCargado){
-                            if(window.history.replaceState) {
-                                window.history.replaceState(null, null, window.location.href);
+                        if(window.history.replaceState) {
+                            window.history.replaceState(null, null, window.location.href);
+                        }
+                        ocultarModal("clienteModal");
+                        if(response == "Duplicado"){
+                            errorRespuesta.innerHTML = "El cliente " + clienteNombre.value + " ya se encuentra registrado.";
+                            mostrarModal("errorModal");
+                        }
+                        else {
+                            var clienteCargado = JSON.parse(response);
+                            if(clienteCargado){
+                                mostrarModal("successModal");
                             }
-
-                            ocultarModal("clienteModal");
-                            mostrarModal("successModal");
                         }
                     }
                 },
@@ -405,6 +412,23 @@ $( document ).ready(function() {
            });
         }
                 
+    });
+    
+    $(".modal").on("keypress", function (event) {
+        var keyPressed = event.keyCode || event.which;
+        if (keyPressed === 13) {
+            if (enter) {
+                // alert("Doble enter hhmmmm!!");
+                event.preventDefault();
+                enter = false;
+            }
+            else{
+                enter = true;
+                setTimeout(() => {
+                    enter = false;
+                 }, 500);
+            }
+        }
     });
 
     $('.modal').keyup(function(e){

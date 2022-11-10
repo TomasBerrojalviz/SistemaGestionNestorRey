@@ -173,13 +173,21 @@ $modelosDeseados = array();
             exit;
         }
         if($_POST["action"] == "agregarCliente"){
-            $clienteAgregado = ControladorFormularios::ctrlAgregarCliente();
-            if($clienteAgregado){
-                echo json_encode($clienteAgregado, JSON_UNESCAPED_UNICODE);
+            if(isset($_POST["nombre"])){
+                $nombre = strtoupper($_POST["nombre"]);
+                $cliente = ControladorFormularios::ctrlSeleccionarDato("clientes","nombre",  $nombre, PDO::PARAM_STR);
+                if(!$cliente){
+                    $clienteAgregado = ControladorFormularios::ctrlAgregarCliente();
+                    if($clienteAgregado){
+                        echo json_encode($clienteAgregado, JSON_UNESCAPED_UNICODE);
+                        exit;
+                    }
+                    // echo "error";
+                    exit;
+                }
+                echo "Duplicado";
                 exit;
             }
-            echo "error";
-            exit;
         }
         if($_POST["action"] == "agregarAuto"){
             $autoAgregado = ControladorFormularios::ctrlAgregarAuto();
