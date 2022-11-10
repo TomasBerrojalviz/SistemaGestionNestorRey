@@ -247,16 +247,18 @@ function verificarTelefono(){
     var telefonoFeedback = document.getElementById("telefonoFeedback");
     const regex = /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g;
 
-    if(telefonoCliente.length < 8 && telefonoCliente.length != 0){
-        $("#clienteTelefono").addClass('is-invalid');
-        telefonoFeedback.innerHTML = "Demasiado corto. Ingrese un telefono valido";
-    }
-    else if(regex.test(telefonoCliente)){
-        $("#clienteTelefono").addClass('is-valid');
-    }
-    else{
-        $("#clienteTelefono").addClass('is-invalid');
-        telefonoFeedback.innerHTML = "Formato incorrecto. Ingrese un telefono valido";
+    if(telefonoCliente.length != 0){
+        if(telefonoCliente.length < 8){
+            $("#clienteTelefono").addClass('is-invalid');
+            telefonoFeedback.innerHTML = "Demasiado corto. Ingrese un telefono valido";
+        }
+        else if(regex.test(telefonoCliente)){
+            $("#clienteTelefono").addClass('is-valid');
+        }
+        else{
+            $("#clienteTelefono").addClass('is-invalid');
+            telefonoFeedback.innerHTML = "Formato incorrecto. Ingrese un telefono valido";
+        }
     }
 }
 
