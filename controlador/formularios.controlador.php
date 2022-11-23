@@ -50,6 +50,17 @@ class ControladorFormularios {
         
         return $respuesta;
     } 
+    
+    // SELECCIONAR MODELOS SEGUN MARCA
+    static public function ctrlSeleccionarModelosMarca(){
+        if(isset($_POST["marca"])){
+            $marca = strtoupper($_POST["marca"]);
+
+            $respuesta = ModeloFormularios::mdlSeleccionarModelosMarca($marca);
+            
+            return $respuesta;
+        }
+    } 
 
     // SELECCIONAR AUTO
     static public function ctrlSeleccionarAuto($id){

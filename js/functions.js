@@ -21,7 +21,7 @@ $( document ).ready(function() {
         verificarMarca($(this));
         var marca = $(this).val();
         console.log(marca);
-        var action = 'seleccionarModelos';
+        var action = 'seleccionarModelosMarca';
 
         $.ajax({
             type: "POST",
@@ -195,26 +195,27 @@ function verificarModelo(){
         }
     });
 
-    var modeloCorrecto = false;
-    var listaModelos = document.getElementById("modelosMarca");
-    var elemModelos = listaModelos.childNodes;
-    console.log($("#autoModelo").val());
-    var modeloAuto = $("#autoModelo").val().toUpperCase();
-    for (i = 0; i < elemModelos.length; i++) {
-        if(elemModelos[i].value == modeloAuto) {
-            modeloCorrecto = true;
-        }
-
-    }
-
-    if(modeloCorrecto) {
-        $("#autoModelo").removeClass('is-invalid');
-        $("#autoModelo").addClass('is-valid');
-    }
-    else {
-        $("#autoModelo").removeClass('is-valid');
-        $("#autoModelo").addClass('is-invalid');
-    }
+    // var modeloCorrecto = false;
+    // var modeloAuto = $("#autoModelo").val().toUpperCase();
+    // if(modeloAuto){
+    //     var listaModelos = document.getElementById("modelosMarca");
+    //     var elemModelos = listaModelos.childNodes;
+    //     console.log($("#autoModelo").val());
+    //     for (i = 0; i < elemModelos.length; i++) {
+    //         if(elemModelos[i].value == modeloAuto) {
+    //             modeloCorrecto = true;
+    //             break;
+    //         } 
+    //     }
+    // }
+    // if(modeloCorrecto) {
+    //     $("#autoModelo").removeClass('is-invalid');
+    //     $("#autoModelo").addClass('is-valid');
+    // }
+    // else {
+    //     $("#autoModelo").removeClass('is-valid');
+    //     $("#autoModelo").addClass('is-invalid');
+    // }
 }
 
 function verificarNombreCliente(){
@@ -233,11 +234,13 @@ function verificarMail(){
     $("#clienteMail").removeClass('is-invalid').removeClass('is-valid');
     const regex = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
 
-    if(mailCliente.match(regex)){
-        $("#clienteMail").addClass('is-valid');
-    }
-    else{
-        $("#clienteMail").addClass('is-invalid');
+    if(mailCliente){
+        if(mailCliente.match(regex)){
+            $("#clienteMail").addClass('is-valid');
+        }
+        else{
+            $("#clienteMail").addClass('is-invalid');
+        }
     }
 }
 

@@ -88,28 +88,33 @@ $modelosDeseados = array();
             exit;
         }
 
-        if($_POST["action"] == "seleccionarModelos"){
-            $marca = strtoupper($_POST["marca"]);
-            $id_marca = 0;
-            $marcas = ControladorFormularios::ctrlSeleccionarTabla("marcas");            
-            foreach ($marcas as $key => $value){
-                if($marca == $value["marca"]){
-                    $id_marca = $value["id"];
-                }
-            }
-            $modelosDeseados = array();
-            $modelos = ControladorFormularios::ctrlSeleccionarTabla("modelos");
-            if($modelos){                
-                foreach ($modelos as $key => $modelo){
-                    if($modelo['id_marca'] == $id_marca){
-                        // echo $id_marca;
-                        // echo $modelo['modelo'];
-                        // echo $modelo['id_marca'];
-                        // echo $key;
-                        array_push($modelosDeseados, $modelo);
-                    }
-                }
-                echo json_encode($modelosDeseados, JSON_UNESCAPED_UNICODE);
+        if($_POST["action"] == "seleccionarModelosMarca"){
+            // $id_marca = 0;
+            // $marcas = ControladorFormularios::ctrlSeleccionarTabla("marcas");
+            // foreach ($marcas as $key => $value){
+            //     if($marca == $value["marca"]){
+            //         $id_marca = $value["id"];
+            //     }
+            // }
+            // $modelosDeseados = array();
+            // $modelos = ControladorFormularios::ctrlSeleccionarTabla("modelos");
+            // if($modelos){                
+            //     foreach ($modelos as $key => $modelo){
+            //         if($modelo['id_marca'] == $id_marca){
+            //             // echo $id_marca;
+            //             // echo $modelo['modelo'];
+            //             // echo $modelo['id_marca'];
+            //             // echo $key;
+            //             array_push($modelosDeseados, $modelo);
+            //         }
+            //     }
+            //     echo json_encode($modelosDeseados, JSON_UNESCAPED_UNICODE);
+            //     exit;
+            // }
+            
+            $modelosMarca = ControladorFormularios::ctrlSeleccionarModelosMarca();
+            if($modelosMarca){
+                echo json_encode($modelosMarca, JSON_UNESCAPED_UNICODE);
                 exit;
             }
             echo "error";

@@ -11,8 +11,8 @@ class ModeloFacturacion {
         $stmt->bindParam(":id_comprobante", $datos["id_comprobante"], PDO::PARAM_INT);
         $stmt->bindParam(":descripcion", $datos["descripcion"], PDO::PARAM_STR);
         $stmt->bindParam(":cantidad", $datos["cantidad"], PDO::PARAM_INT);
-        $stmt->bindParam(":precio", $datos["precio"], PDO::PARAM_INT);
-        $stmt->bindParam(":precio_total", $datos["precio_total"], PDO::PARAM_INT);
+        $stmt->bindParam(":precio", $datos["precio"]);
+        $stmt->bindParam(":precio_total", $datos["precio_total"]);
 
         if($stmt->execute()){
             if($tabla == "recibos"){
@@ -40,7 +40,7 @@ class ModeloFacturacion {
         $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET cobro = cobro + :cobro_extra WHERE id = :id");
 
         // id_comprobante descripcion cantidad precio precio_total
-        $stmt->bindParam(":cobro_extra", $datos["cobro_extra"], PDO::PARAM_INT);
+        $stmt->bindParam(":cobro_extra", $datos["cobro_extra"]);
         $stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
 
         if($stmt->execute()){
@@ -63,8 +63,8 @@ class ModeloFacturacion {
         // UPDATE insumos_presupuestos SET id='[value-1]',`id_comprobante`='[value-2]',`descripcion`='[value-3]',`cantidad`='[value-4]',`precio`='[value-5]',`precio_total`='[value-6]' WHERE 1
 
         $stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
-        $stmt->bindParam(":precio", $datos["precio"], PDO::PARAM_INT);
-        $stmt->bindParam(":precio_total", $datos["precio"], PDO::PARAM_INT);
+        $stmt->bindParam(":precio", $datos["precio"]);
+        $stmt->bindParam(":precio_total", $datos["precio"]);
 
         if($stmt->execute()){
             return TRUE;
@@ -165,7 +165,7 @@ class ModeloFacturacion {
         $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET pago = :pago WHERE id = :id");
 
         $stmt->bindParam(":id", $id, PDO::PARAM_INT);
-        $stmt->bindParam(":pago", $pago, PDO::PARAM_INT);
+        $stmt->bindParam(":pago", $pago);
 
         if($stmt->execute()){
 

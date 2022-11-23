@@ -94,6 +94,25 @@ class ModeloFormularios {
         return $stmt->fetchAll();
 
         $stmt->close();
+    }
+
+       
+    
+    // SELECCIONAR MODELOS SEGUN MARCA
+    static public function mdlSeleccionarModelosMarca($marca){
+        $stmt = Conexion::conectar()->prepare("SELECT mo.id, mo.modelo, ma.marca, mo.id_marca,
+                                            CONCAT(ma.marca, ' ', mo.modelo) as modelo_completo
+                                            FROM modelos mo
+                                            INNER JOIN marcas ma
+                                            ON ma.marca = :marca
+                                            WHERE mo.id_marca = ma.id;");
+
+        $stmt->bindParam(":marca", $marca, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+
+        $stmt->close();
 
         $stmt = null;
     }
