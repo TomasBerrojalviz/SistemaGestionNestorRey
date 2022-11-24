@@ -265,6 +265,7 @@ function actualizarPrecioPresupuesto() {
 }
 
 function actualizarTablaPresupuesto(id_comprobante){
+    limpiarManoObra();
     var tabla_insumos_presupuesto = document.getElementById("tabla_insumos_presupuesto");
     $(tabla_insumos_presupuesto).empty();
 
@@ -372,6 +373,8 @@ function abrirModalRecibo(){
 }
 
 function actualizarTablaRecibo(id_recibo){
+    limpiarManoObra();
+
     var tabla_insumos_recibo = document.getElementById("tabla_insumos_recibo");
     $(tabla_insumos_recibo).empty();
 
@@ -627,4 +630,16 @@ function actualizarFecha(id, tabla){
             alert(error);
         }
     });
+}
+
+function limpiarManoObra(){
+    if(document.getElementById("manoObraCell")){
+        manoObraCell.parentNode.removeChild(manoObraCell);
+    }
+    if(document.getElementById("manoObra")){
+        manoObra.parentNode.removeChild(manoObra);
+    }
+    if(document.getElementById("manoObraTotal")){
+        manoObraTotal.parentNode.removeChild(manoObraTotal);
+    }
 }

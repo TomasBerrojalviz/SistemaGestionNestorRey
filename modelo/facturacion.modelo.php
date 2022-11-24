@@ -147,15 +147,31 @@ class ModeloFacturacion {
         $stmt->bindParam(":id_orden", $id_orden, PDO::PARAM_INT);
 
         if($stmt->execute()){
-
             return true;
         }
         else{
             print_r(Conexion::conectar()->error_info());
         }
-
         $stmt->close();
+        $stmt = null;
+    }
+    
+    // CARGAR PRESUPUESTO EN EL RECIBO
+    static public function mdlCargarPresupuestoRecibo($id_comprobante){
+        
+        $stmt = Conexion::conectar()->prepare("INSERT INTO insumos_recibos (id_comprobante, descripcion, cantidad, precio, precio_total)
+                                                SELECT id_comprobante, descripcion, cantidad, precio, precio_total FROM insumos_presupuestos
+                                                WHERE id_comprobante = :id_comprobante");
 
+        $stmt->bindParam(":id_comprobante", $id_comprobante, PDO::PARAM_INT);
+
+        if($stmt->execute()){
+            return true;
+        }
+        else{
+            print_r(Conexion::conectar()->error_info());
+        }
+        $stmt->close();
         $stmt = null;
     }
     

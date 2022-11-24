@@ -395,13 +395,14 @@ $modelosDeseados = array();
         if($_POST["action"] == "crearRecibo"){
             $reciboCreado = ControladorFacturacion::ctrlCrearComprobante("recibos");
             if($reciboCreado){
-                $reciboObtenido = ControladorFacturacion::ctrlObtenerComprobante("recibos");
-                if($reciboObtenido){
-                    echo json_encode($reciboObtenido, JSON_UNESCAPED_UNICODE);
-                    exit;
-                }
-                echo "error";
-                exit;
+                // $reciboCargado = ControladorFacturacion::ctrlCargarPresupuestoRecibo();
+                // if($reciboCargado){
+                    $reciboObtenido = ControladorFacturacion::ctrlObtenerComprobante("recibos");
+                    if($reciboObtenido){
+                        echo json_encode($reciboObtenido, JSON_UNESCAPED_UNICODE);
+                        exit;
+                    }                 
+                // }
             }
             echo "error";
             exit;

@@ -90,16 +90,13 @@ class ControladorFacturacion {
 
     // CREAR COMPROBANTE
     static public function ctrlCrearComprobante($tabla){
-
         if(isset($_POST["id"])){
 
             $id_orden = $_POST["id"];
-            
             $respuesta = ModeloFacturacion::mdlCrearComprobante($tabla, $id_orden);
 
             if($respuesta){
                 $comprobanteCreado = ModeloFacturacion::mdlObtenerComprobante($tabla, $id_orden);
-
                 if($comprobanteCreado){
                     $tabla2 = "insumos_$tabla";
                     // id_comprobante descripcion cantidad precio precio_total
@@ -110,20 +107,30 @@ class ControladorFacturacion {
                                     "precio_total" => "10000",
                                     "id_orden" => $id_orden
                                 );
-        
-                    
                     $respuesta = ModeloFacturacion::mdlAgregarInsumo($tabla2, $datos);
                 }
-                
                 return $comprobanteCreado;
-
             }
-            
-
-            
             return $respuesta;
         }
+    }
+    
+    // CARGAR PRESUPUESTO EN EL RECIBO
+    static public function ctrlCargarPresupuestoRecibo(){
+        if(isset($_POST["id"])){
 
+            $id_orden = $_POST["id"];
+            $presupuestoRelacionado = ModeloFacturacion::mdlObtenerComprobante("presupuestos", $id_orden);
+            if($presupuestoRelacionado){
+                $respuesta = ModeloFacturacion::mdlCargarPresupuestoRecibo($presupuestoRelacionado[0]['id']);
+                if($respuesta){
+                    $comprobanteCreado = ModeloFacturacion::mdlObtenerComprobante("recibos", $id_orden);
+                    return $comprobanteCreado;
+                }
+                return $respuesta;
+            }
+            return $presupuestoRelacionado;
+        }
     }
 
     // GUARDAR PAGO DEL CLIENTE
