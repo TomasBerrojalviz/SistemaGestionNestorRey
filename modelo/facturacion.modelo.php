@@ -157,13 +157,16 @@ class ModeloFacturacion {
     }
     
     // CARGAR PRESUPUESTO EN EL RECIBO
-    static public function mdlCargarPresupuestoRecibo($id_comprobante){
+    static public function mdlCargarPresupuestoRecibo($id_presupuesto, $id_recibo){
         
         $stmt = Conexion::conectar()->prepare("INSERT INTO insumos_recibos (id_comprobante, descripcion, cantidad, precio, precio_total)
-                                                SELECT id_comprobante, descripcion, cantidad, precio, precio_total FROM insumos_presupuestos
-                                                WHERE id_comprobante = :id_comprobante");
+                                                SELECT :id_recibo, descripcion, cantidad, precio, precio_total FROM insumos_presupuestos ins_pre
+                                                WHERE id_comprobante = :id_presupuesto;");
 
-        $stmt->bindParam(":id_comprobante", $id_comprobante, PDO::PARAM_INT);
+// UPDATE insumos_recibos SET id_comprobante=:id_recibo WHERE id_comprobante=-1;
+
+        $stmt->bindParam(":id_presupuesto", $id_presupuesto, PDO::PARAM_INT);
+        $stmt->bindParam(":id_recibo", $id_recibo, PDO::PARAM_INT);
 
         if($stmt->execute()){
             return true;

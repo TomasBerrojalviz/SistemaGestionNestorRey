@@ -97,7 +97,7 @@ class ControladorFacturacion {
 
             if($respuesta){
                 $comprobanteCreado = ModeloFacturacion::mdlObtenerComprobante($tabla, $id_orden);
-                if($comprobanteCreado){
+                if($comprobanteCreado && $tabla == "presupuestos"){
                     $tabla2 = "insumos_$tabla";
                     // id_comprobante descripcion cantidad precio precio_total
                     $datos = array("id_comprobante" => $comprobanteCreado[0]['id'],
@@ -116,13 +116,13 @@ class ControladorFacturacion {
     }
     
     // CARGAR PRESUPUESTO EN EL RECIBO
-    static public function ctrlCargarPresupuestoRecibo(){
+    static public function ctrlCargarPresupuestoRecibo($id_recibo){
         if(isset($_POST["id"])){
 
             $id_orden = $_POST["id"];
             $presupuestoRelacionado = ModeloFacturacion::mdlObtenerComprobante("presupuestos", $id_orden);
             if($presupuestoRelacionado){
-                $respuesta = ModeloFacturacion::mdlCargarPresupuestoRecibo($presupuestoRelacionado[0]['id']);
+                $respuesta = ModeloFacturacion::mdlCargarPresupuestoRecibo($presupuestoRelacionado[0]['id'], $id_recibo);
                 if($respuesta){
                     $comprobanteCreado = ModeloFacturacion::mdlObtenerComprobante("recibos", $id_orden);
                     return $comprobanteCreado;
