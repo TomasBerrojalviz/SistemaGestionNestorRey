@@ -420,7 +420,7 @@ function setTablas(){
 function actualizarTablas() {
     let params = new URLSearchParams(location.search);
     var pagina = params.get('pagina');
-    var paginasConTablas = ["autos", "ordenes", "marcas_modelos"];
+    var paginasConTablas = ["autos", "ordenes", "marcas_modelos", "finanzas"];
 
     if(!paginasConTablas.includes(pagina)){
         return;
@@ -430,6 +430,9 @@ function actualizarTablas() {
     }
     if(pagina == "ordenes"){
         cargarTabla('tableOrdenes');
+    }
+    if(pagina == "finanzas"){
+        cargarTabla('tableFinanzas');
     }
     else{
         marcas = obtenerMarcas();

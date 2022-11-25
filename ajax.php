@@ -453,6 +453,15 @@ $modelosDeseados = array();
             echo "error";
             exit;
         }
+        if($_POST["action"] == "obtenerManosObra"){
+            $manosObra = ControladorFacturacion::ctrlObtenerManosObra();
+            if($manosObra){
+                echo json_encode($manosObra, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
         if($_POST["action"] == "bajarAdjuntosNota"){
             if (file_exists($_POST['src'])) {
                 $myfiles = array_diff(scandir($_POST['src']), array('.', '..')); 

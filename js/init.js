@@ -1,3 +1,4 @@
+const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 var columnaEstado = document.getElementsByClassName("columnaEstado");
 var columnaPatente = document.getElementsByClassName("columnaPatente");
 var columnaLlegada = document.getElementsByClassName("columnaLlegada");
@@ -17,6 +18,10 @@ function fila(elem){
     }
     else if(tipoModal == "auto"){
         abrirModalAuto(id);
+    }
+    else if(tipoModal == "ingreso"){
+        console.log(id);
+        // abrirModalIngreso(id);
     }
 }
 
@@ -216,8 +221,76 @@ function cargarTabla(nombreTabla){
         });
 
     }
-    else if(nombreTabla == "marcas"){
-
+    else if(nombreTabla == "tableFinanzas"){
+        $('#tableFinanzas').DataTable().destroy();
+        $('#tableFinanzas_rows').empty();
+        
+        $('#tableFinanzas').DataTable({
+            "language": {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ ingresos",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún ingreso registrado",
+                "sInfo":           "Mostrando ingresos del _START_ al _END_ de un total de _TOTAL_ ingresos",
+                "sInfoEmpty":      "Mostrando ingresos del 0 al 0 de un total de 0 ingresos",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ ingresos)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            order: [[1, 'des']],
+            columnDefs: [
+                {targets: 0},
+                {targets: 1, visible:false},
+                {targets: 2, orderData: [1,1]},
+                {targets: 3}
+            ],
+            responsive: true,
+            autoWidth: false,
+            
+            lengthMenu: [
+                [10, 25, 50, 100, -1],
+                [10, 25, 50, 100, 'Todos'],
+            ]
+        });
+        var tablaFinanzas = $('#tableFinanzas').DataTable();
+        var manosObraSeleccionadas = seleccionarManosObra();
+        manosObraSeleccionadas.done(function(response) {
+            if(response != "error"){
+                const manosObras = JSON.parse(response);
+                const ingresos = obtenerIngresos(manosObras);
+                for(let anio in ingresos){
+                    for(let mes_nro in ingresos[anio]){
+                        let mes = meses[mes_nro];
+                        let mes_sort = anio + "/" + mes_nro;
+                        let ingreso = "$" + ingresos[anio][mes_nro];
+                        
+                        var tr = tablaFinanzas.row.add([anio, mes_sort, mes, ingreso]).draw().node();
+                        tr.id = mes_sort;
+                        $(tr).addClass('fila');
+                        tr.setAttribute("tipoModal", "ingreso");
+                        tr.setAttribute("onclick", "fila(this)"); 
+                    }
+                }
+            }
+            $("#tableFinanzas_filter").addClass('text-light float-end mx-2');
+            document.getElementById("tableFinanzas_paginate").removeAttribute('class');
+            $("#tableFinanzas_paginate").addClass('text-light float-end my-2');
+            $("#tableFinanzas_length").addClass('text-light  mx-1');
+            $("#tableFinanzas_info").addClass('text-light mx-1');
+        });
     }
 }
 
@@ -308,4 +381,37 @@ function setFormatTabla(tabla, blanco){
         $("#"+tabla+"_length").addClass('text-light');
         $("#"+tabla+"_info").addClass('text-light');
     }
+}
+
+function seleccionarManosObra(){
+    var action = 'obtenerManosObra';
+
+    return $.ajax({
+        type: "POST",
+        url: "ajax.php",
+        async: false,
+        data: { action:action}
+    });
+}
+
+function obtenerIngresos(manosObras){
+    var ingresos = {};
+    for(var i=0; i<manosObras.length; i++){
+        if(manosObras[i].fecha_devolucion){
+            const fecha = new Date(manosObras[i].fecha_devolucion);
+            const anio = fecha.getFullYear();
+            const mes_sort = fecha.getMonth();
+            const ingreso = manosObras[i].precio;
+            if(!ingresos[anio]){
+                ingresos[anio] = {};
+            }
+            if(ingresos[anio][mes_sort]){
+                ingresos[anio][mes_sort] += ingreso;
+            }
+            else{
+                ingresos[anio][mes_sort] = ingreso;
+            }
+        }
+    }
+    return ingresos;
 }

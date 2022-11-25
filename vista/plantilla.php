@@ -8,6 +8,9 @@
         if($_GET["pagina"] == "menu"){
             $titulo = "Menu";
         }
+        else if($_GET["pagina"] == "finanzas"){
+            $titulo = "Finanzas";
+        }
         else if($_GET["pagina"] == "autos"){
             $titulo = "Autos";
         }
@@ -83,6 +86,7 @@
                         <a <?php echo $clase_boton_lg?> type="button" href="index.php?pagina=autos">Autos</a>
                         <a <?php echo $clase_boton_lg   ?> type="button" href="index.php?pagina=clientes">Clientes</a>
                         <a <?php echo $clase_boton_lg?> type="button" href="index.php?pagina=marcas_modelos">Marcas y Modelos</a>
+                        <a class="btn btn-success btn-outline-light btn-lg" type="button" href="index.php?pagina=finanzas">Finanzas</a>
                     </div>
                 </div>
             </div>
@@ -94,6 +98,7 @@
         if(isset($_GET["pagina"])){
             if(
                 $_GET["pagina"] == "menu" ||
+                $_GET["pagina"] == "finanzas" ||
                 $_GET["pagina"] == "autos" ||
                 $_GET["pagina"] == "clientes" ||
                 $_GET["pagina"] == "marcas_modelos" ||

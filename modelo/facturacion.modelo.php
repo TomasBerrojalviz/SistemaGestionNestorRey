@@ -78,6 +78,34 @@ class ModeloFacturacion {
         $stmt = null;
     }
     
+    // OBTENER MANOS DE OBRA 
+    static public function mdlObtenerManosObra(){
+        $stmt = Conexion::conectar()->prepare("SELECT
+                                            insumos.id_comprobante, insumos.precio,
+                                            recibo.id_cliente, recibo.id_orden, orden.fecha_devolucion,
+                                            DATE_FORMAT(orden.fecha_devolucion, '%d/%m/%Y') as fecha, DATE_FORMAT(orden.fecha_devolucion, '%H:%i:%s') as hora,cliente.nombre
+                                            FROM insumos_recibos insumos
+                                            INNER JOIN recibos recibo
+                                            ON insumos.id_comprobante = recibo.id
+                                            INNER JOIN ordenes orden
+                                            ON recibo.id_orden = orden.id
+                                            INNER JOIN clientes cliente
+                                            ON recibo.id_cliente = cliente.id
+                                            WHERE insumos.descripcion = 'MANO DE OBRA'");
+
+        if($stmt->execute()){
+
+            return $stmt->fetchAll();
+        }
+        else{
+            print_r(Conexion::conectar()->error_info());
+        }
+
+        $stmt->close();
+
+        $stmt = null;
+    }
+
     // OBTENER INSUMOS 
     static public function mdlObtenerInsumos($tabla, $id_comprobante){
         $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE id_comprobante = :id_comprobante");

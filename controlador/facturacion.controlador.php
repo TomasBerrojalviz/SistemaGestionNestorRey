@@ -58,6 +58,15 @@ class ControladorFacturacion {
 
     }
 
+    // OBTENER MANOS DE OBRA 
+    static public function ctrlObtenerManosObra(){
+            
+        $respuesta = ModeloFacturacion::mdlObtenerManosObra();
+        
+        return $respuesta;
+
+    }
+
     // OBTENER INSUMOS PRESUPUESTO
     static public function ctrlObtenerInsumos(){
 
