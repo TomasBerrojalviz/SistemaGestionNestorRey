@@ -78,6 +78,15 @@ $modelosDeseados = array();
             echo "error";
             exit;
         }
+        if($_POST["action"] == "seleccionarOrdenCompleta"){
+            $ordenSeleccionada = ControladorFormularios::ctrlSeleccionarOrdenCompleta();
+            if($ordenSeleccionada){
+                echo json_encode($ordenSeleccionada, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
         if($_POST["action"] == "seleccionarOrdenes"){
             $ordenes = ControladorFormularios::ctrlSeleccionarOrdenes();
             if($ordenes){

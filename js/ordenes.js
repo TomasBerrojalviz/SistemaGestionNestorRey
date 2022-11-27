@@ -420,6 +420,17 @@ function obtenerOrden(id_buscado) {
     });
 }
 
+function seleccionarOrdenCompleta(id_buscado) {
+    var action = 'seleccionarOrdenCompleta';
+
+    return $.ajax({
+        type: "POST",
+        url: "ajax.php",
+        async: false,
+        data: { action:action, id_orden:id_buscado}
+    });
+}
+
 function obtenerCambios(id_auto){
     var action = 'obtenerCambios';
 

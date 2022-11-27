@@ -83,6 +83,18 @@ class ControladorFormularios {
         }
     }
 
+    // SELECCIONAR ORDEN COMPLETA
+    static public function ctrlSeleccionarOrdenCompleta(){
+        if(isset($_POST["id_orden"])){
+            $id = $_POST["id_orden"];
+            $tabla = "ordenes";
+
+            $respuesta = ModeloFormularios::mdlSeleccionarOrden($tabla, $id);
+            
+            return $respuesta;
+        }
+    } 
+
     // SELECCIONAR ORDEN
     static public function ctrlSeleccionarOrden($id){
         $tabla = "ordenes";

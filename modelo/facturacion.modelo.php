@@ -91,10 +91,13 @@ class ModeloFacturacion {
                                             ON recibo.id_orden = orden.id
                                             INNER JOIN clientes cliente
                                             ON recibo.id_cliente = cliente.id
-                                            WHERE insumos.descripcion = 'MANO DE OBRA'");
+                                            WHERE
+                                            insumos.descripcion LIKE '% MANO DE OBRA %' OR
+                                            insumos.descripcion LIKE '% MANO DE OBRA' OR
+                                            insumos.descripcion LIKE 'MANO DE OBRA %' OR
+                                            insumos.descripcion = 'MANO DE OBRA'");
 
         if($stmt->execute()){
-
             return $stmt->fetchAll();
         }
         else{

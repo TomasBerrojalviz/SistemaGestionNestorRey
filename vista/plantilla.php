@@ -64,7 +64,7 @@
 </head>
 <body style="background-color: #006666;">
 
-    <header  style="margin-bottom: 70px">
+    <header style="margin-bottom: 70px">
         <!-- MENU DESPLEGABLE  -->
         <nav class="navbar navbar-dark bg-dark fixed-top" style="margin-bottom: 70px">
             <div class="container-fluid">
@@ -80,14 +80,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body  justify-content-around">
-                    <div class="d-grid gap-3">
-                        <a <?php echo $clase_boton_lg?> type="button" href="index.php?pagina=menu">Menu</a>
-                        <a <?php echo $clase_boton_lg?> type="button" href="index.php?pagina=ordenes">Ordenes</a>
-                        <a <?php echo $clase_boton_lg?> type="button" href="index.php?pagina=autos">Autos</a>
-                        <a <?php echo $clase_boton_lg   ?> type="button" href="index.php?pagina=clientes">Clientes</a>
-                        <a <?php echo $clase_boton_lg?> type="button" href="index.php?pagina=marcas_modelos">Marcas y Modelos</a>
-                        <a class="btn btn-success btn-outline-light btn-lg" type="button" href="index.php?pagina=finanzas">Finanzas</a>
-                    </div>
+                    <?php require "vista/utils/menu_options.php"; ?>
                 </div>
             </div>
         </nav>
@@ -344,7 +337,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                     <h5 class="modal-title" id="historialModalTitle">Historial</h5>
-                    <button type="button" class="btn-close btn_cerrar_historial" data-bs-dismiss="modal" onclick="DisplayVolver('HOME') aria-label="Close"></button>
+                    <button type="button" class="btn-close btn_cerrar_historial" data-bs-dismiss="modal" onclick="DisplayVolver('HOME')" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="container-fluid">

@@ -1,4 +1,6 @@
 const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+const meses_numero = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+
 var columnaEstado = document.getElementsByClassName("columnaEstado");
 var columnaPatente = document.getElementsByClassName("columnaPatente");
 var columnaLlegada = document.getElementsByClassName("columnaLlegada");
@@ -274,14 +276,15 @@ function cargarTabla(nombreTabla){
                 for(let anio in ingresos){
                     for(let mes_nro in ingresos[anio]){
                         let mes = meses[mes_nro];
-                        let mes_sort = anio + "/" + mes_nro;
+                        let mes_sort = anio + "-" + meses_numero[mes_nro];
                         let ingreso = "$" + ingresos[anio][mes_nro];
                         
                         var tr = tablaFinanzas.row.add([anio, mes_sort, mes, ingreso]).draw().node();
                         tr.id = mes_sort;
+                        
                         $(tr).addClass('fila');
                         tr.setAttribute("tipoModal", "ingreso");
-                        tr.setAttribute("onclick", "fila(this)"); 
+                        tr.setAttribute("onclick", "abrirModalIngresos("+mes_nro+", "+anio+")"); 
                     }
                 }
             }

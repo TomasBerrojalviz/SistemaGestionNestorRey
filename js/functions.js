@@ -428,10 +428,10 @@ function actualizarTablas() {
     if(pagina == "autos"){
         cargarTabla('tableAuto');
     }
-    if(pagina == "ordenes"){
+    else if(pagina == "ordenes"){
         cargarTabla('tableOrdenes');
     }
-    if(pagina == "finanzas"){
+    else if(pagina == "finanzas"){
         cargarTabla('tableFinanzas');
     }
     else{

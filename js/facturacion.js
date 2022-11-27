@@ -643,3 +643,104 @@ function limpiarManoObra(){
         manoObraTotal.parentNode.removeChild(manoObraTotal);
     }
 }
+
+
+function abrirModalIngresos(mes, anio){
+    $('#tablaIngresos').DataTable().destroy();
+    $('#tablaIngresos_rows').empty();
+    
+    $('#tablaIngresos').DataTable({
+        "language": {
+            "sProcessing":     "Procesando...",
+            "sLengthMenu":     "Mostrar _MENU_ ingresos",
+            "sZeroRecords":    "No se encontraron resultados",
+            "sEmptyTable":     "Ningún ingreso registrado",
+            "sInfo":           "Mostrando ingresos del _START_ al _END_ de un total de _TOTAL_ ingresos",
+            "sInfoEmpty":      "Mostrando ingresos del 0 al 0 de un total de 0 ingresos",
+            "sInfoFiltered":   "(filtrado de un total de _MAX_ ingresos)",
+            "sInfoPostFix":    "",
+            "sSearch":         "Buscar:",
+            "sUrl":            "",
+            "sInfoThousands":  ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst":    "Primero",
+                "sLast":     "Último",
+                "sNext":     "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        },
+        order: [[0, 'des']],
+        columnDefs: [
+            {targets: 0, visible:false},
+            {targets: 1, orderData: [0,1]},
+            {targets: 2},
+            {targets: 3},
+            {targets: 4},
+            {targets: 5}
+        ],
+        responsive: true,
+        autoWidth: false,
+        
+        lengthMenu: [
+            [10, 25, 50, 100, -1],
+            [10, 25, 50, 100, 'Todos'],
+        ]
+    });
+    var tablaIngresos = $('#tablaIngresos').DataTable();
+    ingresosModalTitle.innerHTML = "Ingresos de " + meses[mes] + " del " + anio;
+    const manosObraObtenidas = seleccionarManosObra();
+    manosObraObtenidas.done(function(response) {
+        if(response != "error"){
+            const manosObra = filtrarManoObraPorFecha(JSON.parse(response), mes, anio);
+            for(var i = 0; i < manosObra.length; i++) {
+                const ordenSeleccionada = seleccionarOrdenCompleta(manosObra[i].id_orden);
+                ordenSeleccionada.done(function(responseOrden) {
+                    if(responseOrden != "error"){
+                        const ordenRelacionada = JSON.parse(responseOrden)[0];
+                        const fecha_sort = manosObra[i].fecha_devolucion;
+                        const fecha = manosObra[i].fecha;
+                        const orden = manosObra[i].id_orden;
+                        const auto = ordenRelacionada.patente + " - " + ordenRelacionada.modelo;
+                        const cliente = ordenRelacionada.nombre;
+                        const mano_obra_precio = "$" + manosObra[i].precio;
+
+                        // <th scope="col">Fecha-Sort</th>
+                        // <th scope="col">Fecha</th>
+                        // <th scope="col">Orden</th>
+                        // <th scope="col">Auto</th>
+                        // <th scope="col">Cliente</th>
+                        // <th scope="col">Mano de obra</th>
+
+                        var tr = tablaIngresos.row.add([fecha_sort, fecha, orden, auto, cliente, mano_obra_precio]).draw().node();
+                        
+                        tr.setAttribute("onclick", "abrirModalOrden("+manosObra[i].id_orden+")"); 
+                    }
+                });
+            }
+            $("#tablaIngresos_filter").addClass('text-light float-end mx-2');
+            document.getElementById("tablaIngresos_paginate").removeAttribute('class');
+            $("#tablaIngresos_paginate").addClass('text-light float-end my-2');
+            $("#tablaIngresos_length").addClass('text-light  mx-1');
+            $("#tablaIngresos_info").addClass('text-light mx-1');
+            
+        }
+    });
+    mostrarModal("ingresosModal");    
+}
+
+function filtrarManoObraPorFecha(manosObra, mes, anio){
+    var manosObraFiltradas = [];
+    for(var i = 0; i < manosObra.length; i++){
+        const fechaMano = new Date(manosObra[i].fecha_devolucion);
+        if(fechaMano.getFullYear() == anio && fechaMano.getMonth() == mes){
+            manosObraFiltradas.push(manosObra[i]);
+        }
+    }
+    return manosObraFiltradas;
+    
+}

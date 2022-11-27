@@ -52,7 +52,7 @@ class ModeloFormularios {
                                             au.patente, au.anio,
                                             cl.nombre, cl.telefono, cl.mail, cl.domicilio,
                                             CONCAT(ma.marca, ' ', mo.modelo) as modelo
-                                            FROM orden ord
+                                            FROM ordenes ord
                                             INNER JOIN autos au
                                             ON ord.id_auto = au.id
                                             INNER JOIN clientes cl
