@@ -85,7 +85,7 @@ $( document ).ready(function() {
             parent = parent.parentNode;
             if(parent.classList.contains("modal")){
                 $(parent).modal('hide');
-                console.log(parent);
+                // console.log(parent);
                 modalAuto = true;
             }
         }
@@ -566,6 +566,7 @@ function abrirModalCliente(id) {
 }
 
 function abrirModalAuto(id) {
+    actualizarMarcasModelos();
     modalAbierto = "AUTO";
     $(autoPatente).removeClass('is-invalid').removeClass('is-valid');
     $(autoMarca).removeClass('is-invalid').removeClass('is-valid');
@@ -584,6 +585,22 @@ function abrirModalAuto(id) {
         autoCliente.value = "";
         btn_auto_modal.setAttribute("accion", "agregarAuto");
         btn_auto_modal.value = "Agregar auto";
+        if(marcaModelo.value){
+            autoMarca.value = marcaModelo.value;
+            verificarMarca($(autoMarca));
+        }
+        else if(marca.value){
+            autoMarca.value = marca.value;
+            verificarMarca($(autoMarca));
+        }
+        if(modelo.value){
+            autoModelo.value = modelo.value;
+            verificarModelo();
+        }
+        if(clienteNombre.value){
+            autoCliente.value = clienteNombre.value;
+            verificarCliente();
+        }
     }
     else{
         $('#panel-cambios').collapse('hide');

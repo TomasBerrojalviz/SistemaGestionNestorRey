@@ -435,37 +435,41 @@ function actualizarTablas() {
         cargarTabla('tableFinanzas');
     }
     else{
-        marcas = obtenerMarcas();
-        modelos = obtenerModelos();
-
-        marcas.done(function(responseMarcas){
-            if(responseMarcas != "error"){
-                var info_marcas = JSON.parse(responseMarcas);
-                console.log(info_marcas);
-                while (dataListMarca.firstChild) {
-                    dataListMarca.removeChild(dataListMarca.firstChild);
-                }
-
-                info_marcas.forEach(marca => {
-                    dataListMarca.appendChild(agregarOptionMarca(marca));
-                });
-            }
-        });
-        modelos.done(function(responseModelos){
-            if(responseModelos != "error"){
-                var info_modelos = JSON.parse(responseModelos);
-                console.log(info_modelos);
-
-                while (dataListModelo.firstChild) {
-                    dataListModelo.removeChild(dataListModelo.firstChild);
-                }
-
-                info_modelos.forEach(modelo => {
-                    dataListModelo.appendChild(agregarOptionMarca(modelo));
-                });
-            }
-        });
+        actualizarMarcasModelos();
     }
+}
+
+function actualizarMarcasModelos(){
+    marcas = obtenerMarcas();
+    modelos = obtenerModelos();
+
+    marcas.done(function(responseMarcas){
+        if(responseMarcas != "error"){
+            var info_marcas = JSON.parse(responseMarcas);
+            console.log(info_marcas);
+            while (dataListMarca.firstChild) {
+                dataListMarca.removeChild(dataListMarca.firstChild);
+            }
+
+            info_marcas.forEach(marca => {
+                dataListMarca.appendChild(agregarOptionMarca(marca));
+            });
+        }
+    });
+    modelos.done(function(responseModelos){
+        if(responseModelos != "error"){
+            var info_modelos = JSON.parse(responseModelos);
+            console.log(info_modelos);
+
+            while (dataListModelo.firstChild) {
+                dataListModelo.removeChild(dataListModelo.firstChild);
+            }
+
+            info_modelos.forEach(modelo => {
+                dataListModelo.appendChild(agregarOptionMarca(modelo));
+            });
+        }
+    });
 }
 
 function generarPDF(tipo, id){

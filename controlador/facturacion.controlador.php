@@ -41,17 +41,20 @@ class ControladorFacturacion {
 
     }
     
-    // AGREGAR INSUMO
-    static public function ctrlActualizarManoObra(){
+    // ACTUALIZAR INSUMO
+    static public function ctrlActualizarInsumo(){
 
         if(isset($_POST["id"])){
             $tabla = $_POST["tabla"];
             
             // id_comprobante descripcion cantidad precio precio_total
             $datos = array("id" => $_POST["id"],
-                            "precio" => $_POST["precio"]
+                            "descripcion" => $_POST["descripcion"],
+                            "cantidad" => $_POST["cantidad"],
+                            "precio" => $_POST["precio"],
+                            "precio_total" => $_POST["precio_total"]
                         );
-            $respuesta = ModeloFacturacion::mdlActualizarManoObra($tabla, $datos);
+            $respuesta = ModeloFacturacion::mdlActualizarInsumo($tabla, $datos);
             
             return $respuesta;
         }

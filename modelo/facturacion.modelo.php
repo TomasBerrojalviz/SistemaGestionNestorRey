@@ -55,16 +55,18 @@ class ModeloFacturacion {
         $stmt = null;
     }
     
-    // SUMAR INSUMO AL COBRO
-    static public function mdlActualizarManoObra($tabla, $datos){
+    // EDITAR INSUMO
+    static public function mdlActualizarInsumo($tabla, $datos){
 
-        $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET precio = :precio, precio_total = :precio_total WHERE id = :id");
+        $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET descripcion = :descripcion, cantidad = :cantidad, precio = :precio, precio_total = :precio_total WHERE id = :id");
         
         // UPDATE insumos_presupuestos SET id='[value-1]',`id_comprobante`='[value-2]',`descripcion`='[value-3]',`cantidad`='[value-4]',`precio`='[value-5]',`precio_total`='[value-6]' WHERE 1
 
         $stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
+        $stmt->bindParam(":descripcion", $datos["descripcion"]);
+        $stmt->bindParam(":cantidad", $datos["cantidad"]);
         $stmt->bindParam(":precio", $datos["precio"]);
-        $stmt->bindParam(":precio_total", $datos["precio"]);
+        $stmt->bindParam(":precio_total", $datos["precio_total"]);
 
         if($stmt->execute()){
             return TRUE;

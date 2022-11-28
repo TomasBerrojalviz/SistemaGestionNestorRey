@@ -350,10 +350,10 @@ $modelosDeseados = array();
             exit;
         }
     
-        if($_POST["action"] == "actualizarManoObra"){
-            $manoObraActualizada = ControladorFacturacion::ctrlActualizarManoObra();
-            if($manoObraActualizada){
-                echo json_encode($manoObraActualizada, JSON_UNESCAPED_UNICODE);
+        if($_POST["action"] == "actualizarInsumo"){
+            $insumoActualizado = ControladorFacturacion::ctrlActualizarInsumo();
+            if($insumoActualizado){
+                echo json_encode($insumoActualizado, JSON_UNESCAPED_UNICODE);
                 exit;
             }
             echo "error";

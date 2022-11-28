@@ -1,6 +1,14 @@
 const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 const meses_numero = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
 
+const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+    },
+    buttonsStyling: false
+});
+
 var columnaEstado = document.getElementsByClassName("columnaEstado");
 var columnaPatente = document.getElementsByClassName("columnaPatente");
 var columnaLlegada = document.getElementsByClassName("columnaLlegada");
@@ -75,7 +83,7 @@ function cargarTabla(nombreTabla){
             order: [[0, 'asc']],
             columnDefs: [
                 {targets: 0, visible:false},
-                {targets: 1, sClass:"columnaEstado"},
+                {targets: 1, sClass:"columnaEstado", orderData: [0,1]},
                 {targets: 2, sClass:"columnaPatente"},
                 {targets: 3, visible:false},
                 {targets: 4, sClass:"columnaLlegada"},

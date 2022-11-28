@@ -54,6 +54,7 @@
     <link rel='stylesheet' type='text/css' href='http://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css'>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.20/js/jquery.dataTables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <script src="js/init.js"></script>
 
@@ -113,6 +114,34 @@
 
     <!-- <input type="hidden" name="modalAbierto" id="modalAbierto" value=""> -->
     
+    <!-- Modal INSUMO -->
+    <div class="modal fade" id="marcaModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="marcaModalTitle">Editar marca</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('HOME')"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="row" id="form_editar_marca" method="POST">
+                        <div class="container">
+                            <input class="form-control" type="hidden" name="marcaId" id="marcaId" required>
+                            <div class="form-floating mb-2">
+                                <input autocomplete="off" class="form-control" type="text" placeholder="Ingrese marca" id="marca" name="marca" required>
+                                <label for="floatingInput">Marca</label>
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DisplayVolver('HOME')">Cerrar</button>
+                    <input type="submit" name="btn_marca_modal" id="btn_marca_modal" class="btn btn-primary" value="Guardar" />
+                </div>
+                    </form>
+
+            </div>
+        </div>
+    </div>
+
     <!-- Modal CLIENTE -->
     <div class="modal fade" id="clienteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="clienteModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -184,14 +213,12 @@
                             </div>
                         </div>
                 </div>
-
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DisplayVolver('HOME')">Cerrar</button>
                     <input type="submit" name="btn_marca_modal" id="btn_marca_modal" class="btn btn-primary" value="Guardar" />
                 </div>
-                
                     </form>
-                
+
             </div>
         </div>
     </div>

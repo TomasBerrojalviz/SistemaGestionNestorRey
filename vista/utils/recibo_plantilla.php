@@ -66,6 +66,8 @@
     </div>
 </div>
 
+<p id="descripcionReciboFeedback" class="my-2 text-center" ></p>
+
 <table cellspacing=0 class="table table-responsive table-bordered table-hover table-inverse table-striped text-center table-sm" role="grid" id="tableRecibo" width=100% >
     <thead>
         <tr class="text-bg-primary modelo">
@@ -87,7 +89,8 @@
         </tr>
         <tr class="modelo">
             <th>
-                <input class="text-dark text-bg-secondary bg-opacity-25" type="text" name="descripcionRecibo" id="descripcionRecibo" placeholder="-" required>
+                <input class="text-dark text-bg-secondary bg-opacity-25" onchange="verificarDescripcion(this)" type="text" name="descripcionRecibo" id="descripcionRecibo" placeholder="-" required>
+                
             </th>
             <th>
                 <input class="text-dark text-bg-secondary bg-opacity-25" onchange="actualizarPrecioRecibo()" type="number" name="cantidadRecibo" id="cantidadRecibo" placeholder="0" required>

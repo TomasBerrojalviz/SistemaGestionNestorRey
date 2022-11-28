@@ -94,14 +94,25 @@ $( document ).ready(function() {
     //AGREGAR PRODUCTO PRESUPUESTO
     $('#agregar_producto_presupuesto').click(function(e){
         e.preventDefault();
-        var action = "agregarInsumo";
-        var tabla = "insumos_presupuestos";
         
         var descripcion = document.getElementById("descripcion");
         var cantidad = document.getElementById("cantidad");
         var precio = document.getElementById("precio");
         var precio_total = document.getElementById("precio_total");
 
+        if(descripcion.classList.contains("is-invalid")){
+            Swal.fire({
+                title: 'No se puede cargar un producto/servicio con errores',
+                icon: 'warning',
+                showConfirmButton: false,
+                showCancelButton: true,
+                cancelButtonText: 'Volver',
+                showCloseButton: true
+              })
+              return;
+        }
+        var action = "agregarInsumo";
+        var tabla = "insumos_presupuestos";
         $.ajax({
             type: "POST",
             url: "ajax.php",
@@ -132,6 +143,17 @@ $( document ).ready(function() {
     //AGREGAR PRODUCTO RECIBO
     $('#agregar_producto_recibo').click(function(e){
         e.preventDefault();
+        if(descripcionRecibo.classList.contains("is-invalid")){
+            Swal.fire({
+                title: 'No se puede cargar un producto/servicio con errores',
+                icon: 'warning',
+                showConfirmButton: false,
+                showCancelButton: true,
+                cancelButtonText: 'Volver',
+                showCloseButton: true
+              })
+              return;
+        }
         var action = "agregarInsumo";
         var tabla = "insumos_recibos";
         
@@ -300,12 +322,16 @@ function actualizarTablaPresupuesto(id_comprobante){
                     
                 }
                 else{
-                    var accion = "";
-                    accion = '<a href="#" class="text-danger" onclick="eliminarInsumoPresupuesto(\''+ info_insumos[i].id + '\')">';
+                    var accion = "<div class='text-center mx-auto'>";
+                    accion += '<a href="#" class="text-primary mx-2" onclick="editInsumo(\'' + info_insumos[i].id + '\', \'presupuesto\')">';
+                        accion += '<i class="fa-solid fa-pencil"></i>';
+                    accion += '</a>';
+                    accion += '<a href="#" class="text-danger mx-2" onclick="eliminarInsumoPresupuesto(\''+ info_insumos[i].id + '\')">';
                         accion += '<i class="fa-solid fa-trash-can"></i>';
                     accion += '</a>';
                     
                     let row = tabla_insumos_presupuesto.insertRow();
+                    row.id = info_insumos[i].id;
                     let cell1 = row.insertCell(0);
                     let cell2 = row.insertCell(1);
                     let cell3 = row.insertCell(2);  
@@ -348,7 +374,7 @@ function obtenerInsumos(id_comprobante, comprobante){
 }
 
 function abrirModalRecibo(){
-    $('#trabajoModal').modal('hide');
+    $('#facturacionModal').modal('hide');
 
     var reciboObtenido = obtenerRecibo(id_orden);
     // id	id_orden	id_cliente	fecha
@@ -392,6 +418,7 @@ function actualizarTablaRecibo(id_recibo){
                     accion += '<b> Guardar </b> </a>';
 
                     let row1 = tabla_insumos_recibo.insertRow(0);
+                    row1.id = info_insumos[i].id;
                     let cell1_1 = row1.insertCell(0);
                     let cell1_2 = row1.insertCell(1);
                     let cell1_3 = row1.insertCell(2);
@@ -409,12 +436,17 @@ function actualizarTablaRecibo(id_recibo){
                     
                 }
                 else{
-                    var accion = "";
-                    accion = '<a href="#" class="text-danger" onclick="eliminarInsumoRecibo(\''+ info_insumos[i].id + '\')">';
-                        accion += '<i class="fa-solid fa-trash-can"></i>';
-                    accion += '</a>';
+                    var accion = "<div class='text-center mx-auto'>";
+                        accion += '<a href="#" class="text-primary mx-2" onclick="editInsumo(\'' + info_insumos[i].id + '\', \'recibo\')">';
+                            accion += '<i class="fa-solid fa-pencil"></i>';
+                        accion += '</a>';
+                        accion += '<a href="#" class="text-danger mx-2" onclick="eliminarInsumoRecibo(\''+ info_insumos[i].id + '\')">';
+                            accion += '<i class="fa-solid fa-trash-can"></i>';
+                        accion += '</a>';
+                    accion += '</div>';
                     
                     let row = tabla_insumos_recibo.insertRow();
+                    row.id = info_insumos[i].id;
                     let cell1 = row.insertCell(0);
                     let cell2 = row.insertCell(1);
                     let cell3 = row.insertCell(2);  
@@ -546,13 +578,113 @@ function editManoDeObraTrabajo(id) {
 }
 
 function actualizarManoObra(id, precio, tabla) {
-    var action = 'actualizarManoObra';
+    var action = 'actualizarInsumo';
 
     return $.ajax({
         type: "POST",
         url: "ajax.php",
         async: false,
-        data: { action:action, id:id, precio:precio, tabla:tabla}
+        data: { action:action, id:id, descripcion:"MANO DE OBRA", cantidad:1, precio:precio, precio_total:precio, tabla:tabla}
+    });
+}
+
+function actualizarInsumo(id, insumo, comprobante) {
+    var tabla = "";
+    if(comprobante == "recibo"){
+        tabla = "insumos_recibos";
+    }
+    else if(comprobante == "presupuesto"){
+        tabla = "insumos_presupuestos";
+    }
+    var action = 'actualizarInsumo';
+    const descripcion = insumo['descripcion'];
+    const cantidad = insumo['cantidad'];
+    const precio = insumo['precio'];
+    const precio_total = insumo['precio_total'];
+
+    return $.ajax({
+        type: "POST",
+        url: "ajax.php",
+        async: false,
+        data: { action:action, id:id, descripcion:descripcion, cantidad:cantidad, precio:precio, precio_total:precio_total, tabla:tabla}
+    });
+}
+
+function actualizarInputInsumoEdit(){
+    document.getElementById('insumo-precio').value = parseFloat(document.getElementById('insumo-precio').value).toFixed(2);
+    document.getElementById('insumo-precio-total').value = parseFloat(document.getElementById('insumo-cantidad').value * document.getElementById('insumo-precio').value).toFixed(2);
+}
+
+function editInsumo(id, comprobante){
+    var insumo = document.getElementById(id).childNodes;
+    console.log(insumo);
+    insumo.forEach(ins => console.log(ins.innerHTML));
+    ocultarModal(comprobante+"Modal");
+    
+    Swal.fire({
+        title: 'Editar insumo',
+        icon: 'info',
+        confirmButtonText:
+            '<i class="fa fa-flopy-disk"></i> Guardar',
+        confirmButtonColor: '#198754',
+        showCancelButton: true,
+        cancelButtonText: 'Volver',
+        showCloseButton: true,
+        focusConfirm: true,
+        html:
+            '<input id="insumo-descripcion" class="swal2-input" value="'+ insumo[0].innerHTML  +'">' +
+            '<input id="insumo-cantidad" class="swal2-input" onchange="actualizarInputInsumoEdit()" value="'+ insumo[1].innerHTML  +'" type="number" placeholder="0">' +
+            '<input id="insumo-precio" class="swal2-input" onchange="actualizarInputInsumoEdit()" value="'+ insumo[2].innerHTML  +'" type="number" min="0.00" step="100.00" placeholder="0.00">' +
+            '<input id="insumo-precio-total" class="swal2-input" value="'+ insumo[3].innerHTML  +'" disabled>'
+        }).then((result) => {
+            console.log(result);
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            const insumoEdit = {};
+            insumoEdit['descripcion'] = document.getElementById('insumo-descripcion').value;
+            insumoEdit['cantidad'] = document.getElementById('insumo-cantidad').value;
+            insumoEdit['precio'] = document.getElementById('insumo-precio').value;
+            insumoEdit['precio_total'] = document.getElementById('insumo-precio-total').value;
+            var insumoActualizar = actualizarInsumo(id, insumoEdit, comprobante);
+            insumoActualizar.done(function(response) {
+                console.log(response);
+                if(response != "error"){
+                    // var total_recibo = document.getElementById("total_recibo").innerHTML;
+                    // console.log(total_recibo);
+                    // total_recibo = total_recibo - insumo[3].innerHTML;
+
+                    // insumo[0].innerHTML = insumoEdit['descripcion'];
+                    // insumo[1].innerHTML = insumoEdit['cantidad'];
+                    // insumo[2].innerHTML = insumoEdit['precio'];
+                    // insumo[3].innerHTML = insumoEdit['precio_total'];
+
+                    // console.log(total_recibo);
+                    // total_recibo = parseFloat(total_recibo + parseFloat(insumoEdit['precio_total'])).toFixed(2);
+
+                    // console.log(total_recibo);
+                    Swal.fire('Cambios guardados', '', 'success').then((result) => {
+                        if(comprobante == "recibo"){
+                            abrirModalRecibo();
+                        }
+                        else if(comprobante == "presupuesto"){
+                            abrirModalPresupuesto();
+                        };
+                    });
+                }
+                else{
+                    alert(response);
+                }
+            });
+        } else if (result.isDismissed) {
+            Swal.fire('No se guardaron los cambios', '', 'info').then((result) => {
+                if(comprobante == "recibo"){
+                    abrirModalRecibo();
+                }
+                else if(comprobante == "presupuesto"){
+                    abrirModalPresupuesto();
+                };
+            });
+        }
     });
 }
 
@@ -743,4 +875,19 @@ function filtrarManoObraPorFecha(manosObra, mes, anio){
     }
     return manosObraFiltradas;
     
+}
+
+function verificarDescripcion(descripcionInput){
+    console.log(descripcionInput.value.toUpperCase());
+    $(descripcionInput).removeClass('is-invalid');
+    descripcionReciboFeedback.innerHTML = "";
+    
+    if(descripcionInput.value.toUpperCase() == "MANO DE OBRA"){
+        console.log(descripcionInput.value);
+        $(descripcionInput).addClass('is-invalid');
+        var alert = '<div class="alert alert-danger" role="alert">';
+        alert += 'No se puede ingresar otra MANO DE OBRA <i class="fa-solid fa-circle-exclamation"></i>';
+        alert += '</div>';
+        descripcionReciboFeedback.innerHTML = alert;
+    }
 }
