@@ -350,6 +350,16 @@ $modelosDeseados = array();
             exit;
         }
     
+        if($_POST["action"] == "actualizarFechaComprobante"){
+            $fechaActualizada = ControladorFacturacion::ctrlActualizarFechaComprobante();
+            if($fechaActualizada){
+                echo json_encode($fechaActualizada, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
+    
         if($_POST["action"] == "actualizarInsumo"){
             $insumoActualizado = ControladorFacturacion::ctrlActualizarInsumo();
             if($insumoActualizado){

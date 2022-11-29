@@ -286,11 +286,17 @@ function estadosSelect(id, select){
     while (select.firstChild) {
         select.removeChild(select.firstChild);
     }
-    for(let i = 1; i < 6; i++) {
-        if(i == 4 && pago < traerCobroRecibo()){
-            continue;
+    document.getElementById("pagoCompleto").innerHTML = "";
+    for(let i = 1; i < 5; i++) {
+        if(i == 4 && pago < traerCobroRecibo(id_orden)){
+            // continue;
+            
+            var boton = "<button class='btn btn-outline-dark text-bg-danger text-dark' onclick='abrirModalFacturacion()' style='width: 100%'>";
+            boton +=        '<i class="fa-solid fa-hand-holding-dollar fa-flip-horizontal"> </i> <i class="fa-solid"> Falta pagar </i> <i class="fa-solid fa-hand-holding-dollar"></i>';
+            boton +=    "</button>";
+            document.getElementById("pagoCompleto").innerHTML = boton;
         }
-        else{
+        // else{
             var option = document.createElement("option");
             option.innerHTML = estadoText(i);
             option.value = i;
@@ -298,7 +304,7 @@ function estadosSelect(id, select){
                 option.selected = true;
             }
             select.appendChild(option);
-        }
+        // }
     }
 
 }

@@ -24,13 +24,16 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            Fecha: <b id="presupuestoFecha"></b>
+                            Fecha: <input class='text-dark text-bg-secondary bg-opacity-25' type='date' onchange='console.log(this.value)' name='presupuestoFecha' id='presupuestoFecha' required>
+                            <a href="#" class="text-success mx-2" onclick="actualizarFecha(presupuestoNro.innerHTML, presupuestoFecha.value, 'presupuestos')">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                            </a>
                         </div>
-                        <div class="col">
+                        <!-- <div class="col">
                             Hora: <b id="presupuestoHora"></b>
-                        </div>
+                        </div> -->
                     </div>
-                    Vto Presupuesto: <b class="presupuestoVto"></b>
+                    <!-- Vto Presupuesto: <b class="presupuestoVto"></b> -->
                 </div>
             </div>
         </div>
@@ -67,9 +70,9 @@
     </div>
 </div>
 
-<div class="text-muted text-center mb-3">
+<!-- <div class="text-muted text-center mb-3">
     Presupuesto valido hasta <b class="presupuestoVto"></b>
-</div>
+</div> -->
 
 <table cellspacing=0 class="table table-responsive table-bordered table-hover table-inverse table-striped text-center table-sm" role="grid" id="tablePresupuesto" width=100% >
     <thead>

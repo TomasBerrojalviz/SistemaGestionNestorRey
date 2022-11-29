@@ -134,16 +134,16 @@ class ModeloFacturacion {
     static public function mdlObtenerComprobante($tabla, $id_orden){
         // id	id_orden	id_cliente	fecha
 
-        $fecha = 'CURRENT_TIMESTAMP';
+        // $fecha = 'CURRENT_TIMESTAMP';
 
-        $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET fecha=$fecha WHERE id_orden=:id_orden;");
-        $stmt->bindParam(":id_orden", $id_orden, PDO::PARAM_INT);
+        // $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET fecha=$fecha WHERE id_orden=:id_orden;");
+        // $stmt->bindParam(":id_orden", $id_orden, PDO::PARAM_INT);
 
-        if($stmt->execute()){
-            $stmt = null;
+        // if($stmt->execute()){
+        //     $stmt = null;
 
             $stmt = Conexion::conectar()->prepare("SELECT comp.id, comp.id_cliente, DATE_FORMAT(comp.fecha, '%d/%m/%Y') as fecha,
-                                                DATE_FORMAT(comp.fecha, '%H:%i:%s') as hora,
+                                                DATE_FORMAT(comp.fecha, '%H:%i:%s') as hora, DATE_FORMAT(comp.fecha, '%Y-%m-%d') as fechaInput,
                                                 cl.nombre, cl.telefono, cl.mail, cl.domicilio
                                                 FROM $tabla comp
                                                 INNER JOIN clientes cl
@@ -157,11 +157,11 @@ class ModeloFacturacion {
             else{
                 print_r(Conexion::conectar()->error_info());
             }
-        }
+        // }
 
-        $stmt->close();
+        // $stmt->close();
 
-        $stmt = null;
+        // $stmt = null;
     }
     
     // CREAR COMPROBANTE
@@ -233,11 +233,12 @@ class ModeloFacturacion {
     }
     
     // ACTUALIZAR FECHA RECIBO
-    static public function mdlActualizarFecha($tabla, $id){
+    static public function mdlActualizarFecha($tabla, $datos){
         
-        $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET fecha = CURRENT_TIMESTAMP WHERE id = :id");
+        $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET fecha = :fecha WHERE id = :id");
 
-        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+        $stmt->bindParam(":id", $datos['id'], PDO::PARAM_INT);
+        $stmt->bindParam(":fecha", $datos['fecha']);
 
         if($stmt->execute()){
 

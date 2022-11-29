@@ -140,14 +140,13 @@
                         </div>
 
                         <div class="div dataOrden" style="display: none;">
-                            <div class="row mb-3">
+                            <div class="row">
                                 <div class="col" style="max-width: 350px;">
                                     <div class="input-group container-fluid">
                                         <div class="input-group-text">Fecha recibido</div>
                                         <input autocomplete="off" class="form-control text-center" type="datetime" name="fecha_recibido" id="fecha_recibido" disabled readonly>
                                     </div>
                                 </div>
-                            
                                 <div class="col">
                                     <div class="input-group container-fluid"> 
                                         <div class="input-group-text">Estado</div>
@@ -155,8 +154,20 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row text-center mt-3" id="showEntrega" style="display: none;">
+                                <div class="col-6 mx-auto">
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-text">Fecha de entrega</div>
+                                        <input autocomplete="off" class="form-control text-center" type="datetime" name="fecha_devolucion" id="fecha_devolucion" disabled readonly>
+                                    </div>
+                                    <div id="pagoCompleto">
 
-                            <div class="row mb-3 container-fluid text-center">
+                                    </div>
+                                </div>
+                            </div>
+                            
+
+                            <div class="row mt-3 text-center">
                                 <div class="col">
                                     <button id="btnFacturacion" tipoModal="facturacion" class="btn btn-bg text-bg-info btn-outline-dark btnFacturacion">
                                     <i class="fa-solid fa-money-check-dollar"></i> <i class="fa-solid"> Facturacion </i> <i class="fa-solid fa-money-check-dollar"></i>
@@ -165,11 +176,6 @@
                                 <div class="col">
                                     <button id="btnTrabajo" tipoModal="trabajo" class="btn btn-bg text-bg-warning btn-outline-dark btnTrabajo">
                                         <i class="fa-solid fa-gears"></i> <i class="fa-solid"> Trabajo </i> <i class="fa-solid fa-gears fa-flip-horizontal"> </i>
-                                    </button>
-                                </div>
-                                <div class="col-auto" hidden>
-                                    <button id="btnEntrega" tipoModal="entrega" class="btn btn-bg text-bg-success btn-outline-dark btnEntrega">
-                                    <i class="fa-solid fa-car-burst fa-flip-horizontal"></i> <i class="fa-solid"> Entrega </i> <i class="fa-solid fa-car-burst"></i>
                                     </button>
                                 </div>
                             </div>

@@ -83,13 +83,15 @@ function cargarTabla(nombreTabla){
             order: [[0, 'asc']],
             columnDefs: [
                 {targets: 0, visible:false},
-                {targets: 1, sClass:"columnaEstado", orderData: [0,1]},
-                {targets: 2, sClass:"columnaPatente"},
+                {targets: 1, sClass:"columnaEstado", orderData: [0,4,7]},
+                {targets: 2, sClass:"columnaPatente", orderData: [2,0,4]},
                 {targets: 3, visible:false},
                 {targets: 4, sClass:"columnaLlegada"},
                 {targets: 5, sClass:"columnaProblema"},
-                {targets: 6, sClass:"columnaDevolucion"},
-                {targets: 7, visible:false}
+                {targets: 6, orderData: [7,0,4]},
+                {targets: 7, visible:false},
+                {targets: 8, sClass:"columnaDevolucion"},
+                {targets: 9, visible:false}
             ],
             responsive: true,
             autoWidth: false,
@@ -109,14 +111,21 @@ function cargarTabla(nombreTabla){
                     var estado = setBotonEstado(ordenes[i].id, ordenes[i].estado);
                     var patente = ordenes[i].patente;
                     var modelo_orden = ordenes[i].modelo + " Nro orden " + ordenes[i].id; //hidden
+
+                    var pagado = '<i class="fa-regular fa-circle-check text-success h3"></i>';
+                    var pago_sort = 1;
+                    if(ordenes[i].pago < traerCobroRecibo(ordenes[i].id)){
+                        pagado = '<i class="fa-regular fa-circle-xmark text-danger h3"></i>';
+                        pago_sort = 0;
+                    }
                     
                     var fechaOrdenable = ordenes[i].fecha_recibido.split("/");
                     var llegada = '<span style="display: none;">'+fechaOrdenable[2]+fechaOrdenable[1]+fechaOrdenable[0]+'</span>'+ordenes[i].fecha_recibido;
                     var problema = ordenes[i].problema;
-                    var devolucion = ordenes[i].fecha_devolucion;
+                    var entrega = ordenes[i].fecha_devolucion;
                     var solucion = ordenes[i].solucion; //hidden
 
-                    var tr = tablaOrdenes.row.add([estadoPosicion, estado, patente, modelo_orden, llegada, problema, devolucion, solucion]).draw().node();
+                    var tr = tablaOrdenes.row.add([estadoPosicion, estado, patente, modelo_orden, llegada, problema, pagado, pago_sort, entrega, solucion]).draw().node();
                     tr.id = ordenes[i].id;
                     $(tr).addClass('fila');
                     tr.setAttribute("tipoModal", "orden");
@@ -320,6 +329,13 @@ function posicionEstado(estado){
         default: //Estado incorrecto
             return -1;
     }
+
+    // 1 FINALIZADO
+    // 2 PENDIENTE
+    // 3 ENTREGADO
+    // 4 CANCELADO
+    // -1 INCORRECTO
+
 }
 
 function seleccionarOrdenes(){

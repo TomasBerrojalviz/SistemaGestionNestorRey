@@ -52,11 +52,11 @@
                             <div class="col">
                                 Fecha: <b><?php echo $presupuesto['fecha'] ?></b>
                             </div>
-                            <div class="col">
+                            <!-- <div class="col">
                                 Hora: <b><?php echo $presupuesto['hora'] ?></b>
-                            </div>
+                            </div> -->
                         </div>
-                        Vto Presupuesto: <b><?php echo $fechaVto ?></b>
+                        <!-- Vto Presupuesto: <b><?php echo $fechaVto ?></b> -->
                     </div>
             </small></small>
                 </div>
@@ -96,9 +96,9 @@
         </div>
     </div>
 
-    <div class="text-muted text-center mb-3">
+    <!-- <div class="text-muted text-center mb-3">
         Presupuesto valido hasta <b><?php echo $fechaVto ?></b>
-    </div>
+    </div> -->
 
     <table cellspacing=0 class="table table-responsive table-bordered table-hover table-inverse table-striped text-center table-sm" role="grid" id="tablePresupuesto" width=100% >
         <thead>

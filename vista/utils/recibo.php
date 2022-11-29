@@ -52,9 +52,9 @@
                             <div class="col">
                                 Fecha: <b><?php echo $recibo['fecha'] ?></b>
                             </div>
-                            <div class="col">
+                            <!-- <div class="col">
                                 Hora: <b><?php echo $recibo['hora'] ?></b>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
             </small></small>

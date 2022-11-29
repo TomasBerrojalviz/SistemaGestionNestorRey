@@ -166,10 +166,13 @@ class ControladorFacturacion {
 
         if(isset($_POST["id"])){
 
-            $id = $_POST["id"];
+            // id_comprobante descripcion cantidad precio precio_total
+            $datos = array("id" => $_POST["id"],
+                            "fecha" => $_POST["fecha"]
+                        );
             $tabla = $_POST["tabla"];
             
-            $respuesta = ModeloFacturacion::mdlActualizarFecha($tabla, $id);
+            $respuesta = ModeloFacturacion::mdlActualizarFecha($tabla, $datos);
             
             return $respuesta;
         }

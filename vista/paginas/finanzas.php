@@ -29,7 +29,7 @@
                             <tr class="text-bg-primary">
                                 <th scope="col">Fecha-Sort</th>
                                 <th scope="col">Fecha</th>
-                                <th scope="col">Orden</th>
+                                <th scope="col" data-toggle="tooltip" title="Abrir orden tocando boton correspondiente">Orden</th>
                                 <th scope="col">Auto</th>
                                 <th scope="col">Cliente</th>
                                 <th scope="col">Mano de obra</th>

@@ -16,9 +16,9 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
 
 <!-- LSITADO DE ORDENES -->
 <div class="container-fluid mt-2">
-    <div class="d-grid gap-2 mx-3 py-3 d-md-flex justify-content-md-center">
+    <!-- <div class="d-grid gap-2 mx-3 py-3 d-md-flex justify-content-md-center">
         <button type="button" class="btn btn-dark btn-outline-info" onclick="sortTablaOrdenes()">Ordenar</button>
-    </div>
+    </div> -->
     <table cellspacing=0 class="table table-responsive table-info table-bordered table-hover table-inverse table-striped text-center table-sm" role="grid" id="tableOrdenes">
     <thead>
         <tr>
@@ -40,8 +40,14 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
             <th scope="col" class="sorting" style="max-width: 100px;" >
                 Problema
             </th>
+            <th scope="col" class="sorting">
+                Pago
+            </th>
+            <th scope="col" class="sorting">
+                Pago_sort
+            </th>
             <th scope="col" class="sorting" style="max-width: 160px;">
-                Devolucion
+                Entrega
             </th>
             <th scope="col" class="sorting">
                 Solucion

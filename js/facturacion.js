@@ -6,8 +6,8 @@ var pagoFeedback = document.getElementById("pagoFeedback");
 var presupuestoNro = document.getElementById("presupuestoNro");
 var presupuestoNroOrden = document.getElementById("presupuestoNroOrden");
 var presupuestoFecha = document.getElementById("presupuestoFecha");
-var presupuestoHora = document.getElementById("presupuestoHora");
-var presupuestoVto = document.getElementsByClassName("presupuestoVto");
+// var presupuestoHora = document.getElementById("presupuestoHora");
+// var presupuestoVto = document.getElementsByClassName("presupuestoVto");
 var presupuestoClienteNombre = document.getElementById("presupuestoClienteNombre");
 var presupuestoClienteMail = document.getElementById("presupuestoClienteMail");
 var presupuestoClienteTelefono = document.getElementById("presupuestoClienteTelefono");
@@ -15,8 +15,7 @@ var presupuestoClienteDomicilio = document.getElementById("presupuestoClienteDom
 
 var reciboNro = document.getElementById("reciboNro");
 var reciboFecha = document.getElementById("reciboFecha");
-var reciboHora = document.getElementById("reciboHora");
-var reciboVto = document.getElementsByClassName("reciboVto");
+// var reciboHora = document.getElementById("reciboHora");
 var reciboClienteNombre = document.getElementById("reciboClienteNombre");
 var reciboClienteMail = document.getElementById("reciboClienteMail");
 var reciboClienteTelefono = document.getElementById("reciboClienteTelefono");
@@ -238,17 +237,17 @@ function crearPresupuesto(id) {
 function insertarPresupuesto(presupuesto) {
     presupuestoNro.innerHTML = presupuesto.id;
     presupuestoNroOrden.innerHTML = id_orden;
-    presupuestoFecha.innerHTML = presupuesto.fecha;
-    presupuestoHora.innerHTML = presupuesto.hora;
+    presupuestoFecha.value = presupuesto.fechaInput;
+    // presupuestoHora.innerHTML = presupuesto.hora;
 
-    var fechaVto = new Date();
-    var fechaPresupuesto = presupuesto.fecha.split("/");
-    fechaVto.setFullYear(fechaPresupuesto[2],fechaPresupuesto[1],fechaPresupuesto[0]);
-    fechaVto.setDate(fechaVto.getDate()+7);
+    // var fechaVto = new Date();
+    // var fechaPresupuesto = presupuesto.fecha.split("/");
+    // fechaVto.setFullYear(fechaPresupuesto[2],fechaPresupuesto[1],fechaPresupuesto[0]);
+    // fechaVto.setDate(fechaVto.getDate()+7);
     
-    for(var i = 0; i < presupuestoVto.length; i++) {
-        presupuestoVto[i].innerHTML = fechaVto.getDate()+"/"+fechaVto.getMonth()+"/"+fechaVto.getFullYear();
-    }
+    // for(var i = 0; i < presupuestoVto.length; i++) {
+    //     presupuestoVto[i].innerHTML = fechaVto.getDate()+"/"+fechaVto.getMonth()+"/"+fechaVto.getFullYear();
+    // }
 
     presupuestoClienteNombre.value = presupuesto.nombre;
     if(presupuesto.mail){
@@ -324,7 +323,7 @@ function actualizarTablaPresupuesto(id_comprobante){
                 else{
                     var accion = "<div class='text-center mx-auto'>";
                     accion += '<a href="#" class="text-primary mx-2" onclick="editInsumo(\'' + info_insumos[i].id + '\', \'presupuesto\')">';
-                        accion += '<i class="fa-solid fa-pencil"></i>';
+                        accion += '<i class="fa-solid fa-pen-to-square"></i>';
                     accion += '</a>';
                     accion += '<a href="#" class="text-danger mx-2" onclick="eliminarInsumoPresupuesto(\''+ info_insumos[i].id + '\')">';
                         accion += '<i class="fa-solid fa-trash-can"></i>';
@@ -438,7 +437,7 @@ function actualizarTablaRecibo(id_recibo){
                 else{
                     var accion = "<div class='text-center mx-auto'>";
                         accion += '<a href="#" class="text-primary mx-2" onclick="editInsumo(\'' + info_insumos[i].id + '\', \'recibo\')">';
-                            accion += '<i class="fa-solid fa-pencil"></i>';
+                            accion += '<i class="fa-solid fa-pen-to-square"></i>';
                         accion += '</a>';
                         accion += '<a href="#" class="text-danger mx-2" onclick="eliminarInsumoRecibo(\''+ info_insumos[i].id + '\')">';
                             accion += '<i class="fa-solid fa-trash-can"></i>';
@@ -502,17 +501,8 @@ function crearRecibo(id) {
 function insertarRecibo(recibo) {
     reciboNro.innerHTML = recibo.id;
     reciboNroOrden.innerHTML = id_orden;
-    reciboFecha.innerHTML = recibo.fecha;
-    reciboHora.innerHTML = recibo.hora;
-
-    var fechaVto = new Date();
-    var fecharecibo = recibo.fecha.split("/");
-    fechaVto.setFullYear(fecharecibo[2],fecharecibo[1],fecharecibo[0]);
-    fechaVto.setDate(fechaVto.getDate()+7);
-    
-    for(var i = 0; i < reciboVto.length; i++) {
-        reciboVto[i].innerHTML = fechaVto.getDate()+"/"+fechaVto.getMonth()+"/"+fechaVto.getFullYear();
-    }
+    reciboFecha.value = recibo.fechaInput;
+    // reciboHora.innerHTML = recibo.hora;
 
     reciboClienteNombre.value = recibo.nombre;
     if(recibo.mail){
@@ -632,50 +622,53 @@ function editInsumo(id, comprobante){
         showCloseButton: true,
         focusConfirm: true,
         html:
-            '<input id="insumo-descripcion" class="swal2-input" value="'+ insumo[0].innerHTML  +'">' +
+            '<input id="insumo-descripcion" onchange="verificarDescripcion(this)" feedback="descripcionFeedback" class="swal2-input" value="'+ insumo[0].innerHTML  +'">' +
+            '<p id="descripcionFeedback" class="my-2 text-center"></p>' +
             '<input id="insumo-cantidad" class="swal2-input" onchange="actualizarInputInsumoEdit()" value="'+ insumo[1].innerHTML  +'" type="number" placeholder="0">' +
             '<input id="insumo-precio" class="swal2-input" onchange="actualizarInputInsumoEdit()" value="'+ insumo[2].innerHTML  +'" type="number" min="0.00" step="100.00" placeholder="0.00">' +
             '<input id="insumo-precio-total" class="swal2-input" value="'+ insumo[3].innerHTML  +'" disabled>'
-        }).then((result) => {
-            console.log(result);
-        /* Read more about isConfirmed, isDenied below */
+    }).then((result) => {
+        console.log(result);
         if (result.isConfirmed) {
-            const insumoEdit = {};
-            insumoEdit['descripcion'] = document.getElementById('insumo-descripcion').value;
-            insumoEdit['cantidad'] = document.getElementById('insumo-cantidad').value;
-            insumoEdit['precio'] = document.getElementById('insumo-precio').value;
-            insumoEdit['precio_total'] = document.getElementById('insumo-precio-total').value;
-            var insumoActualizar = actualizarInsumo(id, insumoEdit, comprobante);
-            insumoActualizar.done(function(response) {
-                console.log(response);
-                if(response != "error"){
-                    // var total_recibo = document.getElementById("total_recibo").innerHTML;
-                    // console.log(total_recibo);
-                    // total_recibo = total_recibo - insumo[3].innerHTML;
-
-                    // insumo[0].innerHTML = insumoEdit['descripcion'];
-                    // insumo[1].innerHTML = insumoEdit['cantidad'];
-                    // insumo[2].innerHTML = insumoEdit['precio'];
-                    // insumo[3].innerHTML = insumoEdit['precio_total'];
-
-                    // console.log(total_recibo);
-                    // total_recibo = parseFloat(total_recibo + parseFloat(insumoEdit['precio_total'])).toFixed(2);
-
-                    // console.log(total_recibo);
-                    Swal.fire('Cambios guardados', '', 'success').then((result) => {
-                        if(comprobante == "recibo"){
-                            abrirModalRecibo();
-                        }
-                        else if(comprobante == "presupuesto"){
-                            abrirModalPresupuesto();
-                        };
-                    });
-                }
-                else{
-                    alert(response);
-                }
-            });
-        } else if (result.isDismissed) {
+            if(document.getElementById('insumo-descripcion').classList.contains("is-invalid")){
+                Swal.fire({
+                    title: 'No se puede cargar un producto/servicio con errores',
+                    icon: 'warning',
+                    showConfirmButton: false,
+                    showCancelButton: true,
+                    cancelButtonText: 'Volver',
+                    showCloseButton: true
+                }).then(() => {
+                    editInsumo(id, comprobante);
+                });
+            }
+            else{
+                const insumoEdit = {};
+                insumoEdit['descripcion'] = document.getElementById('insumo-descripcion').value;
+                insumoEdit['cantidad'] = document.getElementById('insumo-cantidad').value;
+                insumoEdit['precio'] = document.getElementById('insumo-precio').value;
+                insumoEdit['precio_total'] = document.getElementById('insumo-precio-total').value;
+                var insumoActualizar = actualizarInsumo(id, insumoEdit, comprobante);
+                insumoActualizar.done(function(response) {
+                    console.log(response);
+                    if(response != "error"){
+                        // console.log(total_recibo);
+                        Swal.fire('Cambios guardados', '', 'success').then((result) => {
+                            if(comprobante == "recibo"){
+                                abrirModalRecibo();
+                            }
+                            else if(comprobante == "presupuesto"){
+                                abrirModalPresupuesto();
+                            };
+                        });
+                    }
+                    else{
+                        alert(response);
+                    }
+                });
+            }
+        }
+        else if (result.isDismissed) {
             Swal.fire('No se guardaron los cambios', '', 'info').then((result) => {
                 if(comprobante == "recibo"){
                     abrirModalRecibo();
@@ -734,33 +727,6 @@ function eliminarInsumo(id, tabla) {
         url: "ajax.php",
         async: false,
         data: { action:action, id:id, tabla:tabla}
-    });
-}
-
-function actualizarFecha(id, tabla){        
-    var action = "actualizarFecha";
-    var tabla = "recibos";
-
-    $.ajax({
-        type: "POST",
-        url: "ajax.php",
-        async: false,
-        // id_comprobante descripcion cantidad precio precio_total
-        data: {
-            action:action,
-            id:id,
-            tabla:tabla
-        },
-        success: function(response) {
-            if (response != "error") {
-                var fechaActualizada = JSON.parse(response);
-                if(fechaActualizada){
-                }
-            }
-        },
-        error: function(error) {
-            alert(error);
-        }
     });
 }
 
@@ -833,10 +799,14 @@ function abrirModalIngresos(mes, anio){
                 const ordenSeleccionada = seleccionarOrdenCompleta(manosObra[i].id_orden);
                 ordenSeleccionada.done(function(responseOrden) {
                     if(responseOrden != "error"){
+                        var boton = '<button class="btn btn-outline-dark btn-sm" onclick="abrirModalOrden(\''+manosObra[i].id_orden+'\')" style="width: 100%;">';
+                        boton += manosObra[i].id_orden;
+                        boton += "</button>";
+
                         const ordenRelacionada = JSON.parse(responseOrden)[0];
                         const fecha_sort = manosObra[i].fecha_devolucion;
                         const fecha = manosObra[i].fecha;
-                        const orden = manosObra[i].id_orden;
+                        const orden = boton;
                         const auto = ordenRelacionada.patente + " - " + ordenRelacionada.modelo;
                         const cliente = ordenRelacionada.nombre;
                         const mano_obra_precio = "$" + manosObra[i].precio;
@@ -850,15 +820,15 @@ function abrirModalIngresos(mes, anio){
 
                         var tr = tablaIngresos.row.add([fecha_sort, fecha, orden, auto, cliente, mano_obra_precio]).draw().node();
                         
-                        tr.setAttribute("onclick", "abrirModalOrden("+manosObra[i].id_orden+")"); 
+                        // tr.setAttribute("onclick", "abrirModalOrden("+manosObra[i].id_orden+")"); 
                     }
                 });
             }
-            $("#tablaIngresos_filter").addClass('text-light float-end mx-2');
+            $("#tablaIngresos_filter").addClass('float-end mx-2');
             document.getElementById("tablaIngresos_paginate").removeAttribute('class');
-            $("#tablaIngresos_paginate").addClass('text-light float-end my-2');
-            $("#tablaIngresos_length").addClass('text-light  mx-1');
-            $("#tablaIngresos_info").addClass('text-light mx-1');
+            $("#tablaIngresos_paginate").addClass('float-end my-2');
+            $("#tablaIngresos_length").addClass('mx-1');
+            $("#tablaIngresos_info").addClass('mx-1');
             
         }
     });
@@ -880,7 +850,8 @@ function filtrarManoObraPorFecha(manosObra, mes, anio){
 function verificarDescripcion(descripcionInput){
     console.log(descripcionInput.value.toUpperCase());
     $(descripcionInput).removeClass('is-invalid');
-    descripcionReciboFeedback.innerHTML = "";
+    const feedback = document.getElementById(descripcionInput.getAttribute('feedback'));
+    feedback.innerHTML = "";
     
     if(descripcionInput.value.toUpperCase() == "MANO DE OBRA"){
         console.log(descripcionInput.value);
@@ -888,6 +859,41 @@ function verificarDescripcion(descripcionInput){
         var alert = '<div class="alert alert-danger" role="alert">';
         alert += 'No se puede ingresar otra MANO DE OBRA <i class="fa-solid fa-circle-exclamation"></i>';
         alert += '</div>';
-        descripcionReciboFeedback.innerHTML = alert;
+        feedback.innerHTML = alert;
     }
+}
+
+function actualizarFecha(id, fecha, comprobante){
+    console.log(fecha);
+    $.ajax({
+        type: "POST",
+        url: "ajax.php",
+        async: false,
+        // id_comprobante descripcion cantidad precio precio_total
+        data: {
+            action:"actualizarFecha",
+            id:id,
+            fecha:fecha,
+            tabla:comprobante
+        },
+        success: function(response) {
+            if (response != "error") {
+                var fechaCambiada = JSON.parse(response);
+                if(fechaCambiada){
+                    Swal.fire({
+                        title: 'Fecha actualizada correctamente',
+                        icon: 'success',
+                        confirmButtonText: 'Aceptar',
+                        confirmButtonColor: '#198754',
+                        showCloseButton: true
+                    }).then(() => {
+                        // editInsumo(id, comprobante);
+                    });
+                }
+            }
+        },
+        error: function(error) {
+            alert(error);
+        }
+    });
 }

@@ -20,7 +20,7 @@ class ModeloFormularios {
 
         $stmt = Conexion::conectar()->prepare("SELECT
                                             ord.id, ord.id_auto, DATE_FORMAT(ord.fecha_recibido, '%d/%m/%Y') as fecha_recibido, ord.problema,
-                                            ord.solucion, DATE_FORMAT(ord.fecha_devolucion, '%d/%m/%Y') as fecha_devolucion, ord.estado,
+                                            ord.solucion, DATE_FORMAT(ord.fecha_devolucion, '%d/%m/%Y') as fecha_devolucion, ord.estado, ord.cobro, ord.pago,
                                             au.patente, au.anio,
                                             cl.nombre, cl.telefono, cl.mail, cl.domicilio,
                                             CONCAT(ma.marca, ' ', mo.modelo) as modelo
@@ -47,8 +47,9 @@ class ModeloFormularios {
     static public function mdlSeleccionarOrden($tabla, $id){
 
         $stmt = Conexion::conectar()->prepare("SELECT
-                                            ord.id, ord.id_auto, DATE_FORMAT(ord.fecha_recibido, '%d/%m/%Y') as fecha_recibido, ord.problema,
-                                            ord.solucion, DATE_FORMAT(ord.fecha_devolucion, '%d/%m/%Y') as fecha_devolucion, ord.estado,
+                                            ord.id, ord.id_auto, DATE_FORMAT(ord.fecha_recibido, '%d/%m/%Y') as fecha_recibido, DATE_FORMAT(ord.fecha_recibido, '%H:%i:%s') as hora_recibido,
+                                            DATE_FORMAT(ord.fecha_devolucion, '%d/%m/%Y') as fecha_devolucion, DATE_FORMAT(ord.fecha_devolucion, '%H:%i:%s') as hora_devolucion, ord.estado,
+                                            ord.cobro, ord.pago, ord.solucion, ord.problema,
                                             au.patente, au.anio,
                                             cl.nombre, cl.telefono, cl.mail, cl.domicilio,
                                             CONCAT(ma.marca, ' ', mo.modelo) as modelo

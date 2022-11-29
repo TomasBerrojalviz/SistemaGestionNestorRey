@@ -228,14 +228,6 @@ $( document ).ready(function() {
         // abrirModalCambios();
         abrirModalNota();
     });
-    //MODAL ENTREGA
-    $('#btnEntrega').click(function(e){
-        e.preventDefault();
-
-        $('#ordenModal').modal('hide');
-        
-        mostrarModal("entregaModal");
-    });
     //MODAL HISTORIAL AGREGAR
     $('#btn_historial_cambios').click(function(e){
         e.preventDefault();
@@ -341,62 +333,40 @@ function abrirModalOrden(id) {
             var element = dataOrden[i];
             element.style.display = "initial";
         }
-        var orden = obtenerOrden(id);
+        var orden = seleccionarOrdenCompleta(id);
         orden.done(function(responseOrden) {
-            var info_orden = JSON.parse(responseOrden);
-            var autoEditar = obtenerAuto(info_orden[0].id_auto);
-            autoEditar.done(function(responseAuto){
-                var info_auto = JSON.parse(responseAuto);
-                mostrarCambiosAuto(info_auto[0].id);
-                ordenAutoPatente.value = info_auto[0].patente;
-                ordenAutoAnio.value = info_auto[0].anio;
-                var modeloAuto = obtenerModelo(info_auto[0].id_modelo);
-                modeloAuto.done(function(responseModelo){
-                    var info_modelo = JSON.parse(responseModelo);
-                    var marcaAuto = obtenerMarca(info_modelo[0].id_marca);
-                    marcaAuto.done(function(responseMarca){
-                        var info_marca = JSON.parse(responseMarca);
-                        ordenAutoModelo.value = info_marca[0].marca + " " + info_modelo[0].modelo;
-                    });
-                    
-                });
-                // ordenEstado.value = obtenerEstado(id);
-                var clienteAuto = obtenerCliente(info_auto[0].id_cliente);
-                clienteAuto.done(function(responseCliente){
-                    var info_cliente = JSON.parse(responseCliente);
-                    ordenCliente.value = info_cliente[0].id;
-                    ordenClienteNombre.value = info_cliente[0].nombre;
-                    ordenClienteTelefono.value = info_cliente[0].telefono;
-                    ordenClienteMail.value = info_cliente[0].mail;
-                    ordenClienteDomicilio.value = info_cliente[0].domicilio;
-                });
-                
-            });
+            var info_orden = JSON.parse(responseOrden)[0];
+            mostrarCambiosAuto(info_orden.id_auto);
+            ordenAutoPatente.value = info_orden.patente;
+            ordenAutoAnio.value = info_orden.anio;
+            ordenAutoModelo.value = info_orden.modelo;
+            // ordenCliente.value = info_orden.id_cliente;
+            ordenClienteNombre.value = info_orden.nombre;
+            ordenClienteTelefono.value = info_orden.telefono;
+            ordenClienteMail.value = info_orden.mail;
+            ordenClienteDomicilio.value = info_orden.domicilio;
+
             ordenModalTitle.innerHTML = "Orden Nro°" + id + " - Auto: " + ordenAutoPatente.value + " " + ordenAutoModelo.value + " - Cliente: " + ordenClienteNombre.value;
-            fecha_recibido.value = transDate(info_orden[0].fecha_recibido);
-            id_recibo.value = info_orden[0].id_recibo;
-            ordenProblema.value = info_orden[0].problema;
-            pago = info_orden[0].pago;
+            fecha_recibido.value = info_orden.fecha_recibido + " " + info_orden.hora_recibido;
+            ordenProblema.value = info_orden.problema;
+            pago = info_orden.pago;
             pagoOrden.value = pago;
 
-            estadosSelect(info_orden[0].estado, ordenEstado);
+            estadosSelect(info_orden.estado, ordenEstado);
             
-            var btnEntrega = document.getElementById("btnEntrega");
             var btnTrabajo = document.getElementById("btnTrabajo");
             var btnFacturacion = document.getElementById("btnFacturacion");
-            if(ordenEstado.value > 3){
-                btnEntrega.disabled = false;
-            }
-            else{
-                btnEntrega.disabled = true;
+            var showEntrega = document.getElementById("showEntrega");
+            showEntrega.style.display = "none";
+            if(ordenEstado.value == 4){
+                showEntrega.style.display = "";
+                fecha_devolucion.value = info_orden.fecha_devolucion + " " + info_orden.hora_devolucion;
             }
             if(ordenEstado.value == 2){
-                btnEntrega.disabled = true;
                 btnTrabajo.disabled = true;
                 btnFacturacion.disabled = true;
             }
             else{
-                btnEntrega.disabled = false;
                 btnTrabajo.disabled = false;
                 btnFacturacion.disabled = false;
             }
@@ -863,9 +833,9 @@ function abrirModalTrabajo() {
     mostrarModal("trabajoModal");
 }
 
-function traerCobroRecibo(){
+function traerCobroRecibo(id){
     var precioRecibo = 0;
-    var reciboObtenido = obtenerRecibo(id_orden);
+    var reciboObtenido = obtenerRecibo(id);
     // id	id_orden	id_cliente	fecha
     reciboObtenido.done(function(responseRecibo) {
         if(responseRecibo != "error"){
@@ -891,7 +861,7 @@ function abrirModalFacturacion(){
 
     var cargoOrden = document.getElementById('cargoOrden');
 
-    cargoOrden.value = traerCobroRecibo();
+    cargoOrden.value = traerCobroRecibo(id_orden);
     pagoOrden.value = pago;
     
     mostrarModal("facturacionModal");

@@ -24,11 +24,14 @@
                         </div>
                     <div class="row">
                         <div class="col">
-                            Fecha: <b id="reciboFecha"></b>
+                            Fecha: <input class='text-dark text-bg-secondary bg-opacity-25' type='date' onchange='console.log(this.value)' name='reciboFecha' id='reciboFecha' required>
+                            <a href="#" class="text-success mx-2" onclick="actualizarFecha(reciboNro.innerHTML, reciboFecha.value, 'recibos')">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                            </a>
                         </div>
-                        <div class="col">
+                        <!-- <div class="col">
                             Hora: <b id="reciboHora"></b>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -89,7 +92,7 @@
         </tr>
         <tr class="modelo">
             <th>
-                <input class="text-dark text-bg-secondary bg-opacity-25" onchange="verificarDescripcion(this)" type="text" name="descripcionRecibo" id="descripcionRecibo" placeholder="-" required>
+                <input class="text-dark text-bg-secondary bg-opacity-25" onchange="verificarDescripcion(this)" feedback="descripcionReciboFeedback" type="text" name="descripcionRecibo" id="descripcionRecibo" placeholder="-" required>
                 
             </th>
             <th>
