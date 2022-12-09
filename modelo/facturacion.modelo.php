@@ -130,6 +130,72 @@ class ModeloFacturacion {
         $stmt = null;
     }
 
+    // OBTENER COBRO
+    static public function mdlObtenerCobroRecibo($id_orden){
+        $stmt = Conexion::conectar()->prepare("SELECT
+                                                SUM(insumos.cantidad * insumos.precio) cobro
+                                                FROM insumos_recibos insumos
+                                                INNER JOIN recibos re
+                                                ON insumos.id_comprobante = re.id
+                                                WHERE re.id_orden = :id_orden");
+
+        $stmt->bindParam(":id_orden", $id_orden, PDO::PARAM_INT);
+
+        if($stmt->execute()){
+            return $stmt->fetchAll();
+        }
+        else{
+            print_r(Conexion::conectar()->error_info());
+        }
+    }
+
+    // ACTUALIZAR COBROS
+    static public function mdlActualizarCobros(){
+        $stmt = Conexion::conectar()->prepare("UPDATE ordenes
+                                                SET cobro = (
+                                                    SELECT
+                                                    SUM(insumos.cantidad * insumos.precio) cobro
+                                                    FROM insumos_recibos insumos
+                                                    INNER JOIN recibos re
+                                                    ON insumos.id_comprobante = re.id
+                                                    WHERE re.id_orden = ordenes.id
+                                                    )
+                                                WHERE 1");
+
+
+        if($stmt->execute()){
+            return TRUE;
+        }
+        else{
+            print_r(Conexion::conectar()->error_info());
+            return FALSE;
+        }
+    }
+
+    // ACTUALIZAR COBRO
+    static public function mdlActualizarCobro($id){
+        $stmt = Conexion::conectar()->prepare("UPDATE ordenes
+                                            SET cobro = (
+                                                SELECT
+                                                SUM(insumos.cantidad * insumos.precio) cobro
+                                                FROM insumos_recibos insumos
+                                                INNER JOIN recibos re
+                                                ON insumos.id_comprobante = re.id
+                                                WHERE re.id_orden = ordenes.id
+                                                )
+                                            WHERE id=:id");
+
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+
+        if($stmt->execute()){
+            return TRUE;
+        }
+        else{
+            print_r(Conexion::conectar()->error_info());
+            return FALSE;
+        }
+    }
+
     // OBTENER COMPROBANTE
     static public function mdlObtenerComprobante($tabla, $id_orden){
         // id	id_orden	id_cliente	fecha

@@ -67,7 +67,7 @@
                                         
                                         <div class="row dataOrden">
                                             <?php 
-                                                include "vista/utils/cambios.php";
+                                                require_once "vista/utils/cambios.php";
                                             ?>
                                         </div>
                                     </div>
@@ -144,7 +144,7 @@
                                 <div class="col" style="max-width: 350px;">
                                     <div class="input-group container-fluid">
                                         <div class="input-group-text">Fecha recibido</div>
-                                        <input autocomplete="off" class="form-control text-center" type="datetime" name="fecha_recibido" id="fecha_recibido" disabled readonly>
+                                        <input autocomplete="off" class="form-control text-center" type="date" name="fecha_recibido" id="fecha_recibido">
                                     </div>
                                 </div>
                                 <div class="col">
@@ -158,7 +158,7 @@
                                 <div class="col-6 mx-auto">
                                     <div class="input-group mb-2">
                                         <div class="input-group-text">Fecha de entrega</div>
-                                        <input autocomplete="off" class="form-control text-center" type="datetime" name="fecha_devolucion" id="fecha_devolucion" disabled readonly>
+                                        <input autocomplete="off" class="form-control text-center" type="date" name="fecha_devolucion" id="fecha_devolucion">
                                     </div>
                                     <div id="pagoCompleto">
 

@@ -1,12 +1,55 @@
 const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 const meses_numero = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
 
-const swalWithBootstrapButtons = Swal.mixin({
+const alertSuccess = Swal.mixin({
+    allowOutsideClick: false,
     customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger'
+        confirmButton: 'btn btn-success'
     },
-    buttonsStyling: false
+    buttonsStyling: false,
+    icon: 'success',
+    showConfirmButton: true,
+    confirmButtonText: 'Aceptar',
+    showCloseButton: true
+});
+
+const alertWarning = Swal.mixin({
+    allowOutsideClick: false,
+    customClass: {
+        cancelButton: 'btn btn-secondary'
+    },
+    buttonsStyling: false,
+    icon: 'warning',
+    showConfirmButton: false,
+    showCancelButton: true,
+    cancelButtonText: 'Volver',
+    showCloseButton: true
+});
+
+const alertError = Swal.mixin({
+    allowOutsideClick: false,
+    customClass: {
+        cancelButton: 'btn btn-danger',
+    },
+    buttonsStyling: false,
+    icon: 'error',
+    showConfirmButton: false,
+    showCancelButton: true,
+    cancelButtonText: 'Volver',
+    showCloseButton: true
+});
+
+const alertInfo = Swal.mixin({
+    allowOutsideClick: false,
+    // customClass: {
+    //     cancelButton: 'btn btn-danger',
+    // },
+    // buttonsStyling: false,
+    icon: 'info',
+    // showConfirmButton: false,
+    // showCancelButton: true,
+    // cancelButtonText: 'Volver',
+    showCloseButton: true
 });
 
 var columnaEstado = document.getElementsByClassName("columnaEstado");
@@ -114,7 +157,8 @@ function cargarTabla(nombreTabla){
 
                     var pagado = '<i class="fa-regular fa-circle-check text-success h3"></i>';
                     var pago_sort = 1;
-                    if(ordenes[i].pago < traerCobroRecibo(ordenes[i].id)){
+                    // if(ordenes[i].pago < traerCobroRecibo(ordenes[i].id)){
+                    if(ordenes[i].pago < ordenes[i].cobro || ordenes[i].cobro == 0){
                         pagado = '<i class="fa-regular fa-circle-xmark text-danger h3"></i>';
                         pago_sort = 0;
                     }

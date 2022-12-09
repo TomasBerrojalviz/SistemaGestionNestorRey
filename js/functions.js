@@ -9,7 +9,6 @@ $( document ).ready(function() {
     // modalAbierto = false;
     setTablas();
 
-
     for (var i = 0; i < tablasVacias.length; i++) {
         var element = tablasVacias[i];
         element.innerHTML  = "No hay informacion cargada";

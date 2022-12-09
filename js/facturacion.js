@@ -49,7 +49,7 @@ $( document ).ready(function() {
         e.preventDefault();
         var cargoOrden = document.getElementById('cargoOrden');
         
-        pagoOrden.value = cargoOrden.value
+        pagoOrden.value = cargoOrden.value;
     });
     //GUARDAR PAGO DEL CLIENTE
     $('#guardar_pago_orden').click(function(e){
@@ -100,7 +100,7 @@ $( document ).ready(function() {
         var precio_total = document.getElementById("precio_total");
 
         if(descripcion.classList.contains("is-invalid")){
-            Swal.fire({
+            alertWarning.fire({
                 title: 'No se puede cargar un producto/servicio con errores',
                 icon: 'warning',
                 showConfirmButton: false,
@@ -143,7 +143,7 @@ $( document ).ready(function() {
     $('#agregar_producto_recibo').click(function(e){
         e.preventDefault();
         if(descripcionRecibo.classList.contains("is-invalid")){
-            Swal.fire({
+            alertWarning.fire({
                 title: 'No se puede cargar un producto/servicio con errores',
                 icon: 'warning',
                 showConfirmButton: false,
@@ -611,7 +611,7 @@ function editInsumo(id, comprobante){
     insumo.forEach(ins => console.log(ins.innerHTML));
     ocultarModal(comprobante+"Modal");
     
-    Swal.fire({
+    alertInfo.fire({
         title: 'Editar insumo',
         icon: 'info',
         confirmButtonText:
@@ -631,7 +631,7 @@ function editInsumo(id, comprobante){
         console.log(result);
         if (result.isConfirmed) {
             if(document.getElementById('insumo-descripcion').classList.contains("is-invalid")){
-                Swal.fire({
+                alertWarning.fire({
                     title: 'No se puede cargar un producto/servicio con errores',
                     icon: 'warning',
                     showConfirmButton: false,
@@ -653,7 +653,7 @@ function editInsumo(id, comprobante){
                     console.log(response);
                     if(response != "error"){
                         // console.log(total_recibo);
-                        Swal.fire('Cambios guardados', '', 'success').then((result) => {
+                        alertSuccess.fire('Cambios guardados', '', 'success').then((result) => {
                             if(comprobante == "recibo"){
                                 abrirModalRecibo();
                             }
@@ -669,7 +669,7 @@ function editInsumo(id, comprobante){
             }
         }
         else if (result.isDismissed) {
-            Swal.fire('No se guardaron los cambios', '', 'info').then((result) => {
+            alertInfo.fire('No se guardaron los cambios', '', 'info').then((result) => {
                 if(comprobante == "recibo"){
                     abrirModalRecibo();
                 }
@@ -880,7 +880,7 @@ function actualizarFecha(id, fecha, comprobante){
             if (response != "error") {
                 var fechaCambiada = JSON.parse(response);
                 if(fechaCambiada){
-                    Swal.fire({
+                    alertSuccess.fire({
                         title: 'Fecha actualizada correctamente',
                         icon: 'success',
                         confirmButtonText: 'Aceptar',
@@ -896,4 +896,83 @@ function actualizarFecha(id, fecha, comprobante){
             alert(error);
         }
     });
+}
+
+function actualizarCobro(id){
+    var cobro = traerCobroRecibo(id);
+    
+    $.ajax({
+        type: "POST",
+        url: "ajax.php",
+        async: false,
+        // id_comprobante descripcion cantidad precio precio_total
+        data: {
+            action:"actualizarCobro",
+            id:id,
+            cobro:cobro
+        },
+        success: function(response) {
+            if (response != "error") {
+                var cobroGuardado = JSON.parse(response);
+                if(cobroGuardado){
+                }
+            }
+            else {
+                alertError.fire({
+                    title: 'No se pudo guardar el cobro',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    showCancelButton: true,
+                    cancelButtonText: 'Volver',
+                    showCloseButton: true
+                }).then(() => {
+                    // editInsumo(id, comprobante);
+                });
+            }
+        },
+        error: function(error) {
+            $(pagoOrden).addClass("is-invalid");
+            pagoFeedback.innerHTML = "No se guardo correctamente";
+            alert(error);
+        }
+    });
+    return cobro;
+}
+
+function actualizarCobros(){
+    $.ajax({
+        type: "POST",
+        url: "ajax.php",
+        async: false,
+        // id_comprobante descripcion cantidad precio precio_total
+        data: {
+            action:"actualizarCobros"
+        },
+        success: function(response) {
+            if (response != "error") {
+                var cobroGuardado = JSON.parse(response);
+                if(cobroGuardado){
+                    alertSuccess.fire('Cambios guardados', '', 'success')
+                }
+            }
+            else {
+                alertError.fire({
+                    title: 'No se pudo guardar el cobro',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    showCancelButton: true,
+                    cancelButtonText: 'Volver',
+                    showCloseButton: true
+                }).then(() => {
+                    // editInsumo(id, comprobante);
+                });
+            }
+        },
+        error: function(error) {
+            $(pagoOrden).addClass("is-invalid");
+            pagoFeedback.innerHTML = "No se guardo correctamente";
+            alert(error);
+        }
+    });
+
 }

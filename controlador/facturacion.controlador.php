@@ -85,6 +85,46 @@ class ControladorFacturacion {
 
     }
     
+    // OBTENER COBRO
+    static public function ctrlObtenerCobroRecibo(){
+
+        if(isset($_POST["id"])){
+
+            $id_orden = $_POST["id"];
+            
+            $respuesta = ModeloFacturacion::mdlObtenerCobroRecibo($id_orden);
+            // print_r($respuesta);
+            
+            return $respuesta;
+        }
+
+    }
+    
+    // ACTUALIZAR COBROS
+    static public function ctrlActualizarCobros(){
+            
+        $respuesta = ModeloFacturacion::mdlActualizarCobros();
+        // print_r($respuesta);
+        
+        return $respuesta;
+
+    }
+    
+    // ACTUALIZAR COBRO
+    static public function ctrlActualizarCobro(){
+
+        if(isset($_POST["id"])){
+            
+            $id = $_POST["id"];
+            
+            $respuesta = ModeloFacturacion::mdlActualizarCobro($id);
+            // print_r($respuesta);
+            
+            return $respuesta;
+        }
+
+    }
+    
     // OBTENER COMPROBANTE
     static public function ctrlObtenerComprobante($tabla){
 
@@ -93,7 +133,6 @@ class ControladorFacturacion {
             $id_orden = $_POST["id"];
             
             $respuesta = ModeloFacturacion::mdlObtenerComprobante($tabla, $id_orden);
-            // print_r($respuesta);
             
             return $respuesta;
         }

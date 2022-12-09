@@ -343,7 +343,7 @@
                                     </button>
                                 </div>
                                 <?php 
-                                    include "vista/utils/cambios.php";
+                                    require_once "vista/utils/cambios.php";
                                 ?>
                             </div>
                         </div>

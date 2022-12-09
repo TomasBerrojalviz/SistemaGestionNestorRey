@@ -140,6 +140,8 @@ $( document ).ready(function() {
                             estado:ordenEstado.value,
                             id_auto:auto_id,
                             problema:ordenProblema.value,
+                            fecha_recibido:fecha_recibido.value,
+                            fecha_devolucion:fecha_devolucion.value
                         },
                         success: function(response) {
                             if (response != "error") {
@@ -347,10 +349,12 @@ function abrirModalOrden(id) {
             ordenClienteDomicilio.value = info_orden.domicilio;
 
             ordenModalTitle.innerHTML = "Orden Nro°" + id + " - Auto: " + ordenAutoPatente.value + " " + ordenAutoModelo.value + " - Cliente: " + ordenClienteNombre.value;
-            fecha_recibido.value = info_orden.fecha_recibido + " " + info_orden.hora_recibido;
+            fecha_recibido.value = info_orden.fecha_recibido_input;
             ordenProblema.value = info_orden.problema;
             pago = info_orden.pago;
             pagoOrden.value = pago;
+            var cargoOrden = document.getElementById('cargoOrden');
+            cargoOrden.value = info_orden.cobro;
 
             estadosSelect(info_orden.estado, ordenEstado);
             
@@ -360,7 +364,7 @@ function abrirModalOrden(id) {
             showEntrega.style.display = "none";
             if(ordenEstado.value == 4){
                 showEntrega.style.display = "";
-                fecha_devolucion.value = info_orden.fecha_devolucion + " " + info_orden.hora_devolucion;
+                fecha_devolucion.value = info_orden.fecha_devolucion_input;
             }
             if(ordenEstado.value == 2){
                 btnTrabajo.disabled = true;
@@ -541,6 +545,23 @@ function checkAceite(){
 
 }
 
+function checkFiltro(filtro){
+    var input = document.getElementById(filtro.id + "Fecha");
+    console.log(filtro);
+    console.log(input);
+    if(filtro.checked){
+        input.style.display = "";
+        const hoy = new Date().toISOString().split('T')[0];
+        var date = document.getElementById(filtro.id + "Date");
+        date.value = hoy;
+
+    }
+    else{
+        input.style.display = "none";
+    }
+
+}
+
 function maxDate(dates){
     var dateAux = "0000-00-00 00:00:00";
     for (var i = 0; i < dates.length; i++) {
@@ -571,7 +592,7 @@ function abrirModalHistorial(tipo){
         autoObtenido.done(function(responseAuto) {
             if(responseAuto != "error"){
                 var info_auto = JSON.parse(responseAuto)[0];
-                historialModalTitle.innerHTML += " cambios del auto " + info_auto.patente + " " + info_auto.modelo;
+                historialModalTitle.innerHTML = "Historial de cambios del auto " + info_auto.patente + " " + info_auto.modelo;
             }
         });
         for (var i = 0; i < btn_cerrar_historial.length; i++) {
@@ -643,7 +664,7 @@ function abrirModalHistorial(tipo){
         });
     }
     else if(tipo == "NOTAS"){
-        historialModalTitle.innerHTML += " notas de la orden " + id_orden;
+        historialModalTitle.innerHTML = "Historial de las notas de la orden " + id_orden;
         for (var i = 0; i < btn_cerrar_historial.length; i++) {
             var element = btn_cerrar_historial[i];
             element.setAttribute("onclick","DisplayVolver('TRABAJO')");
@@ -834,35 +855,57 @@ function abrirModalTrabajo() {
 }
 
 function traerCobroRecibo(id){
-    var precioRecibo = 0;
-    var reciboObtenido = obtenerRecibo(id);
-    // id	id_orden	id_cliente	fecha
-    reciboObtenido.done(function(responseRecibo) {
-        if(responseRecibo != "error"){
-            var info_recibo = JSON.parse(responseRecibo)[0];
-            
-            var insumosRecibo = obtenerInsumos(info_recibo.id, "recibos");
-            insumosRecibo.done(function(responseInsumosRecibo) {
-                if(responseInsumosRecibo != "error"){
-                    var info_insumos = JSON.parse(responseInsumosRecibo);
-                    for (var i = 0; i < info_insumos.length; i++) {
-                        precioRecibo += info_insumos[i].precio_total
-                    }
-                }
-            });
+    var cobro = 0;
+
+    $.ajax({
+        type: "POST",
+        url: "ajax.php",
+        async: false,
+        // id   id_auto fecha_recibido  problema	notas	adjuntos	id_recibo	id_comprobante	solucion	fecha_devolucion	estado
+        data: {
+            action:"obtenerCobroRecibo",
+            id:id
+        },
+        success: function(response) {
+            if (response != "error") {
+                cobro = JSON.parse(response)[0].cobro;
+            }
+        },
+        error: function(error) {
+            alert(error);
         }
     });
-    return precioRecibo;
+    return cobro;
+    
+    // var reciboObtenido = obtenerRecibo(id);
+    // // id	id_orden	id_cliente	fecha
+    // reciboObtenido.done(function(responseRecibo) {
+    //     if(responseRecibo != "error"){
+    //         var info_recibo = JSON.parse(responseRecibo)[0];
+            
+    //         var insumosRecibo = obtenerInsumos(info_recibo.id, "recibos");
+    //         insumosRecibo.done(function(responseInsumosRecibo) {
+    //             if(responseInsumosRecibo != "error"){
+    //                 var info_insumos = JSON.parse(responseInsumosRecibo);
+    //                 for (var i = 0; i < info_insumos.length; i++) {
+    //                     precioRecibo += info_insumos[i].precio_total
+    //                 }
+    //             }
+    //         });
+    //     }
+    // });
+    // return precioRecibo;
 }
 
 function abrirModalFacturacion(){
     $('#ordenModal').modal('hide');
-    // modalAbierto = "FACTURACION";
-
+    modalAbierto = "FACTURACION";
+    
     var cargoOrden = document.getElementById('cargoOrden');
 
-    cargoOrden.value = traerCobroRecibo(id_orden);
+    cargoOrden.value = actualizarCobro(id_orden);
     pagoOrden.value = pago;
+    // console.log(cargoOrden.value + " " + pagoOrden.value);
     
     mostrarModal("facturacionModal");
 }

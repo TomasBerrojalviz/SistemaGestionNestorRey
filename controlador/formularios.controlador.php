@@ -258,6 +258,8 @@ class ControladorFormularios {
             $datos = array("id" => $_POST["id"],
                             "problema" => strtoupper($_POST["problema"]),
                             "estado" => $_POST["estado"],
+                            "fecha_recibido" => $_POST["fecha_recibido"],
+                            "fecha_devolucion" => $_POST["fecha_devolucion"]
                         );
 
             

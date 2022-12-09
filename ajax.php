@@ -402,6 +402,37 @@ $modelosDeseados = array();
             echo "error";
             exit;
         }
+
+        if($_POST["action"] == "obtenerCobroRecibo"){
+            $cobro = ControladorFacturacion::ctrlObtenerCobroRecibo();
+            if($cobro){
+                echo json_encode($cobro, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
+
+        if($_POST["action"] == "actualizarCobros"){
+            $cobrosActualizado = ControladorFacturacion::ctrlActualizarCobros();
+            if($cobrosActualizado){
+                echo json_encode($cobrosActualizado, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
+
+        if($_POST["action"] == "actualizarCobro"){
+            $cobroActualizado = ControladorFacturacion::ctrlActualizarCobro();
+            if($cobroActualizado){
+                echo json_encode($cobroActualizado, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
+
         if($_POST["action"] == "obtenerRecibo"){
             $reciboObtenido = ControladorFacturacion::ctrlObtenerComprobante("recibos");
             if($reciboObtenido){
@@ -411,6 +442,7 @@ $modelosDeseados = array();
             echo "error";
             exit;
         }
+
         if($_POST["action"] == "crearRecibo"){
             $reciboCreado = ControladorFacturacion::ctrlCrearComprobante("recibos");
             if($reciboCreado){
