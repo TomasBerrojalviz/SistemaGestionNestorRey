@@ -799,7 +799,7 @@ function abrirModalIngresos(mes, anio){
                 const ordenSeleccionada = seleccionarOrdenCompleta(manosObra[i].id_orden);
                 ordenSeleccionada.done(function(responseOrden) {
                     if(responseOrden != "error"){
-                        var boton = '<button class="btn btn-outline-dark btn-sm" onclick="abrirModalOrden(\''+manosObra[i].id_orden+'\')" style="width: 100%;">';
+                        var boton = '<button class="btn btn-outline-dark btn-sm" onclick="buscarOrdenesRelacionadasFinanzas(\''+manosObra[i].id_orden+'\')" style="width: 100%;">';
                         boton += manosObra[i].id_orden;
                         boton += "</button>";
 
@@ -975,4 +975,9 @@ function actualizarCobros(){
         }
     });
 
+}
+
+function buscarOrdenesRelacionadasFinanzas(id_orden){
+    sessionStorage.setItem('ordenBuscada', '"Orden '+id_orden+'"');
+    location.replace("index.php?pagina=ordenes");
 }

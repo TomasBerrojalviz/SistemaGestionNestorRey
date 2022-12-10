@@ -197,6 +197,13 @@ function cargarTabla(nombreTabla){
             tablaOrdenes.search(autoBuscado).draw(true);
             sessionStorage.setItem('autoBuscado', "");
         }
+        else {
+            var ordenBuscada = sessionStorage.getItem('ordenBuscada');
+            if(ordenBuscada){
+                tablaOrdenes.search(ordenBuscada).draw(true);
+                sessionStorage.setItem('ordenBuscada', "");
+            }
+        }
     }
     else if(nombreTabla == "tableAuto"){
         $('#tableAuto').DataTable().destroy();

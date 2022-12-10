@@ -634,6 +634,7 @@ function mostrarClase(clase){
 
 function buscarOrdenesRelacionadas(){
     sessionStorage.setItem('autoBuscado', autoPatente.value);
+    // location.replace("index.php?pagina=ordenes");
     window.history.pushState(null,null,'index.php?pagina=ordenes');
 }
 

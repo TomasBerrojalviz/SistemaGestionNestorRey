@@ -67,7 +67,7 @@
 
     <header style="margin-bottom: 70px">
         <!-- MENU DESPLEGABLE  -->
-        <nav class="navbar navbar-dark bg-dark fixed-top" style="margin-bottom: 70px">
+        <nav class="navbar navbar-dark bg-dark fixed-top bg-gradient" style="margin-bottom: 70px">
             <div class="container-fluid">
                 <button class="navbar-toggler bg-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                 <span class="navbar-toggler-icon"></span>
