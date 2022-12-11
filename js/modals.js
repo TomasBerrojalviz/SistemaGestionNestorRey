@@ -50,14 +50,6 @@ $( document ).ready(function() {
 
         abrirModalMarca(0);
     });
-
-    //MODAL FORM EDITAR MARCA
-    $('.editMarca').click(function(e){ 
-        e.preventDefault();
-        var id_marca = $(this).attr('id-marca');
-
-        abrirModalMarca(id_marca);
-    });
     
     //MODAL FORM AGREGAR MODELO
     $('#btnAgregarModelo').click(function(e){ 
@@ -67,14 +59,6 @@ $( document ).ready(function() {
         }
 
         abrirModalModelo(0);
-    });
-
-    //MODAL FORM EDITAR MODELO
-    $('.editModelo').click(function(e){ 
-        e.preventDefault();
-        var id_modelo = $(this).attr('id-modelo');
-
-        abrirModalModelo(id_modelo);
     });
     
     //MODAL FORM AGREGAR CLIENTE
@@ -91,14 +75,6 @@ $( document ).ready(function() {
         }
 
         abrirModalCliente(0);
-    });
-
-    //MODAL FORM EDITAR CLIENTE
-    $('.editCliente').click(function(e){ 
-        e.preventDefault();
-        var id_modelo = $(this).attr('id-cliente');
-
-        abrirModalCliente(id_modelo);
     });
 
     //MODAL FORM AGREGAR AUTO
@@ -822,4 +798,26 @@ function DisplayVolver(FORM){
     //     $("#ModalMessageReturn").modal('hide');
     //     DisplayVinculados();
     // }
+}
+
+//MODAL FORM EDITAR MARCA
+function editarMarca(marca){
+    var id_marca = $(marca).attr('id-marca');
+
+    abrirModalMarca(id_marca);
+
+}
+
+//MODAL FORM EDITAR MODELO
+function editarModelo(modelo){
+    var id_modelo = $(modelo).attr('id-modelo');
+
+    abrirModalModelo(id_modelo);
+}
+
+//MODAL FORM EDITAR CLIENTE
+function editarCliente(cliente){
+    var id_modelo = $(cliente).attr('id-cliente');
+
+    abrirModalCliente(id_modelo);
 }
