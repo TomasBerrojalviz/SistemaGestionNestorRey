@@ -240,6 +240,14 @@ $modelosDeseados = array();
             exit;
         }
         if($_POST["action"] == "editarCliente"){
+            $nombre = strtoupper($_POST["nombre"]);
+            $cliente = ControladorFormularios::ctrlSeleccionarDato("clientes","nombre",  $nombre, PDO::PARAM_STR);
+            if($cliente){
+                if($cliente[0]['id'] != $_POST["id"]){
+                    echo "Duplicado";
+                    exit;
+                }
+            }
             $cliente_editada = ControladorFormularios::ctrlEditarCliente();
             if($cliente_editada){
                 echo json_encode($cliente_editada, JSON_UNESCAPED_UNICODE);

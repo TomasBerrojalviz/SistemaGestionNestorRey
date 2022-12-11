@@ -123,10 +123,10 @@ function cargarTabla(nombreTabla){
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
                 }
             },
-            order: [[0, 'asc']],
+            order: [[0, 'asc'], [7, 'asc'], [4, 'asc']],
             columnDefs: [
                 {targets: 0, visible:false},
-                {targets: 1, sClass:"columnaEstado", orderData: [0,4,7]},
+                {targets: 1, sClass:"columnaEstado", orderData: [0,7,4]},
                 {targets: 2, sClass:"columnaPatente", orderData: [2,0,4]},
                 {targets: 3, visible:false},
                 {targets: 4, sClass:"columnaLlegada"},
@@ -177,11 +177,11 @@ function cargarTabla(nombreTabla){
                 }
             }
             for(var i=0; i<columnaEstado.length; i++) {
-                columnaEstado[i].setAttribute("style", "max-width: 170px;");
-                columnaPatente[i].setAttribute("style", "max-width: 100px;");
-                columnaLlegada[i].setAttribute("style", "max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;");
+                columnaEstado[i].setAttribute("style", "width: 200px;");
+                columnaPatente[i].setAttribute("style", "width: 100px;");
+                columnaLlegada[i].setAttribute("style", "width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;");
                 columnaProblema[i].setAttribute("style", "max-width: 400px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;");
-                columnaDevolucion[i].setAttribute("style", "max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;");
+                columnaDevolucion[i].setAttribute("style", "width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;");
             }
             $("#tableOrdenes_filter").addClass('text-light float-end mx-2');
             document.getElementById("tableOrdenes_paginate").removeAttribute('class');

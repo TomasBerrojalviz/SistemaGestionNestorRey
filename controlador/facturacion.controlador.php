@@ -49,7 +49,7 @@ class ControladorFacturacion {
             
             // id_comprobante descripcion cantidad precio precio_total
             $datos = array("id" => $_POST["id"],
-                            "descripcion" => $_POST["descripcion"],
+                            "descripcion" => strtoupper($_POST["descripcion"]),
                             "cantidad" => $_POST["cantidad"],
                             "precio" => $_POST["precio"],
                             "precio_total" => $_POST["precio_total"]

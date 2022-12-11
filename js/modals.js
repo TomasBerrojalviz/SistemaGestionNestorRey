@@ -536,7 +536,7 @@ function abrirModalCliente(id) {
     $(clienteMail).removeClass('is-invalid').removeClass('is-valid');
 
     if (id == 0){
-        clienteModalTitle.innerHTML = "Agregar cliente con jquery";
+        clienteModalTitle.innerHTML = "Agregar cliente";
         clienteId.value = 0;
         clienteNombre.value = "";
         clienteTelefono.value = "";
@@ -546,7 +546,7 @@ function abrirModalCliente(id) {
         btn_cliente_modal.value = "Agregar cliente";
     }
     else{
-        clienteModalTitle.innerHTML = "Editar cliente con jquery";
+        clienteModalTitle.innerHTML = "Editar cliente";
         clienteId.value = id;
         var clienteEditar = obtenerCliente(id);
         clienteEditar.done(function(responseCliente){

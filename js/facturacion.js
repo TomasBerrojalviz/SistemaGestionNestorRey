@@ -330,7 +330,7 @@ function actualizarTablaPresupuesto(id_comprobante){
                     accion += '</a>';
                     
                     let row = tabla_insumos_presupuesto.insertRow();
-                    row.id = info_insumos[i].id;
+                    row.id = "insumo-"+info_insumos[i].id;
                     let cell1 = row.insertCell(0);
                     let cell2 = row.insertCell(1);
                     let cell3 = row.insertCell(2);  
@@ -445,7 +445,7 @@ function actualizarTablaRecibo(id_recibo){
                     accion += '</div>';
                     
                     let row = tabla_insumos_recibo.insertRow();
-                    row.id = info_insumos[i].id;
+                    row.id = "insumo-"+info_insumos[i].id;
                     let cell1 = row.insertCell(0);
                     let cell2 = row.insertCell(1);
                     let cell3 = row.insertCell(2);  
@@ -606,27 +606,35 @@ function actualizarInputInsumoEdit(){
 }
 
 function editInsumo(id, comprobante){
-    var insumo = document.getElementById(id).childNodes;
+    var insumo = document.getElementById("insumo-"+id).childNodes;
     console.log(insumo);
+    console.log(id);
+    console.log(comprobante);
     insumo.forEach(ins => console.log(ins.innerHTML));
     ocultarModal(comprobante+"Modal");
     
     alertInfo.fire({
         title: 'Editar insumo',
-        icon: 'info',
         confirmButtonText:
             '<i class="fa fa-flopy-disk"></i> Guardar',
         confirmButtonColor: '#198754',
         showCancelButton: true,
         cancelButtonText: 'Volver',
-        showCloseButton: true,
         focusConfirm: true,
         html:
-            '<input id="insumo-descripcion" onchange="verificarDescripcion(this)" feedback="descripcionFeedback" class="swal2-input" value="'+ insumo[0].innerHTML  +'">' +
+            '<label for="insumo-descripcion" class="swal2-input-label">Descripcion</label>' +
+            '<input id="insumo-descripcion"class="swal2-input"  onchange="verificarDescripcion(this)" feedback="descripcionFeedback" value="'+ insumo[0].innerHTML  +'">' +
             '<p id="descripcionFeedback" class="my-2 text-center"></p>' +
+
+            '<label for="insumo-cantidad" class="swal2-input-label">Cantidad</label>' +
             '<input id="insumo-cantidad" class="swal2-input" onchange="actualizarInputInsumoEdit()" value="'+ insumo[1].innerHTML  +'" type="number" placeholder="0">' +
+
+            '<label for="insumo-precio" class="swal2-input-label">Precio</label>' +
             '<input id="insumo-precio" class="swal2-input" onchange="actualizarInputInsumoEdit()" value="'+ insumo[2].innerHTML  +'" type="number" min="0.00" step="100.00" placeholder="0.00">' +
-            '<input id="insumo-precio-total" class="swal2-input" value="'+ insumo[3].innerHTML  +'" disabled>'
+            
+            '<label for="insumo-precio-total" class="swal2-input-label">Precio total</label>' +
+            '<input id="insumo-precio-total" class="swal2-input bg-secondary bg-opacity-10" value="'+ insumo[3].innerHTML  +'" disabled>'
+            
     }).then((result) => {
         console.log(result);
         if (result.isConfirmed) {
