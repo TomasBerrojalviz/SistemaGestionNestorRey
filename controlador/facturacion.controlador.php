@@ -218,6 +218,13 @@ class ControladorFacturacion {
 
     }
 
+    // SELECCIONAR ORDENES PENDIENTES
+    static public function ctrlSeleccionarOrdenesPendiente(){
+        $respuesta = ModeloFacturacion::mdlSeleccionarOrdenesPendiente();
+        
+        return $respuesta;
+    }
+
 }
 
 ?>

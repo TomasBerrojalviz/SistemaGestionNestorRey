@@ -1,5 +1,3 @@
-const pagoGrupo = document.getElementsByClassName("pagoGrupo");
-
 var pagoOrden = document.getElementById("pagoOrden");
 var pagoFeedback = document.getElementById("pagoFeedback");
 
@@ -21,6 +19,10 @@ var reciboClienteMail = document.getElementById("reciboClienteMail");
 var reciboClienteTelefono = document.getElementById("reciboClienteTelefono");
 var reciboClienteDomicilio = document.getElementById("reciboClienteDomicilio");
 
+var columnaFechaPendientes = document.getElementsByClassName("columnaFechaPendientes");
+var columnaOrdenPendientes = document.getElementsByClassName("columnaOrdenPendientes");
+var columnaCobroPendientes = document.getElementsByClassName("columnaCobroPendientes");
+var columnaPagoPendientes = document.getElementsByClassName("columnaPagoPendientes");
 
 $( document ).ready(function() {
     //MODAL PRESUPUESTO
@@ -54,41 +56,42 @@ $( document ).ready(function() {
     //GUARDAR PAGO DEL CLIENTE
     $('#guardar_pago_orden').click(function(e){
         e.preventDefault();
-        $(pagoOrden).removeClass("is-valid is-invalid");
-        if(pagoOrden.value < 0){
-            $(pagoOrden).addClass("is-invalid");
-            pagoFeedback.innerHTML = "Debe ingresar un monto mayor a 0";
-            return;
-        }
+        guardarPago(id_orden, "pagoOrden", "pagoFeedback", "pagoGrupo");
+        // $(pagoOrden).removeClass("is-valid is-invalid");
+        // if(pagoOrden.value < 0){
+        //     $(pagoOrden).addClass("is-invalid");
+        //     pagoFeedback.innerHTML = "Debe ingresar un monto mayor a 0";
+        //     return;
+        // }
         
-        var action = "guardarPago";
+        // var action = "guardarPago";
 
-        $.ajax({
-            type: "POST",
-            url: "ajax.php",
-            async: false,
-            // id_comprobante descripcion cantidad precio precio_total
-            data: {
-                action:action,
-                id:id_orden,
-                pago:pagoOrden.value
-            },
-            success: function(response) {
-                if (response != "error") {
-                    var pagoGuardado = JSON.parse(response);
-                    if(pagoGuardado){
-                        for (var i = 0; i < pagoGrupo.length; i++) {
-                            successGradiente($(pagoGrupo[i]));
-                        }
-                    }
-                }
-            },
-            error: function(error) {
-                $(pagoOrden).addClass("is-invalid");
-                pagoFeedback.innerHTML = "No se guardo correctamente";
-                alert(error);
-            }
-        });
+        // $.ajax({
+        //     type: "POST",
+        //     url: "ajax.php",
+        //     async: false,
+        //     // id_comprobante descripcion cantidad precio precio_total
+        //     data: {
+        //         action:action,
+        //         id:id_orden,
+        //         pago:pagoOrden.value
+        //     },
+        //     success: function(response) {
+        //         if (response != "error") {
+        //             var pagoGuardado = JSON.parse(response);
+        //             if(pagoGuardado){
+        //                 for (var i = 0; i < pagoGrupo.length; i++) {
+        //                     successGradiente($(pagoGrupo[i]));
+        //                 }
+        //             }
+        //         }
+        //     },
+        //     error: function(error) {
+        //         $(pagoOrden).addClass("is-invalid");
+        //         pagoFeedback.innerHTML = "No se guardo correctamente";
+        //         alert(error);
+        //     }
+        // });
     });
     //AGREGAR PRODUCTO PRESUPUESTO
     $('#agregar_producto_presupuesto').click(function(e){
@@ -872,58 +875,62 @@ function abrirModalPendientes(mes, anio){
                 "sSortDescending": ": Activar para ordenar la columna de manera descendente"
             }
         },
-        order: [[0, 'des']],
+        order: [[0, 'asc']],
         columnDefs: [
             {targets: 0, visible:false},
-            {targets: 1, orderData: [0,1]},
-            {targets: 2},
-            {targets: 3},
-            {targets: 4},
-            {targets: 5}
+            {targets: 1, orderData: [0,1], sClass:"columnaFechaPendientes align-middle"},
+            {targets: 2, sClass:"columnaOrdenPendientes align-middle"},
+            {targets: 3, sClass:"align-middle"},
+            {targets: 4, sClass:"align-middle"},
+            {targets: 5, sClass:"columnaCobroPendientes align-middle"},
+            {targets: 6, sClass:"columnaPagoPendientes align-middle"}
+            
         ],
         responsive: true,
         autoWidth: false,
         
         lengthMenu: [
-            [10, 25, 50, 100, -1],
-            [10, 25, 50, 100, 'Todos'],
+            [5, 10, 25, 50, 100, -1],
+            [5, 10, 25, 50, 100, 'Todos'],
         ]
     });
     var tablaPendientes = $('#tablaPendientes').DataTable();
-    ingresosModalTitle.innerHTML = "Ingresos de " + meses[mes] + " del " + anio;
-    const ordenesObtenidas = seleccionarOrdenes();
+    pendientesModalTitle.innerHTML = "Pagos pendientes de " + meses[mes] + " del " + anio;
+    const ordenesObtenidas = seleccionarOrdenesPendiente();
     ordenesObtenidas.done(function(response) {
-        if(response != "error"){ // TODO FIX
-            const manosObra = filtrarManoObraPorFecha(JSON.parse(response), mes, anio);
-            for(var i = 0; i < manosObra.length; i++) {
-                const ordenSeleccionada = seleccionarOrdenCompleta(manosObra[i].id_orden);
-                ordenSeleccionada.done(function(responseOrden) {
-                    if(responseOrden != "error"){
-                        var boton = '<button class="btn btn-outline-dark btn-sm" onclick="buscarOrdenesRelacionadasFinanzas(\''+manosObra[i].id_orden+'\')" style="width: 100%;">';
-                        boton += manosObra[i].id_orden;
-                        boton += "</button>";
+        if(response != "error"){ // TODO FIXME
+            const ordenes = filtrarCobrosPendientes(JSON.parse(response), mes, anio);
+            for(var i = 0; i < ordenes.length; i++) {
+                var boton = '<button class="btn btn-outline-dark btn-sm" onclick="buscarOrdenesRelacionadasFinanzas(\''+ordenes[i].id+'\')" style="width: 100%;">';
+                boton += ordenes[i].id;
+                boton += "</button>";
 
-                        const ordenRelacionada = JSON.parse(responseOrden)[0];
-                        const fecha_sort = manosObra[i].fecha_devolucion;
-                        const fecha = manosObra[i].fecha;
-                        const orden = boton;
-                        const auto = ordenRelacionada.patente + " - " + ordenRelacionada.modelo;
-                        const cliente = ordenRelacionada.nombre;
-                        const mano_obra_precio = "$" + manosObra[i].precio;
+                const fecha_sort = ordenes[i].fecha;
+                const fecha = ordenes[i].fecha_input;
+                const orden = boton;
+                const auto = ordenes[i].patente + " - " + ordenes[i].modelo;
+                const cliente = ordenes[i].nombre;
+                const cobro = "$" + ordenes[i].cobro;
+                // const pagado = "$" + ordenes[i].pago;
 
-                        // <th scope="col">Fecha-Sort</th>
-                        // <th scope="col">Fecha</th>
-                        // <th scope="col">Orden</th>
-                        // <th scope="col">Auto</th>
-                        // <th scope="col">Cliente</th>
-                        // <th scope="col">Mano de obra</th>
-                        const pago = "<input class='form-control' type='number' onchange='' id='pago-"+manosObra[i].id_orden+"' min='0.00' step='100.00' value='"+manosObra[i].cobro+"' placeholder='10.000,00'>";
-
-                        var tr = tablaPendientes.row.add([fecha_sort, fecha, orden, auto, cliente, mano_obra_precio, pago]).draw().node();
-                        
-                        // tr.setAttribute("onclick", "abrirModalOrden("+manosObra[i].id_orden+")"); 
-                    }
-                });
+                // <th scope="col">Fecha-Sort</th>
+                // <th scope="col">Fecha</th>
+                // <th scope="col">Orden</th>
+                // <th scope="col">Auto</th>
+                // <th scope="col">Cliente</th>
+                // <th scope="col">Mano de obra</th>
+                
+                // const pago = "<input class='form-control' type='number' onchange='' id='pago-"+ordenes[i].id+"' min='0.00' step='100.00' value='"+ordenes[i].pago+"' placeholder='10.000,00'>";
+                const pago = inputPago(ordenes[i]);
+                var tr = tablaPendientes.row.add([fecha_sort, fecha, orden, auto, cliente, cobro, pago]).draw().node();
+                
+                // tr.setAttribute("onclick", "abrirModalOrden("+ordenes[i].id_orden+")"); 
+            }
+            for(var i=0; i<columnaPagoPendientes.length; i++) {
+                columnaFechaPendientes[i].setAttribute("style", "width: 30px; max-width: 30px;");
+                columnaOrdenPendientes[i].setAttribute("style", "width: 25px; max-width: 25px;");
+                columnaCobroPendientes[i].setAttribute("style", "width: 35px; max-width: 35px;");
+                columnaPagoPendientes[i].setAttribute("style", "width: 110px;");
             }
             $("#tablaPendientes_filter").addClass('float-end mx-2');
             document.getElementById("tablaPendientes_paginate").removeAttribute('class');
@@ -933,7 +940,31 @@ function abrirModalPendientes(mes, anio){
             
         }
     });
-    mostrarModal("ingresosModal");    
+    mostrarModal("pendientesModal");    
+}
+
+function inputPago(orden){
+    return (
+    '<div class="input-group text-center container-fluid">'+
+        '<input class="form-control pagoGrupo-'+orden.id+'" type="number" value="'+orden.pago+'" min="0.00" step="100.00" id="pagoOrden-'+orden.id+'" placeholder="0" data-toggle="tooltip" title="Dinero total que el cliente pago hasta la fecha">' +
+        '<span class="input-group-text text-bg-primary" data-toggle="tooltip" title="Insertar total del dinero que deba pagar el cliente">' +
+            '<a href="#" onclick="completarPago(\'pagoOrden-'+orden.id+'\', \''+orden.cobro+'\')">' +
+                '<i class="fa-solid fa-money-bill-1-wave text-bg-primary h3 mt-2"></i>' +
+            '</a>' +
+        '</span>' +
+        '<span class="input-group-text text-bg-success">' +
+            '<a href="#" onclick="guardarPago(\''+orden.id+'\', \'pagoOrden-'+orden.id+'\', \'pagoFeedback-'+orden.id+'\', \'pagoGrupo-'+orden.id+'\')">' +
+                '<i class="fa-solid fa-floppy-disk text-bg-success h3 mt-2"></i>' +
+            '</a>' +
+        '</span>' +
+        '<div class="valid-feedback mt-2">' +
+            'Se guardo correctamente' +
+        '</div>' +
+        '<div class="invalid-feedback mt-2">' +
+            '<p id="pagoFeedback-'+orden.id+'"></p>' +
+        '</div>' +
+    '</div>'
+    );
 }
 
 function filtrarManoObraPorFecha(manosObra, mes, anio){
@@ -945,6 +976,18 @@ function filtrarManoObraPorFecha(manosObra, mes, anio){
         }
     }
     return manosObraFiltradas;
+    
+}
+
+function filtrarCobrosPendientes(ordenes, mes, anio){
+    var ordenesFiltradas = [];
+    for(var i = 0; i < ordenes.length; i++){
+        const fecha = new Date(ordenes[i].fecha);
+        if(fecha.getFullYear() == anio && fecha.getMonth() == mes){
+            ordenesFiltradas.push(ordenes[i]);
+        }
+    }
+    return ordenesFiltradas;
     
 }
 
@@ -1081,4 +1124,51 @@ function actualizarCobros(){
 function buscarOrdenesRelacionadasFinanzas(id_orden){
     sessionStorage.setItem('ordenBuscada', '"Orden '+id_orden+'"');
     location.replace("index.php?pagina=ordenes");
+}
+
+function guardarPago(id, pagoTag, feedbackTag, pagoGrupoTag){
+    var pago = document.getElementById(pagoTag);
+    var feedback = document.getElementById(feedbackTag);
+    $(pago).removeClass("is-valid is-invalid");
+    if(pago.value < 0){
+        $(pago).addClass("is-invalid");
+        feedback.innerHTML = "Debe ingresar un monto mayor a 0";
+        return;
+    }
+    
+    var action = "guardarPago";
+
+    $.ajax({
+        type: "POST",
+        url: "ajax.php",
+        async: false,
+        // id_comprobante descripcion cantidad precio precio_total
+        data: {
+            action:action,
+            id:id,
+            pago:pago.value
+        },
+        success: function(response) {
+            console.log(response);
+            if (response != "error") {
+                var pagoGuardado = JSON.parse(response);
+                if(pagoGuardado){
+                    const pagoGrupo = document.getElementsByClassName(pagoGrupoTag);
+                    for (var i = 0; i < pagoGrupo.length; i++) {
+                        successGradiente($(pagoGrupo[i]));
+                    }
+                }
+            }
+        },
+        error: function(error) {
+            $(pago).addClass("is-invalid");
+            feedback.innerHTML = "No se guardo correctamente";
+            alert(error);
+        }
+    });
+}
+
+function completarPago(pagoTag, cobro){
+    var pago = document.getElementById(pagoTag);
+    pago.value = cobro;
 }

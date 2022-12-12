@@ -408,7 +408,7 @@ function cargarTabla(nombreTabla){
             ]
         });
         var tablePendientes = $('#tablePendientes').DataTable();
-        var ordenesSeleccionadas = seleccionarOrdenes();
+        var ordenesSeleccionadas = seleccionarOrdenesPendiente();
         ordenesSeleccionadas.done(function(response) {
             if(response != "error"){
                 const ordenes = JSON.parse(response);
@@ -570,9 +570,8 @@ function obtenerPendientes(ordenes){
     var ingresos = {};
     for(var i=0; i<ordenes.length; i++){
         if(ordenes[i].pago < ordenes[i].cobro) {
-            if(ordenes[i].fecha_recibido){
-                const fecha_aux = ordenes[i].fecha_recibido.split("/");
-                const fecha = new Date(fecha_aux[1]+"/"+fecha_aux[0]+"/"+fecha_aux[2]);
+            if(ordenes[i].fecha){
+                const fecha = new Date(ordenes[i].fecha);
                 const anio = fecha.getFullYear();
                 const mes_sort = fecha.getMonth();
                 const pendiente = ordenes[i].cobro;
@@ -593,4 +592,15 @@ function obtenerPendientes(ordenes){
         }
     }
     return ingresos;
+}
+
+function seleccionarOrdenesPendiente(){
+    var action = 'seleccionarOrdenesPendiente';
+
+    return $.ajax({
+        type: "POST",
+        url: "ajax.php",
+        async: false,
+        data: { action:action}
+    });
 }

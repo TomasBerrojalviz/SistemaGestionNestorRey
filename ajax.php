@@ -87,8 +87,19 @@ $modelosDeseados = array();
             echo "error";
             exit;
         }
+
         if($_POST["action"] == "seleccionarOrdenes"){
             $ordenes = ControladorFormularios::ctrlSeleccionarOrdenes();
+            if($ordenes){
+                echo json_encode($ordenes, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
+
+        if($_POST["action"] == "seleccionarOrdenesPendiente"){
+            $ordenes = ControladorFacturacion::ctrlSeleccionarOrdenesPendiente();
             if($ordenes){
                 echo json_encode($ordenes, JSON_UNESCAPED_UNICODE);
                 exit;

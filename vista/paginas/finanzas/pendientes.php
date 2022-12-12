@@ -5,8 +5,8 @@
             <th scope="col">Año</th>
             <th scope="col">Mes-Sort</th>
             <th scope="col">Mes</th>
-            <th scope="col">Pendiente</th>
-            <th scope="col">Pago</th>
+            <th scope="col">Total recibos pendientes</th>
+            <th scope="col">Pago actual</th>
             </tr>
         </thead>  
         <tbody class="table-group-divider" id="tablePendientes_rows">
@@ -15,13 +15,13 @@
 
 </div>
 
-<!-- Modal INGRESOS -->
-<div class="modal fade" id="ingresosModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+<!-- Modal PENDIENTES -->
+<div class="modal fade" id="pendientesModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="ingresosModalTitle">Ingresos</h5>
-            <button type="button" class="btn-close btn_cerrar_ingresos" data-bs-dismiss="modal" aria-label="Close"></button>
+            <h5 class="modal-title" id="pendientesModalTitle">Pendientes</h5>
+            <button type="button" class="btn-close btn_cerrar_pendientes" data-bs-dismiss="modal" aria-label="Close" onclick="DisplayVolver('PENDIENTES')"></button>
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
@@ -44,7 +44,7 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn_cerrar_ingresos" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary btn_cerrar_pendientes" data-bs-dismiss="modal" onclick="DisplayVolver('PENDIENTES')">Cerrar</button>
             </div>
             
         </div>

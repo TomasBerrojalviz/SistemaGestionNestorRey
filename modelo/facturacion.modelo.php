@@ -321,6 +321,39 @@ class ModeloFacturacion {
         $stmt = null;
     }
 
+    // SELECCIONAR ORDENES PENDIENTES
+    static public function mdlSeleccionarOrdenesPendiente(){
+
+        $stmt = Conexion::conectar()->prepare("SELECT
+                                            ord.id, ord.id_auto, DATE_FORMAT(ord.fecha_recibido, '%d/%m/%Y') as fecha_recibido, ord.problema,
+                                            ord.solucion, DATE_FORMAT(ord.fecha_devolucion, '%d/%m/%Y') as fecha_devolucion, ord.estado, ord.cobro, ord.pago,
+                                            au.patente, au.anio,
+                                            cl.nombre, cl.telefono, cl.mail, cl.domicilio,
+                                            DATE_FORMAT(re.fecha, '%d/%m/%Y') as fecha_input, DATE_FORMAT(re.fecha, '%Y/%m/%d') as fecha,
+                                            CONCAT(ma.marca, ' ', mo.modelo) as modelo
+                                            FROM ordenes ord
+                                            INNER JOIN autos au
+                                            ON ord.id_auto = au.id
+                                            INNER JOIN clientes cl
+                                            ON au.id_cliente = cl.id
+                                            INNER JOIN modelos mo
+                                            ON au.id_modelo = mo.id
+                                            INNER JOIN marcas ma
+                                            ON mo.id_marca = ma.id
+                                            INNER JOIN recibos re
+                                            ON re.id_orden = ord.id
+                                            WHERE 
+                                            ord.cobro > 0 AND
+                                            ord.cobro > ord.pago;");
+
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+
+        $stmt->close();
+
+        $stmt = null;
+    }
 }
 
 ?>

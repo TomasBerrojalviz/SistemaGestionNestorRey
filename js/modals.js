@@ -794,6 +794,10 @@ function DisplayVolver(FORM){
         $("#adjuntosModal").modal('hide');
         $("#historialModal").modal('show');
     }
+    else if(FORM == "PENDIENTES"){
+        ocultarModal("pendientesModal");
+        location.reload();
+    }
     // if(FORM == "VINCULADOS"){
     //     $("#ModalMessageReturn").modal('hide');
     //     DisplayVinculados();
