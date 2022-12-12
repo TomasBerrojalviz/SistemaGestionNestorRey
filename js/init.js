@@ -363,6 +363,79 @@ function cargarTabla(nombreTabla){
             $("#tableFinanzas_info").addClass('text-light mx-1');
         });
     }
+    else if(nombreTabla == "tablePendientes"){
+        $('#tablePendientes').DataTable().destroy();
+        $('#tablePendientes_rows').empty();
+        
+        $('#tablePendientes').DataTable({
+            "language": {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ ingresos",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún ingreso registrado",
+                "sInfo":           "Mostrando ingresos del _START_ al _END_ de un total de _TOTAL_ ingresos",
+                "sInfoEmpty":      "Mostrando ingresos del 0 al 0 de un total de 0 ingresos",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ ingresos)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            order: [[1, 'des']],
+            columnDefs: [
+                {targets: 0},
+                {targets: 1, visible:false},
+                {targets: 2, orderData: [1,1]},
+                {targets: 3}
+            ],
+            responsive: true,
+            autoWidth: false,
+            
+            lengthMenu: [
+                [10, 25, 50, 100, -1],
+                [10, 25, 50, 100, 'Todos'],
+            ]
+        });
+        var tablePendientes = $('#tablePendientes').DataTable();
+        var ordenesSeleccionadas = seleccionarOrdenes();
+        ordenesSeleccionadas.done(function(response) {
+            if(response != "error"){
+                const ordenes = JSON.parse(response);
+                const pendientes = obtenerPendientes(ordenes);
+                for(var anio in pendientes){
+                    for(var mes_nro in pendientes[anio]){
+                        var mes = meses[mes_nro];
+                        var mes_sort = anio + "-" + meses_numero[mes_nro];
+                        var pendiente = "$" + pendientes[anio][mes_nro]["pendiente"];
+                        var pago = "$" + pendientes[anio][mes_nro]["pago"];
+                        
+                        var tr = tablePendientes.row.add([anio, mes_sort, mes, pendiente, pago]).draw().node();
+                        tr.id = mes_sort;
+                        
+                        $(tr).addClass('fila');
+                        tr.setAttribute("tipoModal", "pendientes");
+                        tr.setAttribute("onclick", "abrirModalPendientes("+mes_nro+", "+anio+")"); 
+                    }
+                }
+            }
+            $("#tablePendientes_filter").addClass('text-light float-end mx-2');
+            document.getElementById("tablePendientes_paginate").removeAttribute('class');
+            $("#tablePendientes_paginate").addClass('text-light float-end my-2');
+            $("#tablePendientes_length").addClass('text-light  mx-1');
+            $("#tablePendientes_info").addClass('text-light mx-1');
+        });
+    }
 }
 
 function posicionEstado(estado){
@@ -488,6 +561,34 @@ function obtenerIngresos(manosObras){
             }
             else{
                 ingresos[anio][mes_sort] = ingreso;
+            }
+        }
+    }
+    return ingresos;
+}
+function obtenerPendientes(ordenes){
+    var ingresos = {};
+    for(var i=0; i<ordenes.length; i++){
+        if(ordenes[i].pago < ordenes[i].cobro) {
+            if(ordenes[i].fecha_recibido){
+                const fecha_aux = ordenes[i].fecha_recibido.split("/");
+                const fecha = new Date(fecha_aux[1]+"/"+fecha_aux[0]+"/"+fecha_aux[2]);
+                const anio = fecha.getFullYear();
+                const mes_sort = fecha.getMonth();
+                const pendiente = ordenes[i].cobro;
+                const pago = ordenes[i].pago;
+                if(!ingresos[anio]){
+                    ingresos[anio] = {};
+                }
+                if(ingresos[anio][mes_sort]){
+                    ingresos[anio][mes_sort]["pendiente"] += pendiente;
+                    ingresos[anio][mes_sort]["pago"] += pago;
+                }
+                else{
+                    ingresos[anio][mes_sort] = {};
+                    ingresos[anio][mes_sort]["pendiente"] = pendiente;
+                    ingresos[anio][mes_sort]["pago"] = pago;
+                }
             }
         }
     }

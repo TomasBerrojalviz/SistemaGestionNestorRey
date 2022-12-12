@@ -11,6 +11,12 @@
         else if($_GET["pagina"] == "finanzas"){
             $titulo = "Finanzas";
         }
+        else if($_GET["pagina"] == "finanzas/ingresos"){
+            $titulo = "Finanzas - Ingresos";
+        }
+        else if($_GET["pagina"] == "finanzas/pendientes"){
+            $titulo = "Finanzas - Pendientes";
+        }
         else if($_GET["pagina"] == "autos"){
             $titulo = "Autos";
         }
@@ -93,6 +99,8 @@
             if(
                 $_GET["pagina"] == "menu" ||
                 $_GET["pagina"] == "finanzas" ||
+                $_GET["pagina"] == "finanzas/ingresos" ||
+                $_GET["pagina"] == "finanzas/pendientes" ||
                 $_GET["pagina"] == "autos" ||
                 $_GET["pagina"] == "clientes" ||
                 $_GET["pagina"] == "marcas_modelos" ||

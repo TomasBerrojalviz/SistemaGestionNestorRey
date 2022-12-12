@@ -425,7 +425,8 @@ function setTablas(){
 function actualizarTablas() {
     let params = new URLSearchParams(location.search);
     var pagina = params.get('pagina');
-    var paginasConTablas = ["autos", "ordenes", "marcas_modelos", "finanzas"];
+    var paginasConTablas = ["autos", "ordenes", "marcas_modelos", "finanzas", "finanzas/ingresos", "finanzas/pendientes"];
+
 
     if(!paginasConTablas.includes(pagina)){
         return;
@@ -436,8 +437,13 @@ function actualizarTablas() {
     else if(pagina == "ordenes"){
         cargarTabla('tableOrdenes');
     }
-    else if(pagina == "finanzas"){
-        cargarTabla('tableFinanzas');
+    else if(pagina.includes("finanzas")){
+        if(pagina == "finanzas/ingresos"){
+            cargarTabla('tableFinanzas');
+        }
+        else if(pagina == "finanzas/pendientes"){
+            cargarTabla('tablePendientes');
+        }
     }
     else{
         actualizarMarcasModelos();

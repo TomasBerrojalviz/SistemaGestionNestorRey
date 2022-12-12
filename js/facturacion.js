@@ -750,7 +750,6 @@ function limpiarManoObra(){
     }
 }
 
-
 function abrirModalIngresos(mes, anio){
     $('#tablaIngresos').DataTable().destroy();
     $('#tablaIngresos_rows').empty();
@@ -825,8 +824,9 @@ function abrirModalIngresos(mes, anio){
                         // <th scope="col">Auto</th>
                         // <th scope="col">Cliente</th>
                         // <th scope="col">Mano de obra</th>
+                        const pago = "<input class='form-control' type='number' onchange='' id='pago-"+manosObra[i].id_orden+"' min='0.00' step='100.00' value='"+manosObra[i].cobro+"' placeholder='10.000,00'>";
 
-                        var tr = tablaIngresos.row.add([fecha_sort, fecha, orden, auto, cliente, mano_obra_precio]).draw().node();
+                        var tr = tablaIngresos.row.add([fecha_sort, fecha, orden, auto, cliente, mano_obra_precio, pago]).draw().node();
                         
                         // tr.setAttribute("onclick", "abrirModalOrden("+manosObra[i].id_orden+")"); 
                     }
@@ -837,6 +837,99 @@ function abrirModalIngresos(mes, anio){
             $("#tablaIngresos_paginate").addClass('float-end my-2');
             $("#tablaIngresos_length").addClass('mx-1');
             $("#tablaIngresos_info").addClass('mx-1');
+            
+        }
+    });
+    mostrarModal("ingresosModal");    
+}
+
+function abrirModalPendientes(mes, anio){
+    $('#tablaPendientes').DataTable().destroy();
+    $('#tablaPendientes_rows').empty();
+    
+    $('#tablaPendientes').DataTable({
+        "language": {
+            "sProcessing":     "Procesando...",
+            "sLengthMenu":     "Mostrar _MENU_ ingresos",
+            "sZeroRecords":    "No se encontraron resultados",
+            "sEmptyTable":     "Ningún ingreso registrado",
+            "sInfo":           "Mostrando ingresos del _START_ al _END_ de un total de _TOTAL_ ingresos",
+            "sInfoEmpty":      "Mostrando ingresos del 0 al 0 de un total de 0 ingresos",
+            "sInfoFiltered":   "(filtrado de un total de _MAX_ ingresos)",
+            "sInfoPostFix":    "",
+            "sSearch":         "Buscar:",
+            "sUrl":            "",
+            "sInfoThousands":  ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst":    "Primero",
+                "sLast":     "Último",
+                "sNext":     "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        },
+        order: [[0, 'des']],
+        columnDefs: [
+            {targets: 0, visible:false},
+            {targets: 1, orderData: [0,1]},
+            {targets: 2},
+            {targets: 3},
+            {targets: 4},
+            {targets: 5}
+        ],
+        responsive: true,
+        autoWidth: false,
+        
+        lengthMenu: [
+            [10, 25, 50, 100, -1],
+            [10, 25, 50, 100, 'Todos'],
+        ]
+    });
+    var tablaPendientes = $('#tablaPendientes').DataTable();
+    ingresosModalTitle.innerHTML = "Ingresos de " + meses[mes] + " del " + anio;
+    const ordenesObtenidas = seleccionarOrdenes();
+    ordenesObtenidas.done(function(response) {
+        if(response != "error"){ // TODO FIX
+            const manosObra = filtrarManoObraPorFecha(JSON.parse(response), mes, anio);
+            for(var i = 0; i < manosObra.length; i++) {
+                const ordenSeleccionada = seleccionarOrdenCompleta(manosObra[i].id_orden);
+                ordenSeleccionada.done(function(responseOrden) {
+                    if(responseOrden != "error"){
+                        var boton = '<button class="btn btn-outline-dark btn-sm" onclick="buscarOrdenesRelacionadasFinanzas(\''+manosObra[i].id_orden+'\')" style="width: 100%;">';
+                        boton += manosObra[i].id_orden;
+                        boton += "</button>";
+
+                        const ordenRelacionada = JSON.parse(responseOrden)[0];
+                        const fecha_sort = manosObra[i].fecha_devolucion;
+                        const fecha = manosObra[i].fecha;
+                        const orden = boton;
+                        const auto = ordenRelacionada.patente + " - " + ordenRelacionada.modelo;
+                        const cliente = ordenRelacionada.nombre;
+                        const mano_obra_precio = "$" + manosObra[i].precio;
+
+                        // <th scope="col">Fecha-Sort</th>
+                        // <th scope="col">Fecha</th>
+                        // <th scope="col">Orden</th>
+                        // <th scope="col">Auto</th>
+                        // <th scope="col">Cliente</th>
+                        // <th scope="col">Mano de obra</th>
+                        const pago = "<input class='form-control' type='number' onchange='' id='pago-"+manosObra[i].id_orden+"' min='0.00' step='100.00' value='"+manosObra[i].cobro+"' placeholder='10.000,00'>";
+
+                        var tr = tablaPendientes.row.add([fecha_sort, fecha, orden, auto, cliente, mano_obra_precio, pago]).draw().node();
+                        
+                        // tr.setAttribute("onclick", "abrirModalOrden("+manosObra[i].id_orden+")"); 
+                    }
+                });
+            }
+            $("#tablaPendientes_filter").addClass('float-end mx-2');
+            document.getElementById("tablaPendientes_paginate").removeAttribute('class');
+            $("#tablaPendientes_paginate").addClass('float-end my-2');
+            $("#tablaPendientes_length").addClass('mx-1');
+            $("#tablaPendientes_info").addClass('mx-1');
             
         }
     });
