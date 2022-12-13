@@ -100,7 +100,17 @@ function cargarTabla(nombreTabla){
         // Solucion hidden
         
         var tablaOrdenes = $('#tableOrdenes').DataTable({
-            dom: 'r <"col-lg-3 col-md-6 col-sm-12" B> <"wrapper" <"col-6 text-light float-end" f> <"col-6 text-light " l> t <"col-6 text-light float-end" p> <"col-6 text-light" i>>',
+            searchPanes: {
+                cascadePanes: true,
+                dtOpts: {
+                    paging: true,
+                    pagingType: 'numbers',
+                    searching: true,
+                    // searching: false,
+                    // info: true
+                }
+            },
+            dom: '<"text-light " P> r <"col-lg-3 col-md-6 col-sm-12" B> <"wrapper" <"col-6 text-light float-end" f> <"col-6 text-light " l> t <"col-6 text-light float-end" p> <"col-6 text-light" i>>',
             buttons:[
                 {
                     extend: 'excelHtml5',
@@ -152,10 +162,26 @@ function cargarTabla(nombreTabla){
                 "oAria": {
                     "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                },
+                searchPanes: {
+                    title: {
+                        _: 'Filtros seleccionados - %d',
+                    },
+                    collapseMessage : "Minimizar filtros",
+                    showMessage: "Mostrar filtros",
+                    clearMessage: "Limpiar filtros",
+                    emptyPanes: ""
                 }
             },
             order: [[0, 'asc'], [7, 'asc'], [4, 'asc']],
             columnDefs: [
+                {
+                    searchPanes: {
+                        show: false,
+                        initCollapsed: true,
+                    },
+                    targets: [1, 2]
+                },
                 { className: "dt-head-center", targets: "_all" },
                 {targets: 0, visible:false},
                 {targets: 1, sClass:"columnaEstado", orderData: [0,7,4]},
