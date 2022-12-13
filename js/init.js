@@ -121,15 +121,15 @@ function cargarTabla(nombreTabla){
                         columns: ':visible'
                     }
                 },
-                {
-                    extend: 'pdfHtml5',
-                    text: '<i class="fa-regular fa-file-pdf"></i>',
-                    titleAttr: 'Exportar a PDF',
-                    className: 'btn btn-lg btn-danger mb-2',
-                    exportOptions: {
-                        columns: ':visible'
-                    }
-                },
+                // {
+                //     extend: 'pdfHtml5',
+                //     text: '<i class="fa-regular fa-file-pdf"></i>',
+                //     titleAttr: 'Exportar a PDF',
+                //     className: 'btn btn-lg btn-danger mb-2',
+                //     exportOptions: {
+                //         columns: ':visible'
+                //     }
+                // },
                 // {
                 //     extend: 'print',
                 //     text: '<i class="fa-solid fa-print"></i>',
@@ -177,22 +177,24 @@ function cargarTabla(nombreTabla){
             columnDefs: [
                 {
                     searchPanes: {
-                        show: false,
+                        show: true,
                         initCollapsed: true,
                     },
-                    targets: [1, 2]
+                    targets: [1, 2, 7]
                 },
                 { className: "dt-head-center", targets: "_all" },
                 {targets: 0, visible:false},
                 {targets: 1, sClass:"columnaEstado", orderData: [0,7,4]},
                 {targets: 2, sClass:"columnaPatente", orderData: [2,0,4]},
                 {targets: 3, visible:false},
-                {targets: 4, sClass:"columnaLlegada"},
-                {targets: 5, sClass:"columnaProblema"},
-                {targets: 6, orderData: [7,0,4]},
-                {targets: 7, visible:false},
-                {targets: 8, sClass:"columnaDevolucion"},
-                {targets: 9, visible:false}
+                {targets: 4, visible:false},
+                {targets: 5, sClass:"columnaLlegada", orderData: [4]},
+                {targets: 6, sClass:"columnaProblema"},
+                {targets: 7, orderData: [7,0,4]},
+                {targets: 8, visible:false},
+                {targets: 9, visible:false},
+                {targets: 10, sClass:"columnaDevolucion", orderData: [9]},
+                {targets: 11, visible:false}
             ],
             responsive: true,
             autoWidth: false,
@@ -213,21 +215,16 @@ function cargarTabla(nombreTabla){
                     var patente = ordenes[i].patente;
                     var modelo_orden = ordenes[i].modelo + " Nro orden " + ordenes[i].id; //hidden
 
-                    var pagado = '<i class="fa-regular fa-circle-check text-success h3"></i>';
+                    // var llegada = '<span style="display: none;">'+fechaOrdenable[2]+fechaOrdenable[1]+fechaOrdenable[0]+'</span>'+ordenes[i].fecha_recibido;
+                    var pagado = '<span style="display: none;">SI</span> <i class="fa-regular fa-circle-check text-success h3"></i>';
                     var pago_sort = 1;
                     // if(ordenes[i].pago < traerCobroRecibo(ordenes[i].id)){
                     if(ordenes[i].pago < ordenes[i].cobro || ordenes[i].cobro == 0){
-                        pagado = '<i class="fa-regular fa-circle-xmark text-danger h3"></i>';
+                        pagado = '<span style="display: none;">NO</span> <i class="fa-regular fa-circle-xmark text-danger h3"></i>';
                         pago_sort = 0;
                     }
-                    
-                    var fechaOrdenable = ordenes[i].fecha_recibido.split("/");
-                    var llegada = '<span style="display: none;">'+fechaOrdenable[2]+fechaOrdenable[1]+fechaOrdenable[0]+'</span>'+ordenes[i].fecha_recibido;
-                    var problema = ordenes[i].problema;
-                    var entrega = ordenes[i].fecha_devolucion;
-                    var solucion = ordenes[i].solucion; //hidden
 
-                    var tr = tablaOrdenes.row.add([estadoPosicion, estado, patente, modelo_orden, llegada, problema, pagado, pago_sort, entrega, solucion]).draw().node();
+                    var tr = tablaOrdenes.row.add([estadoPosicion, estado, patente, modelo_orden, ordenes[i].fecha_recibido_sort, ordenes[i].fecha_recibido, ordenes[i].problema, pagado, pago_sort, ordenes[i].fecha_devolucion_sort, ordenes[i].fecha_devolucion, ordenes[i].solucion]).draw().node();
                     tr.id = ordenes[i].id;
                     $(tr).addClass('fila');
                     tr.setAttribute("tipoModal", "orden");
@@ -292,6 +289,26 @@ function cargarTabla(nombreTabla){
         // Solucion hidden
         
         $('#tableAuto').DataTable({
+            searchPanes: {
+                cascadePanes: true,
+                dtOpts: {
+                    paging: true,
+                    pagingType: 'numbers',
+                    searching: true,
+                }
+            },
+            dom: '<"text-light " P> r <"col-lg-3 col-md-6 col-sm-12" B> <"wrapper" <"col-6 text-light float-end" f> <"col-6 text-light " l> t <"col-6 text-light float-end" p> <"col-6 text-light" i>>',
+            buttons:[
+                {
+                    extend: 'excelHtml5',
+                    text: '<i class="fa-regular fa-file-excel"></i>',
+                    titleAttr: 'Exportar a Excel',
+                    className: 'btn btn-lg btn-success mb-2',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                }
+            ],
             "language": {
                 "sProcessing":     "Procesando...",
                 "sLengthMenu":     "Mostrar _MENU_ autos",
@@ -314,10 +331,26 @@ function cargarTabla(nombreTabla){
                 "oAria": {
                     "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                },
+                searchPanes: {
+                    title: {
+                        _: 'Filtros seleccionados - %d',
+                    },
+                    collapseMessage : "Minimizar filtros",
+                    showMessage: "Mostrar filtros",
+                    clearMessage: "Limpiar filtros",
+                    emptyPanes: ""
                 }
             },
             order: [[1, 'asc']],
             columnDefs: [
+                {
+                    searchPanes: {
+                        show: true,
+                        initCollapsed: true,
+                    },
+                    targets: [1, 3]
+                },
                 { className: "dt-head-center", targets: "_all" },
                 {targets: 0, sClass:"columnaPatente"},
                 {targets: 1, sClass:"columnaModelo"},
@@ -358,11 +391,6 @@ function cargarTabla(nombreTabla){
                 columnaAnio[i].setAttribute("style", "max-width: 100px;");
                 // columnaClienteNombre[i].setAttribute("style", "max-width: 160px;");
             }
-            $("#tableAuto_filter").addClass('text-light float-end mx-2');
-            document.getElementById("tableAuto_paginate").removeAttribute('class');
-            $("#tableAuto_paginate").addClass('text-light float-end my-2');
-            $("#tableAuto_length").addClass('text-light  mx-1');
-            $("#tableAuto_info").addClass('text-light mx-1');
         });
 
     }
@@ -371,6 +399,26 @@ function cargarTabla(nombreTabla){
         $('#tableFinanzas_rows').empty();
         
         $('#tableFinanzas').DataTable({
+            searchPanes: {
+                cascadePanes: true,
+                dtOpts: {
+                    paging: true,
+                    pagingType: 'numbers',
+                    searching: true,
+                }
+            },
+            dom: '<"text-light " P> r <"col-lg-3 col-md-6 col-sm-12" B> <"wrapper" <"col-6 text-light float-end" f> <"col-6 text-light " l> t <"col-6 text-light float-end" p> <"col-6 text-light" i>>',
+            buttons:[
+                {
+                    extend: 'excelHtml5',
+                    text: '<i class="fa-regular fa-file-excel"></i>',
+                    titleAttr: 'Exportar a Excel',
+                    className: 'btn btn-lg btn-success mb-2',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                }
+            ],
             "language": {
                 "sProcessing":     "Procesando...",
                 "sLengthMenu":     "Mostrar _MENU_ ingresos",
@@ -393,14 +441,30 @@ function cargarTabla(nombreTabla){
                 "oAria": {
                     "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                },
+                searchPanes: {
+                    title: {
+                        _: 'Filtros seleccionados - %d',
+                    },
+                    collapseMessage : "Minimizar filtros",
+                    showMessage: "Mostrar filtros",
+                    clearMessage: "Limpiar filtros",
+                    emptyPanes: ""
                 }
             },
             order: [[1, 'des']],
             columnDefs: [
+                {
+                    searchPanes: {
+                        show: true,
+                        initCollapsed: true,
+                    },
+                    targets: [0,2]
+                },
                 { className: "dt-head-center", targets: "_all" },
                 {targets: 0},
                 {targets: 1, visible:false},
-                {targets: 2, orderData: [1,1]},
+                {targets: 2, orderData: [0,1]},
                 {targets: 3}
             ],
             responsive: true,
@@ -432,11 +496,6 @@ function cargarTabla(nombreTabla){
                     }
                 }
             }
-            $("#tableFinanzas_filter").addClass('text-light float-end mx-2');
-            document.getElementById("tableFinanzas_paginate").removeAttribute('class');
-            $("#tableFinanzas_paginate").addClass('text-light float-end my-2');
-            $("#tableFinanzas_length").addClass('text-light  mx-1');
-            $("#tableFinanzas_info").addClass('text-light mx-1');
         });
     }
     else if(nombreTabla == "tablePendientes"){
@@ -444,6 +503,26 @@ function cargarTabla(nombreTabla){
         $('#tablePendientes_rows').empty();
         
         $('#tablePendientes').DataTable({
+            searchPanes: {
+                cascadePanes: true,
+                dtOpts: {
+                    paging: true,
+                    pagingType: 'numbers',
+                    searching: true,
+                }
+            },
+            dom: '<"text-light " P> r <"col-lg-3 col-md-6 col-sm-12" B> <"wrapper" <"col-6 text-light float-end" f> <"col-6 text-light " l> t <"col-6 text-light float-end" p> <"col-6 text-light" i>>',
+            buttons:[
+                {
+                    extend: 'excelHtml5',
+                    text: '<i class="fa-regular fa-file-excel"></i>',
+                    titleAttr: 'Exportar a Excel',
+                    className: 'btn btn-lg btn-success mb-2',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                }
+            ],
             "language": {
                 "sProcessing":     "Procesando...",
                 "sLengthMenu":     "Mostrar _MENU_ ingresos",
@@ -466,14 +545,30 @@ function cargarTabla(nombreTabla){
                 "oAria": {
                     "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                },
+                searchPanes: {
+                    title: {
+                        _: 'Filtros seleccionados - %d',
+                    },
+                    collapseMessage : "Minimizar filtros",
+                    showMessage: "Mostrar filtros",
+                    clearMessage: "Limpiar filtros",
+                    emptyPanes: ""
                 }
             },
             order: [[1, 'des']],
             columnDefs: [
+                {
+                    searchPanes: {
+                        show: true,
+                        initCollapsed: true,
+                    },
+                    targets: [0,2]
+                },
                 { className: "dt-head-center", targets: "_all" },
                 {targets: 0},
                 {targets: 1, visible:false},
-                {targets: 2, orderData: [1,1]},
+                {targets: 2, orderData: [0,1]},
                 {targets: 3}
             ],
             responsive: true,
@@ -506,11 +601,6 @@ function cargarTabla(nombreTabla){
                     }
                 }
             }
-            $("#tablePendientes_filter").addClass('text-light float-end mx-2');
-            document.getElementById("tablePendientes_paginate").removeAttribute('class');
-            $("#tablePendientes_paginate").addClass('text-light float-end my-2');
-            $("#tablePendientes_length").addClass('text-light  mx-1');
-            $("#tablePendientes_info").addClass('text-light mx-1');
         });
     }
 }

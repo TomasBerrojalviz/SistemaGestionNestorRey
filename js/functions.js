@@ -316,6 +316,19 @@ function editarModal(){
 
 function setTablas(){
     $('#tableMarca').DataTable({
+        dom: 'r <"col-lg-3 col-md-6 col-sm-12" B> <"wrapper" <"col-6 text-light float-end" f> <"col-6 text-light " l> t <"col-6 text-light float-end" p> <"col-6 text-light" i>>',
+        buttons:[
+            {
+                extend: 'excelHtml5',
+                text: '<i class="fa-regular fa-file-excel"></i>',
+                titleAttr: 'Exportar a Excel',
+                className: 'btn btn-lg btn-success mb-2',
+                exportOptions: {
+                    columns: '1'
+                },
+                filename: 'Sistema Gestion - Marcas'
+            }
+        ],
         "language": {
             "sProcessing":     "Procesando...",
             "sLengthMenu":     "Mostrar _MENU_ marcas",
@@ -340,17 +353,26 @@ function setTablas(){
                 "sSortDescending": ": Activar para ordenar la columna de manera descendente"
             }
         },
-        order: [[1, 'asc']]
+        order: [[1, 'asc']],
+        columnDefs: [
+            { className: "dt-head-center", targets: "_all" }
+        ],
     });
-    if(document.getElementById("tableMarca_paginate")){
-        $("#tableMarca_filter").addClass('text-light float-end mx-2');
-        document.getElementById("tableMarca_paginate").removeAttribute('class');
-        $("#tableMarca_paginate").addClass('text-light float-end my-2');
-        $("#tableMarca_length").addClass('text-light mx-1');
-        $("#tableMarca_info").addClass('text-light mx-1');
-    }
 
     $('#tableModelo').DataTable({
+        dom: 'r <"col-lg-3 col-md-6 col-sm-12" B> <"wrapper" <"col-6 text-light float-end" f> <"col-6 text-light " l> t <"col-6 text-light float-end" p> <"col-6 text-light" i>>',
+        buttons:[
+            {
+                extend: 'excelHtml5',
+                text: '<i class="fa-regular fa-file-excel"></i>',
+                titleAttr: 'Exportar a Excel',
+                className: 'btn btn-lg btn-success mb-2',
+                exportOptions: {
+                    columns: '1,2'
+                },
+                filename: 'Sistema Gestion - Modelos'
+            }
+        ],
         "language": {
             "sProcessing":     "Procesando...",
             "sLengthMenu":     "Mostrar _MENU_ modelos",
@@ -375,17 +397,25 @@ function setTablas(){
                 "sSortDescending": ": Activar para ordenar la columna de manera descendente"
             }
         },
-        order: [[1, 'asc']]
+        order: [[1, 'asc']],
+        columnDefs: [
+            { className: "dt-head-center", targets: "_all" }
+        ],
     });
-    if(document.getElementById("tableModelo_paginate")){
-        $("#tableModelo_filter").addClass('text-light float-end mx-2');
-        document.getElementById("tableModelo_paginate").removeAttribute('class');
-        $("#tableModelo_paginate").addClass('text-light float-end my-2');
-        $("#tableModelo_length").addClass('text-light mx-1');
-        $("#tableModelo_info").addClass('text-light mx-1');
-    }
 
     $('#tableCliente').DataTable({
+        dom: 'r <"col-lg-3 col-md-6 col-sm-12" B> <"wrapper" <"col-6 text-light float-end" f> <"col-6 text-light " l> t <"col-6 text-light float-end" p> <"col-6 text-light" i>>',
+        buttons:[
+            {
+                extend: 'excelHtml5',
+                text: '<i class="fa-regular fa-file-excel"></i>',
+                titleAttr: 'Exportar a Excel',
+                className: 'btn btn-lg btn-success mb-2',
+                exportOptions: {
+                    columns: '1,2,3,4'
+                }
+            }
+        ],
         "language": {
             "sProcessing":     "Procesando...",
             "sLengthMenu":     "Mostrar _MENU_ clientes",
@@ -410,15 +440,11 @@ function setTablas(){
                 "sSortDescending": ": Activar para ordenar la columna de manera descendente"
             }
         },
-        order: [[1, 'asc']]
+        order: [[1, 'asc']],
+        columnDefs: [
+            { className: "dt-head-center", targets: "_all" }
+        ],
     });
-    if(document.getElementById("tableCliente_paginate")){
-        $("#tableCliente_filter").addClass('text-light float-end mx-2');
-        document.getElementById("tableCliente_paginate").removeAttribute('class');
-        $("#tableCliente_paginate").addClass('text-light float-end my-2');
-        $("#tableCliente_length").addClass('text-light mx-1');
-        $("#tableCliente_info").addClass('text-light mx-1');
-    }
     actualizarTablas();
 }
 

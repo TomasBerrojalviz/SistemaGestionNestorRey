@@ -35,6 +35,9 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
                 Modelo
             </th>
             <th scope="col" class="sorting">
+                Llegada_sort
+            </th>
+            <th scope="col" class="sorting">
                 Llegada
             </th>
             <th scope="col" class="sorting">
@@ -45,6 +48,9 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
             </th>
             <th scope="col" class="sorting">
                 Pago_sort
+            </th>
+            <th scope="col" class="sorting">
+                Entrega_sort
             </th>
             <th scope="col" class="sorting">
                 Entrega

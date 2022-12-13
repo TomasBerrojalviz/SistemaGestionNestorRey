@@ -758,6 +758,26 @@ function abrirModalIngresos(mes, anio){
     $('#tablaIngresos_rows').empty();
     
     $('#tablaIngresos').DataTable({
+        searchPanes: {
+            cascadePanes: true,
+            dtOpts: {
+                paging: true,
+                pagingType: 'numbers',
+                searching: true,
+            }
+        },
+        dom: '<"text-center" P> r <"col-lg-3 col-md-6 col-sm-12" B> <"wrapper" <"col-6 float-end" f> <"col-6 " l> t <"col-6 float-end" p> <"col-6 " i>>',
+        buttons:[
+            {
+                extend: 'excelHtml5',
+                text: '<i class="fa-regular fa-file-excel"></i>',
+                titleAttr: 'Exportar a Excel',
+                className: 'btn btn-lg btn-success mb-2',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            }
+        ],
         "language": {
             "sProcessing":     "Procesando...",
             "sLengthMenu":     "Mostrar _MENU_ ingresos",
@@ -784,6 +804,14 @@ function abrirModalIngresos(mes, anio){
         },
         order: [[0, 'des']],
         columnDefs: [
+            {
+                searchPanes: {
+                    show: true,
+                    initCollapsed: true,
+                },
+                targets: [4, 3]
+            },
+            { className: "dt-head-center", targets: "_all" },
             {targets: 0, visible:false},
             {targets: 1, orderData: [0,1]},
             {targets: 2},
@@ -835,11 +863,6 @@ function abrirModalIngresos(mes, anio){
                     }
                 });
             }
-            $("#tablaIngresos_filter").addClass('float-end mx-2');
-            document.getElementById("tablaIngresos_paginate").removeAttribute('class');
-            $("#tablaIngresos_paginate").addClass('float-end my-2');
-            $("#tablaIngresos_length").addClass('mx-1');
-            $("#tablaIngresos_info").addClass('mx-1');
             
         }
     });
@@ -851,6 +874,26 @@ function abrirModalPendientes(mes, anio){
     $('#tablaPendientes_rows').empty();
     
     $('#tablaPendientes').DataTable({
+        searchPanes: {
+            cascadePanes: true,
+            dtOpts: {
+                paging: true,
+                pagingType: 'numbers',
+                searching: true,
+            }
+        },
+        dom: '<"text-center" P> r <"col-lg-3 col-md-6 col-sm-12" B> <"wrapper" <"col-6 float-end" f> <"col-6 " l> t <"col-6 float-end" p> <"col-6 " i>>',
+        buttons:[
+            {
+                extend: 'excelHtml5',
+                text: '<i class="fa-regular fa-file-excel"></i>',
+                titleAttr: 'Exportar a Excel',
+                className: 'btn btn-lg btn-success mb-2',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            }
+        ],
         "language": {
             "sProcessing":     "Procesando...",
             "sLengthMenu":     "Mostrar _MENU_ ingresos",
@@ -873,10 +916,27 @@ function abrirModalPendientes(mes, anio){
             "oAria": {
                 "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
                 "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            },
+            searchPanes: {
+                title: {
+                    _: 'Filtros seleccionados - %d',
+                },
+                collapseMessage : "Minimizar filtros",
+                showMessage: "Mostrar filtros",
+                clearMessage: "Limpiar filtros",
+                emptyPanes: ""
             }
         },
         order: [[0, 'asc']],
         columnDefs: [
+            {
+                searchPanes: {
+                    show: true,
+                    initCollapsed: true,
+                },
+                targets: [4, 3]
+            },
+            { className: "dt-head-center", targets: "_all" },
             {targets: 0, visible:false},
             {targets: 1, orderData: [0,1], sClass:"columnaFechaPendientes align-middle"},
             {targets: 2, sClass:"columnaOrdenPendientes align-middle"},
@@ -884,7 +944,6 @@ function abrirModalPendientes(mes, anio){
             {targets: 4, sClass:"align-middle"},
             {targets: 5, sClass:"columnaCobroPendientes align-middle"},
             {targets: 6, sClass:"columnaPagoPendientes align-middle"}
-            
         ],
         responsive: true,
         autoWidth: false,
@@ -932,11 +991,6 @@ function abrirModalPendientes(mes, anio){
                 columnaCobroPendientes[i].setAttribute("style", "width: 35px; max-width: 35px;");
                 columnaPagoPendientes[i].setAttribute("style", "width: 110px;");
             }
-            $("#tablaPendientes_filter").addClass('float-end mx-2');
-            document.getElementById("tablaPendientes_paginate").removeAttribute('class');
-            $("#tablaPendientes_paginate").addClass('float-end my-2');
-            $("#tablaPendientes_length").addClass('mx-1');
-            $("#tablaPendientes_info").addClass('mx-1');
             
         }
     });
