@@ -1,6 +1,7 @@
 const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 const meses_numero = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
 
+
 const alertSuccess = Swal.mixin({
     allowOutsideClick: false,
     customClass: {
@@ -99,6 +100,36 @@ function cargarTabla(nombreTabla){
         // Solucion hidden
         
         var tablaOrdenes = $('#tableOrdenes').DataTable({
+            dom: 'r <"col-lg-3 col-md-6 col-sm-12" B> <"wrapper" <"col-6 text-light float-end" f> <"col-6 text-light " l> t <"col-6 text-light float-end" p> <"col-6 text-light" i>>',
+            buttons:[
+                {
+                    extend: 'excelHtml5',
+                    text: '<i class="fa-regular fa-file-excel"></i>',
+                    titleAttr: 'Exportar a Excel',
+                    className: 'btn btn-lg btn-success mb-2',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    text: '<i class="fa-regular fa-file-pdf"></i>',
+                    titleAttr: 'Exportar a PDF',
+                    className: 'btn btn-lg btn-danger mb-2',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                // {
+                //     extend: 'print',
+                //     text: '<i class="fa-solid fa-print"></i>',
+                //     titleAttr: 'Imprimir',
+                //     className: 'btn btn-info mb-2',
+                //     exportOptions: {
+                //         columns: ':visible'
+                //     }
+                // }
+            ],
             "language": {
                 "sProcessing":     "Procesando...",
                 "sLengthMenu":     "Mostrar _MENU_ ordenes",
@@ -125,6 +156,7 @@ function cargarTabla(nombreTabla){
             },
             order: [[0, 'asc'], [7, 'asc'], [4, 'asc']],
             columnDefs: [
+                { className: "dt-head-center", targets: "_all" },
                 {targets: 0, visible:false},
                 {targets: 1, sClass:"columnaEstado", orderData: [0,7,4]},
                 {targets: 2, sClass:"columnaPatente", orderData: [2,0,4]},
@@ -176,6 +208,14 @@ function cargarTabla(nombreTabla){
                     tr.setAttribute("onclick", "fila(this)");   
                 }
             }
+            // 18
+            // 11
+            // 10
+            // 45
+            // 6
+            // 10
+
+
             for(var i=0; i<columnaEstado.length; i++) {
                 columnaEstado[i].setAttribute("style", "width: 200px;");
                 columnaPatente[i].setAttribute("style", "width: 100px;");
@@ -183,11 +223,19 @@ function cargarTabla(nombreTabla){
                 columnaProblema[i].setAttribute("style", "max-width: 400px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;");
                 columnaDevolucion[i].setAttribute("style", "width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;");
             }
-            $("#tableOrdenes_filter").addClass('text-light float-end mx-2');
-            document.getElementById("tableOrdenes_paginate").removeAttribute('class');
-            $("#tableOrdenes_paginate").addClass('text-light float-end my-2');
-            $("#tableOrdenes_length").addClass('text-light');
-            $("#tableOrdenes_info").addClass('text-light');
+            // for(var i=0; i<columnaEstado.length; i++) {
+            //     columnaEstado[i].setAttribute("style", "width: 18%;");
+            //     columnaPatente[i].setAttribute("style", "width: 11%;");
+            //     columnaLlegada[i].setAttribute("style", "width: 10%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;");
+            //     columnaProblema[i].setAttribute("style", "width: 45%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;");
+            //     columnaDevolucion[i].setAttribute("style", "width: 10%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;");
+            // }
+
+            // $("#tableOrdenes_filter").addClass('text-light float-end mx-2');
+            // document.getElementById("tableOrdenes_paginate").removeAttribute('class');
+            // $("#tableOrdenes_paginate").addClass('text-light float-end my-2');
+            // $("#tableOrdenes_length").addClass('text-light');
+            // $("#tableOrdenes_info").addClass('text-light');
         });
         var autoBuscado = sessionStorage.getItem('autoBuscado');
         // alert(autoBuscado);
@@ -244,6 +292,7 @@ function cargarTabla(nombreTabla){
             },
             order: [[1, 'asc']],
             columnDefs: [
+                { className: "dt-head-center", targets: "_all" },
                 {targets: 0, sClass:"columnaPatente"},
                 {targets: 1, sClass:"columnaModelo"},
                 {targets: 2, sClass:"columnaAnio"},
@@ -322,6 +371,7 @@ function cargarTabla(nombreTabla){
             },
             order: [[1, 'des']],
             columnDefs: [
+                { className: "dt-head-center", targets: "_all" },
                 {targets: 0},
                 {targets: 1, visible:false},
                 {targets: 2, orderData: [1,1]},
@@ -394,6 +444,7 @@ function cargarTabla(nombreTabla){
             },
             order: [[1, 'des']],
             columnDefs: [
+                { className: "dt-head-center", targets: "_all" },
                 {targets: 0},
                 {targets: 1, visible:false},
                 {targets: 2, orderData: [1,1]},
