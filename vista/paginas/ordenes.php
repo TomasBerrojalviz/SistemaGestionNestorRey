@@ -5,7 +5,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
 
 ?>
 
-<div class="container-fluid text-center">
+<div class="container-fluid text-center tabla_data" style="display: none">
     <a id="btnAgregarOrden" <?php echo $clase_boton_lg ?>>
         <i class="fa-solid fa-sheet-plastic">
             Crear orden
@@ -19,53 +19,67 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
     <!-- <div class="d-grid gap-2 mx-3 py-3 d-md-flex justify-content-md-center">
         <button type="button" class="btn btn-dark btn-outline-info" onclick="sortTablaOrdenes()">Ordenar</button>
     </div> -->
-    <table cellspacing=0 class="table table-responsive table-info table-bordered table-hover table-inverse table-striped text-center" role="grid" id="tableOrdenes">
+    <table cellspacing=0 class="table table-responsive table-info table-bordered table-hover table-inverse table-striped text-center tabla_data" role="grid" id="tableOrdenes" style="display: none">
     <thead>
         <tr>
             <th scope="col" class="sorting">
-                Estado Orden
+                <!-- Estado Orden -->
             </th>
             <th scope="col" class="sorting">
-                Estado
+                <!-- Estado -->
             </th>
             <th scope="col" class="sorting">
-                Auto
+                <!-- Auto -->
             </th>
             <th scope="col" class="sorting">
-                Modelo
+                <!-- Modelo -->
             </th>
             <th scope="col" class="sorting">
-                Llegada_sort
+                <!-- Llegada_sort -->
             </th>
             <th scope="col" class="sorting">
-                Llegada
+                <!-- Llegada -->
             </th>
             <th scope="col" class="sorting">
-                Problema
+                <!-- Problema -->
             </th>
             <th scope="col" class="sorting">
-                Pago
+                <!-- Pago -->
             </th>
             <th scope="col" class="sorting">
-                Pago_sort
+                <!-- Pago_sort -->
             </th>
             <th scope="col" class="sorting">
-                Entrega_sort
+                <!-- Entrega_sort -->
             </th>
             <th scope="col" class="sorting">
-                Entrega
+                <!-- Entrega -->
             </th>
             <th scope="col" class="sorting">
-                Solucion
+                <!-- Solucion -->
             </th>
         </tr>
     </thead>
     <tbody class="table-group-divider" id="tableOrdenes_rows">
-        <script>
-            // cargarTabla('tableOrdenes');
-        </script>
     </tbody>
     </table>
+    <div class="text-center text-light" id="loading_tab">
+        <div class="spinner-border row" style="width: 5rem; height: 5rem;" role="status">
+            <span class="visually-hidden">Cargando...</span>
+        </div>
+        <div>
+            <h3>Cargando</h3>
+            <div class="spinner-grow spinner-grow-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow spinner-grow-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow spinner-grow-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
 </div>
 
 <?php require_once "vista/utils/modal_orden.php"; ?>

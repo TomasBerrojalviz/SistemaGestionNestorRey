@@ -741,6 +741,7 @@ function recargar(){
 }
 
 function DisplayVolver(FORM){
+    console.log();
     successRespuesta.innerHTML = "";
     errorRespuesta.innerHTML = "";
     if(modalAbierto && FORM == "HOME" && FORM != "HOME_ORDEN"){
@@ -761,7 +762,9 @@ function DisplayVolver(FORM){
         $("#errorModal").modal('hide');
         $("#successModal").modal('hide');
         $("#deleteModal").modal('hide');
-        actualizarTablas();
+        if(event.target.id == "btn_success_modal"){
+            actualizarTablas();
+        }
         // $("#clienteModal").modal('hide');
         // $("#marcaModal").modal('hide');
         // $("#modeloModal").modal('hide');

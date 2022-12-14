@@ -1,6 +1,7 @@
 const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 const meses_numero = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
 
+const tabla_data = document.getElementsByClassName("tabla_data");
 
 const alertSuccess = Swal.mixin({
     allowOutsideClick: false,
@@ -98,7 +99,6 @@ function cargarTabla(nombreTabla){
         // Problema
         // Devolucion
         // Solucion hidden
-        
         var tablaOrdenes = $('#tableOrdenes').DataTable({
             searchPanes: {
                 cascadePanes: true,
@@ -110,7 +110,7 @@ function cargarTabla(nombreTabla){
                     // info: true
                 }
             },
-            dom: '<"text-light " P> r <"col-lg-3 col-md-6 col-sm-12" B> <"wrapper" <"col-6 text-light float-end" f> <"col-6 text-light " l> t <"col-6 text-light float-end" p> <"col-6 text-light" i>>',
+            dom: 'r <"text-light" P> <"col-lg-3 col-md-6 col-sm-12" B> <"wrapper" <"col-6 text-light float-end" f> <"col-6 text-light " l> t <"col-6 text-light float-end" p> <"col-6 text-light" i>>',
             buttons:[
                 {
                     extend: 'excelHtml5',
@@ -140,7 +140,10 @@ function cargarTabla(nombreTabla){
                 //     }
                 // }
             ],
+            processing: true,
             "language": {
+                "loadingRecords": "&nbsp;",
+                "processing": "Procesando...",
                 "sProcessing":     "Procesando...",
                 "sLengthMenu":     "Mostrar _MENU_ ordenes",
                 "sZeroRecords":    "No se encontraron resultados",
@@ -182,19 +185,31 @@ function cargarTabla(nombreTabla){
                     },
                     targets: [1, 2, 7]
                 },
+                // Estado Orden
+                // Estado
+                // Auto
+                // Modelo
+                // Llegada_sort
+                // Llegada
+                // Problema
+                // Pago
+                // Pago_sort
+                // Entrega_sort
+                // Entrega
+                // Solucion
                 { className: "dt-head-center", targets: "_all" },
-                {targets: 0, visible:false},
-                {targets: 1, sClass:"columnaEstado", orderData: [0,7,4]},
-                {targets: 2, sClass:"columnaPatente", orderData: [2,0,4]},
-                {targets: 3, visible:false},
-                {targets: 4, visible:false},
-                {targets: 5, sClass:"columnaLlegada", orderData: [4]},
-                {targets: 6, sClass:"columnaProblema"},
-                {targets: 7, orderData: [7,0,4]},
-                {targets: 8, visible:false},
-                {targets: 9, visible:false},
-                {targets: 10, sClass:"columnaDevolucion", orderData: [9]},
-                {targets: 11, visible:false}
+                {targets: 0, title: 'Estado Orden', visible:false},
+                {targets: 1, title: 'Estado', sClass:"columnaEstado", orderData: [0,7,4]},
+                {targets: 2, title: 'Auto', sClass:"columnaPatente", orderData: [2,0,4]},
+                {targets: 3, title: 'Modelo', visible:false},
+                {targets: 4, title: 'Llegada_sort', visible:false},
+                {targets: 5, title: 'Llegada', sClass:"columnaLlegada", orderData: [4]},
+                {targets: 6, title: 'Problema', sClass:"columnaProblema"},
+                {targets: 7, title: 'Pago', orderData: [7,0,4]},
+                {targets: 8, title: 'Pago_sort', visible:false},
+                {targets: 9, title: 'Entrega_sort', visible:false},
+                {targets: 10, title: 'Entrega', sClass:"columnaDevolucion", orderData: [9]},
+                {targets: 11, title: 'Solucion', visible:false}
             ],
             responsive: true,
             autoWidth: false,
@@ -202,7 +217,7 @@ function cargarTabla(nombreTabla){
             lengthMenu: [
                 [10, 25, 50, 100, -1],
                 [10, 25, 50, 100, 'Todos'],
-            ]
+            ],
         });
         // var tablaOrdenes = $('#tableOrdenes').DataTable();
         var ordenesSeleccionadas = seleccionarOrdenes();
@@ -237,7 +252,12 @@ function cargarTabla(nombreTabla){
             // 45
             // 6
             // 10
-
+            for (var i = 0; i < tabla_data.length; i++) {
+                var element = tabla_data[i];
+                element.style.display = "";
+            }
+            // document.getElementById("tableOrdenes")
+            document.getElementById("loading_tab").style.display = "none";          
 
             for(var i=0; i<columnaEstado.length; i++) {
                 columnaEstado[i].setAttribute("style", "width: 200px;");

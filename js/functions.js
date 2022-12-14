@@ -448,7 +448,38 @@ function setTablas(){
     actualizarTablas();
 }
 
+// var aux = true;
+// let timerInterval
+// Swal.fire({
+//   title: 'Auto close alert!',
+//   html: 'I will close in <b></b> milliseconds.',
+//   timer: 2000,
+//   timerProgressBar: true,
+//   didOpen: () => {
+//     if(aux){
+//         Swal.stopTimer();
+//     }
+//     else{
+//         Swal.resumeTimer();
+//     }
+//     Swal.showLoading()
+//     const b = Swal.getHtmlContainer().querySelector('b')
+//     timerInterval = setInterval(() => {
+//       b.textContent = Swal.getTimerLeft()
+//     }, 100)
+//   },
+//   willClose: () => {
+//     clearInterval(timerInterval)
+//   }
+// }).then((result) => {
+//   /* Read more about handling dismissals below */
+//   if (result.dismiss === Swal.DismissReason.timer) {
+//     console.log('I was closed by the timer')
+//   }
+// })
+
 function actualizarTablas() {
+
     let params = new URLSearchParams(location.search);
     var pagina = params.get('pagina');
     var paginasConTablas = ["autos", "ordenes", "marcas_modelos", "finanzas", "finanzas/ingresos", "finanzas/pendientes"];
@@ -460,7 +491,7 @@ function actualizarTablas() {
     if(pagina == "autos"){
         cargarTabla('tableAuto');
     }
-    else if(pagina == "ordenes"){
+    else if(pagina == "ordenes"){  
         cargarTabla('tableOrdenes');
     }
     else if(pagina.includes("finanzas")){
