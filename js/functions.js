@@ -247,14 +247,19 @@ function verificarTelefono(){
     var telefonoCliente = $("#clienteTelefono").val();
     $("#clienteTelefono").removeClass('is-invalid').removeClass('is-valid');
     var telefonoFeedback = document.getElementById("telefonoFeedback");
-    const regex = /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g;
+    // const regex = /^[+]?[(]?[0-9]{1,3}[)]?[-\s\./0-9]*$/g;
+    // const regex_nueva = /^[a-zA-Z]{2}([-]|\s)?[0-9]{3}([-]|\s)?[a-zA-Z]{2}$/g;
+    const regex = /^[+]?[(\(|\s\()]?[0-9]{1,3}[(\)|\s\))]?[-\s\./0-9]*$/g;
+    const regexWpp = /[(+|+54)]?[(\s|\-)]?[9][\s]?[11|15]?[(\s|\-)]?[0-9]{4}[(\s|\-)]?[0-9]{4}$/g;
+
+    // +54 9 11 5311-7448
 
     if(telefonoCliente.length != 0){
         if(telefonoCliente.length < 8){
             $("#clienteTelefono").addClass('is-invalid');
             telefonoFeedback.innerHTML = "Demasiado corto. Ingrese un telefono valido";
         }
-        else if(regex.test(telefonoCliente)){
+        else if(regexWpp.test(telefonoCliente) || regex.test(telefonoCliente)){
             $("#clienteTelefono").addClass('is-valid');
         }
         else{
@@ -317,6 +322,7 @@ function editarModal(){
 function setTablas(){
     $('#tableMarca').DataTable({
         dom: 'r <"col-lg-3 col-md-6 col-sm-12" B> <"wrapper" <"col-6 text-light float-end" f> <"col-6 text-light " l> t <"col-6 text-light float-end" p> <"col-6 text-light" i>>',
+        // pagingType: "numbers",   
         buttons:[
             {
                 extend: 'excelHtml5',
@@ -357,6 +363,8 @@ function setTablas(){
         columnDefs: [
             { className: "dt-head-center", targets: "_all" }
         ],
+        responsive: true,
+        autoWidth: false,
     });
 
     $('#tableModelo').DataTable({

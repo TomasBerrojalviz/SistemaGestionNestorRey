@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row my-2">
-        <div class="col-4">
+        <div class="col-5">
             <div class="text-center">
                 <button type="button" id="btnAgregarMarca" <?php echo $clase_boton_lg ?>>
                     Agregar marca
@@ -9,8 +9,8 @@
             <table cellspacing=0 class="table table-info table-bordered table-hover table-inverse table-striped text-center table-sm" role="grid" id="tableMarca" width=100% >
             <thead>
                 <tr>
-                <th scope="col">#</th>
-                <th scope="col">Marca</th>
+                <th scope="col" style="width: 25%">#</th>
+                <th scope="col" style="width: 75%">Marca</th>
                 </tr>
             </thead>  
             <tbody class="table-group-divider">
@@ -32,7 +32,7 @@
             </tbody>
             </table>
         </div>
-        <div class="col-8">
+        <div class="col-7">
             
             <div class="text-center">
                 <button type="button" id="btnAgregarModelo" <?php echo $clase_boton_lg ?>>
@@ -42,7 +42,7 @@
             <table cellspacing=0 class="table table-info table-bordered table-hover table-inverse table-striped text-center table-sm" role="grid" id="tableModelo" width=100% >
             <thead>
                 <tr>
-                <th scope="col">#</th>
+                <th scope="col" style="width: 17%">#</th>
                 <th scope="col">Marca</th>
                 <th scope="col">Modelo</th>
                 </tr>

@@ -45,7 +45,20 @@
     </div>
     <div class="card-body text-bg-secondary bg-opacity-25">
         <div class="d-grid gap-3 mx-auto container-fluid">
-            <a <?php echo $clase_boton_lg ?> type="button" href="index.php?pagina=finanzas">Finanzas</a>
+            <div class="dropdown">
+                <button class="btn btn-dark btn-outline-info btn-lg dropdown-toggle w-100" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Finanzas
+                </button>
+                <ul class="dropdown-menu text-bg-info bg-opacity-100 w-100 text-center">
+                    <!-- <li><a class="dropdown-item h5 rounded" href="index.php?pagina=finanzas">Menu</a></li>
+                    <li><a class="dropdown-item h5" href="index.php?pagina=finanzas/ingresos">Ingresos</a></li>
+                    <li><a class="dropdown-item h5" href="index.php?pagina=finanzas/pendientes">Pagos pendientes</a></li> -->
+                    <li><a href="index.php?pagina=finanzas" class="btn btn-dark btn-outline-info btn-lg w-100" type="button">Menu</a></li>
+                    <li><a href="index.php?pagina=finanzas/ingresos" class="btn btn-dark btn-outline-info btn-lg w-100" type="button">Ingresos</a></li>
+                    <li><a href="index.php?pagina=finanzas/pendientes" class="btn btn-dark btn-outline-info btn-lg w-100" type="button">Pagos pendientes</a></li>
+                </ul>
+            </div>
+            <!-- <a <?php echo $clase_boton_lg ?> type= "button" href="index.php?pagina=finanzas">Finanzas</a> -->
         </div>
     </div>
 </div>

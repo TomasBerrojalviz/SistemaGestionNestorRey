@@ -763,20 +763,16 @@ function DisplayVolver(FORM){
         $("#successModal").modal('hide');
         $("#deleteModal").modal('hide');
         if(event.target.id == "btn_success_modal"){
-            actualizarTablas();
+            alertLoading.fire().then((result) => {
+                actualizarTablas();
+            });
         }
-        // $("#clienteModal").modal('hide');
-        // $("#marcaModal").modal('hide');
-        // $("#modeloModal").modal('hide');
-        // $("#autoModal").modal('hide');
-        // $("#ordenModal").modal('show');
         abrirModalOrden(id_orden);
     }
     else if(FORM == "HOME" || FORM == "HOME_ORDEN"){
         $("#errorModal").modal('hide');
         $("#successModal").modal('hide');
         $("#deleteModal").modal('hide');
-        actualizarTablas();
         location.reload();
     }
     else if(FORM == "FACTURACION"){

@@ -13,7 +13,7 @@
     <table cellspacing=0 class="table table-info table-bordered table-hover table-inverse table-striped text-center table-sm" role="grid" id="tableCliente" width=100% >
     <thead>
         <tr>
-            <th scope="col">#</th>
+            <th scope="col" style="width: 10%">#</th>
             <th scope="col">Nombre</th>
             <th scope="col">Telefono</th>
             <th scope="col">Mail</th>

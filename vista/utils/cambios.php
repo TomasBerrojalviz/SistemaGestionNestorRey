@@ -129,7 +129,7 @@
                                     <p><b>Aceite:</b></p>
                                 </div>
                                 <div class="col">
-                                    <input type="text" class="form-control cambiosAceiteDatos" id="aceite_ins" placeholder="" disabled>
+                                    <input type="text" class="form-control text-uppercase cambiosAceiteDatos" id="aceite_ins" placeholder="" disabled>
                                 </div>
                             </div>
                             <div class="row">

@@ -52,11 +52,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/a0e4ca76a9.js" crossorigin="anonymous"></script>
 
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
@@ -67,13 +64,17 @@
     <link rel='stylesheet' type='text/css' href='https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css'>
 
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css"/> -->
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jq-3.6.0/jszip-2.5.0/dt-1.13.1/af-2.5.1/b-2.3.3/b-colvis-2.3.3/b-html5-2.3.3/b-print-2.3.3/cr-1.6.1/date-1.2.0/fc-4.2.1/fh-3.3.1/kt-2.8.0/r-2.4.0/rg-1.3.0/rr-1.3.1/sc-2.0.7/sb-1.4.0/sp-2.1.0/sl-1.5.0/sr-1.2.0/datatables.min.css"/>
- 
-<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script> -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jq-3.6.0/jszip-2.5.0/dt-1.13.1/af-2.5.1/b-2.3.3/b-colvis-2.3.3/b-html5-2.3.3/b-print-2.3.3/cr-1.6.1/date-1.2.0/fc-4.2.1/fh-3.3.1/kt-2.8.0/r-2.4.0/rg-1.3.0/rr-1.3.1/sc-2.0.7/sb-1.4.0/sp-2.1.0/sl-1.5.0/sr-1.2.0/datatables.min.js"></script>
-    <!-- <link rel='stylesheet' type='text/css' href='http://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css'> -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jq-3.6.0/jszip-2.5.0/dt-1.13.1/af-2.5.1/b-2.3.3/b-colvis-2.3.3/b-html5-2.3.3/b-print-2.3.3/cr-1.6.1/date-1.2.0/fc-4.2.1/fh-3.3.1/kt-2.8.0/r-2.4.0/rg-1.3.0/rr-1.3.1/sc-2.0.7/sb-1.4.0/sp-2.1.0/sl-1.5.0/sr-1.2.0/datatables.min.css"/>
+
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script> -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jq-3.6.0/jszip-2.5.0/dt-1.13.1/af-2.5.1/b-2.3.3/b-colvis-2.3.3/b-html5-2.3.3/b-print-2.3.3/cr-1.6.1/date-1.2.0/fc-4.2.1/fh-3.3.1/kt-2.8.0/r-2.4.0/rg-1.3.0/rr-1.3.1/sc-2.0.7/sb-1.4.0/sp-2.1.0/sl-1.5.0/sr-1.2.0/datatables.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
+
+<!-- <link rel='stylesheet' type='text/css' href='http://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css'> -->
 
 <!-- 
      TODO SCRIPTS Y LINK VIEJOS
@@ -164,7 +165,7 @@
                         <div class="container">
                             <input class="form-control" type="hidden" name="marcaId" id="marcaId" required>
                             <div class="form-floating mb-2">
-                                <input autocomplete="off" class="form-control" type="text" placeholder="Ingrese marca" id="marca" name="marca" required>
+                                <input autocomplete="off" class="form-control text-uppercase" type="text" placeholder="Ingrese marca" id="marca" name="marca" required>
                                 <label for="floatingInput">Marca</label>
                             </div>
                         </div>
@@ -193,7 +194,7 @@
                         <input class="form-control" type="hidden" name="clienteId" id="clienteId" required>
                         
                         <div class="form-floating mb-2">
-                            <input autocomplete="off" onchange="verificarNombreCliente()" class="form-control" type="text" placeholder="Nombre del nuevo cliente" name="clienteNombre" id="clienteNombre" required>
+                            <input autocomplete="off" onchange="verificarNombreCliente()" class="form-control text-uppercase" type="text" placeholder="Nombre del nuevo cliente" name="clienteNombre" id="clienteNombre" required>
                             <label for="inputTel floatingInput">Nombre</label>
                             <div class="invalid-feedback">
                                 Ingrese el nombre del cliente
@@ -208,14 +209,14 @@
                             </div>
                         </div>
                         <div class="form-floating mb-2">
-                            <input autocomplete="off" onchange="verificarMail()" class="form-control" type="email" placeholder="Mail del nuevo cliente" name="clienteMail" id="clienteMail">
+                            <input autocomplete="off" onchange="verificarMail()" class="form-control text-uppercase" type="email" placeholder="Mail del nuevo cliente" name="clienteMail" id="clienteMail">
                             <label for="inputEmail floatingInput">Mail</label>
                             <div class="invalid-feedback">
                                 Ingrese un mail valido
                             </div>
                         </div>
                         <div class="form-floating mb-2">
-                            <input autocomplete="off" class="form-control" type="text" placeholder="Domicilio del nuevo cliente" name="clienteDomicilio" id="clienteDomicilio">
+                            <input autocomplete="off" class="form-control text-uppercase" type="text" placeholder="Domicilio del nuevo cliente" name="clienteDomicilio" id="clienteDomicilio">
                             <label for="inputAddress floatingInput">Domicilio</label>
                         </div>
 
@@ -245,7 +246,7 @@
                         <div class="container">
                             <input class="form-control" type="hidden" name="marcaId" id="marcaId" required>
                             <div class="form-floating mb-2">
-                                <input autocomplete="off" class="form-control" type="text" placeholder="Ingrese marca" id="marca" name="marca" required>
+                                <input autocomplete="off" class="form-control text-uppercase" type="text" placeholder="Ingrese marca" id="marca" name="marca" required>
                                 <label for="floatingInput">Marca</label>
                             </div>
                         </div>
@@ -273,14 +274,14 @@
                         <div class="container">
                             <input class="form-control" type="hidden" name="modeloId" id="modeloId" required>
                             <div class="form-floating mb-2">
-                                <input autocomplete="off" onchange="verificarMarca($(this))"  class="form-control" list="marcas" name="marcaModelo" id="marcaModelo" placeholder="Ingrese marca" required>  
+                                <input autocomplete="off" onchange="verificarMarca($(this))"  class="form-control text-uppercase" list="marcas" name="marcaModelo" id="marcaModelo" placeholder="Ingrese marca" required>  
                                 <label for="floatingInput">Marca</label>
                                     <div class="invalid-feedback">
                                         Ingrese una marca valida
                                     </div>
                             </div>
                             <div class="form-floating mb-2">
-                                <input autocomplete="off" class="form-control my-2" type="text" placeholder="Ingrese modelo" name="modelo" id="modelo" required> 
+                                <input autocomplete="off" class="form-control my-2 text-uppercase" type="text" placeholder="Ingrese modelo" name="modelo" id="modelo" required> 
                                 <label for="floatingInput">Modelo</label>
                             </div>
                         </div>
@@ -298,7 +299,7 @@
     </div>
     
     <!-- Modal AUTO -->
-    <div class="modal modal-lg fade" id="autoModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="autoModalLabel" aria-hidden="true">
+    <div class="modal modal-lg fade" id="autoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="autoModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -314,14 +315,14 @@
                             <input class="form-control" type="hidden" name="autoIdCliente" id="autoIdCliente" required>
 
                             <div class="form-floating mb-2">
-                                <input autocomplete="off" class="form-control" type="text" placeholder="Ingrese patente" name="autoPatente" id="autoPatente" required>
+                                <input autocomplete="off" onkeyup="verificarPatente(this.value);" class="form-control text-uppercase" type="text" placeholder="Ingrese patente" name="autoPatente" id="autoPatente" required>
                                 <label for="floatingInput">Patente</label>
                             </div>  
                     
                             <div class="row">
                                 <div class="col">
                                     <div class="form-floating mb-2">
-                                        <input autocomplete="off" class="form-control" list="marcas" name="autoMarca" id="autoMarca" placeholder="Ingrese marca" required>
+                                        <input autocomplete="off" class="form-control text-uppercase" list="marcas" name="autoMarca" id="autoMarca" placeholder="Ingrese marca" required>
                                         <label for="floatingInput">Marca</label>
                                         <div class="invalid-feedback">
                                             Ingrese una marca valida
@@ -338,7 +339,7 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-floating mb-2">
-                                        <input autocomplete="off" class="form-control" list="modelosMarca" name="autoModelo" id="autoModelo" placeholder="Ingrese modelo" required>
+                                        <input autocomplete="off" class="form-control text-uppercase" list="modelosMarca" name="autoModelo" id="autoModelo" placeholder="Ingrese modelo" required>
                                         <label for="floatingInput">Modelo</label>
                                         <div class="invalid-feedback">
                                             Ingrese un modelo valido
@@ -353,14 +354,14 @@
                             </div>
                             
                             <div class="form-floating mb-2">
-                                <input autocomplete="off" class="form-control" type="year" placeholder="Ingrese año" name="autoYear" id="autoYear" required>
+                                <input autocomplete="off" class="form-control" type="number" placeholder="Ingrese año" name="autoYear" id="autoYear" required>
                                 <label for="floatingInput">Año</label>
                             </div>  
                             
                             <div class="row">
                                 <div class="col">
                                     <div class="form-floating mb-2">
-                                        <input autocomplete="off" onchange="verificarCliente()" class="form-control" list="dataListClientes" name="autoCliente" id="autoCliente" placeholder="Ingrese cliente" required>
+                                        <input autocomplete="off" onchange="verificarCliente()" class="form-control text-uppercase" list="dataListClientes" name="autoCliente" id="autoCliente" placeholder="Ingrese cliente" required>
                                         <label for="floatingInput">Cliente</label>
                                         <div class="invalid-feedback">
                                             Ingrese un cliente valido

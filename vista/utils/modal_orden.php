@@ -20,7 +20,7 @@
                     <div class="mb-2">
                         <div class="col" id="colAuto">
                             <div class="form-floating mb-2">
-                                <input autocomplete="off" class="form-control" list="dataListAutos" name="ordenAuto" id="ordenAuto" placeholder="Ingrese auto" required>
+                                <input autocomplete="off" class="form-control text-uppercase" list="dataListAutos" name="ordenAuto" id="ordenAuto" placeholder="Ingrese auto" required>
                                 <label for="floatingInput">Auto</label>
                                 <div class="invalid-feedback">
                                     Ingrese un auto valido
@@ -47,13 +47,13 @@
                                         <div class="row">
                                             <div class="col dataOrden" style="display: none;">
                                                 <div class="form-floating mb-2">
-                                                    <input autocomplete="off" class="form-control" type="text" name="ordenAutoPatente" id="ordenAutoPatente" disabled readonly>
+                                                    <input autocomplete="off" class="form-control text-uppercase" type="text" name="ordenAutoPatente" id="ordenAutoPatente" disabled readonly>
                                                     <label for="floatingInput">Patente</label>
                                                 </div>
                                             </div>
                                             <div class="col dataOrden" style="display: none;">
                                                 <div class="form-floating mb-2">
-                                                    <input autocomplete="off" class="form-control" type="text" name="ordenAutoModelo" id="ordenAutoModelo" disabled readonly>
+                                                    <input autocomplete="off" class="form-control text-uppercase" type="text" name="ordenAutoModelo" id="ordenAutoModelo" disabled readonly>
                                                     <label for="floatingInput">Modelo</label>
                                                 </div>
                                             </div>
@@ -90,13 +90,13 @@
                                             <div class="row mb-3">
                                                 <div class="col">
                                                     <div class="form-floating mb-2">
-                                                        <input autocomplete="off" class="form-control" type="text" name="ordenClienteNombre" id="ordenClienteNombre" placeholder="Nombre" disabled readonly>
+                                                        <input autocomplete="off" class="form-control text-uppercase" type="text" name="ordenClienteNombre" id="ordenClienteNombre" placeholder="Nombre" disabled readonly>
                                                         <label for="floatingInput">Nombre</label>
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-floating mb-2">
-                                                        <input autocomplete="off" class="form-control" type="text" name="ordenClienteTelefono" id="ordenClienteTelefono" placeholder="Telefono" disabled readonly>
+                                                        <input autocomplete="off" class="form-control text-uppercase" type="text" name="ordenClienteTelefono" id="ordenClienteTelefono" placeholder="Telefono" disabled readonly>
                                                         <label for="floatingInput">Telefono</label>
                                                     </div>
                                                 </div>
@@ -104,13 +104,13 @@
                                             <div class="row mb-3">
                                                 <div class="col">
                                                     <div class="form-floating mb-2">
-                                                        <input autocomplete="off" class="form-control" type="text" name="ordenClienteMail" id="ordenClienteMail" placeholder="Mail" disabled readonly>
+                                                        <input autocomplete="off" class="form-control text-uppercase" type="text" name="ordenClienteMail" id="ordenClienteMail" placeholder="Mail" disabled readonly>
                                                         <label for="floatingInput">Mail</label>
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-floating mb-2">
-                                                        <input autocomplete="off" class="form-control" type="text" name="ordenClienteDomicilio" id="ordenClienteDomicilio" placeholder="Domicilio" disabled readonly>
+                                                        <input autocomplete="off" class="form-control text-uppercase" type="text" name="ordenClienteDomicilio" id="ordenClienteDomicilio" placeholder="Domicilio" disabled readonly>
                                                         <label for="floatingInput">Domicilio</label>
                                                     </div>
                                                 </div>
@@ -129,7 +129,7 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-floating mb-2">
-                                        <textarea autocomplete="off" class="form-control" type="text" placeholder="Ingrese problema" name="ordenProblema" id="ordenProblema" style="height: 150px"  required></textarea >
+                                        <textarea autocomplete="off" class="form-control text-uppercase" type="text" placeholder="Ingrese problema" name="ordenProblema" id="ordenProblema" style="height: 150px"  required></textarea >
                                         <label for="floatingInput">Problema</label>
                                         <div class="invalid-feedback">
                                             Ingrese un problema
@@ -395,7 +395,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-floating mb-2">
-                                <textarea  autocomplete="off" class="form-control form-control-lg" type="text" placeholder="Ingrese notas" name="notaTxt" id="notaTxt" style="height: 150px" required></textarea >
+                                <textarea  autocomplete="off" class="form-control form-control-lg text-uppercase" type="text" placeholder="Ingrese notas" name="notaTxt" id="notaTxt" style="height: 150px" required></textarea >
                                 <label for="floatingInput">Notas</label>
                                 <div class="invalid-feedback">
                                     La nota no puede superar los 600 caracteres.

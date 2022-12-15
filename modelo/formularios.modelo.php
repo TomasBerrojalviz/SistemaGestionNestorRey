@@ -20,8 +20,9 @@ class ModeloFormularios {
     static public function mdlSeleccionarOrdenes(){
 
         $stmt = Conexion::conectar()->prepare("SELECT
-                                            ord.id, ord.id_auto, DATE_FORMAT(ord.fecha_recibido, '%d/%m/%Y') as fecha_recibido, DATE_FORMAT(ord.fecha_recibido, '%Y/%m/%d') as fecha_recibido_sort, ord.problema,
-                                            ord.solucion, DATE_FORMAT(ord.fecha_devolucion, '%d/%m/%Y') as fecha_devolucion, DATE_FORMAT(ord.fecha_devolucion, '%Y/%m/%d') as fecha_devolucion_sort, ord.estado, ord.cobro, ord.pago,
+                                            ord.id, ord.id_auto, ord.problema, ord.estado, ord.cobro, ord.pago, ord.solucion,
+                                            DATE_FORMAT(ord.fecha_recibido, '%d/%m/%Y') as fecha_recibido, DATE_FORMAT(ord.fecha_recibido, '%Y/%m/%d') as fecha_recibido_sort,
+                                            DATE_FORMAT(ord.fecha_devolucion, '%d/%m/%Y') as fecha_devolucion, DATE_FORMAT(ord.fecha_devolucion, '%Y/%m/%d') as fecha_devolucion_sort,
                                             au.patente, au.anio,
                                             cl.nombre, cl.telefono, cl.mail, cl.domicilio,
                                             CONCAT(ma.marca, ' ', mo.modelo) as modelo
@@ -33,7 +34,13 @@ class ModeloFormularios {
                                             INNER JOIN modelos mo
                                             ON au.id_modelo = mo.id
                                             INNER JOIN marcas ma
-                                            ON mo.id_marca = ma.id;");
+                                            ON mo.id_marca = ma.id
+                                            WHERE
+                                            ord.estado = 1 OR
+                                            ord.estado = 3 OR
+                                            (ord.estado = 4 AND (ord.cobro > 0 AND ord.cobro > ord.pago)) OR
+                                            (ord.estado = 2 AND ord.fecha_recibido BETWEEN NOW() - INTERVAL 30 DAY AND NOW()) OR
+                                            ((ord.estado = 4 AND (ord.cobro > 0 AND ord.cobro > ord.pago)) AND ord.fecha_devolucion BETWEEN NOW() - INTERVAL 30 DAY AND NOW());");
 
         $stmt->execute();
 

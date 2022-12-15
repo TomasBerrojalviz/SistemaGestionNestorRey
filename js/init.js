@@ -1,3 +1,6 @@
+const dropdownElementList = document.querySelectorAll('.dropdown-toggle');
+const dropdownList = [...dropdownElementList].map(dropdownToggleEl => new bootstrap.Dropdown(dropdownToggleEl));
+
 const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 const meses_numero = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
 
@@ -52,6 +55,32 @@ const alertInfo = Swal.mixin({
     // showCancelButton: true,
     // cancelButtonText: 'Volver',
     showCloseButton: true
+});
+
+const alertLoading = Swal.mixin({
+    allowOutsideClick: false,
+    showConfirmButton: false,
+    showCancelButton: false,
+    showCloseButton: false,
+    html:
+    '<div class="text-center">' +
+        '<div class="spinner-border row" style="width: 5rem; height: 5rem;" role="status">' +
+            '<span class="visually-hidden">Cargando...</span>' +
+        '</div>' +
+        '<div>' +
+            '<h3>Cargando</h3>' +
+            '<div class="spinner-grow spinner-grow-sm" role="status">' +
+                '<span class="visually-hidden">Loading...</span>' +
+            '</div>' +
+            '<div class="spinner-grow spinner-grow-sm" role="status">' +
+                '<span class="visually-hidden">Loading...</span>' +
+            '</div>' +
+            '<div class="spinner-grow spinner-grow-sm" role="status">' +
+                '<span class="visually-hidden">Loading...</span>' +
+            '</div>' +
+        '</div>' +
+    '</div>',
+    timer: 500,
 });
 
 var columnaEstado = document.getElementsByClassName("columnaEstado");
@@ -790,4 +819,77 @@ function seleccionarOrdenesPendiente(){
         async: false,
         data: { action:action}
     });
+}
+
+
+function verificarPatente(patenteInput){
+    $(autoPatente).removeClass('is-invalid').removeClass('is-valid');
+
+    if(!patenteInput){
+        return;
+    }
+
+    var patente = checkPatente(patenteInput);
+
+    if(!patente) {
+        $(autoPatente).addClass('is-invalid');
+        return;
+    }
+
+    $(autoPatente).addClass('is-valid');
+    // var action = 'verificarMarca';
+
+    // $.ajax({
+    //     type: "POST",
+    //     url: "ajax.php",
+    //     async: false,
+    //     data: { action:action, marcaAuto:marcaAuto},
+    //     success: function(response) {
+    //         if (response != "error") {
+    //             var marca = JSON.parse(response);
+    //             autoPatente.addClass('is-valid');
+    //         }
+    //         else{
+    //             autoPatente.addClass('is-invalid');
+    //         }
+    //     },
+    //     error: function(error) {
+    //         autoPatente.addClass('is-invalid');
+    //     }
+    // });
+}
+
+function checkPatente(patente){
+    patente = patente.toUpperCase();
+    var patentePlana;
+    const regex_vieja = /^[a-zA-Z]{3}([-]|\s)?[0-9]{3}$/g;
+    const regex_nueva = /^[a-zA-Z]{2}([-]|\s)?[0-9]{3}([-]|\s)?[a-zA-Z]{2}$/g;
+    if(regex_vieja.test(patente)){
+        if(patente.length == 6){
+            patentePlana = patente;
+        }
+        else{ 
+            patentePlana = patente.substring(0,3) + patente.substring(4,7);
+        }
+    }
+    else if(regex_nueva.test(patente)){
+        if(patente.length == 7){
+            patentePlana = patente;
+        }
+        else{
+            const letras = /[a-zA-Z]{2}/;
+            const numeros = /[0-9]{3}/;
+            var resultado;
+            resultado = letras.exec(patente);
+            patentePlana = resultado[0];
+            resultado = numeros.exec(patente.slice(resultado.index));
+            patentePlana += resultado[0];
+            resultado = letras.exec(patente.slice(resultado.index));
+            patentePlana += resultado[0];
+        }
+    }
+    else {
+        return;
+    }
+    return patentePlana;
 }
