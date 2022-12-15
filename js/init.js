@@ -130,6 +130,7 @@ function cargarTabla(nombreTabla){
         // Solucion hidden
         var tablaOrdenes = $('#tableOrdenes').DataTable({
             searchPanes: {
+                layout: 'columns-3',
                 cascadePanes: true,
                 dtOpts: {
                     paging: true,
@@ -139,7 +140,7 @@ function cargarTabla(nombreTabla){
                     // info: true
                 }
             },
-            dom: 'r <"text-light" P> <"col-lg-3 col-md-6 col-sm-12" B> <"wrapper" <"col-6 text-light float-end" f> <"col-6 text-light " l> t <"col-6 text-light float-end" p> <"col-6 text-light" i>>',
+            dom: '<"text-light" P> <"col-lg-3 col-md-6 col-sm-12" B> <"wrapper" <"col-6 text-light float-end" f> <"col-6 text-light " l> rt <"col-6 text-light float-end" p> <"col-6 text-light" i>>',
             buttons:[
                 {
                     extend: 'excelHtml5',

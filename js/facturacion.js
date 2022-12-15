@@ -759,6 +759,7 @@ function abrirModalIngresos(mes, anio){
     
     $('#tablaIngresos').DataTable({
         searchPanes: {
+            layout: 'columns-2',
             cascadePanes: true,
             dtOpts: {
                 paging: true,
@@ -808,6 +809,7 @@ function abrirModalIngresos(mes, anio){
                 searchPanes: {
                     show: true,
                     initCollapsed: true,
+                    className: "",
                 },
                 targets: [4, 3]
             },
@@ -828,6 +830,12 @@ function abrirModalIngresos(mes, anio){
         ]
     });
     var tablaIngresos = $('#tablaIngresos').DataTable();
+
+    var sp = document.getElementsByClassName("dtsp-topRow");
+    for(var i = 0; i < sp.length; i++){
+        console.log($(sp[i]).removeClass("dtsp-bordered"));
+    }
+
     ingresosModalTitle.innerHTML = "Ingresos de " + meses[mes] + " del " + anio;
     const manosObraObtenidas = seleccionarManosObra();
     manosObraObtenidas.done(function(response) {
@@ -875,6 +883,7 @@ function abrirModalPendientes(mes, anio){
     
     $('#tablaPendientes').DataTable({
         searchPanes: {
+            layout: 'columns-2',
             cascadePanes: true,
             dtOpts: {
                 paging: true,
@@ -954,6 +963,12 @@ function abrirModalPendientes(mes, anio){
         ]
     });
     var tablaPendientes = $('#tablaPendientes').DataTable();
+
+    var sp = document.getElementsByClassName("dtsp-topRow");
+    for(var i = 0; i < sp.length; i++){
+        console.log($(sp[i]).removeClass("dtsp-bordered"));
+    }
+    
     pendientesModalTitle.innerHTML = "Pagos pendientes de " + meses[mes] + " del " + anio;
     const ordenesObtenidas = seleccionarOrdenesPendiente();
     ordenesObtenidas.done(function(response) {
