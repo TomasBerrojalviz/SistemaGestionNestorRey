@@ -40,7 +40,7 @@ class ModeloFormularios {
                                             ord.estado = 3 OR
                                             (ord.estado = 4 AND (ord.cobro > 0 AND ord.cobro > ord.pago)) OR
                                             (ord.estado = 2 AND ord.fecha_recibido BETWEEN NOW() - INTERVAL 30 DAY AND NOW()) OR
-                                            ((ord.estado = 4 AND (ord.cobro > 0 AND ord.cobro > ord.pago)) AND ord.fecha_devolucion BETWEEN NOW() - INTERVAL 30 DAY AND NOW());");
+                                            ((ord.estado = 4 AND (ord.cobro > 0 AND ord.cobro <= ord.pago)) AND ord.fecha_devolucion BETWEEN NOW() - INTERVAL 30 DAY AND NOW());");
 
         $stmt->execute();
 
