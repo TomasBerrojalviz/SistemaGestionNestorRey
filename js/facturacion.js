@@ -1191,7 +1191,7 @@ function actualizarCobros(){
 }
 
 function buscarOrdenesRelacionadasFinanzas(id_orden){
-    sessionStorage.setItem('ordenBuscada', '"Orden '+id_orden+'"');
+    sessionStorage.setItem('ordenBuscada', '" Orden '+id_orden+' "');
     location.replace("index.php?pagina=ordenes");
 }
 
