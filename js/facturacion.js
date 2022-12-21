@@ -776,7 +776,8 @@ function abrirModalIngresos(mes, anio){
                 className: 'btn btn-lg btn-success mb-2',
                 exportOptions: {
                     columns: ':visible'
-                }
+                },
+                filename: 'Sistema Gestion - Finanzas - Ingresos ' + Number(mes+1) + "-" + anio,
             }
         ],
         "language": {
@@ -801,6 +802,15 @@ function abrirModalIngresos(mes, anio){
             "oAria": {
                 "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
                 "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            },
+            searchPanes: {
+                title: {
+                    _: 'Filtros seleccionados - %d',
+                },
+                collapseMessage : "Minimizar filtros",
+                showMessage: "Mostrar filtros",
+                clearMessage: "Limpiar filtros",
+                emptyPanes: ""
             }
         },
         order: [[0, 'des']],
@@ -900,17 +910,18 @@ function abrirModalPendientes(mes, anio){
                 className: 'btn btn-lg btn-success mb-2',
                 exportOptions: {
                     columns: ':visible'
-                }
+                },
+                filename: 'Sistema Gestion - Finanzas - Pendientes ' + Number(mes+1) + "-" + anio,
             }
         ],
         "language": {
             "sProcessing":     "Procesando...",
-            "sLengthMenu":     "Mostrar _MENU_ ingresos",
+            "sLengthMenu":     "Mostrar _MENU_ pendientes",
             "sZeroRecords":    "No se encontraron resultados",
-            "sEmptyTable":     "Ningún ingreso registrado",
-            "sInfo":           "Mostrando ingresos del _START_ al _END_ de un total de _TOTAL_ ingresos",
-            "sInfoEmpty":      "Mostrando ingresos del 0 al 0 de un total de 0 ingresos",
-            "sInfoFiltered":   "(filtrado de un total de _MAX_ ingresos)",
+            "sEmptyTable":     "Ningún pendiente registrado",
+            "sInfo":           "Mostrando pendientes del _START_ al _END_ de un total de _TOTAL_ pendientes",
+            "sInfoEmpty":      "Mostrando pendientes del 0 al 0 de un total de 0 pendientes",
+            "sInfoFiltered":   "(filtrado de un total de _MAX_ pendientes)",
             "sInfoPostFix":    "",
             "sSearch":         "Buscar:",
             "sUrl":            "",
@@ -1057,7 +1068,6 @@ function filtrarCobrosPendientes(ordenes, mes, anio){
         }
     }
     return ordenesFiltradas;
-    
 }
 
 function verificarDescripcion(descripcionInput){
