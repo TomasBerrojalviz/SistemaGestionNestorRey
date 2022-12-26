@@ -119,7 +119,7 @@ function cargarTabla(nombreTabla){
         // Devolucion
         var tablaOrdenes = $('#tableOrdenes').DataTable({
             searchPanes: {
-                layout: 'columns-3',
+                layout: 'auto',
                 cascadePanes: true,
                 dtOpts: {
                     paging: true,
@@ -129,7 +129,7 @@ function cargarTabla(nombreTabla){
                     // info: true
                 }
             },
-            dom: '<"text-light" P> <"col-lg-3 col-md-6 col-sm-12" B> <"wrapper" <"col-6 text-light float-end" f> <"col-6 text-light " l> rt <"col-6 text-light float-end" p> <"col-6 text-light" i>>',
+            dom: '<"text-light" P> <"col-lg-3 col-md-6 col-sm-12" B> <"wrapper row" <"col-md-6 col-sm-12 text-light mb-2" l> <"col-md-6 col-sm-12 text-light" f> t <"col-md-6 col-sm-12 mb-2 text-light" i> <"col-md-6 col-sm-12 text-light" p>>',
             buttons:[
                 {
                     extend: 'excelHtml5',
@@ -699,7 +699,7 @@ function setBotonEstado(id, estado){
         estado_str = "Falta pagar";  
         iconoBtn = '<i class="fa-solid fa-hand-holding-dollar fa-flip-horizontal"> </i> <i class="fa-solid"> '+estado_str+' </i> <i class="fa-solid fa-hand-holding-dollar"></i>';
     }
-    var boton = "<button id='"+id+"' tipoModal='orden' class='btn btn-sm btn-outline-dark btnOrden "+clase_btn_estado+"' style='width: 170px;'>";
+    var boton = "<button id='"+id+"' tipoModal='orden' class='btn btn-sm btn-outline-dark btnOrden "+clase_btn_estado+"'>";
     boton += iconoBtn;
     boton += "</button>";
 

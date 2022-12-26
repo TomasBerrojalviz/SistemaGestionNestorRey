@@ -110,7 +110,7 @@
                 <a class="navbar-brand"><?php echo $titulo; ?></a>
                 <a href="./index.php"> <img src="./img/logo2.2.png" alt="Nestor Rey" width="150"> </a>
             </div>
-            <div class="offcanvas offcanvas-start text-bg-info" data-bs-scroll="true" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas offcanvas-start text-bg-info navbarMenu" data-bs-scroll="true" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                 <div class="offcanvas-header">
                     <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Sistema de Gestion</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>

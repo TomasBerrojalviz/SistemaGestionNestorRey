@@ -1,18 +1,21 @@
+.offcanvas-backdrop {
+    height: 100%;
+}
+
 /* ESTILOS TABLAS */
 
 /* TABLA ORDENES */
 
 .columnaEstado {
-    width: 130px;
-    max-width: 130px;
+    width: 10vh;
 }
 
 .columnaPatenteOrden {
-    width: 100px;
+    width: 10vh;
 }
 
 .columnaLlegada {
-    width: 100px;
+    width: 10vh;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -26,12 +29,15 @@
 }
 
 .columnaDevolucion {
-    width: 100px;
+    width: 10vh;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
+.btnOrden {
+    width: 100%;
+}
 /* TABLA AUTOS */
 
 .columnaPatente {
@@ -62,4 +68,17 @@
 .columnaPagoPendientes {
     width: 110px;
     max-width: 110px;
+}
+
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px) {
+    .offcanvas {
+        --bs-offcanvas-width: 40%;
+        --bs-offcanvas-height: 40%;
+        bottom: auto;
+    }
+    .offcanvas.offcanvas-start{
+        /* height: var(--bs-offcanvas-height); */
+    }
 }
