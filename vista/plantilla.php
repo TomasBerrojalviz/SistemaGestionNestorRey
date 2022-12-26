@@ -91,6 +91,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <script src="js/init.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 
     <!-- <script src="js/modals.js"></script>
     <script src="js/functions.js"></script> -->

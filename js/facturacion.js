@@ -19,11 +19,6 @@ var reciboClienteMail = document.getElementById("reciboClienteMail");
 var reciboClienteTelefono = document.getElementById("reciboClienteTelefono");
 var reciboClienteDomicilio = document.getElementById("reciboClienteDomicilio");
 
-var columnaFechaPendientes = document.getElementsByClassName("columnaFechaPendientes");
-var columnaOrdenPendientes = document.getElementsByClassName("columnaOrdenPendientes");
-var columnaCobroPendientes = document.getElementsByClassName("columnaCobroPendientes");
-var columnaPagoPendientes = document.getElementsByClassName("columnaPagoPendientes");
-
 $( document ).ready(function() {
     //MODAL PRESUPUESTO
     $('#btnPresupuesto').click(function(e){
@@ -1010,14 +1005,7 @@ function abrirModalPendientes(mes, anio){
                 var tr = tablaPendientes.row.add([fecha_sort, fecha, orden, auto, cliente, cobro, pago]).draw().node();
                 
                 // tr.setAttribute("onclick", "abrirModalOrden("+ordenes[i].id_orden+")"); 
-            }
-            for(var i=0; i<columnaPagoPendientes.length; i++) {
-                columnaFechaPendientes[i].setAttribute("style", "width: 30px; max-width: 30px;");
-                columnaOrdenPendientes[i].setAttribute("style", "width: 25px; max-width: 25px;");
-                columnaCobroPendientes[i].setAttribute("style", "width: 35px; max-width: 35px;");
-                columnaPagoPendientes[i].setAttribute("style", "width: 110px;");
-            }
-            
+            }            
         }
     });
     mostrarModal("pendientesModal");    

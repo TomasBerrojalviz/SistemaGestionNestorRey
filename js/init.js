@@ -83,16 +83,6 @@ const alertLoading = Swal.mixin({
     timer: 500,
 });
 
-var columnaEstado = document.getElementsByClassName("columnaEstado");
-var columnaPatente = document.getElementsByClassName("columnaPatente");
-var columnaLlegada = document.getElementsByClassName("columnaLlegada");
-var columnaProblema = document.getElementsByClassName("columnaProblema");
-var columnaDevolucion = document.getElementsByClassName("columnaDevolucion");
-
-var columnaModelo = document.getElementsByClassName("columnaModelo");
-var columnaAnio = document.getElementsByClassName("columnaAnio");
-var columnaClienteNombre = document.getElementsByClassName("columnaClienteNombre");
-
 function fila(elem){
     var id = $(elem).attr('id');
     var tipoModal = $(elem).attr('tipoModal');
@@ -228,7 +218,7 @@ function cargarTabla(nombreTabla){
                 { className: "dt-head-center", targets: "_all" },
                 {targets: 0, title: 'Estado Orden', visible:false},
                 {targets: 1, title: 'Estado', sClass:"columnaEstado", orderData: [0,7,4]},
-                {targets: 2, title: 'Auto', sClass:"columnaPatente", orderData: [2,0,4]},
+                {targets: 2, title: 'Auto', sClass:"columnaPatenteOrden", orderData: [2,0,4]},
                 {targets: 3, title: 'Modelo', visible:false},
                 {targets: 4, title: 'Llegada_sort', visible:false},
                 {targets: 5, title: 'Llegada', sClass:"columnaLlegada", orderData: [4]},
@@ -252,7 +242,6 @@ function cargarTabla(nombreTabla){
             if(responseOrdenes != "error"){
                 var ordenes = JSON.parse(responseOrdenes);
                 for(var i = 0; i < ordenes.length; i++){
-                    console.log(ordenes[i].estado);
                     var estadoPosicion = posicionEstado(ordenes[i].estado); //hidden
                     var estado = setBotonEstado(ordenes[i].id, ordenes[i].estado);
                     var patente = ordenes[i].patente;
@@ -287,26 +276,20 @@ function cargarTabla(nombreTabla){
             // document.getElementById("tableOrdenes")
             document.getElementById("loading_tab").style.display = "none";          
 
-            for(var i=0; i<columnaEstado.length; i++) {
-                columnaEstado[i].setAttribute("style", "width: 200px;");
-                columnaPatente[i].setAttribute("style", "width: 100px;");
-                columnaLlegada[i].setAttribute("style", "width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;");
-                columnaProblema[i].setAttribute("style", "max-width: 400px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;");
-                columnaDevolucion[i].setAttribute("style", "width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;");
-            }
+            // for(var i=0; i<columnaEstado.length; i++) {
+            //     columnaEstado[i].setAttribute("style", "width: 200px;");
+            //     columnaPatenteOrden[i].setAttribute("style", "width: 100px;");
+            //     columnaLlegada[i].setAttribute("style", "width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;");
+            //     columnaProblema[i].setAttribute("style", "max-width: 400px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;");
+            //     columnaDevolucion[i].setAttribute("style", "width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;");
+            // }
             // for(var i=0; i<columnaEstado.length; i++) {
             //     columnaEstado[i].setAttribute("style", "width: 18%;");
-            //     columnaPatente[i].setAttribute("style", "width: 11%;");
+            //     columnaPatenteOrden[i].setAttribute("style", "width: 11%;");
             //     columnaLlegada[i].setAttribute("style", "width: 10%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;");
             //     columnaProblema[i].setAttribute("style", "width: 45%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;");
             //     columnaDevolucion[i].setAttribute("style", "width: 10%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;");
             // }
-
-            // $("#tableOrdenes_filter").addClass('text-light float-end mx-2');
-            // document.getElementById("tableOrdenes_paginate").removeAttribute('class');
-            // $("#tableOrdenes_paginate").addClass('text-light float-end my-2');
-            // $("#tableOrdenes_length").addClass('text-light');
-            // $("#tableOrdenes_info").addClass('text-light');
         });
         var autoBuscado = sessionStorage.getItem('autoBuscado');
         // alert(autoBuscado);
@@ -432,12 +415,12 @@ function cargarTabla(nombreTabla){
                     tr.setAttribute("onclick", "fila(this)");   
                 }
             }
-            for(var i=0; i<columnaPatente.length; i++) {
-                columnaPatente[i].setAttribute("style", "max-width: 150px;");
-                // columnaModelo[i].setAttribute("style", "max-width: 160px;");
-                columnaAnio[i].setAttribute("style", "max-width: 100px;");
-                // columnaClienteNombre[i].setAttribute("style", "max-width: 160px;");
-            }
+            // for(var i=0; i<columnaPatente.length; i++) {
+            //     columnaPatente[i].setAttribute("style", "max-width: 150px;");
+            //     // columnaModelo[i].setAttribute("style", "max-width: 160px;");
+            //     columnaAnio[i].setAttribute("style", "max-width: 100px;");
+            //     // columnaClienteNombre[i].setAttribute("style", "max-width: 160px;");
+            // }
         });
 
     }
