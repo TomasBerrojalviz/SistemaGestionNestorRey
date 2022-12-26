@@ -10,11 +10,10 @@
             <div class="modal-body">
                 <div class="container">
                     
-        <!-- id   id_auto fecha_recibido  problema	notas	adjuntos	id_recibo	id_presupuesto	solucion	fecha_devolucion	estado -->
+        <!-- id   id_auto fecha_recibido  problema	notas	adjuntos	id_recibo	id_presupuesto	fecha_devolucion	estado -->
 
                     <input class="form-control" type="hidden" name="ordenId" id="ordenId" required>
                     <input class="form-control" type="hidden" name="id_recibo" id="id_recibo" required>
-                    <input class="form-control" type="hidden" name="ordenSolucion" id="solucion" required>
                     <input class="form-control" type="hidden" name="ordenCliente" id="ordenCliente" required>
 
                     <div class="mb-2">

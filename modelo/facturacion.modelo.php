@@ -326,7 +326,7 @@ class ModeloFacturacion {
 
         $stmt = Conexion::conectar()->prepare("SELECT
                                             ord.id, ord.id_auto, DATE_FORMAT(ord.fecha_recibido, '%d/%m/%Y') as fecha_recibido, ord.problema,
-                                            ord.solucion, DATE_FORMAT(ord.fecha_devolucion, '%d/%m/%Y') as fecha_devolucion, ord.estado, ord.cobro, ord.pago,
+                                            DATE_FORMAT(ord.fecha_devolucion, '%d/%m/%Y') as fecha_devolucion, ord.estado, ord.cobro, ord.pago,
                                             au.patente, au.anio,
                                             cl.nombre, cl.telefono, cl.mail, cl.domicilio,
                                             DATE_FORMAT(re.fecha, '%d/%m/%Y') as fecha_input, DATE_FORMAT(re.fecha, '%Y/%m/%d') as fecha,

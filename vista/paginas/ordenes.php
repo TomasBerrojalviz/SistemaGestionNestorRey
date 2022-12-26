@@ -55,9 +55,6 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
             <th scope="col" class="sorting">
                 <!-- Entrega -->
             </th>
-            <th scope="col" class="sorting">
-                <!-- Solucion -->
-            </th>
         </tr>
     </thead>
     <tbody class="table-group-divider" id="tableOrdenes_rows">

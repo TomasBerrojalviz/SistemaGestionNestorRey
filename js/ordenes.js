@@ -133,7 +133,7 @@ $( document ).ready(function() {
                         type: "POST",
                         url: "ajax.php",
                         async: false,
-                        // id   id_auto fecha_recibido  problema	notas	adjuntos	id_recibo	id_comprobante	solucion	fecha_devolucion	estado
+                        // id   id_auto fecha_recibido  problema	notas	adjuntos	id_recibo	id_comprobante	fecha_devolucion	estado
                         data: {
                             action:action,
                             id:ordenId.value,
@@ -861,7 +861,7 @@ function traerCobroRecibo(id){
         type: "POST",
         url: "ajax.php",
         async: false,
-        // id   id_auto fecha_recibido  problema	notas	adjuntos	id_recibo	id_comprobante	solucion	fecha_devolucion	estado
+        // id   id_auto fecha_recibido  problema	notas	adjuntos	id_recibo	id_comprobante	fecha_devolucion	estado
         data: {
             action:"obtenerCobroRecibo",
             id:id

@@ -127,7 +127,6 @@ function cargarTabla(nombreTabla){
         // Llegada
         // Problema
         // Devolucion
-        // Solucion hidden
         var tablaOrdenes = $('#tableOrdenes').DataTable({
             searchPanes: {
                 layout: 'columns-3',
@@ -226,7 +225,6 @@ function cargarTabla(nombreTabla){
                 // Pago_sort
                 // Entrega_sort
                 // Entrega
-                // Solucion
                 { className: "dt-head-center", targets: "_all" },
                 {targets: 0, title: 'Estado Orden', visible:false},
                 {targets: 1, title: 'Estado', sClass:"columnaEstado", orderData: [0,7,4]},
@@ -238,8 +236,7 @@ function cargarTabla(nombreTabla){
                 {targets: 7, title: 'Pago', orderData: [7,0,4]},
                 {targets: 8, title: 'Pago_sort', visible:false},
                 {targets: 9, title: 'Entrega_sort', visible:false},
-                {targets: 10, title: 'Entrega', sClass:"columnaDevolucion", orderData: [9]},
-                {targets: 11, title: 'Solucion', visible:false}
+                {targets: 10, title: 'Entrega', sClass:"columnaDevolucion", orderData: [9]}
             ],
             responsive: true,
             autoWidth: false,
@@ -255,6 +252,7 @@ function cargarTabla(nombreTabla){
             if(responseOrdenes != "error"){
                 var ordenes = JSON.parse(responseOrdenes);
                 for(var i = 0; i < ordenes.length; i++){
+                    console.log(ordenes[i].estado);
                     var estadoPosicion = posicionEstado(ordenes[i].estado); //hidden
                     var estado = setBotonEstado(ordenes[i].id, ordenes[i].estado);
                     var patente = ordenes[i].patente;
@@ -269,7 +267,7 @@ function cargarTabla(nombreTabla){
                         pago_sort = 0;
                     }
 
-                    var tr = tablaOrdenes.row.add([estadoPosicion, estado, patente, modelo_orden, ordenes[i].fecha_recibido_sort, ordenes[i].fecha_recibido, ordenes[i].problema, pagado, pago_sort, ordenes[i].fecha_devolucion_sort, ordenes[i].fecha_devolucion, ordenes[i].solucion]).draw().node();
+                    var tr = tablaOrdenes.row.add([estadoPosicion, estado, patente, modelo_orden, ordenes[i].fecha_recibido_sort, ordenes[i].fecha_recibido, ordenes[i].problema, pagado, pago_sort, ordenes[i].fecha_devolucion_sort, ordenes[i].fecha_devolucion]).draw().node();
                     tr.id = ordenes[i].id;
                     $(tr).addClass('fila');
                     tr.setAttribute("tipoModal", "orden");
@@ -336,7 +334,6 @@ function cargarTabla(nombreTabla){
         // Llegada
         // Problema
         // Devolucion
-        // Solucion hidden
         
         $('#tableAuto').DataTable({
             searchPanes: {

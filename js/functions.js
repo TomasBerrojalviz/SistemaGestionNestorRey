@@ -454,10 +454,6 @@ function setTablas(){
         ],
     });
     actualizarTablas();
-    var sp = document.getElementsByClassName("dtsp-topRow");
-    for(var i = 0; i < sp.length; i++){
-        console.log($(sp[i]).removeClass("dtsp-bordered"));
-    }
 }
 
 // var aux = true;
@@ -516,6 +512,10 @@ function actualizarTablas() {
     }
     else{
         actualizarMarcasModelos();
+    }
+    var sp = document.getElementsByClassName("dtsp-topRow");
+    for(var i = 0; i < sp.length; i++){
+        $(sp[i]).removeClass("dtsp-bordered");
     }
 }
 
