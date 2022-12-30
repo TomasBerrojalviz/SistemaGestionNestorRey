@@ -44,19 +44,19 @@
                                 <div id="flush-auto" class="accordion-collapse collapse" aria-labelledby="flush-autoHead" data-bs-parent="#accordionFlushAuto">
                                     <div class="accordion-body">
                                         <div class="row">
-                                            <div class="col dataOrden" style="display: none;">
+                                            <div class="col-md-3 col-sm-12 dataOrden" style="display: none;">
                                                 <div class="form-floating mb-2">
                                                     <input autocomplete="off" class="form-control text-uppercase" type="text" name="ordenAutoPatente" id="ordenAutoPatente" disabled readonly>
                                                     <label for="floatingInput">Patente</label>
                                                 </div>
                                             </div>
-                                            <div class="col dataOrden" style="display: none;">
+                                            <div class="col-md-3 col-sm-12 dataOrden" style="display: none;">
                                                 <div class="form-floating mb-2">
                                                     <input autocomplete="off" class="form-control text-uppercase" type="text" name="ordenAutoModelo" id="ordenAutoModelo" disabled readonly>
                                                     <label for="floatingInput">Modelo</label>
                                                 </div>
                                             </div>
-                                            <div class="col dataOrden" style="display: none;">
+                                            <div class="col-md-3 col-sm-12 dataOrden" style="display: none;">
                                                 <div class="form-floating mb-2">
                                                     <input autocomplete="off" class="form-control" type="number" name="ordenAutoAnio" id="ordenAutoAnio" disabled readonly>
                                                     <label for="floatingInput">Año</label>
@@ -87,13 +87,13 @@
                                     <div class="accordion-body">
                                         <div class="div dataOrden" style="display: none;">
                                             <div class="row mb-3">
-                                                <div class="col">
+                                                <div class="col-md-6 col-sm-12">
                                                     <div class="form-floating mb-2">
                                                         <input autocomplete="off" class="form-control text-uppercase" type="text" name="ordenClienteNombre" id="ordenClienteNombre" placeholder="Nombre" disabled readonly>
                                                         <label for="floatingInput">Nombre</label>
                                                     </div>
                                                 </div>
-                                                <div class="col">
+                                                <div class="col-md-6 col-sm-12">
                                                     <div class="form-floating mb-2">
                                                         <input autocomplete="off" class="form-control text-uppercase" type="text" name="ordenClienteTelefono" id="ordenClienteTelefono" placeholder="Telefono" disabled readonly>
                                                         <label for="floatingInput">Telefono</label>
@@ -101,13 +101,13 @@
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
-                                                <div class="col">
+                                                <div class="col-md-6 col-sm-12">
                                                     <div class="form-floating mb-2">
                                                         <input autocomplete="off" class="form-control text-uppercase" type="text" name="ordenClienteMail" id="ordenClienteMail" placeholder="Mail" disabled readonly>
                                                         <label for="floatingInput">Mail</label>
                                                     </div>
                                                 </div>
-                                                <div class="col">
+                                                <div class="col-md-6 col-sm-12">
                                                     <div class="form-floating mb-2">
                                                         <input autocomplete="off" class="form-control text-uppercase" type="text" name="ordenClienteDomicilio" id="ordenClienteDomicilio" placeholder="Domicilio" disabled readonly>
                                                         <label for="floatingInput">Domicilio</label>
@@ -140,13 +140,13 @@
 
                         <div class="div dataOrden" style="display: none;">
                             <div class="row">
-                                <div class="col" style="max-width: 350px;">
+                                <div class="col-md-6 col-sm-12 mb-2" style="max-width: 350px;">
                                     <div class="input-group container-fluid">
                                         <div class="input-group-text">Fecha recibido</div>
                                         <input autocomplete="off" class="form-control text-center" type="date" name="fecha_recibido" id="fecha_recibido">
                                     </div>
                                 </div>
-                                <div class="col">
+                                <div class="col-md-6 col-sm-12">
                                     <div class="input-group container-fluid"> 
                                         <div class="input-group-text">Estado</div>
                                         <select class="form-select text-center" name="ordenEstado" id="ordenEstado" required> </select>
@@ -154,7 +154,7 @@
                                 </div>
                             </div>
                             <div class="row text-center mt-3" id="showEntrega" style="display: none;">
-                                <div class="col-6 mx-auto">
+                                <div class="col-md-6 col-sm-12 mx-auto">
                                     <div class="input-group mb-2">
                                         <div class="input-group-text">Fecha de entrega</div>
                                         <input autocomplete="off" class="form-control text-center" type="date" name="fecha_devolucion" id="fecha_devolucion">
@@ -167,12 +167,12 @@
                             
 
                             <div class="row mt-3 text-center">
-                                <div class="col">
+                                <div class="col-md-6 col-sm-12 mb-2">
                                     <button id="btnFacturacion" tipoModal="facturacion" class="btn btn-bg text-bg-info btn-outline-dark btnFacturacion">
                                     <i class="fa-solid fa-money-check-dollar"></i> <i class="fa-solid"> Facturacion </i> <i class="fa-solid fa-money-check-dollar"></i>
                                     </button>
                                 </div>
-                                <div class="col">
+                                <div class="col-md-6 col-sm-12">
                                     <button id="btnTrabajo" tipoModal="trabajo" class="btn btn-bg text-bg-warning btn-outline-dark btnTrabajo">
                                         <i class="fa-solid fa-gears"></i> <i class="fa-solid"> Trabajo </i> <i class="fa-solid fa-gears fa-flip-horizontal"> </i>
                                     </button>

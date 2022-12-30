@@ -100,17 +100,17 @@
 </head>
 <body style="background-color: #006666;">
 
-    <header style="margin-bottom: 70px">
+    <header >
         <!-- MENU DESPLEGABLE  -->
-        <nav class="navbar navbar-dark bg-dark fixed-top bg-gradient" style="margin-bottom: 70px">
+        <nav class="navbar navbar-dark bg-dark bg-gradient mb-3">
             <div class="container-fluid">
                 <button class="navbar-toggler bg-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-                <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
                 </button>			
-                <a class="navbar-brand"><?php echo $titulo; ?></a>
-                <a href="./index.php"> <img src="./img/logo2.2.png" alt="Nestor Rey" width="150"> </a>
+                <a class="navbarTitulo"><?php echo $titulo; ?></a>
+                <a href="./index.php"> <img src="./img/logo2.2.png" alt="Nestor Rey" width="150rem"> </a>
             </div>
-            <div class="offcanvas offcanvas-start text-bg-info navbarMenu" data-bs-scroll="true" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas offcanvas-start text-bg-info" data-bs-scroll="true" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                 <div class="offcanvas-header">
                     <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Sistema de Gestion</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>

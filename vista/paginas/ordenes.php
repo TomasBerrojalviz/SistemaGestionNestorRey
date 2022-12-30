@@ -5,7 +5,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
 
 ?>
 
-<div class="container-fluid text-center tabla_data" style="display: none">
+<div class="container-fluid text-center tabla_data mb-2">
     <a id="btnAgregarOrden" <?php echo $clase_boton_lg ?>>
         <i class="fa-solid fa-sheet-plastic">
             Crear orden
@@ -19,7 +19,7 @@ $ordenes = ControladorFormularios::ctrlSeleccionarTabla("ordenes");
     <!-- <div class="d-grid gap-2 mx-3 py-3 d-md-flex justify-content-md-center">
         <button type="button" class="btn btn-dark btn-outline-info" onclick="sortTablaOrdenes()">Ordenar</button>
     </div> -->
-    <table cellspacing=0 class="table table-responsive table-info table-bordered table-hover table-inverse table-striped text-center tabla_data" role="grid" id="tableOrdenes" style="display: none">
+    <table cellspacing=0 class="table table-responsive table-info table-bordered table-hover table-inverse table-striped text-center tabla_data" role="grid" id="tableOrdenes">
     <thead>
         <tr>
             <th scope="col" class="sorting">

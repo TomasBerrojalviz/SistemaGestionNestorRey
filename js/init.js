@@ -101,10 +101,11 @@ function fila(elem){
 
 function cargarTabla(nombreTabla){
     var width = $(document).innerWidth();
+    var show;
     if(width < 720){
-        var show = false;
+        show = false;
     }else{
-        var show = true;
+        show = true;
     }
     if(nombreTabla == "tableOrdenes"){
         // alert("Entramos a cargarTabla");
@@ -129,7 +130,16 @@ function cargarTabla(nombreTabla){
                     // info: true
                 }
             },
-            dom: '<"text-light" P> <"col-lg-3 col-md-6 col-sm-12" B> <"wrapper row" <"col-md-6 col-sm-12 text-light mb-2" l> <"col-md-6 col-sm-12 text-light" f> t <"col-md-6 col-sm-12 mb-2 text-light" i> <"col-md-6 col-sm-12 text-light" p>>',
+            dom:
+            '<"text-light" P>' +
+            '<"col-lg-3" B>' +
+            '<"row"' +
+                '<"col-md-6 col-sm-12 text-light mb-2" l>' +
+                '<"col-md-6 col-sm-12 text-light" f>' +
+                '<"col-12" t>' +
+                '<"col-md-6 col-sm-12 mb-2 text-light" i>' +
+                '<"col-md-6 col-sm-12 text-light" p>' +
+            '>',
             buttons:[
                 {
                     extend: 'excelHtml5',
@@ -223,12 +233,12 @@ function cargarTabla(nombreTabla){
                 {targets: 4, title: 'Llegada_sort', visible:false},
                 {targets: 5, title: 'Llegada', sClass:"columnaLlegada", orderData: [4]},
                 {targets: 6, title: 'Problema', sClass:"columnaProblema"},
-                {targets: 7, title: 'Pago', orderData: [7,0,4]},
+                {targets: 7, title: 'Pago', sClass:"columnaPago", orderData: [7,0,4]},
                 {targets: 8, title: 'Pago_sort', visible:false},
                 {targets: 9, title: 'Entrega_sort', visible:false},
                 {targets: 10, title: 'Entrega', sClass:"columnaDevolucion", orderData: [9]}
             ],
-            responsive: true,
+            responsive: false,
             autoWidth: false,
             
             lengthMenu: [
@@ -677,29 +687,29 @@ function setBotonEstado(id, estado){
     if(estado == 1){
         clase_btn_estado = "text-bg-danger";
         estado_str = "Pendiente";
-        iconoBtn = '<i class="fa-solid fa-screwdriver-wrench fa-flip-horizontal"></i> <i class="fa-solid"> '+estado_str+'</i> <i class="fa-solid fa-screwdriver-wrench"></i>';
+        iconoBtn = '<i class="fa-solid fa-screwdriver-wrench fa-flip-horizontal"></i> <i class="fa-solid"> PEN </i>';
     }
     else if(estado == 2){
         clase_btn_estado = "text-bg-secondary";
         estado_str = "Cancelado";
-        iconoBtn = '<i class="fa-solid fa-rectangle-xmark"> '+estado_str+' </i> <i class="fa-solid fa-rectangle-xmark"></i>';
+        iconoBtn = '<i class="fa-solid fa-rectangle-xmark"> CAN </i>';
     }
     else if(estado == 3){
         clase_btn_estado = "text-bg-warning";
         estado_str = "Finalizado";
-        iconoBtn = '<i class="fa-solid fa-car-on"> '+estado_str+' </i> <i class="fa-solid fa-car-on"></i>';
+        iconoBtn = '<i class="fa-solid fa-car-on"> FIN </i>';
     }
     else if(estado == 4){
         clase_btn_estado = "text-bg-success";
         estado_str = "Entregado";
-        iconoBtn = '<i class="fa-solid fa-car-burst fa-flip-horizontal"></i> <i class="fa-solid"> '+estado_str+' </i> <i class="fa-solid fa-car-burst"> </i>';
+        iconoBtn = '<i class="fa-solid fa-car-burst fa-flip-horizontal"></i> <i class="fa-solid"> ENT </i>';
     }
     else if(estado == 5){
         clase_btn_estado = "text-bg-danger text-dark";
         estado_str = "Falta pagar";  
-        iconoBtn = '<i class="fa-solid fa-hand-holding-dollar fa-flip-horizontal"> </i> <i class="fa-solid"> '+estado_str+' </i> <i class="fa-solid fa-hand-holding-dollar"></i>';
+        iconoBtn = '<i class="fa-solid fa-hand-holding-dollar fa-flip-horizontal"> </i> <i class="fa-solid"> F.P. </i>';
     }
-    var boton = "<button id='"+id+"' tipoModal='orden' class='btn btn-sm btn-outline-dark btnOrden "+clase_btn_estado+"'>";
+    var boton = "<button id='"+id+"' tipoModal='orden' class='btn btn-sm btn-outline-dark btnOrden "+clase_btn_estado+"' data-toggle='tooltip' title='"+estado_str+"'>";
     boton += iconoBtn;
     boton += "</button>";
 

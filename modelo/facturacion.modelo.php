@@ -94,6 +94,8 @@ class ModeloFacturacion {
                                             INNER JOIN clientes cliente
                                             ON recibo.id_cliente = cliente.id
                                             WHERE
+                                            orden.estado != 2
+                                            AND
                                             (insumos.descripcion LIKE '% MANO DE OBRA %' OR
                                             insumos.descripcion LIKE '% MANO DE OBRA' OR
                                             insumos.descripcion LIKE 'MANO DE OBRA %' OR
@@ -342,7 +344,8 @@ class ModeloFacturacion {
                                             ON mo.id_marca = ma.id
                                             INNER JOIN recibos re
                                             ON re.id_orden = ord.id
-                                            WHERE 
+                                            WHERE
+                                            ord.estado != 2 AND
                                             ord.cobro > 0 AND
                                             ord.cobro > ord.pago;");
 

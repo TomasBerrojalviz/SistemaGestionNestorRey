@@ -1,5 +1,29 @@
+.navbar {
+    --bs-navbar-brand-margin-end: 0;
+}
+
+div.dtsp-topRow.dtsp-bordered {
+    border: none;
+}
+
+.navbarTitulo {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+    /* font-weight: 400; */
+}
+
+.navbarTitulo:hover {
+    color: white;
+    /* font-weight: 500; */
+}
+
 .offcanvas-backdrop {
     height: 100%;
+}
+
+.row {
+    justify-content: space-between;
 }
 
 /* ESTILOS TABLAS */
@@ -7,29 +31,39 @@
 /* TABLA ORDENES */
 
 .columnaEstado {
-    width: 10vh;
+    width: 5rem;
+    max-width: 5rem;
 }
 
 .columnaPatenteOrden {
-    width: 10vh;
+    width: 10rem;
+    max-width: 10rem;
 }
 
 .columnaLlegada {
-    width: 10vh;
+    width: 5rem;
+    max-width: 5rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
 .columnaProblema {
-    max-width: 400px;
+    width: 45rem;
+    max-width: 45rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
+.columnaPago {
+    width: 3rem;
+    max-width: 3rem;
+}
+
 .columnaDevolucion {
-    width: 10vh;
+    width: 5rem;
+    max-width: 5rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -70,15 +104,37 @@
     max-width: 110px;
 }
 
-@media only screen 
-and (min-device-width : 320px) 
-and (max-device-width : 480px) {
-    .offcanvas {
-        --bs-offcanvas-width: 40%;
-        --bs-offcanvas-height: 40%;
-        bottom: auto;
+@media (max-device-width : 1165px) {
+    html{
+        font-size: .9rem;
     }
-    .offcanvas.offcanvas-start{
-        /* height: var(--bs-offcanvas-height); */
+
+    .columnaProblema {
+        width: 25rem;
+        max-width: 25rem;
+    }
+}
+
+@media (max-device-width : 768px) {
+    html{
+        font-size: .8rem;
+    }
+    .navbar {
+        margin-bottom: unset;
+    }
+
+    /* .dtsp-titleRow{ TODO ordenas correctamente las columnas
+        
+    } */
+
+    .columnaLlegada {
+        display: none;
+    }
+    .columnaProblema {
+        width: 10rem;
+        max-width: 10rem;
+    }
+    .columnaDevolucion {
+        display: none;
     }
 }
