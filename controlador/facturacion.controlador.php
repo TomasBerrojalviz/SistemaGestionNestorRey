@@ -171,16 +171,31 @@ class ControladorFacturacion {
         if(isset($_POST["id"])){
 
             $id_orden = $_POST["id"];
+            $comprobanteCreado = ModeloFacturacion::mdlObtenerComprobante("recibos", $id_orden);
+
             $presupuestoRelacionado = ModeloFacturacion::mdlObtenerComprobante("presupuestos", $id_orden);
             if($presupuestoRelacionado){
-                $respuesta = ModeloFacturacion::mdlCargarPresupuestoRecibo($presupuestoRelacionado[0]['id'], $id_recibo);
-                if($respuesta){
-                    $comprobanteCreado = ModeloFacturacion::mdlObtenerComprobante("recibos", $id_orden);
+                $presupuestoCargado = ModeloFacturacion::mdlCargarPresupuestoRecibo($presupuestoRelacionado[0]['id'], $id_recibo);
+                if($presupuestoCargado){
                     return $comprobanteCreado;
                 }
-                return $respuesta;
+                return $presupuestoCargado;
             }
-            return $presupuestoRelacionado;
+            
+            $tabla2 = "insumos_recibos";
+            // id_comprobante descripcion cantidad precio precio_total
+            $manoObra = array("id_comprobante" => $comprobanteCreado[0]['id'],
+                            "descripcion" => "MANO DE OBRA",
+                            "cantidad" => "1",
+                            "precio" => "10000",
+                            "precio_total" => "10000",
+                            "id_orden" => $id_orden
+                        );
+            $manoObraAgregada = ModeloFacturacion::mdlAgregarInsumo($tabla2, $manoObra);
+            if($manoObraAgregada){
+                return $comprobanteCreado;
+            }
+            return $manoObraAgregada;
         }
     }
 

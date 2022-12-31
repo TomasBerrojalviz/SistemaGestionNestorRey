@@ -124,7 +124,7 @@
     <tfoot>
         <tr>
             <th colspan="3" class="table-active text-start">TOTAL</th>
-            <th id="total_recibo">10.000,00</th>
+            <th id="total_recibo">0,00</th>
         </tr>
 
     </tfoot>

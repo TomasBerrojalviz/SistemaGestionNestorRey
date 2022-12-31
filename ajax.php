@@ -467,11 +467,13 @@ $modelosDeseados = array();
             if($reciboCreado){
                 $reciboCargado = ControladorFacturacion::ctrlCargarPresupuestoRecibo($reciboCreado[0]['id']);
                 if($reciboCargado){
-                    $reciboObtenido = ControladorFacturacion::ctrlObtenerComprobante("recibos");
-                    if($reciboObtenido){
-                        echo json_encode($reciboObtenido, JSON_UNESCAPED_UNICODE);
-                        exit;
-                    }                 
+                    echo json_encode($reciboCargado, JSON_UNESCAPED_UNICODE);
+                    exit;
+                //     $reciboObtenido = ControladorFacturacion::ctrlObtenerComprobante("recibos");
+                //     if($reciboObtenido){
+                //         echo json_encode($reciboObtenido, JSON_UNESCAPED_UNICODE);
+                //         exit;
+                //     }                 
                 }
             }
             echo "error";

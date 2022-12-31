@@ -383,6 +383,7 @@ function abrirModalRecibo(){
         else {
             var reciboCargado = crearRecibo(id_orden);
             reciboCargado.done(function(responseReciboCargado) {
+                console.log(responseReciboCargado);
                 if(responseReciboCargado != "error"){
                     var info_recibo = JSON.parse(responseReciboCargado)[0];
                     insertarRecibo(info_recibo);
