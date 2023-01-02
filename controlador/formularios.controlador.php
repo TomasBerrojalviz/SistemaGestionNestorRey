@@ -17,6 +17,13 @@ class ControladorFormularios {
         return $respuesta;
     }
     
+    // SELECCIONAR ORDENES HISTORICAS
+    static public function ctrlSeleccionarOrdenesHistoricas(){
+        $respuesta = ModeloFormularios::mdlSeleccionarOrdenesHistoricas();
+        
+        return $respuesta;
+    }
+    
     // SELECCIONAR AUTOS
     static public function ctrlSeleccionarAutos(){
         $respuesta = ModeloFormularios::mdlSeleccionarAutos();

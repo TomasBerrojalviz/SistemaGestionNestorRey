@@ -98,6 +98,15 @@ $modelosDeseados = array();
             exit;
         }
 
+        if($_POST["action"] == "seleccionarOrdenesHistoricas"){
+            $ordenes = ControladorFormularios::ctrlSeleccionarOrdenesHistoricas();
+            if($ordenes){
+                echo json_encode($ordenes, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
         if($_POST["action"] == "seleccionarOrdenesPendiente"){
             $ordenes = ControladorFacturacion::ctrlSeleccionarOrdenesPendiente();
             if($ordenes){

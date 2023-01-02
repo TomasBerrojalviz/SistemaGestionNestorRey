@@ -317,6 +317,218 @@ function cargarTabla(nombreTabla){
             }
         }
     }
+    if(nombreTabla == "tablaOrdenesHistoricas"){
+        // alert("Entramos a cargarTabla");
+        $('#tablaOrdenesHistoricas').DataTable().destroy();
+        $('#tablaOrdenesHistoricas_rows').empty();
+        // Estado Posicion hidden
+        // Estado
+        // Auto 
+        // Modelo hidden
+        // Llegada
+        // Problema
+        // Devolucion
+        var tablaOrdenesHistoricas = $('#tablaOrdenesHistoricas').DataTable({
+            // searchPanes: {
+            //     layout: 'auto',
+            //     cascadePanes: true,
+            //     dtOpts: {
+            //         paging: true,
+            //         pagingType: 'numbers',
+            //         searching: true,
+            //         // searching: false,
+            //         // info: true
+            //     }
+            // },
+            dom:
+            // '<"text-light" P>' +
+            '<"row  justify-content-center text-center"' +
+                '<"col-lg-3" B>' +
+            '>' +
+            '<"row"' +
+                '<"col-md-6 col-sm-12 text-light mb-2" l>' +
+                '<"col-md-6 col-sm-12 text-light" f>' +
+                '<"col-12" t>' +
+                '<"col-md-6 col-sm-12 mb-2 text-light" i>' +
+                '<"col-md-6 col-sm-12 text-light" p>' +
+            '>',
+            buttons:[
+                {
+                    extend: 'excelHtml5',
+                    text: '<i class="fa-regular fa-file-excel"></i>',
+                    titleAttr: 'Exportar a Excel',
+                    className: 'btn btn-lg btn-success mb-2',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                // {
+                //     extend: 'pdfHtml5',
+                //     text: '<i class="fa-regular fa-file-pdf"></i>',
+                //     titleAttr: 'Exportar a PDF',
+                //     className: 'btn btn-lg btn-danger mb-2',
+                //     exportOptions: {
+                //         columns: ':visible'
+                //     }
+                // },
+                // {
+                //     extend: 'print',
+                //     text: '<i class="fa-solid fa-print"></i>',
+                //     titleAttr: 'Imprimir',
+                //     className: 'btn btn-info mb-2',
+                //     exportOptions: {
+                //         columns: ':visible'
+                //     }
+                // }
+            ],
+            processing: true,
+            "language": {
+                "loadingRecords": "&nbsp;",
+                "processing": "Procesando...",
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ ordenes",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningúna orden cargada",
+                "sInfo":           "Mostrando ordenes del _START_ al _END_ de un total de _TOTAL_ ordenes",
+                "sInfoEmpty":      "Mostrando ordenes del 0 al 0 de un total de 0 ordenes",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ ordenes)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                },
+                searchPanes: {
+                    title: {
+                        _: 'Filtros seleccionados - %d',
+                    },
+                    collapseMessage : "Minimizar filtros",
+                    showMessage: "Mostrar filtros",
+                    clearMessage: "Limpiar filtros",
+                    emptyPanes: ""
+                }
+            },
+            order: [[0, 'asc'], [7, 'asc'], [4, 'asc']],
+            columnDefs: [
+                // {
+                //     searchPanes: {
+                //         show: true,
+                //         initCollapsed: true,
+                //     },
+                //     targets: [3]
+                // },
+                // Estado Orden
+                // Estado
+                // Auto
+                // Modelo
+                // Llegada_sort
+                // Llegada
+                // Problema
+                // Pago
+                // Pago_sort
+                // Entrega_sort
+                // Entrega
+                { className: "dt-head-center", targets: "_all" },
+                {targets: 0, title: 'Estado Orden', visible:false},
+                {targets: 1, title: 'Estado', sClass:"columnaEstado", orderData: [0,7,4]},
+                {targets: 2, title: 'Auto', sClass:"columnaPatenteOrden", orderData: [2,0,4]},
+                {targets: 3, title: 'Modelo', visible:false},
+                {targets: 4, title: 'Llegada_sort', visible:false},
+                {targets: 5, title: 'Llegada', sClass:"columnaLlegada", orderData: [4]},
+                {targets: 6, title: 'Problema', sClass:"columnaProblema"},
+                {targets: 7, title: 'Pago', sClass:"columnaPago", orderData: [7,0,4]},
+                {targets: 8, title: 'Pago_sort', visible:false},
+                {targets: 9, title: 'Entrega_sort', visible:false},
+                {targets: 10, title: 'Entrega', sClass:"columnaDevolucion", orderData: [9]}
+            ],
+            responsive: false,
+            autoWidth: false,
+            
+            lengthMenu: [
+                [10, 25, 50, 100, -1],
+                [10, 25, 50, 100, 'Todos'],
+            ],
+        });
+        // var tablaOrdenesHistoricas = $('#tablaOrdenesHistoricas').DataTable();
+        var ordenesSeleccionadas = seleccionarOrdenesHistoricas();
+        ordenesSeleccionadas.done(function(responseOrdenes) {
+            if(responseOrdenes != "error"){
+                var ordenes = JSON.parse(responseOrdenes);
+                for(var i = 0; i < ordenes.length; i++){
+                    var estadoPosicion = posicionEstado(ordenes[i].estado); //hidden
+                    var estado = setBotonEstado(ordenes[i].id, ordenes[i].estado);
+                    var patente = ordenes[i].patente;
+                    var modelo_orden = ordenes[i].modelo + " Nro orden " + ordenes[i].id; //hidden
+
+                    // var llegada = '<span style="display: none;">'+fechaOrdenable[2]+fechaOrdenable[1]+fechaOrdenable[0]+'</span>'+ordenes[i].fecha_recibido;
+                    var pagado = '<span style="display: none;">SI</span> <i class="fa-regular fa-circle-check text-success h3"></i>';
+                    var pago_sort = 1;
+                    // if(ordenes[i].pago < traerCobroRecibo(ordenes[i].id)){
+                    if(ordenes[i].pago < ordenes[i].cobro || ordenes[i].cobro == 0){
+                        pagado = '<span style="display: none;">NO</span> <i class="fa-regular fa-circle-xmark text-danger h3"></i>';
+                        pago_sort = 0;
+                    }
+
+                    var tr = tablaOrdenesHistoricas.row.add([estadoPosicion, estado, patente, modelo_orden, ordenes[i].fecha_recibido_sort, ordenes[i].fecha_recibido, ordenes[i].problema, pagado, pago_sort, ordenes[i].fecha_devolucion_sort, ordenes[i].fecha_devolucion]).draw().node();
+                    tr.id = ordenes[i].id;
+                    $(tr).addClass('fila');
+                    tr.setAttribute("tipoModal", "orden");
+                    tr.setAttribute("onclick", "fila(this)");   
+                }
+            }
+            // 18
+            // 11
+            // 10
+            // 45
+            // 6
+            // 10
+            for (var i = 0; i < tabla_data.length; i++) {
+                var element = tabla_data[i];
+                element.style.display = "";
+            }
+            // document.getElementById("tablaOrdenesHistoricas")
+            document.getElementById("loading_tab").style.display = "none";          
+
+            // for(var i=0; i<columnaEstado.length; i++) {
+            //     columnaEstado[i].setAttribute("style", "width: 200px;");
+            //     columnaPatenteOrden[i].setAttribute("style", "width: 100px;");
+            //     columnaLlegada[i].setAttribute("style", "width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;");
+            //     columnaProblema[i].setAttribute("style", "max-width: 400px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;");
+            //     columnaDevolucion[i].setAttribute("style", "width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;");
+            // }
+            // for(var i=0; i<columnaEstado.length; i++) {
+            //     columnaEstado[i].setAttribute("style", "width: 18%;");
+            //     columnaPatenteOrden[i].setAttribute("style", "width: 11%;");
+            //     columnaLlegada[i].setAttribute("style", "width: 10%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;");
+            //     columnaProblema[i].setAttribute("style", "width: 45%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;");
+            //     columnaDevolucion[i].setAttribute("style", "width: 10%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;");
+            // }
+        });
+        var autoBuscado = sessionStorage.getItem('autoBuscado');
+        // alert(autoBuscado);
+        if(autoBuscado){
+            // alert(autoBuscado);
+            // var table = $('#tableOrdenes').DataTable();
+            tablaOrdenesHistoricas.search(autoBuscado).draw(true);
+            sessionStorage.setItem('autoBuscado', "");
+        }
+        else {
+            var ordenBuscada = sessionStorage.getItem('ordenBuscada');
+            if(ordenBuscada){
+                tablaOrdenesHistoricas.search(ordenBuscada).draw(true);
+                sessionStorage.setItem('ordenBuscada', "");
+            }
+        }
+    }
     else if(nombreTabla == "tableAuto"){
         $('#tableAuto').DataTable().destroy();
         $('#tableAuto_rows').empty();
@@ -671,6 +883,17 @@ function posicionEstado(estado){
 
 function seleccionarOrdenes(){
     var action = 'seleccionarOrdenes';
+
+    return $.ajax({
+        type: "POST",
+        url: "ajax.php",
+        async: false,
+        data: { action:action}
+    });
+}
+
+function seleccionarOrdenesHistoricas(){
+    var action = 'seleccionarOrdenesHistoricas';
 
     return $.ajax({
         type: "POST",

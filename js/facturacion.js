@@ -383,7 +383,6 @@ function abrirModalRecibo(){
         else {
             var reciboCargado = crearRecibo(id_orden);
             reciboCargado.done(function(responseReciboCargado) {
-                console.log(responseReciboCargado);
                 if(responseReciboCargado != "error"){
                     var info_recibo = JSON.parse(responseReciboCargado)[0];
                     insertarRecibo(info_recibo);
@@ -606,10 +605,6 @@ function actualizarInputInsumoEdit(){
 
 function editInsumo(id, comprobante){
     var insumo = document.getElementById("insumo-"+id).childNodes;
-    console.log(insumo);
-    console.log(id);
-    console.log(comprobante);
-    insumo.forEach(ins => console.log(ins.innerHTML));
     ocultarModal(comprobante+"Modal");
     
     alertInfo.fire({
@@ -635,7 +630,6 @@ function editInsumo(id, comprobante){
             '<input id="insumo-precio-total" class="swal2-input bg-secondary bg-opacity-10" value="'+ insumo[3].innerHTML  +'" disabled>'
             
     }).then((result) => {
-        console.log(result);
         if (result.isConfirmed) {
             if(document.getElementById('insumo-descripcion').classList.contains("is-invalid")){
                 alertWarning.fire({
@@ -657,9 +651,7 @@ function editInsumo(id, comprobante){
                 insumoEdit['precio_total'] = document.getElementById('insumo-precio-total').value;
                 var insumoActualizar = actualizarInsumo(id, insumoEdit, comprobante);
                 insumoActualizar.done(function(response) {
-                    console.log(response);
                     if(response != "error"){
-                        // console.log(total_recibo);
                         alertSuccess.fire('Cambios guardados', '', 'success').then((result) => {
                             if(comprobante == "recibo"){
                                 abrirModalRecibo();
@@ -837,11 +829,6 @@ function abrirModalIngresos(mes, anio){
     });
     var tablaIngresos = $('#tablaIngresos').DataTable();
 
-    var sp = document.getElementsByClassName("dtsp-topRow");
-    for(var i = 0; i < sp.length; i++){
-        console.log($(sp[i]).removeClass("dtsp-bordered"));
-    }
-
     ingresosModalTitle.innerHTML = "Ingresos de " + meses[mes] + " del " + anio;
     const manosObraObtenidas = seleccionarManosObra();
     manosObraObtenidas.done(function(response) {
@@ -971,11 +958,6 @@ function abrirModalPendientes(mes, anio){
     });
     var tablaPendientes = $('#tablaPendientes').DataTable();
 
-    var sp = document.getElementsByClassName("dtsp-topRow");
-    for(var i = 0; i < sp.length; i++){
-        console.log($(sp[i]).removeClass("dtsp-bordered"));
-    }
-    
     pendientesModalTitle.innerHTML = "Pagos pendientes de " + meses[mes] + " del " + anio;
     const ordenesObtenidas = seleccionarOrdenesPendiente();
     ordenesObtenidas.done(function(response) {
@@ -1060,13 +1042,11 @@ function filtrarCobrosPendientes(ordenes, mes, anio){
 }
 
 function verificarDescripcion(descripcionInput){
-    console.log(descripcionInput.value.toUpperCase());
     $(descripcionInput).removeClass('is-invalid');
     const feedback = document.getElementById(descripcionInput.getAttribute('feedback'));
     feedback.innerHTML = "";
     
     if(descripcionInput.value.toUpperCase() == "MANO DE OBRA"){
-        console.log(descripcionInput.value);
         $(descripcionInput).addClass('is-invalid');
         var alert = '<div class="alert alert-danger" role="alert">';
         alert += 'No se puede ingresar otra MANO DE OBRA <i class="fa-solid fa-circle-exclamation"></i>';
@@ -1076,7 +1056,6 @@ function verificarDescripcion(descripcionInput){
 }
 
 function actualizarFecha(id, fecha, comprobante){
-    console.log(fecha);
     $.ajax({
         type: "POST",
         url: "ajax.php",
@@ -1191,7 +1170,7 @@ function actualizarCobros(){
 
 function buscarOrdenesRelacionadasFinanzas(id_orden){
     sessionStorage.setItem('ordenBuscada', '" Orden '+id_orden+' "');
-    location.replace("index.php?pagina=ordenes");
+    location.replace("index.php?pagina=ordenes_historicas");
 }
 
 function guardarPago(id, pagoTag, feedbackTag, pagoGrupoTag){
@@ -1217,7 +1196,6 @@ function guardarPago(id, pagoTag, feedbackTag, pagoGrupoTag){
             pago:pago.value
         },
         success: function(response) {
-            console.log(response);
             if (response != "error") {
                 var pagoGuardado = JSON.parse(response);
                 if(pagoGuardado){

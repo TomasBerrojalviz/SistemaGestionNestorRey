@@ -1,24 +1,24 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-3">
-            <img src="img/logo-min.png" class="mx-auto my-auto"  alt="Logo Nestor Rey Mecanica">
+        <div class="col-lg-3 col-12 text-center">
+            <img src="img/logo-min.png" class="mx-auto my-auto logoComprobante"  alt="Logo Nestor Rey Mecanica">
         </div>
-        <div class="col-4 text-center">
+        <div class="col-lg-4 col-5 text-center">
             <p><b>Nestor Rey Mecanica</b></p>
             <p>Juncal 4849, Monte Chingolo</p>
             <p>Telefono: +54 9 11 3179-7334</p>
         </div>
-        <div class="col-5">
+        <div class="col-lg-4 col-7">
             <div class="card">
                 <div class="card-header text-bg-primary pt-0 pb-0 text-center">
                     Presupuesto
                 </div>
                 <div class="card-body pt-0">
                     <div class="row">
-                        <div class="col">
+                        <div class="col-lg-6">
                             Nro. Presupuesto: <b id="presupuestoNro"></b>
                         </div>
-                        <div class="col">
+                        <div class="col-lg-6">
                             Nro. Orden: <b id="presupuestoNroOrden"></b>
                         </div>
                     </div>
@@ -47,12 +47,12 @@
     <div class="card-body">
         <form>
             <div class="mb-3 row">
-                <label class="col-2 col-form-label"><b>Nombre:</b></label>
-                <div class="col-4">
+                <label class="col-lg-2 col-4 col-form-label"><b>Nombre:</b></label>
+                <div class="col-lg-4 col-8">
                     <input type="text" class="form-control-plaintext" id="presupuestoClienteNombre" name="presupuestoClienteNombre" value="JHONNY FABIAN CAÑETE BOGADO" readonly>
                 </div>
-                <label class="col-2 col-form-label"><b>Mail:</b></label>
-                <div class="col-4">
+                <label class="col-lg-2 col-4 col-form-label"><b>Mail:</b></label>
+                <div class="col-lg-4 col-8">
                     <input type="email" class="form-control-plaintext" id="presupuestoClienteMail" name="presupuestoClienteMail" value="CAI.BERROJALVIZ.TOMAS@GMAIL.COM" readonly>
                 </div>
             </div>

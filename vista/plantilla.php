@@ -29,6 +29,9 @@
         else if($_GET["pagina"] == "ordenes"){
             $titulo = "Ordenes";
         }
+        else if($_GET["pagina"] == "ordenes_historicas"){
+            $titulo = "Hist. Ordenes";
+        }
         else{
             $titulo = "Not found";
         }
@@ -133,7 +136,8 @@
                 $_GET["pagina"] == "autos" ||
                 $_GET["pagina"] == "clientes" ||
                 $_GET["pagina"] == "marcas_modelos" ||
-                $_GET["pagina"] == "ordenes"
+                $_GET["pagina"] == "ordenes" ||
+                $_GET["pagina"] == "ordenes_historicas"
             )
                 include "paginas/".$_GET["pagina"].".php";
             else

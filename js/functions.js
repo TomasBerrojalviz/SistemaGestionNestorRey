@@ -490,8 +490,7 @@ function actualizarTablas() {
 
     let params = new URLSearchParams(location.search);
     var pagina = params.get('pagina');
-    var paginasConTablas = ["autos", "ordenes", "marcas_modelos", "finanzas", "finanzas/ingresos", "finanzas/pendientes"];
-
+    var paginasConTablas = ["autos", "ordenes", "ordenes_historicas", "marcas_modelos", "finanzas", "finanzas/ingresos", "finanzas/pendientes"];
 
     if(!paginasConTablas.includes(pagina)){
         return;
@@ -501,6 +500,9 @@ function actualizarTablas() {
     }
     else if(pagina == "ordenes"){  
         cargarTabla('tableOrdenes');
+    }
+    else if(pagina == "ordenes_historicas"){  
+        cargarTabla('tablaOrdenesHistoricas');
     }
     else if(pagina.includes("finanzas")){
         if(pagina == "finanzas/ingresos"){
@@ -710,7 +712,7 @@ function mostrarClase(clase){
 function buscarOrdenesRelacionadas(){
     sessionStorage.setItem('autoBuscado', autoPatente.value);
     // location.replace("index.php?pagina=ordenes");
-    window.history.pushState(null,null,'index.php?pagina=ordenes');
+    window.history.pushState(null,null,'index.php?pagina=ordenes_historicas');
 }
 
 function obtenerAutoCompleto(id_auto) {

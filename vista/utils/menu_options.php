@@ -55,6 +55,7 @@
                     <li><a href="index.php?pagina=finanzas/pendientes" class="btn btn-dark btn-outline-info btn-lg w-100" type="button">Pagos pendientes</a></li>
                 </ul>
             </div>
+            <a href="index.php?pagina=ordenes_historicas" <?php echo $clase_boton_lg ?> type="button">Historial de ordenes</a>
         </div>
     </div>
 </div>

@@ -44,19 +44,19 @@
                                 <div id="flush-auto" class="accordion-collapse collapse" aria-labelledby="flush-autoHead" data-bs-parent="#accordionFlushAuto">
                                     <div class="accordion-body">
                                         <div class="row">
-                                            <div class="col-md-3 col-sm-12 dataOrden" style="display: none;">
+                                            <div class="col-lg-4 col-12 dataOrden" style="display: none;">
                                                 <div class="form-floating mb-2">
                                                     <input autocomplete="off" class="form-control text-uppercase" type="text" name="ordenAutoPatente" id="ordenAutoPatente" disabled readonly>
                                                     <label for="floatingInput">Patente</label>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3 col-sm-12 dataOrden" style="display: none;">
+                                            <div class="col-lg-4 col-12 dataOrden" style="display: none;">
                                                 <div class="form-floating mb-2">
                                                     <input autocomplete="off" class="form-control text-uppercase" type="text" name="ordenAutoModelo" id="ordenAutoModelo" disabled readonly>
                                                     <label for="floatingInput">Modelo</label>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3 col-sm-12 dataOrden" style="display: none;">
+                                            <div class="col-lg-4 col-12 dataOrden" style="display: none;">
                                                 <div class="form-floating mb-2">
                                                     <input autocomplete="off" class="form-control" type="number" name="ordenAutoAnio" id="ordenAutoAnio" disabled readonly>
                                                     <label for="floatingInput">Año</label>
@@ -203,12 +203,12 @@
                 <h5> Formularios </h5>
                 
                 <div class="row mb-3 container-fluid text-center">
-                    <div class="col-7">
+                    <div class="col-12 mb-2">
                         <a id="btnPresupuesto" tipoModal="presupuesto" class="btn btn-lg text-bg-info btn-outline-dark btnPresupuesto">
                         <i class="fa-solid fa-file-invoice-dollar"> </i> <i class="fa-solid"> Presupuesto </i> <i class="fa-solid fa-file-invoice-dollar"> </i>
                         </a>
                     </div>
-                    <div class="col">
+                    <div class="col-12">
                         <a id="btnRecibo" tipoModal="recibo" class="btn btn-lg text-bg-info btn-outline-dark btnRecibo">
                             <i class="fa-solid fa-receipt"> </i> <i class="fa-solid"> Recibo </i> <i class="fa-solid fa-receipt"> </i>
                         </a>

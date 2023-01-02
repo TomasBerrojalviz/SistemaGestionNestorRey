@@ -26,6 +26,14 @@ div.dtsp-topRow.dtsp-bordered {
     justify-content: space-between;
 }
 
+.btnFacturacion, .btnTrabajo{
+    width: 13rem;
+}
+
+.btnRecibo,.btnPresupuesto{
+    width: 15rem;
+}
+
 /* ESTILOS TABLAS */
 
 /* TABLA ORDENES */
@@ -136,5 +144,10 @@ div.dtsp-topRow.dtsp-bordered {
     }
     .columnaDevolucion {
         display: none;
+    }
+
+    .logoComprobante{
+        width: 10rem;
+        height: auto;
     }
 }

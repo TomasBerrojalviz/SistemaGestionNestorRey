@@ -52,6 +52,35 @@ class ModeloFormularios {
         $stmt = null;
     }
     
+    // SELECCIONAR ORDENES HISTORICAS
+    static public function mdlSeleccionarOrdenesHistoricas(){
+
+        $stmt = Conexion::conectar()->prepare("SELECT
+                                            ord.id, ord.id_auto, ord.problema, ord.estado, ord.cobro, ord.pago,
+                                            DATE_FORMAT(ord.fecha_recibido, '%d/%m/%Y') as fecha_recibido, DATE_FORMAT(ord.fecha_recibido, '%Y/%m/%d') as fecha_recibido_sort,
+                                            DATE_FORMAT(ord.fecha_devolucion, '%d/%m/%Y') as fecha_devolucion, DATE_FORMAT(ord.fecha_devolucion, '%Y/%m/%d') as fecha_devolucion_sort,
+                                            au.patente, au.anio,
+                                            cl.nombre, cl.telefono, cl.mail, cl.domicilio,
+                                            CONCAT(ma.marca, ' ', mo.modelo) as modelo
+                                            FROM ordenes ord
+                                            INNER JOIN autos au
+                                            ON ord.id_auto = au.id
+                                            INNER JOIN clientes cl
+                                            ON au.id_cliente = cl.id
+                                            INNER JOIN modelos mo
+                                            ON au.id_modelo = mo.id
+                                            INNER JOIN marcas ma
+                                            ON mo.id_marca = ma.id");
+
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+
+        $stmt->close();
+
+        $stmt = null;
+    }
+    
     // SELECCIONAR ORDEN
     static public function mdlSeleccionarOrden($tabla, $id){
 
