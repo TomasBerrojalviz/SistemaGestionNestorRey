@@ -28,7 +28,7 @@
     </div>
 </div> -->
 
-<div class="card mx-auto text-center border border-2 border-dark" style="width: auto; background-color: transparent;">
+<div class="card mx-auto text-center border border-2 border-dark menuCard">
     <div class="card-header text-bg-dark bg-opacity-50 border-bottom border-2 border-dark">
         <h2>Trabajo</h2>
     </div>
@@ -38,6 +38,7 @@
             <a href="index.php?pagina=autos" <?php echo $clase_boton_lg ?> type="button">Autos</a>
             <a href="index.php?pagina=clientes" <?php echo $clase_boton_lg ?> type="button">Clientes</a>
             <a href="index.php?pagina=marcas_modelos" <?php echo $clase_boton_lg ?> type="button">Marcas y Modelos</a>
+            <a href="index.php?pagina=ordenes_historicas" <?php echo $clase_boton_lg ?> type="button">Historial de ordenes</a>
         </div>
     </div>
     <div class="card-header text-bg-dark bg-opacity-50 border-bottom border-top border-2 border-dark">
@@ -55,7 +56,6 @@
                     <li><a href="index.php?pagina=finanzas/pendientes" class="btn btn-dark btn-outline-info btn-lg w-100" type="button">Pagos pendientes</a></li>
                 </ul>
             </div>
-            <a href="index.php?pagina=ordenes_historicas" <?php echo $clase_boton_lg ?> type="button">Historial de ordenes</a>
         </div>
     </div>
 </div>

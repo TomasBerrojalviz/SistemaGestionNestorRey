@@ -30,7 +30,7 @@
             $titulo = "Ordenes";
         }
         else if($_GET["pagina"] == "ordenes_historicas"){
-            $titulo = "Hist. Ordenes";
+            $titulo = "Historial Ordenes";
         }
         else{
             $titulo = "Not found";
@@ -102,17 +102,20 @@
     <title>Sistema Gestion<?php echo " - ".$titulo; ?></title>
 
 </head>
-<body style="background-color: #006666;">
+<body>
 
-    <header >
+    <header class="mb-3">
         <!-- MENU DESPLEGABLE  -->
-        <nav class="navbar navbar-dark bg-dark bg-gradient mb-3">
-            <div class="container-fluid">
-                <button class="navbar-toggler bg-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-                    <span class="navbar-toggler-icon"></span>
-                </button>			
-                <a class="navbarTitulo"><?php echo $titulo; ?></a>
-                <a href="./index.php"> <img src="./img/logo2.2.png" alt="Nestor Rey" width="150rem"> </a>
+        <nav class="navbar navbar-dark bg-dark bg-gradient">
+            <div class="row container-fluid pe-0">
+            <!-- <div class="container-fluid"> -->
+                <div class="col">
+                    <button class="navbar-toggler bg-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>			
+                <a class="col text-center navbarTitulo"><?php echo $titulo; ?></a>
+                <a class="col text-end pe-0" href="./index.php"> <img src="./img/logo2.2.png" alt="Nestor Rey" width="150rem"> </a>
             </div>
             <div class="offcanvas offcanvas-start text-bg-info" data-bs-scroll="true" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                 <div class="offcanvas-header">

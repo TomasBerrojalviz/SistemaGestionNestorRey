@@ -1,9 +1,18 @@
+:root {
+    --bg-color: #006666;
+}
+
+body {
+    background-color: var(--bg-color);
+}
+
 .navbar {
     --bs-navbar-brand-margin-end: 0;
 }
 
-div.dtsp-topRow.dtsp-bordered {
-    border: none;
+.menuCard{
+    width: auto;
+    background-color: transparent;
 }
 
 .navbarTitulo {
@@ -24,6 +33,14 @@ div.dtsp-topRow.dtsp-bordered {
 
 .row {
     justify-content: space-between;
+}
+
+div.dtsp-topRow.dtsp-bordered {
+    border: none;
+}
+
+table {
+    vertical-align: middle!important;
 }
 
 .filaAdjunto {

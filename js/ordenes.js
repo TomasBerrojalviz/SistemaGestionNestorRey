@@ -719,7 +719,7 @@ function abrirModalHistorial(tipo){
                     var fechaCompleta = info_notas[i].fecha + " " + info_notas[i].hora;
                     var fechaOrdenable = info_notas[i].fecha.split("/");
                     var fechaInput = '<span style="display: none;">'+fechaOrdenable[2]+fechaOrdenable[1]+fechaOrdenable[0]+" "+info_notas[i].hora+'</span>'+fechaCompleta;
-                    tablaHistorial.row.add([fechaInput, info_notas[i].nota, setBotonAdjuntos(info_notas[i].id, info_notas[i].adjuntos)]).draw();
+                    var tr = tablaHistorial.row.add([fechaInput, info_notas[i].nota, setBotonAdjuntos(info_notas[i].id, info_notas[i].adjuntos)]).draw().node();
                 }
             }
         });
