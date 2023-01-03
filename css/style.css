@@ -26,6 +26,18 @@ div.dtsp-topRow.dtsp-bordered {
     justify-content: space-between;
 }
 
+.filaAdjunto {
+    justify-content: flex-start;
+}
+
+.adjuntoCard{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
 .btnFacturacion, .btnTrabajo{
     width: 13rem;
 }

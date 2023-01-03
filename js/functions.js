@@ -597,6 +597,10 @@ function crearVisualizadorAdjuntos(visualizador, archivos, click){
     var clickAbrir = '';
     var j = -1;
     var row = [];
+    var adjuntosFila = 3;
+    if(window.screen.width < 768){
+        adjuntosFila = 2;
+    }
 
     while (visualizador.firstChild) {
         visualizador.setAttribute("error", "no-error");
@@ -653,7 +657,7 @@ function crearVisualizadorAdjuntos(visualizador, archivos, click){
             style = "width: 100%;";
         }
 
-        var preview = '<div class="card col-4 mt-2 text-center" style="display: block; padding: 0px 0px 0px 0px;" '+clickAbrir+'>'; // PROBLEMA CON ROW
+        var preview = '<div class="card col-lg-4 col-6  mt-2 text-center adjuntoCard" style="" '+clickAbrir+'>'; // PROBLEMA CON ROW
                 preview += '<img src="'+src+'" alt="'+archivos[i].name+'" class="rounded-top" height="150px" style="'+style+'">';
                 preview += '<div class="card-body">';
                     preview += '<h5 class="card-text">'+archivos[i].name+'</h5>';
@@ -662,10 +666,10 @@ function crearVisualizadorAdjuntos(visualizador, archivos, click){
             preview += '</div>';
         preview += '</div>';
 
-        if((i % 3) == 0){
+        if((i % adjuntosFila) == 0){
             j++;
             row[j] = document.createElement("div");
-            row[j].className = 'row mb-2';
+            row[j].className = 'row mb-2 filaAdjunto';
 
         }
         row[j].innerHTML += preview;

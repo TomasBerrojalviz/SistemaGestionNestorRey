@@ -797,7 +797,7 @@ function mostrarAdjuntos() {
 }
 
 function setBotonAdjuntos(id, cantidad_adjuntos){
-    var boton = '<a id="'+id+'" onclick="displayAdjuntos(\''+id+'\');" ';
+    var boton = '<button id="'+id+'" onclick="displayAdjuntos(\''+id+'\');" ';
     if(cantidad_adjuntos != 0){
         boton += 'class="btn btn-sm btn-outline-dark text-bg-success">';
     }
@@ -805,7 +805,7 @@ function setBotonAdjuntos(id, cantidad_adjuntos){
         boton += 'class="btn btn-sm btn-outline-dark text-bg-warning">';
     }
     boton += cantidad_adjuntos+" adjuntos";
-    boton += "</a>";
+    boton += "</button>";
 
     return boton;
 }

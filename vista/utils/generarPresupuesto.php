@@ -52,7 +52,8 @@ else {
     $html = ob_get_clean();
 
     // $dompdf = new Dompdf();
-    // $dompdf->set_base_path('../../css/bootstrap.min.css');
+    // $dompdf->set_base_path('../../css/');
+    // $dompdf->set_base_path('/');
 
     print_r($html);
 
