@@ -15,6 +15,17 @@ body {
     background-color: transparent;
 }
 
+/* .accordion > *{
+    text-align: center;
+    --bs-accordion-bg: var(--bg-color);
+    --bs-accordion-btn-bg: var(--bg-color);
+}
+
+.accordion-button:not(.collapsed){
+    --bs-accordion-active-bg: var(--bg-color);
+    --bs-accordion-active-color: white;
+} */
+
 .navbarTitulo {
     color: white;
     text-decoration: none;
