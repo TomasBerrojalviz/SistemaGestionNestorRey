@@ -132,7 +132,7 @@ function cargarTabla(nombreTabla){
             },
             dom:
             '<"text-light" P>' +
-            '<"col-lg-3" B>' +
+            '<"col-lg-3 col-1" B>' +
             '<"row"' +
                 '<"col-md-6 col-sm-12 text-light mb-2" l>' +
                 '<"col-md-6 col-sm-12 text-light" f>' +
@@ -343,7 +343,7 @@ function cargarTabla(nombreTabla){
             dom:
             // '<"text-light" P>' +
             '<"row  justify-content-center text-center"' +
-                '<"col-lg-3" B>' +
+                '<"col-lg-3 col-1" B>' +
             '>' +
             '<"row"' +
                 '<"col-md-6 col-sm-12 text-light mb-2" l>' +
@@ -549,8 +549,17 @@ function cargarTabla(nombreTabla){
                     searching: true,
                 }
             },
-            dom: '<"text-light " P> r <"col-lg-3 col-md-6 col-sm-12" B> <"wrapper" <"col-6 text-light float-end" f> <"col-6 text-light " l> t <"col-6 text-light float-end" p> <"col-6 text-light" i>>',
-            buttons:[
+            dom:
+            '<"text-light" P>' +
+            '<"col-lg-3 col-1" B>' +
+            '<"row"' +
+                '<"col-md-6 col-sm-12 text-light mb-2" l>' +
+                '<"col-md-6 col-sm-12 text-light" f>' +
+                '<"col-12" t>' +
+                '<"col-md-6 col-sm-12 mb-2 text-light" i>' +
+                '<"col-md-6 col-sm-12 text-light" p>' +
+            '>',
+            buttons: [
                 {
                     extend: 'excelHtml5',
                     text: '<i class="fa-regular fa-file-excel"></i>',
@@ -659,7 +668,16 @@ function cargarTabla(nombreTabla){
                     searching: true,
                 }
             },
-            dom: '<"text-light " P> r <"col-lg-3 col-md-6 col-sm-12" B> <"wrapper" <"col-6 text-light float-end" f> <"col-6 text-light " l> t <"col-6 text-light float-end" p> <"col-6 text-light" i>>',
+            dom:
+                '<"text-light" P>' +
+                '<"col-lg-3 col-1" B>' +
+                '<"row"' +
+                    '<"col-md-6 col-sm-12 text-light mb-2" l>' +
+                    '<"col-md-6 col-sm-12 text-light" f>' +
+                    '<"col-12" t>' +
+                    '<"col-md-6 col-sm-12 mb-2 text-light" i>' +
+                    '<"col-md-6 col-sm-12 text-light" p>' +
+                '>',
             buttons:[
                 {
                     extend: 'excelHtml5',
@@ -763,7 +781,16 @@ function cargarTabla(nombreTabla){
                     searching: true,
                 }
             },
-            dom: '<"text-light " P> r <"col-lg-3 col-md-6 col-sm-12" B> <"wrapper" <"col-6 text-light float-end" f> <"col-6 text-light " l> t <"col-6 text-light float-end" p> <"col-6 text-light" i>>',
+            dom: 
+                '<"text-light" P>' +
+                '<"col-lg-3 col-1" B>' +
+                '<"row"' +
+                    '<"col-md-6 col-sm-12 text-light mb-2" l>' +
+                    '<"col-md-6 col-sm-12 text-light" f>' +
+                    '<"col-12" t>' +
+                    '<"col-md-6 col-sm-12 mb-2 text-light" i>' +
+                    '<"col-md-6 col-sm-12 text-light" p>' +
+                '>',
             buttons:[
                 {
                     extend: 'excelHtml5',

@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row my-2">
-        <div class="col-5">
+        <div class="col-lg-5 col-12">
             <div class="text-center">
                 <button type="button" id="btnAgregarMarca" <?php echo $clase_boton_lg ?>>
                     Agregar marca
@@ -32,8 +32,7 @@
             </tbody>
             </table>
         </div>
-        <div class="col-7">
-            
+        <div class="col-lg-7 col-12">
             <div class="text-center">
                 <button type="button" id="btnAgregarModelo" <?php echo $clase_boton_lg ?>>
                     Agregar modelo

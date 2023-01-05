@@ -321,7 +321,15 @@ function editarModal(){
 
 function setTablas(){
     $('#tableMarca').DataTable({
-        dom: 'r <"col-lg-3 col-md-6 col-sm-12" B> <"wrapper" <"col-6 text-light float-end" f> <"col-6 text-light " l> t <"col-6 text-light float-end" p> <"col-6 text-light" i>>',
+        dom:
+            '<"col-lg-3 col-1 mt-2" B>' +
+            '<"row"' +
+                '<"col-md-6 col-sm-12 text-light mb-2" l>' +
+                '<"col-md-6 col-sm-12 text-light" f>' +
+                '<"col-12" t>' +
+                '<"col-md-6 col-sm-12 mb-2 text-light" i>' +
+                '<"col-md-6 col-sm-12 text-light" p>' +
+            '>',
         // pagingType: "numbers",   
         buttons:[
             {
@@ -368,8 +376,16 @@ function setTablas(){
     });
 
     $('#tableModelo').DataTable({
-        dom: 'r <"col-lg-3 col-md-6 col-sm-12" B> <"wrapper" <"col-6 text-light float-end" f> <"col-6 text-light " l> t <"col-6 text-light float-end" p> <"col-6 text-light" i>>',
-        buttons:[
+        dom:
+            '<"col-lg-3 col-1 mt-2" B>' +
+            '<"row"' +
+                '<"col-md-6 col-sm-12 text-light mb-2" l>' +
+                '<"col-md-6 col-sm-12 text-light" f>' +
+                '<"col-12" t>' +
+                '<"col-md-6 col-sm-12 mb-2 text-light" i>' +
+                '<"col-md-6 col-sm-12 text-light" p>' +
+            '>',
+        buttons: [
             {
                 extend: 'excelHtml5',
                 text: '<i class="fa-regular fa-file-excel"></i>',
@@ -412,7 +428,15 @@ function setTablas(){
     });
 
     $('#tableCliente').DataTable({
-        dom: 'r <"col-lg-3 col-md-6 col-sm-12" B> <"wrapper" <"col-6 text-light float-end" f> <"col-6 text-light " l> t <"col-6 text-light float-end" p> <"col-6 text-light" i>>',
+        dom:
+        '<"col-lg-3 col-1" B>' +
+            '<"row"' +
+                '<"col-md-6 col-sm-12 text-light mb-2" l>' +
+                '<"col-md-6 col-sm-12 text-light" f>' +
+                '<"col-12" t>' +
+                '<"col-md-6 col-sm-12 mb-2 text-light" i>' +
+                '<"col-md-6 col-sm-12 text-light" p>' +
+            '>',
         buttons:[
             {
                 extend: 'excelHtml5',

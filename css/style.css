@@ -1,10 +1,16 @@
 :root {
     --bg-color: #006666;
+    scroll-snap-type: y mandatory;
 }
 
 body {
     background-color: var(--bg-color);
 }
+
+/* .scroll {
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+} */
 
 linea {
     margin: 0;
@@ -197,11 +203,11 @@ table {
 /* TABLA AUTOS */
 
 .columnaPatente {
-    max-width: 150px;
+    max-width: 15rem;
 }
 
 .columnaAnio {
-    width: 100px;
+    max-width: 4rem;
 }
 
 /* TABLA PAGOS PENDIENTES */
@@ -245,6 +251,9 @@ table {
         margin-bottom: unset;
     }
 
+    #btnAgregarModelo {
+        margin-top: 1rem;
+    }
     /* .dtsp-titleRow{ TODO ordenas correctamente las columnas
         
     } */

@@ -14,13 +14,13 @@
     <table cellspacing=0 class="table table-info table-bordered table-hover table-inverse table-striped text-center table-sm" role="grid" id="tableAuto" width=100% >
     <thead>
         <tr>
-            <th scope="col" class="sorting" style="max-width: 150px;">
+            <th scope="col" class="sorting">
                 Patente
             </th>
             <th scope="col" class="sorting" >
                 Modelo
             </th>
-            <th scope="col" class="sorting" style="max-width: 100px;">
+            <th scope="col" class="sorting">
                 Año
             </th>
             <th scope="col" class="sorting" >
