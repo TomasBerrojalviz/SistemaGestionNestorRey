@@ -1,1 +1,1 @@
-git -C C:\xampp\htdocs\SistemaGestionNestorRey\ pull
+git -C C:/xampp/htdocs/SistemaGestionNestorRey pull
