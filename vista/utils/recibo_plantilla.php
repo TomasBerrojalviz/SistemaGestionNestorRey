@@ -48,21 +48,21 @@
             <div class="mb-3 row">
                 <label class="col-2 col-form-label"><b>Nombre:</b></label>
                 <div class="col-4">
-                    <input type="text" class="form-control-plaintext" id="reciboClienteNombre" name="reciboClienteNombre" value="JHONNY FABIAN CAÑETE BOGADO" readonly>
+                    <input type="text" class="form-control-plaintext" id="reciboClienteNombre" name="reciboClienteNombre" value="CLIENTE" readonly>
                 </div>
                 <label class="col-2 col-form-label"><b>Mail:</b></label>
                 <div class="col-4">
-                    <input type="email" class="form-control-plaintext" id="reciboClienteMail" name="reciboClienteMail" value="CAI.BERROJALVIZ.TOMAS@GMAIL.COM" readonly>
+                    <input type="email" class="form-control-plaintext" id="reciboClienteMail" name="reciboClienteMail" value="MAIL" readonly>
                 </div>
             </div>
             <div class="mb-3 row">
                 <label class="col-2 col-form-label"><b>Telefono:</b></label>
                 <div class="col-4">
-                    <input type="text" class="form-control-plaintext" id="reciboClienteTelefono" name="reciboClienteTelefono" value="+54 9 11 6500-6784" readonly>
+                    <input type="text" class="form-control-plaintext" id="reciboClienteTelefono" name="reciboClienteTelefono" value="TELEFONO" readonly>
                 </div>
                 <label class="col-2 col-form-label"><b>Domicilio:</b></label>
                 <div class="col-4">
-                    <input type="text" class="form-control-plaintext" id="reciboClienteDomicilio" name="reciboClienteDomicilio" value="SANTIAGO DEL ESTERO 1767, LANUS OESTE" readonly>
+                    <input type="text" class="form-control-plaintext" id="reciboClienteDomicilio" name="reciboClienteDomicilio" value="DIRECCION" readonly>
                 </div>
             </div>
         </form>

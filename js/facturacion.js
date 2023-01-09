@@ -375,7 +375,7 @@ function abrirModalRecibo(){
 
     var reciboObtenido = obtenerRecibo(id_orden);
     // id	id_orden	id_cliente	fecha
-    reciboObtenido.done(function(responseRecibo) {
+    reciboObtenido.done(function (responseRecibo) {
         if(responseRecibo != "error"){
             var info_recibo = JSON.parse(responseRecibo)[0];
             insertarRecibo(info_recibo);

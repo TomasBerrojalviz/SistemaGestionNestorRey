@@ -474,7 +474,9 @@ $modelosDeseados = array();
         if($_POST["action"] == "crearRecibo"){
             $reciboCreado = ControladorFacturacion::ctrlCrearComprobante("recibos");
             if($reciboCreado){
-                $reciboCargado = ControladorFacturacion::ctrlCargarPresupuestoRecibo($reciboCreado[0]['id']);
+                $reciboCargado = ControladorFacturacion::ctrlCargarPresupuestoRecibo($reciboCreado[0]['id']); // DA ERROR - TODO
+                // echo "ctrlCargarPresupuestoRecibo dando " . $reciboCreado[0]['id'] . " da " . $reciboCargado;
+                // echo "\n================================\n";
                 if($reciboCargado){
                     echo json_encode($reciboCargado, JSON_UNESCAPED_UNICODE);
                     exit;

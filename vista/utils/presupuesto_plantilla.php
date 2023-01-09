@@ -49,21 +49,21 @@
             <div class="mb-3 row">
                 <label class="col-lg-2 col-4 col-form-label"><b>Nombre:</b></label>
                 <div class="col-lg-4 col-8">
-                    <input type="text" class="form-control-plaintext" id="presupuestoClienteNombre" name="presupuestoClienteNombre" value="JHONNY FABIAN CAÑETE BOGADO" readonly>
+                    <input type="text" class="form-control-plaintext" id="presupuestoClienteNombre" name="presupuestoClienteNombre" value="CLIENTE" readonly>
                 </div>
                 <label class="col-lg-2 col-4 col-form-label"><b>Mail:</b></label>
                 <div class="col-lg-4 col-8">
-                    <input type="email" class="form-control-plaintext" id="presupuestoClienteMail" name="presupuestoClienteMail" value="CAI.BERROJALVIZ.TOMAS@GMAIL.COM" readonly>
+                    <input type="email" class="form-control-plaintext" id="presupuestoClienteMail" name="presupuestoClienteMail" value="MAIL" readonly>
                 </div>
             </div>
             <div class="mb-3 row">
                 <label class="col-2 col-form-label"><b>Telefono:</b></label>
                 <div class="col-4">
-                    <input type="text" class="form-control-plaintext" id="presupuestoClienteTelefono" name="presupuestoClienteTelefono" value="+54 9 11 6500-6784" readonly>
+                    <input type="text" class="form-control-plaintext" id="presupuestoClienteTelefono" name="presupuestoClienteTelefono" value="TELEFONO" readonly>
                 </div>
                 <label class="col-2 col-form-label"><b>Domicilio:</b></label>
                 <div class="col-4">
-                    <input type="text" class="form-control-plaintext" id="presupuestoClienteDomicilio" name="presupuestoClienteDomicilio" value="SANTIAGO DEL ESTERO 1767, LANUS OESTE" readonly>
+                    <input type="text" class="form-control-plaintext" id="presupuestoClienteDomicilio" name="presupuestoClienteDomicilio" value="DIRECCION" readonly>
                 </div>
             </div>
         </form>

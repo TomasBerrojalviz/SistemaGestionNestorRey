@@ -174,8 +174,16 @@ class ControladorFacturacion {
             $comprobanteCreado = ModeloFacturacion::mdlObtenerComprobante("recibos", $id_orden);
 
             $presupuestoRelacionado = ModeloFacturacion::mdlObtenerComprobante("presupuestos", $id_orden);
+            
+            // echo ("mdlObtenerComprobante: ");
+            // print_r($presupuestoRelacionado);
+            // echo "\n================================\n";
+
             if($presupuestoRelacionado){
                 $presupuestoCargado = ModeloFacturacion::mdlCargarPresupuestoRecibo($presupuestoRelacionado[0]['id'], $id_recibo);
+                // echo ("mdlCargarPresupuestoRecibo dando " . $presupuestoRelacionado[0]['id'] . " da ");
+                // print_r($presupuestoCargado);
+                // echo "\n================================\n";
                 if($presupuestoCargado){
                     return $comprobanteCreado;
                 }

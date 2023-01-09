@@ -272,9 +272,10 @@ class ModeloFacturacion {
         $stmt->bindParam(":id_recibo", $id_recibo, PDO::PARAM_INT);
 
         if($stmt->execute()){
-            if(empty($stmt->fetchAll())){
-                return false;
-            }
+            // print_r($stmt->fetchAll());
+            // if(empty($stmt->fetchAll())){
+            //     return false;
+            // }
             return true;
         }
         else{
