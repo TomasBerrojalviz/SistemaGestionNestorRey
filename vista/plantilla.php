@@ -30,7 +30,7 @@
             $titulo = "Ordenes";
         }
         else if($_GET["pagina"] == "ordenes_historicas"){
-            $titulo = "Historial Ordenes";
+            $titulo = "Ordenes Historicas";
         }
         else{
             $titulo = "Not found";

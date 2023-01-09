@@ -79,7 +79,7 @@
         <div class="accordion__content">
             <div class="d-grid gap-3 mx-auto container-fluid ">
                 <a href="index.php?pagina=ordenes" <?php echo $clase_boton_lg ?> type="button">Ordenes</a>
-                <a href="index.php?pagina=ordenes_historicas" <?php echo $clase_boton_lg ?> type="button">Historial de ordenes</a>
+                <a href="index.php?pagina=ordenes_historicas" <?php echo $clase_boton_lg ?> type="button">Ordenes Historicas</a>
             </div>
         </div>
     </div>
