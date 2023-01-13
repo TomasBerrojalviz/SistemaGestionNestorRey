@@ -1363,5 +1363,31 @@ function actualizarServicio(id, servicio) {
 }
 
 function eliminarServicio(id) {
-
+    
+    $.ajax({
+        type: "POST",
+        url: "ajax.php",
+        async: false,
+        data: {
+            action:"eliminarServicio",
+            id:id
+        },
+        success: function (response) {
+            if (response != "error") {
+                alertSuccess.fire('Serivicio eliminado').then((result) => {
+                    location.replace("index.php?pagina=servicios");
+                    return;
+                });
+            }
+            else{
+                alertError.fire('El serivicio no fue eliminado correctamente').then((result) => {
+                    location.replace("index.php?pagina=servicios");
+                    return;
+                });
+            }
+        },
+        error: function(error) {
+            alert(error);
+        }
+    });
 }

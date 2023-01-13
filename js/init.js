@@ -943,7 +943,7 @@ function cargarTabla(nombreTabla){
                 {targets: 1},
                 {targets: 2, visible: false},
                 {targets: 3, orderData: [2,0]},
-                {targets: 4, sClass: "columnaAccionServicios"}
+                {targets: 4}
             ],
             responsive: true,
             autoWidth: false,

@@ -575,6 +575,15 @@ $modelosDeseados = array();
             echo "error";
             exit;
         }
+        if($_POST["action"] == "eliminarServicio"){
+            $servicioEliminado = ControladorFacturacion::ctrlEliminarServicio();
+            if($servicioEliminado){
+                echo json_encode($servicioEliminado, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
         if($_POST["action"] == "bajarAdjuntosNota"){
             if (file_exists($_POST['src'])) {
                 $myfiles = array_diff(scandir($_POST['src']), array('.', '..')); 

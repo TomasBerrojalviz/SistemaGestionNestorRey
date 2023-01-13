@@ -288,6 +288,19 @@ class ControladorFacturacion {
         }
     }
 
+    // ELIMINAR SERVICIO
+    static public function ctrlEliminarServicio(){
+        if(isset($_POST["id"])){
+            $id = $_POST["id"];
+
+            $respuesta = ModeloFormularios::mdlBorrarId("servicios", $id);
+
+            return $respuesta;
+
+        }
+
+    }
+
 }
 
 ?>
