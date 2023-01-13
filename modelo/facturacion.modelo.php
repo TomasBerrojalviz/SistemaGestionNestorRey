@@ -410,6 +410,30 @@ class ModeloFacturacion {
 
         $stmt = null;
     }
+    
+    // EDITAR INSUMO 
+    static public function mdlActualizarServicio($datos){
+
+        $stmt = Conexion::conectar()->prepare("UPDATE servicios SET descripcion = :descripcion, precio = :precio, fecha = :fecha WHERE id = :id");
+        
+        // UPDATE insumos_presupuestos SET id='[value-1]',`id_comprobante`='[value-2]',`descripcion`='[value-3]',`cantidad`='[value-4]',`precio`='[value-5]',`precio_total`='[value-6]' WHERE 1
+
+        $stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
+        $stmt->bindParam(":descripcion", $datos["descripcion"]);
+        $stmt->bindParam(":precio", $datos["precio"]);
+        $stmt->bindParam(":fecha", $datos["fecha"]);
+
+        if($stmt->execute()){
+            return TRUE;
+        }
+        else{
+            print_r(Conexion::conectar()->error_info());
+        }
+
+        $stmt->close();
+
+        $stmt = null;
+    }
 
 }
 

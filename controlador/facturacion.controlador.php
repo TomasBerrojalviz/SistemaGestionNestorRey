@@ -270,6 +270,23 @@ class ControladorFacturacion {
         
         return $respuesta;
     }
+    
+    // ACTUALIZAR SERVICIO
+    static public function ctrlActualizarServicio(){
+
+        if(isset($_POST["id"])){
+            
+            // id_comprobante descripcion cantidad precio precio_total
+            $datos = array("id" => $_POST["id"],
+                            "descripcion" => strtoupper($_POST["descripcion"]),
+                            "precio" => $_POST["precio"],
+                            "fecha" => $_POST["fecha"]
+                        );
+            $respuesta = ModeloFacturacion::mdlActualizarServicio($datos);
+            
+            return $respuesta;
+        }
+    }
 
 }
 

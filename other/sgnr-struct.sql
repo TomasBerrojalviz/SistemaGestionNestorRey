@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-12-2022 a las 19:40:28
+-- Tiempo de generación: 13-01-2023 a las 13:39:42
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -98,7 +98,6 @@ CREATE TABLE `clientes` (
 -- Estructura de tabla para la tabla `insumos_presupuestos`
 --
 -- Creación: 24-11-2022 a las 17:53:28
--- Última actualización: 31-12-2022 a las 17:01:50
 --
 
 CREATE TABLE `insumos_presupuestos` (
@@ -120,7 +119,6 @@ CREATE TABLE `insumos_presupuestos` (
 -- Estructura de tabla para la tabla `insumos_recibos`
 --
 -- Creación: 24-11-2022 a las 18:11:00
--- Última actualización: 31-12-2022 a las 17:14:34
 --
 
 CREATE TABLE `insumos_recibos` (
@@ -200,8 +198,7 @@ CREATE TABLE `notas` (
 --
 -- Estructura de tabla para la tabla `ordenes`
 --
--- Creación: 22-12-2022 a las 21:54:25
--- Última actualización: 31-12-2022 a las 17:14:38
+-- Creación: 01-01-2023 a las 16:20:03
 --
 
 CREATE TABLE `ordenes` (
@@ -227,7 +224,6 @@ CREATE TABLE `ordenes` (
 -- Estructura de tabla para la tabla `presupuestos`
 --
 -- Creación: 09-11-2022 a las 19:34:00
--- Última actualización: 31-12-2022 a las 17:01:41
 --
 
 CREATE TABLE `presupuestos` (
@@ -251,7 +247,6 @@ CREATE TABLE `presupuestos` (
 -- Estructura de tabla para la tabla `recibos`
 --
 -- Creación: 31-12-2022 a las 17:14:58
--- Última actualización: 31-12-2022 a las 17:14:50
 --
 
 CREATE TABLE `recibos` (
@@ -267,6 +262,26 @@ CREATE TABLE `recibos` (
 --       `ordenes` -> `id`
 --   `id_cliente`
 --       `clientes` -> `id`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `servicios`
+--
+-- Creación: 13-01-2023 a las 03:17:21
+-- Última actualización: 13-01-2023 a las 12:36:14
+--
+
+CREATE TABLE `servicios` (
+  `id` int(11) NOT NULL,
+  `descripcion` text NOT NULL,
+  `precio` float(9,2) NOT NULL,
+  `fecha` date NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- RELACIONES PARA LA TABLA `servicios`:
 --
 
 -- --------------------------------------------------------
@@ -375,6 +390,12 @@ ALTER TABLE `recibos`
   ADD KEY `id_cliente` (`id_cliente`);
 
 --
+-- Indices de la tabla `servicios`
+--
+ALTER TABLE `servicios`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -448,6 +469,12 @@ ALTER TABLE `presupuestos`
 -- AUTO_INCREMENT de la tabla `recibos`
 --
 ALTER TABLE `recibos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `servicios`
+--
+ALTER TABLE `servicios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -567,6 +594,10 @@ INSERT INTO `pma__table_uiprefs` (`username`, `db_name`, `table_name`, `prefs`, 
 
 --
 -- Metadatos para la tabla recibos
+--
+
+--
+-- Metadatos para la tabla servicios
 --
 
 --

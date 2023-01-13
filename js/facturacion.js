@@ -1292,7 +1292,7 @@ function editServicio(id) {
         focusConfirm: true,
         html:
             '<label for="servicio-descripcion" class="swal2-input-label">Descripcion</label>' +
-            '<input id="servicio-descripcion" class="swal2-input" value="'+ servicio[0].innerHTML  +'">' +
+            '<input id="servicio-descripcion" class="swal2-input text-uppercase" value="'+ servicio[0].innerHTML  +'">' +
 
             // '<label for="servicio-cantidad" class="swal2-input-label">Cantidad</label>' +
             // '<input id="servicio-cantidad" class="swal2-input" onchange="//actualizarInputInsumoEdit()" value="'+ servicio[1].innerHTML  +'" type="number" placeholder="0">' +
@@ -1305,52 +1305,60 @@ function editServicio(id) {
             
     }).then((result) => { // TODO
         if (result.isConfirmed) {
-            if(document.getElementById('insumo-descripcion').classList.contains("is-invalid")){
-                alertWarning.fire({
-                    title: 'No se puede cargar un producto/servicio con errores',
-                    icon: 'warning',
-                    showConfirmButton: false,
-                    showCancelButton: true,
-                    cancelButtonText: 'Volver',
-                    showCloseButton: true
-                }).then(() => {
-                    editServicio(id);
-                });
-            }
-            else{
-                const insumoEdit = {};
-                insumoEdit['descripcion'] = document.getElementById('insumo-descripcion').value;
-                insumoEdit['cantidad'] = document.getElementById('insumo-cantidad').value;
-                insumoEdit['precio'] = document.getElementById('insumo-precio').value;
-                insumoEdit['precio_total'] = document.getElementById('insumo-precio-total').value;
-                var insumoActualizar = actualizarInsumo(id, insumoEdit, comprobante);
-                insumoActualizar.done(function(response) {
-                    if(response != "error"){
+            // if(document.getElementById('insumo-descripcion').classList.contains("is-invalid")){
+            //     alertWarning.fire({
+            //         title: 'No se puede cargar un producto/servicio con errores',
+            //         icon: 'warning',
+            //         showConfirmButton: false,
+            //         showCancelButton: true,
+            //         cancelButtonText: 'Volver',
+            //         showCloseButton: true
+            //     }).then(() => {
+            //         editServicio(id);
+            //     });
+            // }
+            // else{
+                const servicioEdit = {};
+                servicioEdit['descripcion'] = document.getElementById('servicio-descripcion').value.toUpperCase();
+                servicioEdit['precio'] = document.getElementById('servicio-precio').value;
+                servicioEdit['fecha'] = document.getElementById('servicio-fecha').value;
+                var servicioActualizar = actualizarServicio(id, servicioEdit);
+                servicioActualizar.done(function (response) {
+                    if (response != "error") {
                         alertSuccess.fire('Cambios guardados', '', 'success').then((result) => {
-                            if(comprobante == "recibo"){
-                                abrirModalRecibo();
-                            }
-                            else if(comprobante == "presupuesto"){
-                                abrirModalPresupuesto();
-                            };
+                            // servicio[0].innerHTML = servicioEdit['descripcion'];
+                            // servicio[1].innerHTML = servicioEdit['precio'];
+                            // var fecha_dividida = servicioEdit['fecha'].split("-");
+                            // servicio[2].innerHTML = fecha_dividida[2] + "/" + fecha_dividida[1] + "/" + fecha_dividida[0];
+                            
+                            // var tablaServicios = $('#tablaServicios').DataTable();
+                            // tablaServicios.order( [ 0, 'asc' ] ).draw();
+                            location.replace("index.php?pagina=servicios");
                         });
                     }
                     else{
                         alert(response);
                     }
                 });
-            }
+            // }
         }
         else if (result.isDismissed) {
-            alertInfo.fire('No se guardaron los cambios', '', 'info').then((result) => {
-                if(comprobante == "recibo"){
-                    abrirModalRecibo();
-                }
-                else if(comprobante == "presupuesto"){
-                    abrirModalPresupuesto();
-                };
-            });
+            alertInfo.fire('No se guardaron los cambios', '', 'info');
         }
+    });
+}
+
+function actualizarServicio(id, servicio) {
+    var action = 'actualizarServicio';
+    const descripcion = servicio['descripcion'];
+    const precio = servicio['precio'];
+    const fecha = servicio['fecha'];
+
+    return $.ajax({
+        type: "POST",
+        url: "ajax.php",
+        async: false,
+        data: { action:action, id:id, descripcion:descripcion, precio:precio, fecha:fecha}
     });
 }
 

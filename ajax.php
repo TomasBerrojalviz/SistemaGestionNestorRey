@@ -566,6 +566,15 @@ $modelosDeseados = array();
             echo "error";
             exit;
         }
+        if($_POST["action"] == "actualizarServicio"){
+            $servicioActualizado = ControladorFacturacion::ctrlActualizarServicio();
+            if($servicioActualizado){
+                echo json_encode($servicioActualizado, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
         if($_POST["action"] == "bajarAdjuntosNota"){
             if (file_exists($_POST['src'])) {
                 $myfiles = array_diff(scandir($_POST['src']), array('.', '..')); 
