@@ -545,6 +545,27 @@ $modelosDeseados = array();
             echo "error";
             exit;
         }
+        if($_POST["action"] == "seleccionarServicios"){
+            $servicios = ControladorFacturacion::ctrlSeleccionarServicios();
+            if(empty($servicios) || $servicios){
+                echo json_encode($servicios, JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo "error";
+            exit;
+        }
+        if($_POST["action"] == "agregarServicio"){
+            $servicioAgegado = ControladorFacturacion::ctrlAgregarServicio();
+            if($servicioAgegado){
+                $servicio = ControladorFacturacion::ctrlSeleccionarUltimoServicio();
+                if($servicio){
+                    echo json_encode($servicio, JSON_UNESCAPED_UNICODE);
+                    exit;
+                }
+            }
+            echo "error";
+            exit;
+        }
         if($_POST["action"] == "bajarAdjuntosNota"){
             if (file_exists($_POST['src'])) {
                 $myfiles = array_diff(scandir($_POST['src']), array('.', '..')); 

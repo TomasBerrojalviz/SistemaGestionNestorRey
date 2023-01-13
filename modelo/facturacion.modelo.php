@@ -361,6 +361,56 @@ class ModeloFacturacion {
 
         $stmt = null;
     }
+
+    // SELECCIONAR SERVICIOS
+    static public function mdlSeleccionarServicios(){
+
+        $stmt = Conexion::conectar()->prepare("SELECT *, DATE_FORMAT(fecha, '%d/%m/%Y') as fecha_input FROM servicios WHERE 1");
+
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+
+        $stmt->close();
+
+        $stmt = null;
+    }
+
+    // AGREGAR SERVICIOS
+    static public function mdlAgregarServicio($datos){
+
+        $stmt = Conexion::conectar()->prepare("INSERT INTO servicios(descripcion, precio, fecha) VALUES (:descripcion, :precio, :fecha)");
+
+        $stmt->bindParam(":descripcion", $datos['descripcion']);
+        $stmt->bindParam(":precio", $datos['precio']);
+        $stmt->bindParam(":fecha", $datos['fecha']);
+
+        if($stmt->execute()){
+            return TRUE;
+        }
+        else{
+            print_r(Conexion::conectar()->error_info());
+        }
+
+        $stmt->close();
+
+        $stmt = null;
+    }
+
+    // SELECCIONAR ULTIMO SERVICIO
+    static public function mdlSeleccionarUltimoServicio(){
+
+        $stmt = Conexion::conectar()->prepare("SELECT *, DATE_FORMAT(fecha, '%d/%m/%Y') as fecha_input FROM servicios ORDER BY id DESC LIMIT 1;");
+
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+
+        $stmt->close();
+
+        $stmt = null;
+    }
+
 }
 
 ?>

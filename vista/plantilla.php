@@ -32,6 +32,9 @@
         else if($_GET["pagina"] == "ordenes_historicas"){
             $titulo = "Ordenes Historicas";
         }
+        else if($_GET["pagina"] == "servicios"){
+            $titulo = "Servicios";
+        }
         else{
             $titulo = "Not found";
         }
@@ -134,6 +137,7 @@
         if(isset($_GET["pagina"])){
             if(
                 $_GET["pagina"] == "menu" ||
+                $_GET["pagina"] == "servicios" ||
                 $_GET["pagina"] == "finanzas" ||
                 $_GET["pagina"] == "finanzas/ingresos" ||
                 $_GET["pagina"] == "finanzas/pendientes" ||

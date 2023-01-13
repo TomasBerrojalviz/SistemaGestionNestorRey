@@ -186,6 +186,50 @@ $( document ).ready(function() {
             }
         });        
     });
+
+    $('#agregar_servicio').click(function(e){
+        e.preventDefault();
+        // if(descripcionRecibo.classList.contains("is-invalid")){
+        //     alertWarning.fire({
+        //         title: 'No se puede cargar un producto/servicio con errores',
+        //         icon: 'warning',
+        //         showConfirmButton: false,
+        //         showCancelButton: true,
+        //         cancelButtonText: 'Volver',
+        //         showCloseButton: true
+        //       })
+        //       return;
+        // }
+        var action = "agregarServicio";
+        
+        var descripcion = document.getElementById("descripcion");
+        var precio = document.getElementById("precio");
+        var fecha = document.getElementById("fecha");
+
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            async: false,
+            // id_comprobante descripcion cantidad precio precio_total
+            data: {
+                action:action,
+                descripcion:descripcion.value.toUpperCase(),
+                precio:precio.value,
+                fecha:fecha.value
+            },
+            success: function(response) {
+                if (response != "error") {
+                    var servicioAgregado = JSON.parse(response);
+                    if (servicioAgregado) {
+                        agregarServicioTabla(servicioAgregado[0]);
+                    }
+                }
+            },
+            error: function(error) {
+                alert(error);
+            }
+        });        
+    });
 });
 
 function abrirModalPresupuesto(){
@@ -1217,4 +1261,99 @@ function guardarPago(id, pagoTag, feedbackTag, pagoGrupoTag){
 function completarPago(pagoTag, cobro){
     var pago = document.getElementById(pagoTag);
     pago.value = cobro;
+}
+
+function agregarServicioTabla(servicio) {
+    var tablaServicios = $('#tablaServicios').DataTable();
+    var accion = "<div class='text-center mx-auto'>";
+        accion += '<a href="#" class="text-primary mx-2" onclick="editServicio(\'' + servicio.id + '\', \'recibo\')">';
+            accion += '<i class="fa-solid fa-pen-to-square"></i>';
+        accion += '</a>';
+        accion += '<a href="#" class="text-danger mx-2" onclick="eliminarServicio(\''+ servicio.id + '\')">';
+            accion += '<i class="fa-solid fa-trash-can"></i>';
+        accion += '</a>';
+    accion += '</div>';
+
+    var tr = tablaServicios.row.add([servicio.descripcion, parseFloat(servicio.precio).toFixed(2), servicio.fecha, servicio.fecha_input, accion]).draw().node();
+    tr.id = "servicio-" + servicio.id;
+}
+
+function editServicio(id) {
+    var servicio = document.getElementById("servicio-" + id).childNodes;
+    var fecha = servicio[2].innerHTML.split("/")[2] + "-" + servicio[2].innerHTML.split("/")[1] + "-" + servicio[2].innerHTML.split("/")[0];
+    
+    alertInfo.fire({
+        title: 'Editar servicio',
+        confirmButtonText:
+            '<i class="fa fa-flopy-disk"></i> Guardar',
+        confirmButtonColor: '#198754',
+        showCancelButton: true,
+        cancelButtonText: 'Volver',
+        focusConfirm: true,
+        html:
+            '<label for="servicio-descripcion" class="swal2-input-label">Descripcion</label>' +
+            '<input id="servicio-descripcion" class="swal2-input" value="'+ servicio[0].innerHTML  +'">' +
+
+            // '<label for="servicio-cantidad" class="swal2-input-label">Cantidad</label>' +
+            // '<input id="servicio-cantidad" class="swal2-input" onchange="//actualizarInputInsumoEdit()" value="'+ servicio[1].innerHTML  +'" type="number" placeholder="0">' +
+
+            '<label for="servicio-precio" class="swal2-input-label">Precio</label>' +
+            '<input id="servicio-precio" class="swal2-input" onchange="//actualizarInputInsumoEdit()" value="'+ servicio[1].innerHTML  +'" type="number" min="0.00" step="100.00" placeholder="0.00">' +
+            
+            '<label for="servicio-fecha" class="swal2-input-label">Fecha</label>' +
+            '<input id="servicio-fecha" class="swal2-input" value="'+ fecha  +'" type="date">'
+            
+    }).then((result) => { // TODO
+        if (result.isConfirmed) {
+            if(document.getElementById('insumo-descripcion').classList.contains("is-invalid")){
+                alertWarning.fire({
+                    title: 'No se puede cargar un producto/servicio con errores',
+                    icon: 'warning',
+                    showConfirmButton: false,
+                    showCancelButton: true,
+                    cancelButtonText: 'Volver',
+                    showCloseButton: true
+                }).then(() => {
+                    editServicio(id);
+                });
+            }
+            else{
+                const insumoEdit = {};
+                insumoEdit['descripcion'] = document.getElementById('insumo-descripcion').value;
+                insumoEdit['cantidad'] = document.getElementById('insumo-cantidad').value;
+                insumoEdit['precio'] = document.getElementById('insumo-precio').value;
+                insumoEdit['precio_total'] = document.getElementById('insumo-precio-total').value;
+                var insumoActualizar = actualizarInsumo(id, insumoEdit, comprobante);
+                insumoActualizar.done(function(response) {
+                    if(response != "error"){
+                        alertSuccess.fire('Cambios guardados', '', 'success').then((result) => {
+                            if(comprobante == "recibo"){
+                                abrirModalRecibo();
+                            }
+                            else if(comprobante == "presupuesto"){
+                                abrirModalPresupuesto();
+                            };
+                        });
+                    }
+                    else{
+                        alert(response);
+                    }
+                });
+            }
+        }
+        else if (result.isDismissed) {
+            alertInfo.fire('No se guardaron los cambios', '', 'info').then((result) => {
+                if(comprobante == "recibo"){
+                    abrirModalRecibo();
+                }
+                else if(comprobante == "presupuesto"){
+                    abrirModalPresupuesto();
+                };
+            });
+        }
+    });
+}
+
+function eliminarServicio(id) {
+
 }

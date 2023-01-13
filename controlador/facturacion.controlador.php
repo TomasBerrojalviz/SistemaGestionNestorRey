@@ -241,6 +241,36 @@ class ControladorFacturacion {
         return $respuesta;
     }
 
+    // SELECCIONAR SERVICIOS
+    static public function ctrlSeleccionarServicios(){
+        $respuesta = ModeloFacturacion::mdlSeleccionarServicios();
+        
+        return $respuesta;
+    }
+
+    // AGREGAR SERVICIOS
+    static public function ctrlAgregarServicio(){
+        if(isset($_POST["descripcion"]) && isset($_POST["precio"]) && isset($_POST["fecha"])){
+
+            // id_comprobante descripcion cantidad precio precio_total
+            $datos = array("descripcion" => $_POST["descripcion"],
+                            "precio" => $_POST["precio"],
+                            "fecha" => $_POST["fecha"]
+                        );
+            
+            $respuesta = ModeloFacturacion::mdlAgregarServicio($datos);
+            
+            return $respuesta;
+        }
+    }
+
+    // SELECCIONAR ULTIMO SERVICIO
+    static public function ctrlSeleccionarUltimoServicio(){
+        $respuesta = ModeloFacturacion::mdlSeleccionarUltimoServicio();
+        
+        return $respuesta;
+    }
+
 }
 
 ?>

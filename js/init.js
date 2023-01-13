@@ -882,6 +882,105 @@ function cargarTabla(nombreTabla){
             }
         });
     }
+    else if (nombreTabla == "tablaServicios") {
+        $('#tablaServicios').DataTable().destroy();
+        $('#tablaServicios_rows').empty();
+        
+        var fecha = document.getElementById("fecha");
+        var date = new Date();
+        fecha.value = date.getFullYear() + "-" + date.getMonth()+1 + "-" + date.getDate();
+
+        
+        $('#tablaServicios').DataTable({
+            dom: 
+                '<"col-lg-3 col-1" B>' +
+                '<"row"' +
+                    '<"col-md-6 col-sm-12 text-light mb-2" l>' +
+                    '<"col-md-6 col-sm-12 text-light" f>' +
+                    '<"col-12" t>' +
+                    '<"col-md-6 col-sm-12 mb-2 text-light" i>' +
+                    '<"col-md-6 col-sm-12 text-light" p>' +
+                '>',
+            buttons:[
+                {
+                    extend: 'excelHtml5',
+                    text: '<i class="fa-regular fa-file-excel"></i>',
+                    titleAttr: 'Exportar a Excel',
+                    className: 'btn btn-lg btn-success mb-2',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                }
+            ],
+            "language": {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ servicios",
+                "sZeroRecords":    "No se encontraron servicios",
+                "sEmptyTable":     "Ningún servicio registrado",
+                "sInfo":           "Mostrando servicios del _START_ al _END_ de un total de _TOTAL_ servicios",
+                "sInfoEmpty":      "Mostrando servicios del 0 al 0 de un total de 0 servicios",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ servicios)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            order: [[0, 'asc']],
+            columnDefs: [
+                { className: "dt-head-center", targets: "_all" },
+                {targets: 0},
+                {targets: 1},
+                {targets: 2, visible: false},
+                {targets: 3, orderData: [2,0]},
+                {targets: 4, sClass: "columnaAccionServicios"}
+            ],
+            responsive: true,
+            autoWidth: false,
+            
+            lengthMenu: [
+                [10, 25, 50, 100, -1],
+                [10, 25, 50, 100, 'Todos'],
+            ]
+        });
+        var tablaServicios = $('#tablaServicios').DataTable();
+        // var tr = tablaServicios.row.add(["Frenos", "$10.000,00", "20/12/2022", "BOTONES"]).draw().node();
+        // console.log(tr);
+        // var tr = tablaServicios.row.add(["Filtros", "$15.000,00", "01/12/2022", "BOTONES"]).draw().node();
+        // console.log(tr);
+        // var tr = tablaServicios.row.add(["Motor", "$50.000,00", "21/11/2022", "BOTONES"]).draw().node();
+        // console.log(tr);
+        var serviciosSeleccionados = seleccionarServicios();
+        serviciosSeleccionados.done(function (response) {
+            if(response != "error"){
+                const servicios = JSON.parse(response);
+                for (var i = 0; i < servicios.length; i++) {
+                    var accion = "<div class='text-center mx-auto'>";
+                        accion += '<a href="#" class="text-primary mx-2" onclick="editServicio(\'' + servicios[i].id + '\', \'recibo\')">';
+                            accion += '<i class="fa-solid fa-pen-to-square"></i>';
+                        accion += '</a>';
+                        accion += '<a href="#" class="text-danger mx-2" onclick="eliminarServicio(\''+ servicios[i].id + '\')">';
+                            accion += '<i class="fa-solid fa-trash-can"></i>';
+                        accion += '</a>';
+                    accion += '</div>';
+
+                    var tr = tablaServicios.row.add([servicios[i].descripcion, parseFloat(servicios[i].precio).toFixed(2), servicios[i].fecha, servicios[i].fecha_input, accion]).draw().node();
+                    tr.id = "servicio-" + servicios[i].id;
+                }
+            }
+        });
+        
+    }
 }
 
 function posicionEstado(estado){
@@ -1133,4 +1232,15 @@ function checkPatente(patente){
         return;
     }
     return patentePlana;
+}
+
+function seleccionarServicios() {
+    var action = 'seleccionarServicios';
+
+    return $.ajax({
+        type: "POST",
+        url: "ajax.php",
+        async: false,
+        data: { action: action }
+    });
 }

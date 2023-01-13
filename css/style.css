@@ -275,3 +275,15 @@ table {
     }
     
 }
+
+.columnaAccionServicios {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+table.dataTable thead th, table.dataTable thead td, table.dataTable tfoot th, table.dataTable tfoot td {
+    text-align: center!important;
+    align-items: center;
+}
