@@ -109,12 +109,22 @@
         </div>
     </div>
     <div class="card-header text-bg-dark bg-opacity-50 border-bottom border-top border-2 border-dark">
-        <h3>Finanzas</h3>
+        <h3>Administracion</h3>
     </div>
     <div class="card-body text-bg-secondary bg-opacity-25">
-        <div class="d-grid gap-3 mx-auto container-fluid">
-            <a href="index.php?pagina=finanzas/ingresos" class="btn btn-dark btn-outline-info btn-lg w-100" type="button">Ingresos</a>
-            <a href="index.php?pagina=finanzas/pendientes" class="btn btn-dark btn-outline-info btn-lg w-100" type="button">Pagos pendientes</a>
+        <div class="card mx-auto text-center border border-2 border-dark menuCard">
+            <div class="card-header text-bg-dark bg-opacity-50 border-bottom border-2 border-dark">
+                <h3>Finanzas</h3>
+            </div>
+            <div class="card-body text-bg-secondary bg-opacity-25">
+                <div class="d-grid gap-3 mx-auto container-fluid">
+                    <a href="index.php?pagina=finanzas/ingresos" class="btn btn-dark btn-outline-info btn-lg w-100" type="button">Ingresos</a>
+                    <a href="index.php?pagina=finanzas/pendientes" class="btn btn-dark btn-outline-info btn-lg w-100" type="button">Pagos pendientes</a>
+                </div>
+            </div>
+        </div>
+        <div class="d-grid gap-3 mx-auto container-fluid mt-3">
+            <a href="index.php?pagina=servicios" <?php echo $clase_boton_lg ?> type="button">Servicios</a>
         </div>
     </div>
 </div>

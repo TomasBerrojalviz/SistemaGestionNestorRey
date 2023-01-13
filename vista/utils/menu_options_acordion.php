@@ -103,21 +103,21 @@
             <h3> Administracion </h3>
         </label>
         <div class="accordion__content">
-            <div class="accordion__menu my-3 w-100 text-center">
-                <div class="accordion__item">
-                    <input type="checkbox" name="example_accordion" id="section-finanzas" class="accordion__input">
-                    <label for="section-finanzas" class="accordion__label">
-                        <h3> Finanzas </h3>
-                    </label>
-                    <div class="accordion__content">
-                        <div class="d-grid gap-3 mx-auto container-fluid ">
-                            <a href="index.php?pagina=finanzas/ingresos" class="btn btn-dark btn-outline-info btn-lg w-100" type="button">Ingresos</a>
-                            <a href="index.php?pagina=finanzas/pendientes" class="btn btn-dark btn-outline-info btn-lg w-100" type="button">Pagos pendientes</a>
+            <div class="d-grid gap-3 mx-auto container-fluid ">
+                <div class="accordion__menu my-3 w-100 text-center">
+                    <div class="accordion__item">
+                        <input type="checkbox" name="example_accordion" id="section-finanzas" class="accordion__input">
+                        <label for="section-finanzas" class="accordion__label">
+                            <h3> Finanzas </h3>
+                        </label>
+                        <div class="accordion__content">
+                            <div class="d-grid gap-3 mx-auto container-fluid ">
+                                <a href="index.php?pagina=finanzas/ingresos" class="btn btn-dark btn-outline-info btn-lg w-100" type="button">Ingresos</a>
+                                <a href="index.php?pagina=finanzas/pendientes" class="btn btn-dark btn-outline-info btn-lg w-100" type="button">Pagos pendientes</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="d-grid gap-3 mx-auto container-fluid ">
                 <a href="index.php?pagina=servicios" <?php echo $clase_boton_lg ?> type="button">Servicios</a>
             </div>
         </div>
