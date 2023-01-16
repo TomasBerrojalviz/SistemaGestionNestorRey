@@ -1363,7 +1363,6 @@ function actualizarServicio(id, servicio) {
 }
 
 function eliminarServicio(id) {
-    
     $.ajax({
         type: "POST",
         url: "ajax.php",

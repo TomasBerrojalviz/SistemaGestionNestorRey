@@ -33,7 +33,7 @@ linea {
     /* max-width: 400px; */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
-    /* overflow: hidden; */
+    overflow: hidden;
     /* font-family: "Quicksand", sans-serif; */
     background: transparent;
     border: 1px solid black;
