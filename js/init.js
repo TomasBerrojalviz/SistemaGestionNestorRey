@@ -541,16 +541,16 @@ function cargarTabla(nombreTabla){
         // Devolucion
         
         $('#tableAuto').DataTable({
-            searchPanes: {
-                cascadePanes: true,
-                dtOpts: {
-                    paging: true,
-                    pagingType: 'numbers',
-                    searching: true,
-                }
-            },
+            // searchPanes: {
+            //     cascadePanes: true,
+            //     dtOpts: {
+            //         paging: true,
+            //         pagingType: 'numbers',
+            //         searching: true,
+            //     }
+            // },
             dom:
-            '<"text-light" P>' +
+            // '<"text-light" P>' +
             '<"col-lg-3 col-1" B>' +
             '<"row"' +
                 '<"col-md-6 col-sm-12 text-light mb-2" l>' +
@@ -593,25 +593,25 @@ function cargarTabla(nombreTabla){
                     "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
                 },
-                searchPanes: {
-                    title: {
-                        _: 'Filtros seleccionados - %d',
-                    },
-                    collapseMessage : "Minimizar filtros",
-                    showMessage: "Mostrar filtros",
-                    clearMessage: "Limpiar filtros",
-                    emptyPanes: ""
-                }
+                // searchPanes: {
+                //     title: {
+                //         _: 'Filtros seleccionados - %d',
+                //     },
+                //     collapseMessage : "Minimizar filtros",
+                //     showMessage: "Mostrar filtros",
+                //     clearMessage: "Limpiar filtros",
+                //     emptyPanes: ""
+                // }
             },
             order: [[1, 'asc']],
             columnDefs: [
-                {
-                    searchPanes: {
-                        show: true,
-                        initCollapsed: true,
-                    },
-                    targets: [1, 3]
-                },
+                // {
+                //     searchPanes: {
+                //         show: true,
+                //         initCollapsed: true,
+                //     },
+                //     targets: [1, 3]
+                // },
                 { className: "dt-head-center", targets: "_all" },
                 {targets: 0, sClass:"columnaPatente"},
                 {targets: 1, sClass:"columnaModelo"},
