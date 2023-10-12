@@ -280,6 +280,31 @@ class ModeloFormularios {
         $stmt = null;
     }
     
+    // VERIFICAR PATENTE DUPLICADA
+    static public function mdlVerificarPatenteDuplicada($patente){
+        try{
+            $stmt = Conexion::conectar()->prepare("SELECT COUNT(*) as duplicada FROM autos WHERE patente = :patente;");
+            $stmt->bindParam(":patente", $patente);
+
+            if($stmt->execute()){
+                $respuesta = $stmt->fetchAll()[0];
+                if($respuesta['duplicada'] > 0){
+                    $duplicado = ["success" => true];
+                }
+                else{
+                    $duplicado = ["success" => false];
+                }
+            }
+            else{
+                $duplicado = ["error" => Conexion::conectar()->error_info()];
+            }
+            $stmt = null;
+
+            return $duplicado;
+        }catch(PDOException $e){
+            return ["error" => ($e->getMessage())];
+        }
+    }
     // AGREGAR AUTO
     static public function mdlAgregarAuto($tabla, $datos){
 

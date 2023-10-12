@@ -193,6 +193,14 @@ class ControladorFormularios {
             return $respuesta;
         }
 
+
+    }
+    // VERIFICAR PATENTE DUPLICADA
+    static public function ctrlVerificarPatenteDuplicada($patente){
+        if($patente){
+           return ModeloFormularios::mdlVerificarPatenteDuplicada($patente);
+        }
+
     }
 
     // AGREGAR AUTO

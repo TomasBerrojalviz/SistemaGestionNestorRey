@@ -1162,7 +1162,7 @@ function seleccionarOrdenesPendiente(){
 }
 
 
-function verificarPatente(patenteInput){
+async function verificarPatente(patenteInput){
     $(autoPatente).removeClass('is-invalid').removeClass('is-valid');
 
     if(!patenteInput){
@@ -1173,7 +1173,17 @@ function verificarPatente(patenteInput){
 
     if(!patente) {
         $(autoPatente).addClass('is-invalid');
+        document.getElementById("errorPatente").innerHTML = "Patente invalida";
         return;
+    }
+    
+    if (btn_auto_modal.getAttribute('accion') == "agregarAuto") {
+        if (await verificarPatenteDuplicada(patenteInput)) {
+            // PATENTE DUPLICADA
+            $(autoPatente).addClass('is-invalid');
+            document.getElementById("errorPatente").innerHTML = "Patente duplicada";
+            return;
+        }
     }
 
     $(autoPatente).addClass('is-valid');
@@ -1197,6 +1207,57 @@ function verificarPatente(patenteInput){
     //         autoPatente.addClass('is-invalid');
     //     }
     // });
+}
+
+async function verificarPatenteDuplicada(patente) {
+    try {
+        if (patente && patente.length) {
+            return await PromiseVerificarPatenteDuplicada(patente);
+        }
+        else {
+            return false;
+        }
+    } catch (error) {
+        console.error("Error fetching remote HTML: ", error);
+        alertError.fire("Error fetching remote HTML: " + error);
+        return false;
+    }  
+}
+
+function PromiseVerificarPatenteDuplicada(patente){
+    return new Promise(function (resolve, reject) {
+        var formData = new FormData();
+        formData.append("action", "verificarPatenteDuplicada");
+        formData.append("patente", patente);
+
+        var xhttp = new XMLHttpRequest();
+
+        // Set POST method and ajax file path
+        xhttp.open("POST", "ajax.php", true);
+
+        xhttp.onload  = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                if (this.responseText) {
+                    var response = JSON.parse(this.responseText);
+                    if (!response["error"]) {
+                        resolve(response["success"]);
+                    }
+                    else{
+                        reject(response["error"]);
+                    }
+                }
+                else {
+                    reject(this.responseText);
+                }
+            }
+            else {
+                reject(this.status);
+            }
+        };
+        
+        // Send request with data
+        xhttp.send(formData);
+    });
 }
 
 function checkPatente(patente){

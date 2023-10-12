@@ -328,6 +328,8 @@
                             <div class="form-floating mb-2">
                                 <input autocomplete="off" onkeyup="verificarPatente(this.value);" class="form-control text-uppercase" type="text" placeholder="Ingrese patente" name="autoPatente" id="autoPatente" required>
                                 <label for="floatingInput">Patente</label>
+                                <div class="invalid-feedback" id="errorPatente">
+                                </div>
                             </div>  
                     
                             <div class="row">

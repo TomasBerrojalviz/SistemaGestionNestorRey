@@ -158,6 +158,10 @@ $modelosDeseados = array();
             echo "error";
             exit;
         }
+        if($_POST["action"] == "verificarPatenteDuplicada"){
+            echo json_encode(ControladorFormularios::ctrlVerificarPatenteDuplicada($_POST["patente"]), JSON_UNESCAPED_UNICODE);
+            exit;
+        }
         if($_POST["action"] == "verificarCliente"){
             $nombre = $_POST["nombreCliente"];
             $cliente = ControladorFormularios::ctrlSeleccionarDato("clientes","nombre",  $nombre, PDO::PARAM_STR);
